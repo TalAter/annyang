@@ -27,10 +27,11 @@
 
   recognition.onresult  = function(event) {
     var results = event.results[event.resultIndex];
-    var commandText = results[0].transcript.trim();
+    var commandText = results[0].transcript.trim().toLowerCase();
     // @TODO: If not too confident about text, consider using the alternatives provided by API or ask for user intervention.
     window.console.log(commandText);
     for (var i in commandsList) {
+      // @TODO: Refactor commands to regular expressions
       if (commandsList[i].command === commandText) {
         commandsList[i].callback.apply();
         return true;
@@ -53,7 +54,7 @@
           continue;
         }
         //@TODO: Check if there are issues with context for the callback
-        commandsList.push({ command: i, callback: cb });
+        commandsList.push({ command: i.toLowerCase(), callback: cb });
       }
     },
 
