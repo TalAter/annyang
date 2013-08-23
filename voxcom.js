@@ -25,6 +25,10 @@
 
   recognition.onstart   = function()      { /* @TODO: Show visual cue that voice recognition is happening */ };
 
+  recognition.onerror   = function()      { /* @TODO: handle errors */ };
+
+  recognition.onend     = function()      { /* @TODO: restart speech recognition */ };
+
   recognition.onresult  = function(event) {
     var results = event.results[event.resultIndex];
     var commandText;
@@ -43,10 +47,6 @@
     // @TODO: If no command matched, consider asking for user intervention.
     return false;
   };
-
-  recognition.onerror   = function()      { /* @TODO: handle errors */ };
-
-  recognition.onend     = function()      { /* @TODO: restart speech recognition */ };
 
   root.voxcom = {
     init: function(commands) {
