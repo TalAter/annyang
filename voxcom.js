@@ -25,7 +25,7 @@
   recognition.onresult  = function(event) {
     var results = event.results[event.resultIndex];
     var commandText = results[0].transcript.trim();
-    // // @TODO: If not too confident about text, consider using the alternatives provided by API or ask for user intervention.
+    // @TODO: If not too confident about text, consider using the alternatives provided by API or ask for user intervention.
     window.console.log(commandText);
   };
 
