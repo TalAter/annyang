@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VoxCom Example</title>
+  <script type="text/javascript" src="voxcom.min.js"></script>
+
+  <script type="text/javascript">
+
+  var commands = {
+    'hello':    'helloWorld',
+    'f***':     'manners',
+    'function': function() {
+      console.log('Functions can be commanding as well');
+    }
+  };
+
+  helloWorld = function() {
+    console.log('Hello World');
+  }
+
+  manners = function() {
+    console.log('Mind your manners, young man!');
+  }
+
+  voxcom.init(commands);
+  voxcom.start();
+
+  </script>
+
+</head>
+<body>
+
+</body>
+</html>
