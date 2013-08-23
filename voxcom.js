@@ -8,8 +8,11 @@
   /*global webkitSpeechRecognition */
   "use strict";
 
+  var commandsList;
+  var root = this;
+
   // Check browser support
-  if (!('webkitSpeechRecognition' in this)) {
+  if (!('webkitSpeechRecognition' in root)) {
     //@TODO: Display friendlier message to the primitive user
     return false;
   }
@@ -27,13 +30,37 @@
     var commandText = results[0].transcript.trim();
     // @TODO: If not too confident about text, consider using the alternatives provided by API or ask for user intervention.
     window.console.log(commandText);
+    for (var i in commandsList) {
+      if (commandsList[i].command === commandText) {
+        commandsList[i].callback.apply();
+        return true;
+      }
+    }
+    return false;
   };
 
   recognition.onerror   = function()      { /* @TODO: handle errors */ };
 
   recognition.onend     = function()      { /* @TODO: restart speech recognition */ };
 
-  /* @TODO: Check permission to use the mic, and alert user to permission problem */
-  recognition.start();
+  root.voxcom = {
+    init: function(commands) {
+      commandsList = [];
+      var cb;
+      for (var i in commands) {
+        cb = root[commands[i]] || commands[i];
+        if (typeof cb !== 'function') {
+          continue;
+        }
+        //@TODO: Check if there are issues with context for the callback
+        commandsList.push({ command: i, callback: cb });
+      }
+    },
+
+    start: function() {
+      /* @TODO: Check permission to use the mic, and alert user to permission problem */
+      recognition.start();
+    }
+  };
 
 }).call(this);
