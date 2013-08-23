@@ -6,5 +6,4 @@
 
 (function () {
   "use strict";
-  window.console.log(this);
 }).call(this);
