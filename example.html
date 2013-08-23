@@ -5,25 +5,26 @@
   <script type="text/javascript" src="voxcom.min.js"></script>
 
   <script type="text/javascript">
+  if (typeof voxcom !== 'undefined') {
+    var commands = {
+      'Hello':    'helloWorld',
+      'f***':     'manners',
+      'function': function() {
+        console.log('Functions can be commanding as well');
+      }
+    };
 
-  var commands = {
-    'Hello':    'helloWorld',
-    'f***':     'manners',
-    'function': function() {
-      console.log('Functions can be commanding as well');
+    helloWorld = function() {
+      console.log('Hello World');
     }
-  };
 
-  helloWorld = function() {
-    console.log('Hello World');
+    manners = function() {
+      console.log('Mind your manners, young man!');
+    }
+
+    voxcom.init(commands);
+    voxcom.start();
   }
-
-  manners = function() {
-    console.log('Mind your manners, young man!');
-  }
-
-  voxcom.init(commands);
-  voxcom.start();
 
   </script>
 
