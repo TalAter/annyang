@@ -27,16 +27,20 @@
 
   recognition.onresult  = function(event) {
     var results = event.results[event.resultIndex];
-    var commandText = results[0].transcript.trim().toLowerCase();
-    // @TODO: If not too confident about text, consider using the alternatives provided by API or ask for user intervention.
-    window.console.log(commandText);
-    for (var i in commandsList) {
-      // @TODO: Refactor commands to regular expressions
-      if (commandsList[i].command === commandText) {
-        commandsList[i].callback.apply();
-        return true;
+    var commandText;
+    for (var i = 0; i<results.length; i++) {
+      commandText = results[i].transcript.trim().toLowerCase();
+
+      window.console.log(commandText);
+      for (var j in commandsList) {
+        // @TODO: Refactor commands to regular expressions
+        if (commandsList[j].command === commandText) {
+          commandsList[j].callback.apply();
+          return true;
+        }
       }
     }
+    // @TODO: If no command matched, consider asking for user intervention.
     return false;
   };
 
