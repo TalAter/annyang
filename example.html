@@ -7,19 +7,19 @@
   <script type="text/javascript">
   if (voxcom) {
     var commands = {
-      'Hello':    'helloWorld',
-      'f***':     'manners',
-      'function': function() {
+      'Ask :name *greeting':    'askQuestion',
+      'Log :word to console':   'consoleLogger',
+      'function':               function() {
         console.log('Functions can be commanding as well');
       }
     };
 
-    helloWorld = function() {
-      console.log('Hello World');
+    askQuestion = function(name, greeting) {
+      console.log('Hello '+name+'. May I ask '+greeting+'?');
     }
 
-    manners = function() {
-      console.log('Mind your manners, young man!');
+    consoleLogger = function(word) {
+      console.log(word);
     }
 
     voxcom.init(commands);
