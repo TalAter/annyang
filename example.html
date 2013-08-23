@@ -5,6 +5,7 @@
   <script type="text/javascript" src="voxcom.min.js"></script>
 
   <script type="text/javascript">
+  "use strict";
   if (voxcom) {
     var commands = {
       'Ask :name *greeting':    'askQuestion',
@@ -14,13 +15,13 @@
       }
     };
 
-    askQuestion = function(name, greeting) {
+    var askQuestion = function(name, greeting) {
       console.log('Hello '+name+'. May I ask '+greeting+'?');
-    }
+    };
 
-    consoleLogger = function(word) {
+    var consoleLogger = function(word) {
       console.log(word);
-    }
+    };
 
     voxcom.init(commands);
     voxcom.start();
