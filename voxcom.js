@@ -14,7 +14,8 @@
   // Check browser support
   if (!('webkitSpeechRecognition' in root)) {
     //@TODO: Display friendlier message to the primitive user
-    return false;
+    root.voxcom = null;
+    return null;
   }
 
   var recognition = new webkitSpeechRecognition();
