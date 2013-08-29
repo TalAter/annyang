@@ -24,6 +24,10 @@ body {
 #section_header p {
   margin: 5px 0;
 }
+
+pre code {
+  overflow: scroll;
+}
 h1 em {
   font-weight: 800;
   margin-right: 9px;
