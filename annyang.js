@@ -13,7 +13,6 @@
 
   // Check browser support
   if (!('webkitSpeechRecognition' in root)) {
-    //@TODO: Display friendlier message to the primitive user
     root.annyang = null;
     return null;
   }
@@ -37,14 +36,13 @@
   var recognition = new webkitSpeechRecognition();
   recognition.maxAlternatives = 5;
   recognition.continuous = true;
-  /* @TODO: Add language support */
   recognition.lang = "en";
 
-  recognition.onstart   = function()      { /* @TODO: Show visual cue that voice recognition is happening */ };
+  recognition.onstart   = function()      { };
 
-  recognition.onerror   = function()      { /* @TODO: handle errors */ };
+  recognition.onerror   = function()      { };
 
-  recognition.onend     = function()      { /* @TODO: restart speech recognition */ };
+  recognition.onend     = function()      { };
 
   recognition.onresult  = function(event) {
     var results = event.results[event.resultIndex];
@@ -61,7 +59,6 @@
         }
       }
     }
-    // @TODO: If no command matched, consider asking for user intervention.
     return false;
   };
 
@@ -78,13 +75,11 @@
         //convert command to regex
         command = commandToRegExp(i);
 
-        //@TODO: Check if there are issues with context for the callback
         commandsList.push({ command: command, callback: cb });
       }
     },
 
     start: function() {
-      /* @TODO: Check permission to use the mic, and alert user to permission problem */
       recognition.start();
     }
   };
