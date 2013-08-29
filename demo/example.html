@@ -15,8 +15,7 @@
     };
 
     var showFlickr = function(tag) {
-      // @TODO: needs a permanent api key
-      var url = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d327109057c93b90482a0b4ea6b580fd&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
+      var url = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a828a6571bb4f0ff8890f7a386d61975&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
       $.ajax({
         type: 'GET',
         url: url,
