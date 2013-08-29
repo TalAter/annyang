@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VoxCom Example</title>
+  <script type="text/javascript" src="../voxcom.min.js"></script>
+  <script type="text/javascript">
+  "use strict";
+
+  // first we make sure VoxCom started succesfully
+  if (voxcom) {
+
+    // define the functions our commands will run.
+    var hello = function() {
+      $("#hello").slideDown("slow");
+    };
+
+    var showFlickr = function(tag) {
+      // @TODO: needs a permanent api key
+      var url = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d327109057c93b90482a0b4ea6b580fd&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
+      $.ajax({
+        type: 'GET',
+        url: url,
+        async: false,
+        jsonpCallback: 'jsonFlickrApi',
+        contentType: "application/json",
+        dataType: 'jsonp'
+      });
+    };
+
+    var jsonFlickrApi = function(results) {
+      var photos = results.photos.photo;
+      $.each(photos, function(index, photo) {
+        $(document.createElement("img"))
+          .attr({ src: 'http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_s.jpg' })
+          .addClass("flickrGallery")
+          .appendTo(flickrGallery);
+      });
+    };
+
+    var showTPS = function() {
+      $('#tpsreport').animate({
+        bottom: '-100px'
+      }).delay('2000').animate({
+        bottom: '-500px'
+      });
+    };
+
+    // define our commands.
+    // * The key is what you want your users to say say.
+    // * The value is the action to do.
+    //   You can pass a function, a function name (as a string), or write your function as part of the commands object.
+    var commands = {
+      'hello':              hello,
+      'show me *search':    showFlickr,
+      'show TPS report':    showTPS,
+    };
+
+    // Initialize voxcom
+    voxcom.init(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    voxcom.start();
+  }
+
+  </script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/main.css" />
+  <script src="./vendor/js/highlight.pack.js"></script>
+  <link rel="stylesheet" href="./vendor/css/default.css" />
+  <link rel="stylesheet" href="http://softwaremaniacs.org/media/soft/highlight/styles/github.css" />
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body>
+  <section id="section_header">
+    <h1><em>annyang</em> say hello to your new user interface</h1>
+    <p>annyang is a tiny javascript library that lets your visitors control your site with voice commands.</p>
+    <p>annyang has no dependencies, weighs less than 1kb, and is free to use and modify under the GNU v2 license.</p>
+    <img src="images/icon_user.png">
+    <img src="images/icon_speech.png">
+    <img src="images/icon_js.png">
+  </section>
+  <section id="section_hello">
+    <p><em>Go ahead, try it&hellip;</em></p>
+    <p class="voice_instructions">Say "Hello!"</p>
+    <p id="hello" class="hidden">Annyang!</p>
+  </section>
+  <section id="section_image_search">
+    <p><em>Let's try something more interesting&hellip;</em></p>
+    <p class="voice_instructions">Say "Show me cute kittens!"</p>
+    <p class="voice_instructions">Say "Show me Arches National Park!"</p>
+    <p class="voice_instructions">Now go wild. Say "Show me"&hellip; and make your demands!</p>
+    <div id="flickrGallery"></div>
+  </section>
+  <section id="section_biz_use">
+    <p>That's cool, but in the real world it's not all kittens and hello world.</p>
+    <p class="voice_instructions">No problem, say "Show TPS report"</p>
+    <img src="images/tpscover.jpg" id="tpsreport">
+  </section>
+  <section>
+    <p><em>How did you do that?</em></p>
+    <p>Simple. Here is all the code needed to achieve that:</p>
+    <pre><code>
+      &lt;script type="text/javascript" src="<a href="https://github.com/TalAter/VoxCom/blob/master/voxcom.min.js">voxcom.min.js</a>"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript"&gt;
+      if (voxcom) {
+        // Let's define our first command. First the text we expect, and then the function it should call
+        var commands = {
+          'show tps report': function() {
+            $('#tpsreport').animate({bottom: '-100px'});
+          }
+        };
+
+        // Initialize voxcom with our commands
+        voxcom.init(commands);
+
+        // Start listening. You can call this here, or attach this call to an event, button, etc.
+        voxcom.start();
+      }
+      &lt;/script&gt;
+    </code></pre>
+  </section>
+</body>
+</html>

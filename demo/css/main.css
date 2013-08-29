@@ -1,0 +1,68 @@
+body {
+  font: 14px/1.6 helvetica, sans-serif;;
+  margin: 0 0;
+  padding: 0 0;
+  color: #333;
+}
+
+.hidden {
+  display: none;
+}
+
+#tpsreport {
+  position: fixed;
+  bottom: -500px;
+  right: 10px;
+  -webkit-transform: rotate(-15deg);
+     -moz-transform: rotate(-15deg);
+      -ms-transform: rotate(-15deg);
+       -o-transform: rotate(-15deg);
+          transform: rotate(-15deg);
+  -webkit-box-shadow: 2px 1px 6px 1px #555;
+          box-shadow: 2px 1px 6px 1px #555;
+}
+#section_header p {
+  margin: 5px 0;
+}
+h1 em {
+  font-weight: 800;
+  margin-right: 9px;
+}
+h1 {
+  font-weight: 400;
+  font-size: 40px;
+}
+p em {
+  font-weight: 500;
+  line-height: 45px;
+}
+p.voice_instructions {
+  background: url('../images/mini_icon_say.png') no-repeat 0 6px;
+  padding-left: 24px;
+}
+section {
+  padding: 3% 10%;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+}
+#section_header img {
+  margin: 30px 60px 0;
+}
+#section_header {
+  padding-top: 70px;
+  text-align: center;
+}
+#section_hello {
+  background-color: #1abc96;
+  color: #fff;
+}
+#section_image_search {
+  background-color: #407eb8;
+  color: #fff;
+}
+#section_biz_use {
+  background-color: #e76e66;
+  background-color: #95a5a6;
+  color: #fff;
+}
