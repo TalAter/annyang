@@ -1,15 +1,15 @@
-// VoxCom - facebook.com
+// annyang - facebook.com
 // version : 0.0.1
 // author : Tal Ater
 // license : GNU v2
 // TalAter.com
 
 (function () {
-  /*global voxcom */
+  /*global annyang */
   "use strict";
   var root = this;
 
-  if (voxcom) {
+  if (annyang) {
     var chatToggle = function() {
       root.Chat.toggleSidebar();
     };
@@ -82,7 +82,7 @@
       }
     };
 
-    voxcom.init({
+    annyang.init({
       'back':                 goBack,
       'go back':              goBack,
       'go home':              stream,
@@ -117,7 +117,7 @@
       'go to *page':          gotoPage,
       'go *page':             gotoPage,
     });
-    voxcom.start();
+    annyang.start();
   }
 
 }).call(this);

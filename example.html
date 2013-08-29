@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VoxCom Example</title>
-  <script type="text/javascript" src="voxcom.min.js"></script>
+  <title>annyang example</title>
+  <script type="text/javascript" src="annyang.min.js"></script>
 
   <script type="text/javascript">
   "use strict";
-  if (voxcom) {
+  if (annyang) {
     var commands = {
       'Ask :name *greeting':    'askQuestion',
       'Log :word to console':   'consoleLogger',
@@ -23,8 +23,8 @@
       console.log(word);
     };
 
-    voxcom.init(commands);
-    voxcom.start();
+    annyang.init(commands);
+    annyang.start();
   }
 
   </script>

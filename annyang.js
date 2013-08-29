@@ -1,4 +1,4 @@
-// VoxCom
+// annyang
 // version : 0.0.1
 // author : Tal Ater
 // license : GNU v2
@@ -14,7 +14,7 @@
   // Check browser support
   if (!('webkitSpeechRecognition' in root)) {
     //@TODO: Display friendlier message to the primitive user
-    root.voxcom = null;
+    root.annyang = null;
     return null;
   }
 
@@ -65,7 +65,7 @@
     return false;
   };
 
-  root.voxcom = {
+  root.annyang = {
     init: function(commands) {
       commandsList = [];
       var cb,

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VoxCom Example</title>
-  <script type="text/javascript" src="../voxcom.min.js"></script>
+  <title>annyang example</title>
+  <script type="text/javascript" src="../annyang.min.js"></script>
   <script type="text/javascript">
   "use strict";
 
-  // first we make sure VoxCom started succesfully
-  if (voxcom) {
+  // first we make sure annyang started succesfully
+  if (annyang) {
 
     // define the functions our commands will run.
     var hello = function() {
@@ -54,11 +54,11 @@
       'show TPS report':    showTPS,
     };
 
-    // Initialize voxcom
-    voxcom.init(commands);
+    // Initialize annyang
+    annyang.init(commands);
 
     // Start listening. You can call this here, or attach this call to an event, button, etc.
-    voxcom.start();
+    annyang.start();
   }
 
   </script>
@@ -101,9 +101,9 @@
     <p><em>How did you do that?</em></p>
     <p>Simple. Here is all the code needed to achieve that:</p>
     <pre><code>
-      &lt;script type="text/javascript" src="<a href="https://github.com/TalAter/VoxCom/blob/master/voxcom.min.js">voxcom.min.js</a>"&gt;&lt;/script&gt;
+      &lt;script type="text/javascript" src="<a href="https://github.com/TalAter/annyang/blob/master/annyang.min.js">annyang.min.js</a>"&gt;&lt;/script&gt;
       &lt;script type="text/javascript"&gt;
-      if (voxcom) {
+      if (annyang) {
         // Let's define our first command. First the text we expect, and then the function it should call
         var commands = {
           'show tps report': function() {
@@ -111,11 +111,11 @@
           }
         };
 
-        // Initialize voxcom with our commands
-        voxcom.init(commands);
+        // Initialize annyang with our commands
+        annyang.init(commands);
 
         // Start listening. You can call this here, or attach this call to an event, button, etc.
-        voxcom.start();
+        annyang.start();
       }
       &lt;/script&gt;
     </code></pre>
