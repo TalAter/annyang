@@ -111,6 +111,10 @@
       } else {
         debugState = true;
       }
+    },
+
+    setLanguage: function(language) {
+      recognition.lang = language;
     }
   };
 
