@@ -101,6 +101,10 @@
       recognition.start();
     },
 
+    abort: function() {
+      recognition.abort();
+    },
+
     debug: function(newState) {
       if (arguments.length > 0) {
         debugState = !!newState;
