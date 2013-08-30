@@ -1,4 +1,4 @@
-*annyang!*
+annyang
 -----------------------------------------------
 
 A tiny javascript library that lets your users control your site with voice commands.
