@@ -8,8 +8,9 @@
   /*global webkitSpeechRecognition */
   "use strict";
 
-  var commandsList;
   var root = this;
+  var commandsList;
+  var recognition;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
 
@@ -34,47 +35,50 @@
     return new RegExp('^' + command + '$', 'i');
   };
 
-  // initiate webkitSpeechRecognition
-  var recognition = new webkitSpeechRecognition();
-  recognition.maxAlternatives = 5;
-  recognition.continuous = true;
-  recognition.lang = "en";
-
-  recognition.onstart   = function()      { };
-
-  recognition.onerror   = function()      { };
-
-  recognition.onend     = function()      { };
-
-  recognition.onresult  = function(event) {
-    var results = event.results[event.resultIndex];
-    var commandText;
-    for (var i = 0; i<results.length; i++) {
-      commandText = results[i].transcript.trim();
-      if (debugState) {
-        root.console.log('Speech recognized: %c'+commandText, debugStyle);
-      }
-
-      for (var j in commandsList) {
-        var result = commandsList[j].command.exec(commandText);
-        if (result) {
-          var parameters = result.slice(1);
-          if (debugState) {
-            root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
-            if (parameters.length) {
-              root.console.log('with parameters', parameters);
-            }
-          }
-          commandsList[j].callback.apply(this, parameters);
-          return true;
-        }
-      }
-    }
-    return false;
-  };
 
   root.annyang = {
     init: function(commands) {
+
+      // initiate webkitSpeechRecognition
+      recognition = new webkitSpeechRecognition();
+      recognition.maxAlternatives = 5;
+      recognition.continuous = true;
+      recognition.lang = "en";
+
+      recognition.onstart   = function()      { };
+
+      recognition.onerror   = function()      { };
+
+      recognition.onend     = function()      { };
+
+      recognition.onresult  = function(event) {
+        var results = event.results[event.resultIndex];
+        var commandText;
+        for (var i = 0; i<results.length; i++) {
+          commandText = results[i].transcript.trim();
+          if (debugState) {
+            root.console.log('Speech recognized: %c'+commandText, debugStyle);
+          }
+
+          for (var j in commandsList) {
+            var result = commandsList[j].command.exec(commandText);
+            if (result) {
+              var parameters = result.slice(1);
+              if (debugState) {
+                root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
+                if (parameters.length) {
+                  root.console.log('with parameters', parameters);
+                }
+              }
+              commandsList[j].callback.apply(this, parameters);
+              return true;
+            }
+          }
+        }
+        return false;
+      };
+
+      // build commands list
       commandsList = [];
       var cb,
           command;
