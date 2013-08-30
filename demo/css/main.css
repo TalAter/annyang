@@ -10,6 +10,22 @@ body {
   display: none;
 }
 
+a, a:visited {
+  color: #90b8de;
+  text-decoration: underline;
+}
+a:hover {
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 2.5em;
+}
+
+pre code a, pre code a:visited {
+  color: #00f;
+}
+
 #tpsreport {
   position: fixed;
   bottom: -500px;
@@ -70,4 +86,17 @@ section {
 #section_biz_use {
   background-color: #95a5a6;
   color: #fff;
+}
+#section_footer {
+  background: #000 url('../images/footer_background.jpg') repeat-x center;
+  text-align: center;
+  background-color: #34495d;
+  color: #fff;
+  padding: 2% 10%;
+}
+p.copyright{
+  margin-top: 100px;
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 100;
 }
