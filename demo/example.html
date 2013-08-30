@@ -37,7 +37,7 @@
       });
     };
 
-    var showTPS = function() {
+    var showTPS = function(type) {
       $('#tpsreport').animate({
         bottom: '-100px'
       }).delay('2000').animate({
@@ -52,7 +52,7 @@
     var commands = {
       'hello':              hello,
       'show me *search':    showFlickr,
-      'show TPS report':    showTPS,
+      'show :type report':    showTPS,
     };
 
     // Initialize annyang
@@ -69,7 +69,7 @@
 </head>
 <body>
   <section id="section_header">
-    <h1><em>annyang</em> say hello to your new user interface</h1>
+    <h1><em>annyang!</em> say hello to your new user interface</h1>
     <p>annyang is a tiny javascript library that lets your visitors control your site with voice commands.</p>
     <p>annyang has no dependencies, weighs less than 1kb, and is free to use and modify under the GNU v2 license.</p>
     <img src="images/icon_user.png">
@@ -85,15 +85,15 @@
     <p><em>Let's try something more interesting&hellip;</em></p>
     <p class="voice_instructions">Say "Show me cute kittens!"</p>
     <p class="voice_instructions">Say "Show me Arches National Park!"</p>
-    <p class="voice_instructions">Now go wild. Say "Show me"&hellip; and make your demands!</p>
+    <p class="voice_instructions">Now go wild. Say "Show me&hellip;" and make your demands!</p>
     <div id="flickrGallery"></div>
   </section>
   <section id="section_biz_use">
-    <p>That's cool, but in the real world it's not all kittens and hello world.</p>
+    <p><em>That's cool, but in the real world it's not all kittens and hello world.</em></p>
     <p class="voice_instructions">No problem, say "Show TPS report"</p>
     <img src="images/tpscover.jpg" id="tpsreport">
   </section>
-  <section>
+  <section id="section_code_sample_1">
     <p><em>How did you do that?</em></p>
     <p>Simple. Here is all the code needed to achieve that:</p>
     <pre><code>
@@ -116,6 +116,36 @@
       &lt;/script&gt;
     </code></pre>
   </section>
+  <section id="section_named_and_splats">
+    <p><em>What about more complicated comands?</em></p>
+    <p>annyang understands commands with <strong>named variables</strong>, and <strong>splats</strong>.</p>
+    <p>Use <strong>named variables</strong> for one word arguments in your command.</p>
+    <p>Use <strong>splats</strong> to capture multi-word text at the end of your command (greedy).</p>
+    <pre><code>
+      &lt;script type="text/javascript"&gt;
+      var commands = {
+        // annyang will capture anything after a splat (*) and pass it to the function.
+        // e.g. saying "Show me Batman and Robin" is the same as calling showFlickr('Batman and Robin');
+        'show me *term': showFlickr,
+
+        // A named variable is a one word variable, that can fit anywhere in your command.
+        // e.g. saying "calculate October stats" will call calculateStats('October');
+        'calculate :month stats': calculateStats
+      };
+
+      var showFlickr = function(term) {
+        var url = 'http://api.flickr.com/services/rest/?tags='+tag;
+        $.getJSON(url);
+      }
+
+      var calculateStats = function(month) {
+        $('#stats').text('Statistics for '+month);
+      }
+
+      &lt;/script&gt;
+    </code></pre>
+  </section>
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="./vendor/js/highlight.pack.js"></script>
   <script type="text/javascript">
