@@ -1,5 +1,5 @@
-*annyang!* say hello to your new user interface
-===============================================
+*annyang!*
+-----------------------------------------------
 
 A tiny javascript library that lets your users control your site with voice commands.
 
@@ -29,3 +29,5 @@ if (annyang) {
 }
 </script>
 ````
+
+**For more details, [visit the demo and docs site](http://www.talater.com/annyang).**
