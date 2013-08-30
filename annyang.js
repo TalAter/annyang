@@ -10,6 +10,8 @@
 
   var commandsList;
   var root = this;
+  var debugState = false;
+  var debugStyle = 'font-weight: bold; color: #00f;';
 
   // Check browser support
   if (!('webkitSpeechRecognition' in root)) {
@@ -49,12 +51,21 @@
     var commandText;
     for (var i = 0; i<results.length; i++) {
       commandText = results[i].transcript.trim();
-      window.console.log('recognized: '+commandText);
+      if (debugState) {
+        root.console.log('Speech recognized: %c'+commandText, debugStyle);
+      }
 
       for (var j in commandsList) {
         var result = commandsList[j].command.exec(commandText);
         if (result) {
-          commandsList[j].callback.apply(this, result.slice(1));
+          var parameters = result.slice(1);
+          if (debugState) {
+            root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
+            if (parameters.length) {
+              root.console.log('with parameters', parameters);
+            }
+          }
+          commandsList[j].callback.apply(this, parameters);
           return true;
         }
       }
@@ -67,20 +78,31 @@
       commandsList = [];
       var cb,
           command;
-      for (var i in commands) {
-        cb = root[commands[i]] || commands[i];
+      for (var phrase in commands) {
+        cb = root[commands[phrase]] || commands[phrase];
         if (typeof cb !== 'function') {
           continue;
         }
         //convert command to regex
-        command = commandToRegExp(i);
+        command = commandToRegExp(phrase);
 
-        commandsList.push({ command: command, callback: cb });
+        commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+      }
+      if (debugState) {
+        root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
     },
 
     start: function() {
       recognition.start();
+    },
+
+    debug: function(newState) {
+      if (arguments.length > 0) {
+        debugState = !!newState;
+      } else {
+        debugState = true;
+      }
     }
   };
 
