@@ -11,7 +11,7 @@ Demo
 
 Usage
 -----
-It's as easy as adding one javascript file to your document, and defining the commands you want.
+It's as easy as adding [one javascript file](https://github.com/TalAter/annyang/blob/master/annyang.min.js) to your document, and defining the commands you want.
 ````html
 <script type="text/javascript" src="annyang.min.js"></script>
 <script type="text/javascript">
