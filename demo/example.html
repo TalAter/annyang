@@ -45,14 +45,19 @@
       });
     };
 
+    var getStarted = function() {
+      window.location.href = 'https://github.com/TalAter/annyang';
+    }
+
     // define our commands.
     // * The key is what you want your users to say say.
     // * The value is the action to do.
     //   You can pass a function, a function name (as a string), or write your function as part of the commands object.
     var commands = {
-      'hello':              hello,
-      'show me *search':    showFlickr,
+      'hello':                hello,
+      'show me *search':      showFlickr,
       'show :type report':    showTPS,
+      'let\'s get started':   getStarted,
     };
 
     // OPTIONAL: activate debug mode for detailed logging in the console
@@ -154,6 +159,7 @@
   <section id="section_footer">
     <h2>Ready to get started?</h2>
     <p>Grab the latest version of <a href="https://github.com/TalAter/annyang">annyang.min.js</a>, drop it in your html, and start adding commands.</p>
+    <p>&hellip;or just say "let's get started!"</p>
     <p class="social">
       <iframe src="http://ghbtns.com/github-btn.html?user=TalAter&repo=annyang&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
       <iframe src="http://ghbtns.com/github-btn.html?user=TalAter&repo=annyang&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="156px" height="30px"></iframe>
