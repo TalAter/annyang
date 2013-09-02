@@ -43,7 +43,7 @@
       recognition = new webkitSpeechRecognition();
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
-      recognition.lang = "en";
+      recognition.lang = "en-US";
 
       recognition.onstart   = function()      { };
 
