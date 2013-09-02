@@ -18,7 +18,7 @@
     var showFlickr = function(tag) {
       $('#flickrGallery').show();
       $('#flickrLoader p').text('Searching for '+tag).fadeIn('fast');
-      var url = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a828a6571bb4f0ff8890f7a386d61975&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
+      var url = '//api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a828a6571bb4f0ff8890f7a386d61975&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
       $.ajax({
         type: 'GET',
         url: url,
@@ -34,7 +34,7 @@
       var photos = results.photos.photo;
       $.each(photos, function(index, photo) {
         $(document.createElement("img"))
-          .attr({ src: 'http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_s.jpg' })
+          .attr({ src: '//farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_s.jpg' })
           .addClass("flickrGallery")
           .appendTo(flickrGallery);
       });
@@ -78,8 +78,8 @@
 
   </script>
   <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="./vendor/css/default.css" />
-  <link rel="stylesheet" href="http://softwaremaniacs.org/media/soft/highlight/styles/github.css" />
+  <link rel="stylesheet" href="vendor/css/default.css" />
+  <link rel="stylesheet" href="vendor/css/github.css" />
 </head>
 <body>
   <section id="section_header">
@@ -165,9 +165,9 @@
     <p>Grab the latest version of <a href="https://github.com/TalAter/annyang">annyang.min.js</a>, drop it in your html, and start adding commands.</p>
     <p>&hellip;or just say "let's get started!"</p>
     <p class="social">
-      <iframe src="http://ghbtns.com/github-btn.html?user=TalAter&repo=annyang&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
-      <iframe src="http://ghbtns.com/github-btn.html?user=TalAter&repo=annyang&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="156px" height="30px"></iframe>
-      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.annyangjs.com" data-counturl="http://www.talater.com/annyang" data-via="TalAter" data-size="large" data-lang="en" data-count="horizontal" data-text="annyang! A javascript library for adding voice commands to your site. Let your users talk to your site">Tweet</a>
+      <iframe src="vendor/html/github-btn.html?user=TalAter&repo=annyang&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
+      <iframe src="vendor/html/github-btn.html?user=TalAter&repo=annyang&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="156px" height="30px"></iframe>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.annyangjs.com" data-counturl="https://www.talater.com/annyang" data-via="TalAter" data-size="large" data-lang="en" data-count="horizontal" data-text="annyang! A javascript library for adding voice commands to your site. Let your users talk to your site">Tweet</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </p>
     <p class="copyright">&copy; 2013 Tal Ater. All rights reserved. annyang source code is licensed under the GNU v2 license.</p>
