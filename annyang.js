@@ -60,7 +60,7 @@
             root.console.log('Speech recognized: %c'+commandText, debugStyle);
           }
 
-          for (var j in commandsList) {
+          for (var j = 0, l = commandsList.length; j < l; j++) {
             var result = commandsList[j].command.exec(commandText);
             if (result) {
               var parameters = result.slice(1);
