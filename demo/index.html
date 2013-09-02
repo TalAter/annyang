@@ -16,6 +16,8 @@
     };
 
     var showFlickr = function(tag) {
+      $('#flickrGallery').show();
+      $('#flickrLoader p').text('Searching for '+tag).fadeIn('fast');
       var url = 'http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=a828a6571bb4f0ff8890f7a386d61975&sort=interestingness-desc&per_page=9&format=json&callback=jsonFlickrApi&tags='+tag;
       $.ajax({
         type: 'GET',
@@ -28,6 +30,7 @@
     };
 
     var jsonFlickrApi = function(results) {
+      $('#flickrLoader p').fadeOut('slow');
       var photos = results.photos.photo;
       $.each(photos, function(index, photo) {
         $(document.createElement("img"))
@@ -97,7 +100,8 @@
     <p class="voice_instructions">Say "Show me cute kittens!"</p>
     <p class="voice_instructions">Say "Show me Arches National Park!"</p>
     <p class="voice_instructions">Now go wild. Say "Show me&hellip;" and make your demands!</p>
-    <div id="flickrGallery"></div>
+    <div id="flickrLoader"><p></p></div>
+    <div id="flickrGallery" class="hidden"></div>
   </section>
   <section id="section_biz_use">
     <p><em>That's cool, but in the real world it's not all kittens and hello world.</em></p>

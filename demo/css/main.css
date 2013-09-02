@@ -62,6 +62,13 @@ p.voice_instructions {
   background: url('../images/mini_icon_say.png') no-repeat 0 6px;
   padding-left: 24px;
 }
+#flickrLoader p {
+  background: url('../images/flickr.png') no-repeat 0 7px;
+  padding-left: 39px;
+}
+#flickrLoader {
+  height: 40px;
+}
 section {
   padding: 3% 10%;
   font-size: 20px;
