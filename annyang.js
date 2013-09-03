@@ -11,6 +11,7 @@
   var root = this;
   var commandsList;
   var recognition;
+  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [] };
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
 
@@ -35,6 +36,11 @@
     return new RegExp('^' + command + '$', 'i');
   };
 
+  var invokeCallbacks = function(callbacks) {
+    for (var j = 0, l = callbacks.length; j < l; j++) {
+      callbacks[j].apply(this);
+    }
+  };
 
   root.annyang = {
     init: function(commands) {
@@ -46,13 +52,14 @@
       recognition.continuous = true;
       recognition.lang = "en-US";
 
-      recognition.onstart   = function()      { };
+      recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
 
-      recognition.onerror   = function()      { };
+      recognition.onerror   = function()      { invokeCallbacks(callbacks.error); };
 
-      recognition.onend     = function()      { };
+      recognition.onend     = function()      { invokeCallbacks(callbacks.end);   };
 
       recognition.onresult  = function(event) {
+        invokeCallbacks(callbacks.result);
         var results = event.results[event.resultIndex];
         var commandText;
         for (var i = 0; i<results.length; i++) {
@@ -72,10 +79,12 @@
                 }
               }
               commandsList[j].callback.apply(this, parameters);
+              invokeCallbacks(callbacks.resultMatch);
               return true;
             }
           }
         }
+        invokeCallbacks(callbacks.resultNoMatch);
         return false;
       };
 
@@ -123,6 +132,21 @@
       if (debugState) {
         root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
+    },
+
+
+    /**
+     * Lets the user add a callback of one of 6 types: start, error, end, result, resultMatch, resultNoMatch
+     */
+    addCallback: function(type, callback) {
+      if (callbacks[type]  === void 0) {
+        return;
+      }
+      var cb = root[callback] || callback;
+      if (typeof cb !== 'function') {
+        return;
+      }
+      callbacks[type].push(cb);
     }
   };
 
