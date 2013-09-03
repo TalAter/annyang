@@ -45,9 +45,12 @@
   root.annyang = {
     init: function(commands) {
 
+      // Abort previous instances of recognition already running
+      if (recognition && recognition.abort) {
+        recognition.abort();
+      }
       // initiate webkitSpeechRecognition
       recognition = new webkitSpeechRecognition();
-      recognition.abort();
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
       recognition.lang = "en-US";
@@ -133,7 +136,6 @@
         root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
     },
-
 
     /**
      * Lets the user add a callback of one of 6 types: start, error, end, result, resultMatch, resultNoMatch
