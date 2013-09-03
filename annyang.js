@@ -1,7 +1,7 @@
 // annyang
 // version : 0.1.0
 // author : Tal Ater
-// license : GNU v2
+// license : MIT
 // TalAter.com
 
 (function () {

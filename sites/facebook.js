@@ -1,7 +1,7 @@
 // annyang - facebook.com
-// version : 0.0.1
+// version : 0.1.0
 // author : Tal Ater
-// license : GNU v2
+// license : MIT
 // TalAter.com
 
 (function () {
