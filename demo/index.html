@@ -5,6 +5,7 @@
   <meta name="description" content="A javascript library for adding voice commands to your site. Let your users talk to your site" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="../annyang.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript">
   "use strict";
 
@@ -75,8 +76,11 @@
 
     // Start listening. You can call this here, or attach this call to an event, button, etc.
     annyang.start();
+  } else {
+    $(document).ready(function() {
+      $('#unsupported').fadeIn('fast');
+    });
   }
-
   </script>
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="vendor/css/default.css" />
@@ -157,10 +161,6 @@ var calculateStats = function(month) {
 
 &lt;/script&gt;</code></pre>
   </section>
-  <section id="section_docs">
-    <p><em>What about browser support?</em></p>
-    <p>annyang plays nicely with all browsers, progressively enhancing browsers that support webkitSpeechRecognition, while leaving users with older browsers unaffected.</p>
-  </section>
   <section id="section_footer">
     <h2>Ready to get started?</h2>
     <p>Grab the latest version of <a href="https://github.com/TalAter/annyang">annyang.min.js</a>, drop it in your html, and start adding commands.</p>
@@ -173,7 +173,11 @@ var calculateStats = function(month) {
     </p>
     <p class="copyright">&copy; 2013 Tal Ater. All rights reserved. annyang source code is licensed under the <a href="https://raw.github.com/TalAter/annyang/master/LICENSE">MIT license</a>.</p>
   </section>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <div id="unsupported" class="hidden">
+    <h4>It looks like your browser doesn't support speech recognition.</h4>
+    <p>annyang plays nicely with all browsers, progressively enhancing modern browsers that support webkitSpeechRecognition, while leaving users with older browsers unaffected.</p>
+    <p>Please visit <a href="http://www.annyangjs.com/">http://www.annyangjs.com/</a> in a modern desktop browser.</p>
+  </div>
   <script type="text/javascript">
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-24775009-1']);

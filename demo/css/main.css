@@ -114,3 +114,27 @@ p.copyright{
   line-height: 30px;
   font-weight: 100;
 }
+div#unsupported {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: #b94a48;
+  background-color: #f2dede;
+  border: 1px solid #eed3d7;
+  padding: 20px 20px 55px;
+  -webkit-box-shadow: -32px -50px 109px rgba(0, 0, 0, 0.92);
+  -moz-box-shadow:    -32px -50px 109px rgba(0, 0, 0, 0.92);
+  box-shadow:         -32px -50px 109px rgba(0, 0, 0, 0.92);
+  font-size: 1.3em;
+}
+div#unsupported a, div#unsupported a:visited {
+  color: #b94a48;
+  font-weight: bold;
+}
+div#unsupported h4 {
+  font-size: 1.5em;
+}
+div#unsupported p {
+  line-height: 18px;
+}
