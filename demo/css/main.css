@@ -53,6 +53,8 @@ h1 em {
 h1 {
   font-weight: 400;
   font-size: 40px;
+  line-height: 41px;
+  margin: 25px 0;
 }
 p em {
   font-weight: 600;
