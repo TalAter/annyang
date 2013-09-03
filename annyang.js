@@ -41,6 +41,7 @@
 
       // initiate webkitSpeechRecognition
       recognition = new webkitSpeechRecognition();
+      recognition.abort();
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
       recognition.lang = "en-US";
