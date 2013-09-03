@@ -84,6 +84,9 @@
       var cb,
           command;
       for (var phrase in commands) {
+        if (!hasOwnProperty.call(commands, phrase)) {
+          continue;
+        }
         cb = root[commands[phrase]] || commands[phrase];
         if (typeof cb !== 'function') {
           continue;
