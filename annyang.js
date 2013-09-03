@@ -82,9 +82,6 @@
       // build commands list
       commandsList = [];
       this.addCommands(commands);
-      if (debugState) {
-        root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
-      }
     },
 
     start: function() {
@@ -122,6 +119,9 @@
         command = commandToRegExp(phrase);
 
         commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+      }
+      if (debugState) {
+        root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
     }
   };
