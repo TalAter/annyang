@@ -81,21 +81,7 @@
 
       // build commands list
       commandsList = [];
-      var cb,
-          command;
-      for (var phrase in commands) {
-        if (!hasOwnProperty.call(commands, phrase)) {
-          continue;
-        }
-        cb = root[commands[phrase]] || commands[phrase];
-        if (typeof cb !== 'function') {
-          continue;
-        }
-        //convert command to regex
-        command = commandToRegExp(phrase);
-
-        commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
-      }
+      this.addCommands(commands);
       if (debugState) {
         root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
@@ -119,6 +105,24 @@
 
     setLanguage: function(language) {
       recognition.lang = language;
+    },
+
+    addCommands: function(commands) {
+      var cb,
+          command;
+      for (var phrase in commands) {
+        if (!hasOwnProperty.call(commands, phrase)) {
+          continue;
+        }
+        cb = root[commands[phrase]] || commands[phrase];
+        if (typeof cb !== 'function') {
+          continue;
+        }
+        //convert command to regex
+        command = commandToRegExp(phrase);
+
+        commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+      }
     }
   };
 
