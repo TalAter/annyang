@@ -7,7 +7,7 @@ annyang has no dependencies, weighs less than 1kb, and is free to use and modify
 
 Demo
 ----
-[Visit the demo and docs site](http://www.talater.com/annyang)
+[Visit the demo and docs site](https://www.talater.com/annyang)
 
 Usage
 -----
@@ -30,4 +30,4 @@ if (annyang) {
 </script>
 ````
 
-**For more details, [visit the demo and docs site](http://www.talater.com/annyang).**
+**For more details, [visit the demo and docs site](https://www.talater.com/annyang).**
