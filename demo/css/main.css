@@ -119,14 +119,16 @@ div#unsupported {
   position: fixed;
   bottom: 0;
   width: 100%;
+  max-height: 60%;
   color: #b94a48;
   background-color: #f2dede;
   border: 1px solid #eed3d7;
-  padding: 20px 20px 55px;
   -webkit-box-shadow: -32px -50px 109px rgba(0, 0, 0, 0.92);
   -moz-box-shadow:    -32px -50px 109px rgba(0, 0, 0, 0.92);
   box-shadow:         -32px -50px 109px rgba(0, 0, 0, 0.92);
   font-size: 1.3em;
+  line-height: 1.4em;
+  padding-bottom: 20px;
 }
 div#unsupported a, div#unsupported a:visited {
   color: #b94a48;
@@ -134,7 +136,8 @@ div#unsupported a, div#unsupported a:visited {
 }
 div#unsupported h4 {
   font-size: 1.5em;
+  margin: 15px 0 10px 0;
 }
 div#unsupported p {
-  line-height: 18px;
+  line-height: 20px;
 }
