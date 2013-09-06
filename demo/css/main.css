@@ -128,7 +128,7 @@ div#unsupported {
   box-shadow:         -32px -50px 109px rgba(0, 0, 0, 0.92);
   font-size: 1.3em;
   line-height: 1.4em;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 div#unsupported a, div#unsupported a:visited {
   color: #b94a48;
