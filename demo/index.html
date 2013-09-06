@@ -15,6 +15,7 @@
     // define the functions our commands will run.
     var hello = function() {
       $("#hello").slideDown("slow");
+      scrollTo("#section_hello");
     };
 
     var showFlickr = function(tag) {
@@ -29,6 +30,7 @@
         contentType: "application/json",
         dataType: 'jsonp'
       });
+      scrollTo("#section_image_search");
     };
 
     var jsonFlickrApi = function(results) {
@@ -80,6 +82,12 @@
     $(document).ready(function() {
       $('#unsupported').fadeIn('fast');
     });
+  }
+
+  var scrollTo = function(identifier, speed) {
+    $('html, body').animate({
+        scrollTop: $(identifier).offset().top
+    }, speed || 1000);
   }
   </script>
   <link rel="stylesheet" href="css/main.css" />
