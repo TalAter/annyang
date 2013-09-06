@@ -28,6 +28,7 @@ pre code a, pre code a:visited {
 
 #tpsreport {
   position: fixed;
+  z-index: 1000;
   bottom: -500px;
   right: 10px;
   -webkit-transform: rotate(-15deg);
