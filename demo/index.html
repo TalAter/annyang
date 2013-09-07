@@ -144,9 +144,10 @@ if (annyang) {
   </section>
   <section id="section_named_and_splats">
     <p><em>What about more complicated commands?</em></p>
-    <p>annyang understands commands with <strong>named variables</strong>, and <strong>splats</strong>.</p>
+    <p>annyang understands commands with <strong>named variables</strong>, <strong>splats</strong>, and <strong>optional words</strong>.</p>
     <p>Use <strong>named variables</strong> for one word arguments in your command.</p>
     <p>Use <strong>splats</strong> to capture multi-word text at the end of your command (greedy).</p>
+    <p>Use <strong>optional words or phrases</strong> to define a part of the command as optional.</p>
     <pre><code>&lt;script type="text/javascript"&gt;
 var commands = {
   // annyang will capture anything after a splat (*) and pass it to the function.
@@ -155,7 +156,11 @@ var commands = {
 
   // A named variable is a one word variable, that can fit anywhere in your command.
   // e.g. saying "calculate October stats" will call calculateStats('October');
-  'calculate :month stats': calculateStats
+  'calculate :month stats': calculateStats,
+
+  // By defining a part of the following command as optional, annyang will respond to both:
+  // "say hello to my little friend" as well as "say hello friend"
+  'say hello (to my little) friend': greeting
 };
 
 var showFlickr = function(term) {
@@ -165,6 +170,10 @@ var showFlickr = function(term) {
 
 var calculateStats = function(month) {
   $('#stats').text('Statistics for '+month);
+}
+
+var greeting = function() {
+  $('#greeting').text('Hello!');
 }
 
 &lt;/script&gt;</code></pre>
