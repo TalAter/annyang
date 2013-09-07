@@ -1,8 +1,8 @@
-// annyang
-// version : 0.2.0
-// author : Tal Ater
-// license : MIT
-// TalAter.com
+//! annyang
+//! version : 0.2.0
+//! author  : Tal Ater @TalAter
+//! license : MIT
+//! https://www.TalAter.com/annyang/
 
 (function () {
   /*global webkitSpeechRecognition */

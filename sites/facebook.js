@@ -1,10 +1,9 @@
-// annyang - facebook.com
-// version : 0.1.0
-// author : Tal Ater
-// license : MIT
-// TalAter.com
+//! annyang - facebook.com
+//! version : 0.1.0
+//! author  : Tal Ater @TalAter
+//! license : MIT
+//! https://www.TalAter.com/annyang/
 
-/* @codekit-prepend "../annyang.js" */
 (function () {
   /*global annyang */
   "use strict";
