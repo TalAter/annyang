@@ -31,3 +31,11 @@ if (annyang) {
 ````
 
 **For more details, [visit the demo and docs site](https://www.talater.com/annyang).**
+
+Author
+------
+Tal Ater: [@TalAter](https://twitter.com/TalAter)
+
+License
+-------
+Licensed under [MIT](https://github.com/TalAter/annyang/blob/master/LICENSE).
