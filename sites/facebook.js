@@ -5,7 +5,7 @@
 //! https://www.TalAter.com/annyang/
 
 (function () {
-  /*global annyang */
+  /*global annyang,$ */
   "use strict";
   var root = this;
 

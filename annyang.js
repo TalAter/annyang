@@ -3,7 +3,6 @@
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
-
 (function () {
   /*global webkitSpeechRecognition */
   "use strict";
@@ -29,12 +28,12 @@
   var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#]/g;
   var commandToRegExp = function(command) {
     command = command.replace(escapeRegExp, '\\$&')
-                 .replace(optionalParam, '(?:$1)?')
-                 .replace(namedParam, function(match, optional) {
-                   return optional ? match : '([^\\s]+)';
-                 })
-                 .replace(splatParam, '(.*?)')
-                 .replace(optionalRegex, '\\s*$1?\\s*');
+                  .replace(optionalParam, '(?:$1)?')
+                  .replace(namedParam, function(match, optional) {
+                    return optional ? match : '([^\\s]+)';
+                  })
+                  .replace(splatParam, '(.*?)')
+                  .replace(optionalRegex, '\\s*$1?\\s*');
     return new RegExp('^' + command + '$', 'i');
   };
 
@@ -122,17 +121,16 @@
       var cb,
           command;
       for (var phrase in commands) {
-        if (!hasOwnProperty.call(commands, phrase)) {
-          continue;
-        }
-        cb = root[commands[phrase]] || commands[phrase];
-        if (typeof cb !== 'function') {
-          continue;
-        }
-        //convert command to regex
-        command = commandToRegExp(phrase);
+        if (commands.hasOwnProperty(phrase)) {
+          cb = root[commands[phrase]] || commands[phrase];
+          if (typeof cb !== 'function') {
+            continue;
+          }
+          //convert command to regex
+          command = commandToRegExp(phrase);
 
-        commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+          commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+        }
       }
       if (debugState) {
         root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
