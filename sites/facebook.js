@@ -4,6 +4,7 @@
 // license : MIT
 // TalAter.com
 
+/* @codekit-prepend "../annyang.js" */
 (function () {
   /*global annyang */
   "use strict";
