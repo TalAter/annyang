@@ -21,18 +21,20 @@
     return null;
   }
 
-  // The command matching code is based on Backbone.Router by Jeremy Ashkenas, under the MIT license.
-  var optionalParam = /\((.*?)\)/g;
+  // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
+  var optionalParam = /\s*\((.*?)\)\s*/g;
+  var optionalRegex = /(\(\?:[^)]+\))\?/g;
   var namedParam    = /(\(\?)?:\w+/g;
   var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#\s]/g;
+  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#]/g;
   var commandToRegExp = function(command) {
     command = command.replace(escapeRegExp, '\\$&')
                  .replace(optionalParam, '(?:$1)?')
                  .replace(namedParam, function(match, optional) {
                    return optional ? match : '([^\\s]+)';
                  })
-                 .replace(splatParam, '(.*?)');
+                 .replace(splatParam, '(.*?)')
+                 .replace(optionalRegex, '\\s*$1?\\s*');
     return new RegExp('^' + command + '$', 'i');
   };
 
