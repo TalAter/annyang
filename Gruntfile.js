@@ -7,7 +7,7 @@ module.exports = function(grunt) {
       options: {
         preserveComments: 'some'
       },
-      my_target: {
+      annyang: {
         files: {
           'annyang.min.js': ['annyang.js'],
           'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js']
