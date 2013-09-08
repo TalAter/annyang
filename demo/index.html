@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>annyang - Easily add voice commands to your site</title>
-  <meta name="description" content="A javascript library for adding voice commands to your site. Let your users talk to your site" />
+  <meta name="description" content="annyang is a tiny JS that makes adding speech recognition to your site super-easy. Let your users control your site with their voice." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="../annyang.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -186,12 +186,20 @@ var greeting = function() {
     <h2>Ready to get started?</h2>
     <p>Grab the latest version of <a href="https://github.com/TalAter/annyang">annyang.min.js</a>, drop it in your html, and start adding commands.</p>
     <p>&hellip;or just say "let's get started!"</p>
-    <p class="social">
+    <div class="social">
       <iframe src="vendor/html/github-btn.html?user=TalAter&repo=annyang&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px"></iframe>
-      <iframe src="vendor/html/github-btn.html?user=TalAter&repo=annyang&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="156px" height="30px"></iframe>
       <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.annyangjs.com" data-counturl="https://www.talater.com/annyang" data-via="TalAter" data-size="large" data-lang="en" data-count="horizontal" data-text="annyang! A javascript library that lets your users talk to your site, giving it voice commands">Tweet</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </p>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      <div style="display: inline;" class="fb-like" data-href="https://www.talater.com/annyang/" data-width="200" data-layout="button_count" data-show-faces="true" data-send="true"></div>
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=263514670331109";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+    </div>
     <p class="copyright">&copy; 2013 Tal Ater. All rights reserved. annyang source code is licensed under the <a href="https://raw.github.com/TalAter/annyang/master/LICENSE">MIT license</a>.</p>
   </section>
   <div id="unsupported" class="hidden">
