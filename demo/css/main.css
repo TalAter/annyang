@@ -46,6 +46,7 @@ pre code a, pre code a:visited {
 pre code {
   overflow: scroll;
   padding: 10px 20px!important;
+  margin-left: 50px;
 }
 h1 em {
   font-weight: 800;
