@@ -9,6 +9,7 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'annyang.js',
         'sites/facebook.js',
+        'sites/geektime.js',
       ],
       options: {
         "node"      : true,
@@ -39,7 +40,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['annyang.js', 'sites/facebook.js', '!**/node_modules/**'],
+      files: ['annyang.js', 'sites/facebook.js', 'sites/geektime.js', '!**/node_modules/**'],
       tasks: ['default'],
     },
     uglify: {
@@ -50,6 +51,7 @@ module.exports = function(grunt) {
         files: {
           'annyang.min.js': ['annyang.js'],
           'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js'],
+          'sites/geektime.min.js': ['annyang.js', 'sites/geektime.js'],
         }
       }
     }
