@@ -10,6 +10,7 @@
   var root = this;
   var commandsList;
   var recognition;
+  var lang = 'en-US';
   var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [] };
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
@@ -54,7 +55,7 @@
       recognition = new webkitSpeechRecognition();
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
-      recognition.lang = "en-US";
+      recognition.lang = lang;
 
       recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
 
@@ -114,7 +115,10 @@
     },
 
     setLanguage: function(language) {
-      recognition.lang = language;
+      lang = language;
+      if (recognition && recognition.abort) {
+        recognition.lang = language;
+      }
     },
 
     addCommands: function(commands) {
