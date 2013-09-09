@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       all: [
         'Gruntfile.js',
         'annyang.js',
-        'sites/facebook.js'
+        'sites/facebook.js',
       ],
       options: {
         "node"      : true,
@@ -38,6 +38,10 @@ module.exports = function(grunt) {
         "indent"    : 2
       }
     },
+    watch: {
+      files: ['annyang.js', 'sites/facebook.js', '!**/node_modules/**'],
+      tasks: ['default'],
+    },
     uglify: {
       options: {
         preserveComments: 'some'
@@ -45,7 +49,7 @@ module.exports = function(grunt) {
       all: {
         files: {
           'annyang.min.js': ['annyang.js'],
-          'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js']
+          'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js'],
         }
       }
     }
@@ -56,6 +60,9 @@ module.exports = function(grunt) {
 
   // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-jshint');
+
+  // Load the plugin that provides the "watch" task.
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
   grunt.registerTask('default', ['jshint', 'uglify']);
