@@ -12,6 +12,7 @@
   var recognition;
   var lang = 'en-US';
   var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [] };
+  var autoRestart;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
 
@@ -61,7 +62,12 @@
 
       recognition.onerror   = function()      { invokeCallbacks(callbacks.error); };
 
-      recognition.onend     = function()      { invokeCallbacks(callbacks.end);   };
+      recognition.onend     = function() {
+        invokeCallbacks(callbacks.end);
+        if (autoRestart) {
+          root.annyang.start();
+        }
+      };
 
       recognition.onresult  = function(event) {
         invokeCallbacks(callbacks.result);
@@ -98,11 +104,17 @@
       this.addCommands(commands);
     },
 
-    start: function() {
+    start: function(restart) {
+      if (arguments.length > 0) {
+        autoRestart = !!restart;
+      } else {
+        autoRestart = true;
+      }
       recognition.start();
     },
 
     abort: function() {
+      autoRestart = false;
       recognition.abort();
     },
 
