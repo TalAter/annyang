@@ -4,9 +4,14 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 (function () {
-  /*global webkitSpeechRecognition */
+
   "use strict";
 
+  var SpeechRecognition = window.webkitSpeechRecognition ||
+                          window.mozSpeechRecognition ||
+                          window.msSpeechRecognition ||
+                          window.oSpeechRecognition ||
+                          window.SpeechRecognition;
   var root = this;
   var commandsList;
   var recognition;
@@ -17,7 +22,7 @@
   var debugStyle = 'font-weight: bold; color: #00f;';
 
   // Check browser support
-  if (!('webkitSpeechRecognition' in root)) {
+  if ( !SpeechRecognition ) {
     root.annyang = null;
     return null;
   }
@@ -52,8 +57,10 @@
       if (recognition && recognition.abort) {
         recognition.abort();
       }
-      // initiate webkitSpeechRecognition
-      recognition = new webkitSpeechRecognition();
+
+      // initiate
+      recognition = new SpeechRecognition();
+
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
       recognition.lang = lang;
