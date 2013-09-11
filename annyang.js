@@ -4,15 +4,14 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 (function () {
-
   "use strict";
 
-  var SpeechRecognition = window.webkitSpeechRecognition ||
-                          window.mozSpeechRecognition ||
-                          window.msSpeechRecognition ||
-                          window.oSpeechRecognition ||
-                          window.SpeechRecognition;
   var root = this;
+  var SpeechRecognition = root.webkitSpeechRecognition ||
+                          root.mozSpeechRecognition ||
+                          root.msSpeechRecognition ||
+                          root.oSpeechRecognition ||
+                          root.SpeechRecognition;
   var commandsList;
   var recognition;
   var lang = 'en-US';
