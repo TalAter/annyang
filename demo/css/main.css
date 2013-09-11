@@ -114,6 +114,9 @@ section {
 div.social{
   margin-top: 40px;
 }
+div.comments {
+  margin-top: 100px;
+}
 p.copyright{
   margin-top: 100px;
   font-size: 12px;
