@@ -117,10 +117,10 @@ div.social{
 div.comments {
   margin-top: 100px;
 }
-p.copyright{
-  margin-top: 100px;
+div.copyright{
+  margin-top: 50px;
   font-size: 12px;
-  line-height: 30px;
+  line-height: 18px;
   font-weight: 100;
 }
 div#unsupported {
