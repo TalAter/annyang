@@ -104,9 +104,10 @@
       this.addCommands(commands);
     },
 
-    start: function(restart) {
-      if (arguments.length > 0) {
-        autoRestart = !!restart;
+    start: function(options) {
+      options = options || {};
+      if (typeof options.autoRestart !== 'undefined') {
+        autoRestart = !!options.autoRestart;
       } else {
         autoRestart = true;
       }
