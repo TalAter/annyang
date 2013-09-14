@@ -12,6 +12,12 @@
                           root.msSpeechRecognition ||
                           root.oSpeechRecognition ||
                           root.SpeechRecognition;
+  // Check browser support
+  if ( !SpeechRecognition ) {
+    root.annyang = null;
+    return null;
+  }
+
   var commandsList;
   var recognition;
   var lang = 'en-US';
@@ -20,11 +26,6 @@
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
 
-  // Check browser support
-  if ( !SpeechRecognition ) {
-    root.annyang = null;
-    return null;
-  }
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
