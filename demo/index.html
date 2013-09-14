@@ -8,9 +8,9 @@
   <meta property="og:title" content="annyang! Easily add speech recognition to your site"/>
   <meta property="og:url" content="https://www.talater.com/annyang/"/>
   <meta property="og:site_name" content="annyang"/>
-  <script type="text/javascript" src="../annyang.min.js"></script>
+  <script src="../annyang.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript">
+  <script>
   "use strict";
 
   // first we make sure annyang started succesfully
@@ -128,8 +128,8 @@
   <section id="section_code_sample_1">
     <p><em>How did you do that?</em></p>
     <p>Simple. Here is all the code needed to achieve that:</p>
-    <pre><code>&lt;script type="text/javascript" src="<a href="https://github.com/TalAter/annyang/blob/master/annyang.min.js">annyang.min.js</a>"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
+    <pre><code>&lt;script src="<a href="https://github.com/TalAter/annyang/blob/master/annyang.min.js">annyang.min.js</a>"&gt;&lt;/script&gt;
+&lt;script&gt;
 if (annyang) {
   // Let's define our first command. First the text we expect, and then the function it should call
   var commands = {
@@ -152,7 +152,7 @@ if (annyang) {
     <p>Use <strong>named variables</strong> for one word arguments in your command.</p>
     <p>Use <strong>splats</strong> to capture multi-word text at the end of your command (greedy).</p>
     <p>Use <strong>optional words or phrases</strong> to define a part of the command as optional.</p>
-    <pre><code>&lt;script type="text/javascript"&gt;
+    <pre><code>&lt;script&gt;
 var commands = {
   // annyang will capture anything after a splat (*) and pass it to the function.
   // e.g. saying "Show me Batman and Robin" is the same as calling showFlickr('Batman and Robin');
@@ -218,7 +218,7 @@ var greeting = function() {
     <p>annyang plays nicely with all browsers, progressively enhancing modern browsers that support the SpeechRecognition standard, while leaving users with older browsers unaffected.</p>
     <p>Please visit <a href="http://www.annyangjs.com/">http://www.annyangjs.com/</a> in a desktop browser like Chrome.</p>
   </div>
-  <script type="text/javascript">
+  <script>
     var _gaq = _gaq || [];
     _gaq.push(['_setAccount', 'UA-24775009-1']);
     _gaq.push(['_trackPageview']);
@@ -229,7 +229,7 @@ var greeting = function() {
     })();
   </script>
   <script src="./vendor/js/highlight.pack.js"></script>
-  <script type="text/javascript">
+  <script>
     hljs.initHighlightingOnLoad();
   </script>
 </body>
