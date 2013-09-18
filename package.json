@@ -6,10 +6,11 @@
   "main": "annyang.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/TalAter/annyang.git"
+    "url": "https://github.com/TalAter/annyang.git"
   },
   "keywords": [
     "annyang",
+    "annyang.js",
     "speechrecognition",
     "webkitspeechrecognition",
     "voice",
