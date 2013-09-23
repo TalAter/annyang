@@ -13,8 +13,8 @@ Usage
 -----
 It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/0.2.0/annyang.min.js) to your document, and defining the commands you want.
 ````html
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/annyang/0.2.0/annyang.min.js"></script>
-<script type="text/javascript">
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/0.2.0/annyang.min.js"></script>
+<script>
 if (annyang) {
   // Let's define a command.
   var commands = {
