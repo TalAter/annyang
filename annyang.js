@@ -24,6 +24,7 @@
   var lang = 'en-US';
   var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [] };
   var autoRestart;
+  var lastStartedAt = 0;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
 
@@ -72,8 +73,15 @@
 
       recognition.onend     = function() {
         invokeCallbacks(callbacks.end);
+        // annyang will auto restart if it is closed automatically and not by user action.
         if (autoRestart) {
-          root.annyang.start();
+          // make sure never to restart annyang automatically more than once per second
+          var timeSinceLastStart = new Date().getTime()-lastStartedAt;
+          if (timeSinceLastStart < 1000) {
+            setTimeout(root.annyang.start, 1000-timeSinceLastStart);
+          } else {
+            root.annyang.start();
+          }
         }
       };
 
@@ -119,6 +127,7 @@
       } else {
         autoRestart = true;
       }
+      lastStartedAt = new Date().getTime();
       recognition.start();
     },
 
