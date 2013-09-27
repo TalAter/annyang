@@ -54,6 +54,13 @@ module.exports = function(grunt) {
           'sites/geektime.min.js': ['annyang.js', 'sites/geektime.js'],
         }
       }
+    },
+    cssmin: {
+      combine: {
+        files: {
+          'demo/css/main.min.css': ['demo/css/main.css', 'demo/vendor/css/default.css', 'demo/vendor/css/github.css']
+        }
+      }
     }
   });
 
@@ -66,7 +73,10 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "watch" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
 
+  // Load the plugin that provides the "cssmin" task.
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
 
 };
