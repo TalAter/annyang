@@ -1,6 +1,6 @@
 body {
   background: url('../images/palette.png') repeat-x 0 -2px;
-  font: 14px/1.6 helvetica, sans-serif;;
+  font: 14px/1.6 helvetica, sans-serif;
   margin: 0 0;
   padding: 0 0;
   color: #333;
@@ -39,8 +39,11 @@ pre code a, pre code a:visited {
   -webkit-box-shadow: 2px 1px 6px 1px #555;
           box-shadow: 2px 1px 6px 1px #555;
 }
-#section_header p {
+#section_header h2 {
   margin: 5px 0;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
 }
 
 pre code {
