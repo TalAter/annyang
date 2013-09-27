@@ -1,7 +1,7 @@
 *annyang!*
 -----------------------------------------------
 
-A tiny javascript library that lets your users control your site with voice commands.
+A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
 
 annyang has no dependencies, weighs just 2kb, and is free to use and modify under the MIT license.
 
