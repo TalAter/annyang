@@ -3,7 +3,7 @@
 
 A tiny javascript library that lets your users control your site with voice commands.
 
-annyang has no dependencies, weighs less than 1kb, and is free to use and modify under the MIT license.
+annyang has no dependencies, weighs just 2kb, and is free to use and modify under the MIT license.
 
 Demo
 ----
