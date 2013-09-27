@@ -13,6 +13,7 @@
                           root.oSpeechRecognition ||
                           root.SpeechRecognition;
   // Check browser support
+  // This is done as early as possible, to make it as fast as possible for unsupported browsers
   if ( !SpeechRecognition ) {
     root.annyang = null;
     return null;
