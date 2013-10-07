@@ -55,6 +55,18 @@ module.exports = function(grunt) {
         }
       }
     },
+    imagemin: {
+      demoimages: {                       // Target
+        options: {                        // Target options
+        },
+        files: [{
+          expand: true,                   // Enable dynamic expansion
+          cwd: 'demo/images',             // Src matches are relative to this path
+          src: ['*.{png,jpg,gif}'],       // Actual patterns to match
+          dest: 'demo/images'             // Destination path prefix
+        }]
+      },
+    },
     cssmin: {
       combine: {
         files: {
@@ -75,6 +87,9 @@ module.exports = function(grunt) {
 
   // Load the plugin that provides the "cssmin" task.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+
+  // Load the plugin that provides the "imagemin" task.
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
 
   // Default task(s).
   grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
