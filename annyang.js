@@ -77,8 +77,7 @@
         case 'not-allowed':
         case 'service-not-allowed':
           autoRestart = false;
-          var timeSinceLastStart = new Date().getTime()-lastStartedAt;
-          if (timeSinceLastStart < 200) {
+          if (new Date().getTime()-lastStartedAt < 200) {
             invokeCallbacks(callbacks.errorPermissionBlocked);
           } else {
             invokeCallbacks(callbacks.errorPermissionDenied);
