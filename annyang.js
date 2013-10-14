@@ -76,6 +76,7 @@
           break;
         case 'not-allowed':
         case 'service-not-allowed':
+          autoRestart = false;
           invokeCallbacks(callbacks.errorNotAllowed);
           break;
         }
