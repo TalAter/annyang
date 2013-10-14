@@ -122,7 +122,7 @@
 
     start: function(options) {
       options = options || {};
-      if (typeof options.autoRestart !== 'undefined') {
+      if (options.autoRestart !== void 0) {
         autoRestart = !!options.autoRestart;
       } else {
         autoRestart = true;
