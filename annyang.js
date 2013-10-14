@@ -6,12 +6,16 @@
 (function () {
   "use strict";
 
+  // Save a reference to the global object (window in the browser)
   var root = this;
+
+  // Get the SpeechRecognition object, while handling browser prefixes
   var SpeechRecognition = root.webkitSpeechRecognition ||
                           root.mozSpeechRecognition ||
                           root.msSpeechRecognition ||
                           root.oSpeechRecognition ||
                           root.SpeechRecognition;
+
   // Check browser support
   // This is done as early as possible, to make it as fast as possible for unsupported browsers
   if ( !SpeechRecognition ) {
@@ -45,6 +49,7 @@
     return new RegExp('^' + command + '$', 'i');
   };
 
+  // This method receives an array of callbacks to iterate over, and invokes each of them
   var invokeCallbacks = function(callbacks) {
     for (var j = 0, l = callbacks.length; j < l; j++) {
       callbacks[j].apply(this);
@@ -52,6 +57,9 @@
   };
 
   root.annyang = {
+    // Initialize annyang with a list of commands to recognize.
+    // e.g. annyang.init({'hello :name': helloFunction})
+    // annyang understands commands with named variables, splats, and optional words.
     init: function(commands) {
 
       // Abort previous instances of recognition already running
@@ -59,11 +67,13 @@
         recognition.abort();
       }
 
-      // initiate
+      // initiate SpeechRecognition
       recognition = new SpeechRecognition();
 
+      // Set the max number of alternative transcripts to try and match with a command
       recognition.maxAlternatives = 5;
       recognition.continuous = true;
+      // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = lang;
 
       recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
@@ -76,7 +86,9 @@
           break;
         case 'not-allowed':
         case 'service-not-allowed':
+          // if permission to use the mic is denied, turn off auto-restart
           autoRestart = false;
+          // determine if permission was denied by user or automatically.
           if (new Date().getTime()-lastStartedAt < 200) {
             invokeCallbacks(callbacks.errorPermissionBlocked);
           } else {
@@ -90,7 +102,7 @@
         invokeCallbacks(callbacks.end);
         // annyang will auto restart if it is closed automatically and not by user action.
         if (autoRestart) {
-          // make sure never to restart annyang automatically more than once per second
+          // play nicely with the browser, and never restart annyang automatically more than once per second
           var timeSinceLastStart = new Date().getTime()-lastStartedAt;
           if (timeSinceLastStart < 1000) {
             setTimeout(root.annyang.start, 1000-timeSinceLastStart);
@@ -104,12 +116,15 @@
         invokeCallbacks(callbacks.result);
         var results = event.results[event.resultIndex];
         var commandText;
+        // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
+          // the text recognized
           commandText = results[i].transcript.trim();
           if (debugState) {
             root.console.log('Speech recognized: %c'+commandText, debugStyle);
           }
 
+          // try and match recognized text to one of the commands on the list
           for (var j = 0, l = commandsList.length; j < l; j++) {
             var result = commandsList[j].command.exec(commandText);
             if (result) {
@@ -120,6 +135,7 @@
                   root.console.log('with parameters', parameters);
                 }
               }
+              // execute the matched command
               commandsList[j].callback.apply(this, parameters);
               invokeCallbacks(callbacks.resultMatch);
               return true;
@@ -135,6 +151,10 @@
       this.addCommands(commands);
     },
 
+    // Start listening (asking for permission first, if needed).
+    // Call this after you've initialized annyang with commands.
+    // Receives an optional options object:
+    // { autoRestart: true }
     start: function(options) {
       options = options || {};
       if (options.autoRestart !== void 0) {
@@ -146,11 +166,13 @@
       recognition.start();
     },
 
+    // abort the listening session (aka stop)
     abort: function() {
       autoRestart = false;
       recognition.abort();
     },
 
+    // Turn on output of debug messages to the console. Ugly, but super-handy!
     debug: function(newState) {
       if (arguments.length > 0) {
         debugState = !!newState;
@@ -159,6 +181,8 @@
       }
     },
 
+    // Set the language the user will speak in. If not called, defaults to 'en-US'.
+    // e.g. 'fr-FR' (French-France), 'es-CR' (Español-Costa Rica)
     setLanguage: function(language) {
       lang = language;
       if (recognition && recognition.abort) {
@@ -166,6 +190,7 @@
       }
     },
 
+    // Add additional commands that annyang will respond to. Similar in syntax to annyang.init()
     addCommands: function(commands) {
       var cb,
           command;
@@ -186,9 +211,8 @@
       }
     },
 
-    /**
-     * Lets the user add a callback of one of 9 types: start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
-     */
+    // Lets the user add a callback of one of 9 types:
+    // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
     addCallback: function(type, callback) {
       if (callbacks[type]  === void 0) {
         return;
