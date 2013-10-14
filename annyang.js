@@ -52,7 +52,7 @@
   // This method receives an array of callbacks to iterate over, and invokes each of them
   var invokeCallbacks = function(callbacks) {
     for (var j = 0, l = callbacks.length; j < l; j++) {
-      callbacks[j].apply(this);
+      callbacks[j].callback.apply(callbacks[j].context);
     }
   };
 
@@ -213,7 +213,8 @@
 
     // Lets the user add a callback of one of 9 types:
     // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
-    addCallback: function(type, callback) {
+    // Can also optionally receive a context for the callback function as the third argument
+    addCallback: function(type, callback, context) {
       if (callbacks[type]  === void 0) {
         return;
       }
@@ -221,7 +222,7 @@
       if (typeof cb !== 'function') {
         return;
       }
-      callbacks[type].push(cb);
+      callbacks[type].push({callback: cb, context: context || this});
     }
   };
 
