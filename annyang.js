@@ -22,7 +22,7 @@
   var commandsList;
   var recognition;
   var lang = 'en-US';
-  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorNotAllowed: [] };
+  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
   var autoRestart;
   var lastStartedAt = 0;
   var debugState = false;
@@ -77,7 +77,12 @@
         case 'not-allowed':
         case 'service-not-allowed':
           autoRestart = false;
-          invokeCallbacks(callbacks.errorNotAllowed);
+          var timeSinceLastStart = new Date().getTime()-lastStartedAt;
+          if (timeSinceLastStart < 200) {
+            invokeCallbacks(callbacks.errorPermissionBlocked);
+          } else {
+            invokeCallbacks(callbacks.errorPermissionDenied);
+          }
           break;
         }
       };
@@ -183,7 +188,7 @@
     },
 
     /**
-     * Lets the user add a callback of one of 8 types: start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorNotAllowed
+     * Lets the user add a callback of one of 9 types: start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
      */
     addCallback: function(type, callback) {
       if (callbacks[type]  === void 0) {
