@@ -22,7 +22,7 @@
   var commandsList;
   var recognition;
   var lang = 'en-US';
-  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [] };
+  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorNotAllowed: [] };
   var autoRestart;
   var lastStartedAt = 0;
   var debugState = false;
@@ -68,7 +68,18 @@
 
       recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
 
-      recognition.onerror   = function()      { invokeCallbacks(callbacks.error); };
+      recognition.onerror   = function(event) {
+        invokeCallbacks(callbacks.error);
+        switch (event.error) {
+        case 'network':
+          invokeCallbacks(callbacks.errorNetwork);
+          break;
+        case 'not-allowed':
+        case 'service-not-allowed':
+          invokeCallbacks(callbacks.errorNotAllowed);
+          break;
+        }
+      };
 
       recognition.onend     = function() {
         invokeCallbacks(callbacks.end);
@@ -171,7 +182,7 @@
     },
 
     /**
-     * Lets the user add a callback of one of 6 types: start, error, end, result, resultMatch, resultNoMatch
+     * Lets the user add a callback of one of 8 types: start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorNotAllowed
      */
     addCallback: function(type, callback) {
       if (callbacks[type]  === void 0) {
