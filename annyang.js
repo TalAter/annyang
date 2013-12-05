@@ -211,6 +211,33 @@
       }
     },
 
+    // Remove existing commands.  Called with a single phrase or an array of phrases
+    removeCommands: function(commands) {
+      var toRemove,
+          newCommandsList = [];
+
+      // convert to an array if necessary
+      if (typeof commands === 'string' ) {
+        commands = [commands];
+      }
+
+      for (var i = 0; i<commandsList.length; i++) {
+        toRemove = false;
+
+        for (var j = 0; j<commands.length; j++) {
+          if (commandsList[i].originalPhrase === commands[j]) {
+            toRemove = true;
+          }
+        }
+
+        if (!toRemove) {
+          newCommandsList.push(commandsList[i]);
+        }
+      }
+
+      commandsList = newCommandsList;
+    },
+
     // Lets the user add a callback of one of 9 types:
     // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
     // Can also optionally receive a context for the callback function as the third argument
