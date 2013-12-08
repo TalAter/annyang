@@ -211,31 +211,17 @@
       }
     },
 
-    // Remove existing commands.  Called with a single phrase or an array of phrases
-    removeCommands: function(commands) {
-      var toRemove,
-          newCommandsList = [];
-
-      // convert to an array if necessary
-      if (typeof commands === 'string' ) {
-        commands = [commands];
-      }
-
-      for (var i = 0; i<commandsList.length; i++) {
-        toRemove = false;
-
-        for (var j = 0; j<commands.length; j++) {
-          if (commandsList[i].originalPhrase === commands[j]) {
-            toRemove = true;
+    // Remove existing commands. Called with a single phrase or an array of phrases
+    removeCommands: function(commandsToRemove) {
+      commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
+      commandsList = commandsList.filter(function(command) {
+        for (var i = 0; i<commandsToRemove.length; i++) {
+          if (commandsToRemove[i] === command.originalPhrase) {
+            return false;
           }
         }
-
-        if (!toRemove) {
-          newCommandsList.push(commandsList[i]);
-        }
-      }
-
-      commandsList = newCommandsList;
+        return true;
+      });
     },
 
     // Lets the user add a callback of one of 9 types:
