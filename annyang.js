@@ -51,9 +51,9 @@
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
   var invokeCallbacks = function(callbacks) {
-    for (var j = 0, l = callbacks.length; j < l; j++) {
-      callbacks[j].callback.apply(callbacks[j].context);
-    }
+    callbacks.forEach(function(callback) {
+      callback.callback.apply(callback.context);
+    });
   };
 
   root.annyang = {
