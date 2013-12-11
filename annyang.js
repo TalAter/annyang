@@ -11,11 +11,11 @@
 
   // Get the SpeechRecognition object, while handling browser prefixes
   var SpeechRecognition = root.SpeechRecognition ||
-                          root.oSpeechRecognition ||
-                          root.msSpeechRecognition ||
+                          root.webkitSpeechRecognition ||
                           root.mozSpeechRecognition ||
-                          root.webkitSpeechRecognition;
-                          
+                          root.msSpeechRecognition ||
+                          root.oSpeechRecognition;
+
   // Check browser support
   // This is done as early as possible, to make it as fast as possible for unsupported browsers
   if (!SpeechRecognition) {
