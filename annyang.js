@@ -3,7 +3,7 @@
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
-(function () {
+(function (undefined) {
   "use strict";
 
   // Save a reference to the global object (window in the browser)
@@ -157,7 +157,7 @@
     // { autoRestart: true }
     start: function(options) {
       options = options || {};
-      if (options.autoRestart !== void 0) {
+      if (options.autoRestart !== undefined) {
         autoRestart = !!options.autoRestart;
       } else {
         autoRestart = true;
@@ -228,7 +228,7 @@
     // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
     // Can also optionally receive a context for the callback function as the third argument
     addCallback: function(type, callback, context) {
-      if (callbacks[type]  === void 0) {
+      if (callbacks[type]  === undefined) {
         return;
       }
       var cb = root[callback] || callback;
