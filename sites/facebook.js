@@ -82,7 +82,7 @@
       }
     };
 
-    annyang.init({
+    annyang.addCommands({
       'back':                 goBack,
       'go back':              goBack,
       'go home':              stream,

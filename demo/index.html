@@ -8,7 +8,7 @@
   <meta property="og:title" content="annyang! Easily add speech recognition to your site"/>
   <meta property="og:url" content="https://www.talater.com/annyang/"/>
   <meta property="og:site_name" content="annyang"/>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.0.0/annyang.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
   "use strict";
@@ -74,8 +74,8 @@
     // OPTIONAL: activate debug mode for detailed logging in the console
     annyang.debug();
 
-    // Initialize annyang
-    annyang.init(commands);
+    // Add voice commands to respond to
+    annyang.addCommands(commands);
 
     // OPTIONAL: Set a language for speech recognition (defaults to English)
     annyang.setLanguage('en');
@@ -126,7 +126,7 @@
   <section id="section_code_sample_1">
     <p><em>How did you do that?</em></p>
     <p>Simple. Here is all the code needed to achieve that:</p>
-    <pre><code>&lt;script src="<a href="//cdnjs.cloudflare.com/ajax/libs/annyang/1.0.0/annyang.min.js">//cdnjs.cloudflare.com/ajax/libs/annyang/1.0.0/annyang.min.js</a>"&gt;&lt;/script&gt;
+    <pre><code>&lt;script src="<a href="//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js">//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js</a>"&gt;&lt;/script&gt;
 &lt;script&gt;
 if (annyang) {
   // Let's define our first command. First the text we expect, and then the function it should call
@@ -136,8 +136,8 @@ if (annyang) {
     }
   };
 
-  // Initialize annyang with our commands
-  annyang.init(commands);
+  // Add our commands to annyang
+  annyang.addCommands(commands);
 
   // Start listening. You can call this here, or attach this call to an event, button, etc.
   annyang.start();

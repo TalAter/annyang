@@ -70,7 +70,7 @@
       return false;
     };
 
-    annyang.init({
+    annyang.addCommands({
       '(דף) (ה)בית':             gotoHome,
       '(דף) הבא':             nextPage,
       '(דף) (ה)קודם':             prevPage,

@@ -11,9 +11,9 @@ Demo
 
 Usage
 -----
-It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/1.0.0/annyang.min.js) to your document, and defining the commands you want.
+It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js) to your document, and defining the commands you want.
 ````html
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.0.0/annyang.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js"></script>
 <script>
 if (annyang) {
   // Let's define a command.
@@ -21,8 +21,8 @@ if (annyang) {
     'show tps report': function() { $('#tpsreport').show(); }
   };
 
-  // Initialize annyang with our commands
-  annyang.init(commands);
+  // Add our commands to annyang
+  annyang.addCommands(commands);
 
   // Start listening.
   annyang.start();
