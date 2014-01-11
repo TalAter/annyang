@@ -56,9 +56,13 @@
   };
 
   var initIfNeeded = function() {
-    if (recognition === undefined) {
+    if (isInitialized()) {
       root.annyang.init({}, false);
     }
+  };
+
+  var isInitialized = function() {
+    return recognition === undefined;
   };
 
   root.annyang = {
@@ -185,9 +189,10 @@
 
     // abort the listening session (aka stop)
     abort: function() {
-      initIfNeeded();
       autoRestart = false;
-      recognition.abort();
+      if (isInitialized) {
+        recognition.abort();
+      }
     },
 
     // Turn on output of debug messages to the console. Ugly, but super-handy!
