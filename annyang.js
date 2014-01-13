@@ -56,13 +56,13 @@
   };
 
   var initIfNeeded = function() {
-    if (isInitialized()) {
+    if (!isInitialized()) {
       root.annyang.init({}, false);
     }
   };
 
   var isInitialized = function() {
-    return recognition === undefined;
+    return recognition !== undefined;
   };
 
   root.annyang = {
