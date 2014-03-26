@@ -211,6 +211,13 @@
       recognition.lang = language;
     },
 
+    // Use this with start({autoRestart: false}) if you want Annyang
+    // to only execute one command then stop
+    setNonContinuous: function() {
+      initIfNeeded();
+      recognition.continuous = false;
+    },
+
     // Add additional commands that annyang will respond to. Similar in syntax to annyang.init()
     addCommands: function(commands) {
       var cb,
