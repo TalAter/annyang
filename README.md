@@ -36,6 +36,23 @@ Author
 ------
 Tal Ater: [@TalAter](https://twitter.com/TalAter)
 
+Developing
+-------
+
+Prerequisities: node.js
+
+First, install dependencies:
+
+    cd <project_folder>
+    npm install -g grunt-cli
+    npm install
+
+Then run:
+
+    grunt dev
+
+Point your browser to `https://localhost:8443/` to see the demo page. Since it's using self-signed certificate, you might need to *"Proceed Anyway"*.
+
 License
 -------
 Licensed under [MIT](https://github.com/TalAter/annyang/blob/master/LICENSE).
