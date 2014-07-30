@@ -73,6 +73,16 @@ module.exports = function(grunt) {
           'demo/css/main.min.css': ['demo/css/main.css', 'demo/vendor/css/default.css', 'demo/vendor/css/github.css']
         }
       }
+    },
+    connect: {
+      server: {
+        options: {
+          protocol: 'https',
+          port: 8443,
+          hostname: '*',
+          base: 'demo'
+        }
+      }
     }
   });
 
@@ -91,7 +101,12 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "imagemin" task.
   grunt.loadNpmTasks('grunt-contrib-imagemin');
 
+  // Load the plugin that provides the "connect" task.
+  grunt.loadNpmTasks('grunt-contrib-connect');
+
   // Default task(s).
   grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
+
+  grunt.registerTask('dev', ['default', 'connect', 'watch']);
 
 };
