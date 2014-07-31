@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           protocol: 'https',
           port: 8443,
           hostname: '*',
-          base: 'demo'
+          base: '.'
         }
       }
     }

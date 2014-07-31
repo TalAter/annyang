@@ -51,7 +51,7 @@ Then run:
 
     grunt dev
 
-Point your browser to `https://localhost:8443/` to see the demo page. Since it's using self-signed certificate, you might need to *"Proceed Anyway"*.
+Point your browser to `https://localhost:8443/demo/` to see the demo page. Since it's using self-signed certificate, you might need to *"Proceed Anyway"*.
 
 License
 -------
