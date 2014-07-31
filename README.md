@@ -32,6 +32,18 @@ if (annyang) {
 
 **For more details, [visit the demo and docs site](https://www.talater.com/annyang).**
 
+(annyang) would like to use your microphone
+----------
+![](http://i.imgur.com/96AcBjh.png)
+
+SpeechRecognition API behaves differently based on the protocol used:
+
+- `http://`: Asks for permission repeatedly on every page load.
+
+- `https://`: Asks for permission once and remembers the choice.
+
+- `file://`: SpeechRecognition doesn't work on file protocol. Use a web server with http or https.
+
 Author
 ------
 Tal Ater: [@TalAter](https://twitter.com/TalAter)
