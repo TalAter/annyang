@@ -40,7 +40,7 @@
   var commandToRegExp = function(command) {
     // pass-through regexp commands undamaged
     if (Object.prototype.toString.call(command) === '[object RegExp]') {
-        return command;
+      return command;
     }
     command = command.replace(escapeRegExp, '\\$&')
                   .replace(optionalParam, '(?:$1)?')
@@ -214,19 +214,22 @@
       initIfNeeded();
       recognition.lang = language;
     },
-    // adds a singular command
-    // allows use of Regex-based commands
-    // @param phrase_or_regexp [String, RegExp]
-    // @param cb [Function]
-    addCommand: function(phrase_or_regexp, cb) {
-       initIfNeeded();
 
-       commandsList.push({
-           command: commandToRegExp(phrase_or_regexp),
-           callback: cb,
-           originalPhrase: phrase_or_regexp
-       });
-    },
+    /**
+     * Adds a singular command
+     * Allows use of Regex-based commands
+     * @param {String|RegExp} phrase
+     * @param {Function} cb
+     */
+    addCommand: function(phrase, cb) {
+        initIfNeeded();
+
+        commandsList.push({
+          command: commandToRegExp(phrase),
+          callback: cb,
+          originalPhrase: phrase
+        });
+      },
 
     // Add additional commands that annyang will respond to. Similar in syntax to annyang.init()
     addCommands: function(commands) {
