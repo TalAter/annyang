@@ -32,13 +32,8 @@ if (annyang) {
 
 **For more details, [visit the demo and docs site](https://www.talater.com/annyang).**
 
-Author
-------
-Tal Ater: [@TalAter](https://twitter.com/TalAter)
-
 Developing
--------
-
+----------
 Prerequisities: node.js
 
 First, install dependencies:
@@ -52,6 +47,10 @@ Then run:
     grunt dev
 
 Point your browser to `https://localhost:8443/demo/` to see the demo page. Since it's using self-signed certificate, you might need to *"Proceed Anyway"*.
+
+Author
+------
+Tal Ater: [@TalAter](https://twitter.com/TalAter)
 
 License
 -------
