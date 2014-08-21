@@ -32,6 +32,18 @@ if (annyang) {
 
 **For more details, [visit the demo and docs site](https://www.talater.com/annyang).**
 
+(annyang) would like to use your microphone
+-------------------------------------------
+![](http://i.imgur.com/Z3zooUC.png)
+
+Chrome's implementation of SpeechRecognition behaves differently based on the protocol used:
+
+- `https://` Asks for permission once and remembers the choice.
+
+- `http://`  Asks for permission repeatedly **on every page load**.
+
+For a great user experience, don't compromise on anything less than HTTPS (an SSL certificate can be as cheap as $5).
+
 Developing
 ----------
 Prerequisities: node.js
