@@ -74,6 +74,13 @@ module.exports = function(grunt) {
         }
       }
     },
+    markdox: {
+      target: {
+        files: [
+          {src: 'annyang.js', dest: 'docs/README.md'}
+        ]
+      }
+    },
     connect: {
       server: {
         options: {
@@ -105,8 +112,11 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "connect" task.
   grunt.loadNpmTasks('grunt-contrib-connect');
 
+  // Load the plugin that provides the "markdox" task.
+  grunt.loadNpmTasks('grunt-markdox');
+
   // Default task(s).
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'markdox']);
 
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
 
