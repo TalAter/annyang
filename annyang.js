@@ -8,6 +8,12 @@
   "use strict";
 
   /**
+   * # Quick Tutorial, Intro and Demos
+   *
+   * The quickest way to get started, is by visiting the [annyang homepage](https://www.talater.com/annyang/).
+   *
+   * For a more in-depth look at annyang, read on.
+   *
    * # API Reference
    */
 
@@ -222,7 +228,7 @@
     },
 
     /**
-     * Abort. Stop listening.
+     * Stop listening.
      *
      * @method abort
      */
@@ -264,7 +270,7 @@
      *
      * ### Examples:
      *
-     *     var commands = {'hello :name': helloFunction, 'howdy *people': helloFunction};
+     *     var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
      *     var commands2 = {'hi': helloFunction};
      *
      *     annyang.addCommands(commands);
@@ -309,6 +315,7 @@
      *     // Remove all existing commands
      *     annyang.removeCommands();
      *
+     *     // Add some commands
      *     annyang.addCommands(commands);
      *
      *     // Don't respond to hello
@@ -340,9 +347,9 @@
     //
     //
     /**
-     * Add a callback to be called in case one of the following events happens:
+     * Add a callback function to be called in case one of the following events happens:
      *
-     * start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
+     * start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied.
      *
      * ### Examples:
      *
@@ -418,7 +425,7 @@
  *
  * ## Languages
  *
- * While there isn't an official list of supported languages (cultures? locales?), here is a list is based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
+ * While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
  *
  * * Afrikaans `af`
  * * Basque `eu`
