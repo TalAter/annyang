@@ -33,7 +33,7 @@ if (annyang) {
 }
 </script>
 ````
-**Read the full [API Docs](https://github.com/TalAter/annyang/blob/master/docs/README.md), or check out some [live speech recognition demos](https://www.talater.com/annyang).**
+**Check out some [live speech recognition demos and advanced samples](https://www.talater.com/annyang), then read the full [API Docs](https://github.com/TalAter/annyang/blob/master/docs/README.md).**
 
 
 (annyang) would like to use your microphone
