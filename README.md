@@ -5,12 +5,16 @@ A tiny javascript SpeechRecognition library that lets your users control your si
 
 annyang has no dependencies, weighs just 2kb, and is free to use and modify under the MIT license.
 
-Demo
-----
+Demo & Tutorial
+---------------
 [Play with some live speech recognition demos](https://www.talater.com/annyang)
 
-Usage
------
+Technical Documentation and API
+-------------------------------
+[Docs and full API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
+
+Hello World
+-----------
 It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js) to your document, and defining the commands you want.
 ````html
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js"></script>
@@ -18,7 +22,7 @@ It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/an
 if (annyang) {
   // Let's define a command.
   var commands = {
-    'show tps report': function() { $('#tpsreport').show(); }
+    'hello': function() { alert('Hello world!'); }
   };
 
   // Add our commands to annyang
