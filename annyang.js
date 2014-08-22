@@ -6,56 +6,10 @@
 
 (function (undefined) {
   "use strict";
-  /**
-   * # Good to Know
-   *
-   * ## Commands Object
-   *
-   * Both the [init()]() and addCommands() methods receive a `commands` object.
-   *
-   * annyang understands commands with `named variables`, `splats`, and `optional words`.
-   *
-   * * Use `named variables` for one word arguments in your command.
-   * * Use `splats` to capture multi-word text at the end of your command (greedy).
-   * * Use `optional words` or phrases to define a part of the command as optional.
-   *
-   * ### Examples:
-   *
-   *     <script>
-   *     var commands = {
-   *       // annyang will capture anything after a splat (*) and pass it to the function.
-   *       // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
-   *       'show me *term': showFlickr,
-   *
-   *       // A named variable is a one word variable, that can fit anywhere in your command.
-   *       // e.g. saying "calculate October stats" will call calculateStats('October');
-   *       'calculate :month stats': calculateStats,
-   *
-   *       // By defining a part of the following command as optional, annyang will respond
-   *       // to both: "say hello to my little friend" as well as "say hello friend"
-   *       'say hello (to my little) friend': greeting
-   *     };
-   *
-   *     var showFlickr = function(term) {
-   *       var url = 'http://api.flickr.com/services/rest/?tags='+tag;
-   *       $.getJSON(url);
-   *     }
-   *
-   *     var calculateStats = function(month) {
-   *       $('#stats').text('Statistics for '+month);
-   *     }
-   *
-   *     var greeting = function() {
-   *       $('#greeting').text('Hello!');
-   *     }
-   *     </script>
-   *
-   */
 
   /**
    * # API Reference
    */
-
 
   // Save a reference to the global object (window in the browser)
   var root = this;
@@ -117,6 +71,7 @@
   };
 
   root.annyang = {
+
     /**
      * Initialize annyang with a list of commands to recognize.
      *
@@ -240,10 +195,20 @@
       }
     },
 
-    // Start listening (asking for permission first, if needed).
-    // Call this after you've initialized annyang with commands.
-    // Receives an optional options object:
-    // { autoRestart: true }
+    /**
+     * Start listening.
+     * It's a good idea to call this after adding some commands first, but not mandatory.
+     *
+     * Receives an optional options object which currently only supports one option:
+     * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     *
+     * ### Examples:
+     *     // Start listening, but don't restart automatically
+     *     annyang.start({ autoRestart: false });
+     *
+     * @param {Object} [options] - Optional options.
+     * @method start
+     */
     start: function(options) {
       initIfNeeded();
       options = options || {};
@@ -256,7 +221,11 @@
       recognition.start();
     },
 
-    // abort the listening session (aka stop)
+    /**
+     * Abort. Stop listening.
+     *
+     * @method abort
+     */
     abort: function() {
       autoRestart = false;
       if (isInitialized) {
@@ -264,7 +233,12 @@
       }
     },
 
-    // Turn on output of debug messages to the console. Ugly, but super-handy!
+    /**
+     * Turn on output of debug messages to the console. Ugly, but super-handy!
+     *
+     * @param {Boolean} [newState=true] - Turn on/off debug messages
+     * @method debug
+     */
     debug: function(newState) {
       if (arguments.length > 0) {
         debugState = !!newState;
@@ -273,14 +247,35 @@
       }
     },
 
-    // Set the language the user will speak in. If not called, defaults to 'en-US'.
-    // e.g. 'fr-FR' (French-France), 'es-CR' (Español-Costa Rica)
+    /**
+     * Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
+     *
+     * @param {String} language - The language (locale)
+     * @method setLanguage
+     * @see [Languages](#languages)
+     */
     setLanguage: function(language) {
       initIfNeeded();
       recognition.lang = language;
     },
 
-    // Add additional commands that annyang will respond to. Similar in syntax to annyang.init()
+    /**
+     * Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
+     *
+     * ### Examples:
+     *
+     *     var commands = {'hello :name': helloFunction, 'howdy *people': helloFunction};
+     *     var commands2 = {'hi': helloFunction};
+     *
+     *     annyang.addCommands(commands);
+     *     annyang.addCommands(commands2);
+     *     // annyang will now listen to all three commands
+     *
+     *
+     * @param {Object} commands - Commands that annyang should listen to
+     * @method addCommands
+     * @see [Commands Object](#commands-object)
+     */
     addCommands: function(commands) {
       var cb,
           command;
@@ -304,7 +299,27 @@
       }
     },
 
-    // Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
+    /**
+     * Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
+     *
+     * ### Examples:
+     *
+     *     var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+     *
+     *     // Remove all existing commands
+     *     annyang.removeCommands();
+     *
+     *     annyang.addCommands(commands);
+     *
+     *     // Don't respond to hello
+     *     annyang.removeCommands('hello');
+     *
+     *     // Don't respond to howdy or hi
+     *     annyang.removeCommands(['howdy', 'hi']);
+     *
+     * @param {String|Array|Undefined} [commandsToRemove] - Commands to remove
+     * @method removeCommands
+     */
     removeCommands: function(commandsToRemove) {
       if (commandsToRemove === undefined) {
         commandsList = [];
@@ -322,8 +337,27 @@
     },
 
     // Lets the user add a callback of one of 9 types:
-    // start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
-    // Can also optionally receive a context for the callback function as the third argument
+    //
+    //
+    /**
+     * Add a callback to be called in case one of the following events happens:
+     *
+     * start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied
+     *
+     * ### Examples:
+     *
+     *     annyang.addCallback('error', function () {
+     *       $('.myErrorText').text('There was an error!');
+     *     });
+     *
+     *     // pass local context to a global function called notConnected
+     *     annyang.addCallback('errorNetwork', notConnected, this);
+     *
+     * @param {String} type - Name of event that will trigger this callback
+     * @param {Function} callback - The function to call when event is triggered
+     * @param {Object} [context] - Optional context for the callback function
+     * @method addCallback
+     */
     addCallback: function(type, callback, context) {
       if (callbacks[type]  === undefined) {
         return;
@@ -337,3 +371,131 @@
   };
 
 }).call(this);
+
+/**
+ * # Good to Know
+ *
+ * ## Commands Object
+ *
+ * Both the [init()]() and addCommands() methods receive a `commands` object.
+ *
+ * annyang understands commands with `named variables`, `splats`, and `optional words`.
+ *
+ * * Use `named variables` for one word arguments in your command.
+ * * Use `splats` to capture multi-word text at the end of your command (greedy).
+ * * Use `optional words` or phrases to define a part of the command as optional.
+ *
+ * ### Examples:
+ *
+ *     <script>
+ *     var commands = {
+ *       // annyang will capture anything after a splat (*) and pass it to the function.
+ *       // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
+ *       'show me *term': showFlickr,
+ *
+ *       // A named variable is a one word variable, that can fit anywhere in your command.
+ *       // e.g. saying "calculate October stats" will call calculateStats('October');
+ *       'calculate :month stats': calculateStats,
+ *
+ *       // By defining a part of the following command as optional, annyang will respond
+ *       // to both: "say hello to my little friend" as well as "say hello friend"
+ *       'say hello (to my little) friend': greeting
+ *     };
+ *
+ *     var showFlickr = function(term) {
+ *       var url = 'http://api.flickr.com/services/rest/?tags='+tag;
+ *       $.getJSON(url);
+ *     }
+ *
+ *     var calculateStats = function(month) {
+ *       $('#stats').text('Statistics for '+month);
+ *     }
+ *
+ *     var greeting = function() {
+ *       $('#greeting').text('Hello!');
+ *     }
+ *     </script>
+ *
+ * ## Languages
+ *
+ * While there isn't an official list of supported languages (cultures? locales?), here is a list is based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
+ *
+ * * Afrikaans `af`
+ * * Basque `eu`
+ * * Bulgarian `bg`
+ * * Catalan `ca`
+ * * Arabic (Egypt) `ar-EG`
+ * * Arabic (Jordan) `ar-JO`
+ * * Arabic (Kuwait) `ar-KW`
+ * * Arabic (Lebanon) `ar-LB`
+ * * Arabic (Qatar) `ar-QA`
+ * * Arabic (UAE) `ar-AE`
+ * * Arabic (Morocco) `ar-MA`
+ * * Arabic (Iraq) `ar-IQ`
+ * * Arabic (Algeria) `ar-DZ`
+ * * Arabic (Bahrain) `ar-BH`
+ * * Arabic (Lybia) `ar-LY`
+ * * Arabic (Oman) `ar-OM`
+ * * Arabic (Saudi Arabia) `ar-SA`
+ * * Arabic (Tunisia) `ar-TN`
+ * * Arabic (Yemen) `ar-YE`
+ * * Czech `cs`
+ * * Dutch `nl-NL`
+ * * English (Australia) `en-AU`
+ * * English (Canada) `en-CA`
+ * * English (India) `en-IN`
+ * * English (New Zealand) `en-NZ`
+ * * English (South Africa) `en-ZA`
+ * * English(UK) `en-GB`
+ * * English(US) `en-US`
+ * * Finnish `fi`
+ * * French `fr-FR`
+ * * Galician `gl`
+ * * German `de-DE`
+ * * Hebrew `he`
+ * * Hungarian `hu`
+ * * Icelandic `is`
+ * * Italian `it-IT`
+ * * Indonesian `id`
+ * * Japanese `ja`
+ * * Korean `ko`
+ * * Latin `la`
+ * * Mandarin Chinese `zh-CN`
+ * * Traditional Taiwan `zh-TW`
+ * * Simplified China zh-CN `?`
+ * * Simplified Hong Kong `zh-HK`
+ * * Yue Chinese (Traditional Hong Kong) `zh-yue`
+ * * Malaysian `ms-MY`
+ * * Norwegian `no-NO`
+ * * Polish `pl`
+ * * Pig Latin `xx-piglatin`
+ * * Portuguese `pt-PT`
+ * * Portuguese (Brasil) `pt-BR`
+ * * Romanian `ro-RO`
+ * * Russian `ru`
+ * * Serbian `sr-SP`
+ * * Slovak `sk`
+ * * Spanish (Argentina) `es-AR`
+ * * Spanish (Bolivia) `es-BO`
+ * * Spanish (Chile) `es-CL`
+ * * Spanish (Colombia) `es-CO`
+ * * Spanish (Costa Rica) `es-CR`
+ * * Spanish (Dominican Republic) `es-DO`
+ * * Spanish (Ecuador) `es-EC`
+ * * Spanish (El Salvador) `es-SV`
+ * * Spanish (Guatemala) `es-GT`
+ * * Spanish (Honduras) `es-HN`
+ * * Spanish (Mexico) `es-MX`
+ * * Spanish (Nicaragua) `es-NI`
+ * * Spanish (Panama) `es-PA`
+ * * Spanish (Paraguay) `es-PY`
+ * * Spanish (Peru) `es-PE`
+ * * Spanish (Puerto Rico) `es-PR`
+ * * Spanish (Spain) `es-ES`
+ * * Spanish (US) `es-US`
+ * * Spanish (Uruguay) `es-UY`
+ * * Spanish (Venezuela) `es-VE`
+ * * Swedish `sv-SE`
+ * * Turkish `tr`
+ * * Zulu `zu`
+ */
