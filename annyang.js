@@ -118,7 +118,11 @@
 
       // Set the max number of alternative transcripts to try and match with a command
       recognition.maxAlternatives = 5;
-      recognition.continuous = true;
+
+      // In HTTPS, turn off continuous mode for faster results.
+      // In HTTP,  turn on  continuous mode for much slower results, but no repeating security notices
+      recognition.continuous = root.location.protocol === 'http:';
+
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
 
