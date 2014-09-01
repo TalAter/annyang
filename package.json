@@ -8,6 +8,14 @@
     "type": "git",
     "url": "https://github.com/TalAter/annyang.git"
   },
+  "autoupdate": {
+    "source": "git",
+    "target": "git://github.com/TalAter/annyang.git",
+    "basePath": "",
+    "files": [
+      "annyang.min.js"
+    ]
+  },
   "keywords": [
     "annyang",
     "annyang.js",
