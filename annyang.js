@@ -347,9 +347,6 @@
       });
     },
 
-    // Lets the user add a callback of one of 9 types:
-    //
-    //
     /**
      * Add a callback function to be called in case one of the following events happens:
      *
