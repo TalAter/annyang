@@ -28,7 +28,7 @@
     "grunt-contrib-cssmin": "^0.10.0",
     "grunt-contrib-imagemin": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-uglify": "^0.6.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-markdox": "^1.2.1"
   }
