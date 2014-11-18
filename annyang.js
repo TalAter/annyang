@@ -230,8 +230,6 @@
       }
       if (options.forceContinuous !== undefined) {
         forceContinuous = !!options.forceContinuous;
-      } else {
-        forceContinuous = false;
       }
       lastStartedAt = new Date().getTime();
       recognition.start();
