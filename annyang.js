@@ -38,6 +38,7 @@
   var recognition;
   var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
   var autoRestart;
+  var forceContinuous;
   var lastStartedAt = 0;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
@@ -121,7 +122,7 @@
 
       // In HTTPS, turn off continuous mode for faster results.
       // In HTTP,  turn on  continuous mode for much slower results, but no repeating security notices
-      recognition.continuous = root.location.protocol === 'http:';
+      recognition.continuous = forceContinuous || root.location.protocol === 'http:';
 
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
@@ -226,6 +227,11 @@
         autoRestart = !!options.autoRestart;
       } else {
         autoRestart = true;
+      }
+      if (options.forceContinuous !== undefined) {
+        forceContinuous = !!options.forceContinuous;
+      } else {
+        forceContinuous = false;
       }
       lastStartedAt = new Date().getTime();
       recognition.start();
