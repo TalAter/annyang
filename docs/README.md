@@ -30,7 +30,7 @@ As of v1.1.0 it is no longer required to call init(). Just start() listening whe
 
 See: [Commands Object](#commands-object)
 
-### Params: 
+### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
 * **Boolean** *[resetCommands=true]* - Remove all commands before initializing?
@@ -47,7 +47,7 @@ Receives an optional options object which currently only supports one option:
     // Start listening, but don't restart automatically
     annyang.start({ autoRestart: false });
 
-### Params: 
+### Params:
 
 * **Object** *[options]* - Optional options.
 
@@ -59,7 +59,7 @@ Stop listening.
 
 Turn on output of debug messages to the console. Ugly, but super-handy!
 
-### Params: 
+### Params:
 
 * **Boolean** *[newState=true]* - Turn on/off debug messages
 
@@ -69,7 +69,7 @@ Set the language the user will speak in. If this method is not called, defaults 
 
 See: [Languages](#languages)
 
-### Params: 
+### Params:
 
 * **String** *language* - The language (locale)
 
@@ -88,7 +88,7 @@ Add commands that annyang will respond to. Similar in syntax to init(), but does
 
 See: [Commands Object](#commands-object)
 
-### Params: 
+### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
 
@@ -112,7 +112,7 @@ Remove existing commands. Called with a single phrase, array of phrases, or meth
     // Don't respond to howdy or hi
     annyang.removeCommands(['howdy', 'hi']);
 
-### Params: 
+### Params:
 
 * **String|Array|Undefined** *[commandsToRemove]* - Commands to remove
 
@@ -131,11 +131,19 @@ start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermis
     // pass local context to a global function called notConnected
     annyang.addCallback('errorNetwork', notConnected, this);
 
-### Params: 
+### Params:
 
 * **String** *type* - Name of event that will trigger this callback
 * **Function** *callback* - The function to call when event is triggered
 * **Object** *[context]* - Optional context for the callback function
+
+## removeAllCallbacks()
+
+This method removes all of the callbacks assigned to aanyang.
+
+### Examples:
+
+    annyang.removeAllCallbacks();
 
 # Good to Know
 

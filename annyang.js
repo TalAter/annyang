@@ -1,5 +1,5 @@
 //! annyang
-//! version : 1.4.0
+//! version : 1.4.1
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
@@ -375,7 +375,22 @@
         return;
       }
       callbacks[type].push({callback: cb, context: context || this});
+    },
+
+    /**
+     * This method removes all of the callbacks assigned to aanyang.
+     *
+     * ### Examples:
+     *
+     *     annyang.removeAllCallbacks();
+     *
+     * @method removeAllCallbacks
+     */
+    removeAllCallbacks: function() {
+      // reset the callback variable back to its native state
+      callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
     }
+
   };
 
 }).call(this);
