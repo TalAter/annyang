@@ -209,12 +209,15 @@
      * Start listening.
      * It's a good idea to call this after adding some commands first, but not mandatory.
      *
-     * Receives an optional options object which currently only supports one option:
+     * Receives an optional options object which supports the following options:
      * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     * - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
      *
      * ### Examples:
-     *     // Start listening, but don't restart automatically
+     *     // Start listening, don't restart automatically
      *     annyang.start({ autoRestart: false });
+     *     // Start listening, don't restart automatically, stop recognition after first phrase recognized
+     *     annyang.start({ autoRestart: false, continuous: false });
      *
      * @param {Object} [options] - Optional options.
      * @method start
