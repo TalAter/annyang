@@ -139,7 +139,7 @@ start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermis
 
 ## removeAllCallbacks()
 
-This method removes all of the callbacks assigned to aanyang.
+This method removes all of the callbacks assigned to annyang.
 
 ### Examples:
 

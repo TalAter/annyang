@@ -378,7 +378,7 @@
     },
 
     /**
-     * This method removes all of the callbacks assigned to aanyang.
+     * This method removes all of the callbacks assigned to annyang.
      *
      * ### Examples:
      *
