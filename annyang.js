@@ -41,6 +41,7 @@
   var lastStartedAt = 0;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
+  var pauseListening = false;
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
@@ -163,6 +164,10 @@
       };
 
       recognition.onresult  = function(event) {
+        if(pauseListening) {
+          return;
+        }
+        
         invokeCallbacks(callbacks.result);
         var results = event.results[event.resultIndex];
         var commandText;
@@ -262,6 +267,24 @@
       } else {
         debugState = true;
       }
+    },
+
+    /**
+     * Pause listening and prevents command callback execution when a result matches.
+     *
+     * @method pause
+     */
+    pause: function() {
+      pauseListening = true;
+    },
+
+    /**
+     * Resumes listening and restores command callback execution when a result matches.
+     *
+     * @method resume
+     */
+    resume: function() {
+      pauseListening = false;
     },
 
     /**
