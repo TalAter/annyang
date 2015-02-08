@@ -243,7 +243,13 @@
       }
 
       lastStartedAt = new Date().getTime();
-      recognition.start();
+      try {
+        recognition.start();
+      } catch(e) {
+        if (debugState) {
+          root.console.log(e.message);
+        }
+      }
     },
 
     /**
