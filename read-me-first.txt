@@ -2,6 +2,11 @@ How to install
 
 First make a backup of the index.php located in your mediawiki folder "Not the index.php located in your voice folder".
 
+next open the index.php file with notepad++ that is located in your annyang folder.
+
+change line 56 from www.jehovahsays.net too your domain name.
+change line 57 ,line 59 , and line 168 from wikipotpedia to the name of your mediawiki installation folder.
+
 next copy the index.php located in the voice folder and paste it into your mediawiki installation folder. "If prompted 
 overwrite your originaal index.php file you made a backup of click yes".
 
@@ -17,4 +22,4 @@ Your index.php is where you can configure the speech commands.
 
 Only tested the for mediawiki installion on windows. if it's works on other operating systems that would be good to know.
 
-To see what this extension looks like on our mediawiki website visit -  https://www.jehovahsays.net/Wikipotpedia/index.php?title=Main_Page
+To see what this extension looks like on our mediawiki website visit -  https://www.jehovahsays.net/wikipotpedia/index.php?title=Speech_Recognition_Commands
