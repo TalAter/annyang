@@ -259,20 +259,6 @@
     },
 
     /**
-     * Turn on output of debug messages to the console. Ugly, but super-handy!
-     *
-     * @param {Boolean} [newState=true] - Turn on/off debug messages
-     * @method debug
-     */
-    debug: function(newState) {
-      if (arguments.length > 0) {
-        debugState = !!newState;
-      } else {
-        debugState = true;
-      }
-    },
-
-    /**
      * Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
      *
      * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
@@ -293,6 +279,20 @@
     resume: function() {
       pauseListening = false;
       root.annyang.start();
+    },
+
+    /**
+     * Turn on output of debug messages to the console. Ugly, but super-handy!
+     *
+     * @param {Boolean} [newState=true] - Turn on/off debug messages
+     * @method debug
+     */
+    debug: function(newState) {
+      if (arguments.length > 0) {
+        debugState = !!newState;
+      } else {
+        debugState = true;
+      }
     },
 
     /**

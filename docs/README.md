@@ -62,14 +62,6 @@ Alternatively, to pause annyang responding to commands without stopping the Spee
 
 See: [pause()](#pause) 
 
-## debug([newState=true])
-
-Turn on output of debug messages to the console. Ugly, but super-handy!
-
-### Params: 
-
-* **Boolean** *[newState=true]* - Turn on/off debug messages
-
 ## pause()
 
 Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
@@ -82,6 +74,14 @@ See: [abort()](#abort)
 
 Resumes listening and restores command callback execution when a result matches.
 If SpeechRecognition was aborted (stopped), start it.
+
+## debug([newState=true])
+
+Turn on output of debug messages to the console. Ugly, but super-handy!
+
+### Params: 
+
+* **Boolean** *[newState=true]* - Turn on/off debug messages
 
 ## setLanguage(language)
 
