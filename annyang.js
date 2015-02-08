@@ -166,7 +166,7 @@
       recognition.onresult  = function(event) {
         if(pauseListening) {
           if (debugState) {
-            root.console.log('Speech heard, but annyang is paused', debugStyle);
+            root.console.log('Speech heard, but annyang is paused');
           }
           return false;
         }
