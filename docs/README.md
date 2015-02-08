@@ -58,6 +58,10 @@ Receives an optional options object which supports the following options:
 
 Stop listening.
 
+Alternatively, to pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
+
+See: [pause()](#pause) 
+
 ## debug([newState=true])
 
 Turn on output of debug messages to the console. Ugly, but super-handy!
@@ -68,11 +72,16 @@ Turn on output of debug messages to the console. Ugly, but super-handy!
 
 ## pause()
 
-Pause listening and prevents command callback execution when a result matches.
+Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
+
+Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+
+See: [abort()](#abort) 
 
 ## resume()
 
 Resumes listening and restores command callback execution when a result matches.
+If SpeechRecognition was aborted (stopped), start it.
 
 ## setLanguage(language)
 

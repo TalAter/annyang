@@ -165,9 +165,9 @@
 
       recognition.onresult  = function(event) {
         if(pauseListening) {
-          return;
+          return false;
         }
-        
+
         invokeCallbacks(callbacks.result);
         var results = event.results[event.resultIndex];
         var commandText;
@@ -246,6 +246,9 @@
     /**
      * Stop listening.
      *
+     * Alternatively, to pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
+     * @see [pause()](#pause)
+     *
      * @method abort
      */
     abort: function() {
@@ -270,7 +273,10 @@
     },
 
     /**
-     * Pause listening and prevents command callback execution when a result matches.
+     * Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
+     *
+     * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+     * @see [abort()](#abort)
      *
      * @method pause
      */
@@ -280,11 +286,13 @@
 
     /**
      * Resumes listening and restores command callback execution when a result matches.
+     * If SpeechRecognition was aborted (stopped), start it.
      *
      * @method resume
      */
     resume: function() {
       pauseListening = false;
+      root.annyang.start();
     },
 
     /**
