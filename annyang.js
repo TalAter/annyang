@@ -255,7 +255,7 @@
     /**
      * Stop listening.
      *
-     * Alternatively, to pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
+     * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
      * @see [pause()](#pause)
      *
      * @method abort
