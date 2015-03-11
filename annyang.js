@@ -36,7 +36,7 @@
 
   var commandsList = [];
   var recognition;
-  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
+  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], soundstart: [], speechstart: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
   var autoRestart;
   var lastStartedAt = 0;
   var debugState = false;
@@ -125,6 +125,11 @@
 
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
+
+      if (recognition.continuous) {
+        recognition.onsoundstart  = function() { invokeCallbacks(callbacks.soundstart); };
+        recognition.onspeechstart = function() { invokeCallbacks(callbacks.speechstart); };
+      }
 
       recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
 
