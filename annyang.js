@@ -231,6 +231,7 @@
      * @method start
      */
     start: function(options) {
+      pauseListening = false;
       initIfNeeded();
       options = options || {};
       if (options.autoRestart !== undefined) {
@@ -253,7 +254,7 @@
     },
 
     /**
-     * Stop listening.
+     * Stop listening, and turn off mic.
      *
      * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
      * @see [pause()](#pause)
@@ -268,7 +269,7 @@
     },
 
     /**
-     * Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
+     * Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
      *
      * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
      * @see [abort()](#abort)
@@ -286,7 +287,6 @@
      * @method resume
      */
     resume: function() {
-      pauseListening = false;
       root.annyang.start();
     },
 

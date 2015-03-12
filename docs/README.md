@@ -30,7 +30,7 @@ As of v1.1.0 it is no longer required to call init(). Just start() listening whe
 
 See: [Commands Object](#commands-object)
 
-### Params: 
+### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
 * **Boolean** *[resetCommands=true]* - Remove all commands before initializing?
@@ -50,13 +50,13 @@ Receives an optional options object which supports the following options:
     // Start listening, don't restart automatically, stop recognition after first phrase recognized
     annyang.start({ autoRestart: false, continuous: false });
 
-### Params: 
+### Params:
 
 * **Object** *[options]* - Optional options.
 
 ## abort()
 
-Stop listening.
+Stop listening, and turn off mic.
 
 Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
 
@@ -64,7 +64,7 @@ See: [pause()](#pause)
 
 ## pause()
 
-Pause listening. annyang will stop responding to commands (until the resume method is called), without turning off the browser's SpeechRecognition engine
+Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
 
 Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
 
@@ -79,7 +79,7 @@ If SpeechRecognition was aborted (stopped), start it.
 
 Turn on output of debug messages to the console. Ugly, but super-handy!
 
-### Params: 
+### Params:
 
 * **Boolean** *[newState=true]* - Turn on/off debug messages
 
@@ -89,7 +89,7 @@ Set the language the user will speak in. If this method is not called, defaults 
 
 See: [Languages](#languages)
 
-### Params: 
+### Params:
 
 * **String** *language* - The language (locale)
 
@@ -108,7 +108,7 @@ Add commands that annyang will respond to. Similar in syntax to init(), but does
 
 See: [Commands Object](#commands-object)
 
-### Params: 
+### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
 
@@ -132,7 +132,7 @@ Remove existing commands. Called with a single phrase, array of phrases, or meth
     // Don't respond to howdy or hi
     annyang.removeCommands(['howdy', 'hi']);
 
-### Params: 
+### Params:
 
 * **String|Array|Undefined** *[commandsToRemove]* - Commands to remove
 
@@ -151,7 +151,7 @@ start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermis
     // pass local context to a global function called notConnected
     annyang.addCallback('errorNetwork', notConnected, this);
 
-### Params: 
+### Params:
 
 * **String** *type* - Name of event that will trigger this callback
 * **Function** *callback* - The function to call when event is triggered
