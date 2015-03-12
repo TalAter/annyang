@@ -41,6 +41,7 @@
   var lastStartedAt = 0;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
+  var pauseListening = false;
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
@@ -163,6 +164,13 @@
       };
 
       recognition.onresult  = function(event) {
+        if(pauseListening) {
+          if (debugState) {
+            root.console.log('Speech heard, but annyang is paused');
+          }
+          return false;
+        }
+
         invokeCallbacks(callbacks.result);
         var results = event.results[event.resultIndex];
         var commandText;
@@ -223,6 +231,7 @@
      * @method start
      */
     start: function(options) {
+      pauseListening = false;
       initIfNeeded();
       options = options || {};
       if (options.autoRestart !== undefined) {
@@ -235,11 +244,20 @@
       }
 
       lastStartedAt = new Date().getTime();
-      recognition.start();
+      try {
+        recognition.start();
+      } catch(e) {
+        if (debugState) {
+          root.console.log(e.message);
+        }
+      }
     },
 
     /**
-     * Stop listening.
+     * Stop listening, and turn off mic.
+     *
+     * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
+     * @see [pause()](#pause)
      *
      * @method abort
      */
@@ -248,6 +266,28 @@
       if (isInitialized) {
         recognition.abort();
       }
+    },
+
+    /**
+     * Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
+     *
+     * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+     * @see [abort()](#abort)
+     *
+     * @method pause
+     */
+    pause: function() {
+      pauseListening = true;
+    },
+
+    /**
+     * Resumes listening and restores command callback execution when a result matches.
+     * If SpeechRecognition was aborted (stopped), start it.
+     *
+     * @method resume
+     */
+    resume: function() {
+      root.annyang.start();
     },
 
     /**
