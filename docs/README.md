@@ -15,15 +15,15 @@ For a more in-depth look at annyang, read on.
 Initialize annyang with a list of commands to recognize.
 
 ### Examples:
+````javascript
+var commands = {'hello :name': helloFunction};
+var commands2 = {'hi': helloFunction};
 
-    var commands = {'hello :name': helloFunction};
-    var commands2 = {'hi': helloFunction};
-
-    // initialize annyang, overwriting any previously added commands
-    annyang.init(commands, true);
-    // adds an additional command without removing the previous commands
-    annyang.init(commands2, false);
-
+// initialize annyang, overwriting any previously added commands
+annyang.init(commands, true);
+// adds an additional command without removing the previous commands
+annyang.init(commands2, false);
+````
 As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
 
 **Deprecated**
@@ -45,10 +45,12 @@ Receives an optional options object which supports the following options:
 - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
 
 ### Examples:
-    // Start listening, don't restart automatically
-    annyang.start({ autoRestart: false });
-    // Start listening, don't restart automatically, stop recognition after first phrase recognized
-    annyang.start({ autoRestart: false, continuous: false });
+````javascript
+// Start listening, don't restart automatically
+annyang.start({ autoRestart: false });
+// Start listening, don't restart automatically, stop recognition after first phrase recognized
+annyang.start({ autoRestart: false, continuous: false });
+````
 
 ### Params:
 
@@ -98,13 +100,14 @@ See: [Languages](#languages)
 Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
 
 ### Examples:
+````javascript
+var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
+var commands2 = {'hi': helloFunction};
 
-    var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
-    var commands2 = {'hi': helloFunction};
-
-    annyang.addCommands(commands);
-    annyang.addCommands(commands2);
-    // annyang will now listen to all three commands
+annyang.addCommands(commands);
+annyang.addCommands(commands2);
+// annyang will now listen to all three commands
+````
 
 See: [Commands Object](#commands-object)
 
@@ -117,20 +120,21 @@ See: [Commands Object](#commands-object)
 Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
 
 ### Examples:
+````javascript
+var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
 
-    var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+// Remove all existing commands
+annyang.removeCommands();
 
-    // Remove all existing commands
-    annyang.removeCommands();
+// Add some commands
+annyang.addCommands(commands);
 
-    // Add some commands
-    annyang.addCommands(commands);
+// Don't respond to hello
+annyang.removeCommands('hello');
 
-    // Don't respond to hello
-    annyang.removeCommands('hello');
-
-    // Don't respond to howdy or hi
-    annyang.removeCommands(['howdy', 'hi']);
+// Don't respond to howdy or hi
+annyang.removeCommands(['howdy', 'hi']);
+````
 
 ### Params:
 
@@ -157,19 +161,20 @@ Add a callback function to be called in case one of the following events happens
     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
 
 ### Examples:
+````javascript
+annyang.addCallback('error', function () {
+  $('.myErrorText').text('There was an error!');
+});
 
-    annyang.addCallback('error', function () {
-      $('.myErrorText').text('There was an error!');
-    });
+annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+  console.log(userSaid); // sample output: 'hello'
+  console.log(commandText); // sample output: 'hello (there)'
+  console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+});
 
-    annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
-      console.log(userSaid); // sample output: 'hello'
-      console.log(commandText); // sample output: 'hello (there)'
-      console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
-    });
-
-    // pass local context to a global function called notConnected
-    annyang.addCallback('errorNetwork', notConnected, this);
+// pass local context to a global function called notConnected
+annyang.addCallback('errorNetwork', notConnected, this);
+````
 
 ### Params:
 
@@ -190,36 +195,36 @@ annyang understands commands with `named variables`, `splats`, and `optional wor
 * Use `optional words` or phrases to define a part of the command as optional.
 
 ### Examples:
+````html
+<script>
+var commands = {
+  // annyang will capture anything after a splat (*) and pass it to the function.
+  // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
+  'show me *term': showFlickr,
 
-    <script>
-    var commands = {
-      // annyang will capture anything after a splat (*) and pass it to the function.
-      // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
-      'show me *term': showFlickr,
+  // A named variable is a one word variable, that can fit anywhere in your command.
+  // e.g. saying "calculate October stats" will call calculateStats('October');
+  'calculate :month stats': calculateStats,
 
-      // A named variable is a one word variable, that can fit anywhere in your command.
-      // e.g. saying "calculate October stats" will call calculateStats('October');
-      'calculate :month stats': calculateStats,
+  // By defining a part of the following command as optional, annyang will respond
+  // to both: "say hello to my little friend" as well as "say hello friend"
+  'say hello (to my little) friend': greeting
+};
 
-      // By defining a part of the following command as optional, annyang will respond
-      // to both: "say hello to my little friend" as well as "say hello friend"
-      'say hello (to my little) friend': greeting
-    };
+var showFlickr = function(term) {
+  var url = 'http://api.flickr.com/services/rest/?tags='+tag;
+  $.getJSON(url);
+}
 
-    var showFlickr = function(term) {
-      var url = 'http://api.flickr.com/services/rest/?tags='+tag;
-      $.getJSON(url);
-    }
+var calculateStats = function(month) {
+  $('#stats').text('Statistics for '+month);
+}
 
-    var calculateStats = function(month) {
-      $('#stats').text('Statistics for '+month);
-    }
-
-    var greeting = function() {
-      $('#greeting').text('Hello!');
-    }
-    </script>
-
+var greeting = function() {
+  $('#greeting').text('Hello!');
+}
+</script>
+````
 ## Languages
 
 While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
