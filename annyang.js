@@ -61,9 +61,9 @@
   };
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
-  var invokeCallbacks = function(callbacks) {
+  var invokeCallbacks = function(callbacks, args) {
     callbacks.forEach(function(callback) {
-      callback.callback.apply(callback.context);
+      callback.callback.apply(callback.context, args);
     });
   };
 
@@ -171,13 +171,19 @@
           return false;
         }
 
-        invokeCallbacks(callbacks.result);
-        var results = event.results[event.resultIndex];
+        // Map the results to an array
+        var SpeechRecognitionResult = event.results[event.resultIndex];
+        var results = [];
+        for (var k = 0; k<SpeechRecognitionResult.length; k++) {
+          results[k] = SpeechRecognitionResult[k].transcript;
+        }
+
+        invokeCallbacks(callbacks.result, results);
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
           // the text recognized
-          commandText = results[i].transcript.trim();
+          commandText = results[i].trim();
           if (debugState) {
             root.console.log('Speech recognized: %c'+commandText, debugStyle);
           }
@@ -397,12 +403,25 @@
     /**
      * Add a callback function to be called in case one of the following events happens:
      *
-     * start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied.
+     * start - Fired as soon as the browser's Speech Recognition engine starts listening
+     * error - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
+     * errorNetwork - Fired when Speech Recognition fails because of a network error
+     * errorPermissionBlocked - Fired when the browser blocks the permission request to use Speech Recognition.
+     * errorPermissionDenied - Fired when the user blocks the permission request to use Speech Recognition.
+     * end - Fired when the browser's Speech Recognition engine stops
+     * result - Fired as soon as some speech was identified. This generic callback will be followed by either the resultMatch or resultNoMatch callbacks.
+     *     Callback functions registered to this event will include an array of possible phrases the user said
+     * resultMatch - Fired when annyang was able to match between what the user said and a registered command
+     * resultNoMatch - Fired when what the user said didn't match any of the registered commands
      *
      * ### Examples:
      *
      *     annyang.addCallback('error', function () {
      *       $('.myErrorText').text('There was an error!');
+     *     });
+     *
+     *     annyang.addCallback('result', function (phrases) {
+     *       console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
      *     });
      *
      *     // pass local context to a global function called notConnected
