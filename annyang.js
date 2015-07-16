@@ -206,7 +206,7 @@
             }
           }
         }
-        invokeCallbacks(callbacks.resultNoMatch);
+        invokeCallbacks(callbacks.resultNoMatch, [results]);
         return false;
       };
 
@@ -413,6 +413,7 @@
      *     Callback functions registered to this event will include an array of possible phrases the user said
      * resultMatch - Fired when annyang was able to match between what the user said and a registered command
      * resultNoMatch - Fired when what the user said didn't match any of the registered commands
+     *     Callback functions registered to this event will include an array of possible phrases the user might've said
      *
      * ### Examples:
      *
