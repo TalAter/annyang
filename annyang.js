@@ -351,6 +351,9 @@
         if (commands.hasOwnProperty(phrase)) {
           cb = root[commands[phrase]] || commands[phrase];
           if (typeof cb !== 'function') {
+            if (debugState) {
+              root.console.log('Can not register command: %c'+phrase, debugStyle);
+            }
             continue;
           }
           //convert command to regex
