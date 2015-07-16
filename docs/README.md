@@ -140,21 +140,21 @@ Remove existing commands. Called with a single phrase, array of phrases, or meth
 
 Add a callback function to be called in case one of the following events happens:
 
-start - Fired as soon as the browser's Speech Recognition engine starts listening
-error - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
-errorNetwork - Fired when Speech Recognition fails because of a network error
-errorPermissionBlocked - Fired when the browser blocks the permission request to use Speech Recognition.
-errorPermissionDenied - Fired when the user blocks the permission request to use Speech Recognition.
-end - Fired when the browser's Speech Recognition engine stops
-result - Fired as soon as some speech was identified. This generic callback will be followed by either the resultMatch or resultNoMatch callbacks.
-    Callback functions registered to this event will include an array of possible phrases the user said
-resultMatch - Fired when annyang was able to match between what the user said and a registered command
-    Callback functions registered to this event will contain three arguments in the following order:
+* `start` - Fired as soon as the browser's Speech Recognition engine starts listening
+* `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
+* `errorNetwork` - Fired when Speech Recognition fails because of a network error
+* `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
+* `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
+* `end` - Fired when the browser's Speech Recognition engine stops
+* `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
+    Callback functions registered to this event will include an array of possible phrases the user said as the first argument
+* `resultMatch` - Fired when annyang was able to match between what the user said and a registered command
+    Callback functions registered to this event will include three arguments in the following order:
       * The phrase the user said that matched a command
       * The command that was matched
       * An array of possible alternative phrases the user might've said
-resultNoMatch - Fired when what the user said didn't match any of the registered commands
-    Callback functions registered to this event will include an array of possible phrases the user might've said
+* `resultNoMatch` - Fired when what the user said didn't match any of the registered commands
+    Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
 
 ### Examples:
 
