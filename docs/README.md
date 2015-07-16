@@ -149,6 +149,10 @@ end - Fired when the browser's Speech Recognition engine stops
 result - Fired as soon as some speech was identified. This generic callback will be followed by either the resultMatch or resultNoMatch callbacks.
     Callback functions registered to this event will include an array of possible phrases the user said
 resultMatch - Fired when annyang was able to match between what the user said and a registered command
+    Callback functions registered to this event will contain three arguments in the following order:
+      * The phrase the user said that matched a command
+      * The command that was matched
+      * An array of possible alternative phrases the user might've said
 resultNoMatch - Fired when what the user said didn't match any of the registered commands
     Callback functions registered to this event will include an array of possible phrases the user might've said
 
@@ -158,7 +162,9 @@ resultNoMatch - Fired when what the user said didn't match any of the registered
       $('.myErrorText').text('There was an error!');
     });
 
-    annyang.addCallback('result', function (phrases) {
+    annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+      console.log(userSaid); // sample output: 'hello'
+      console.log(commandText); // sample output: 'hello (there)'
       console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
     });
 

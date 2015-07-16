@@ -61,7 +61,8 @@
   };
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
-  var invokeCallbacks = function(callbacks, args) {
+  var invokeCallbacks = function(callbacks) {
+    var args = Array.prototype.slice.call(arguments, 1);
     callbacks.forEach(function(callback) {
       callback.callback.apply(callback.context, args);
     });
@@ -178,7 +179,7 @@
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
-        invokeCallbacks(callbacks.result, [results]);
+        invokeCallbacks(callbacks.result, results);
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
@@ -201,12 +202,12 @@
               }
               // execute the matched command
               commandsList[j].callback.apply(this, parameters);
-              invokeCallbacks(callbacks.resultMatch);
+              invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
               return true;
             }
           }
         }
-        invokeCallbacks(callbacks.resultNoMatch, [results]);
+        invokeCallbacks(callbacks.resultNoMatch, results);
         return false;
       };
 
@@ -412,6 +413,10 @@
      * result - Fired as soon as some speech was identified. This generic callback will be followed by either the resultMatch or resultNoMatch callbacks.
      *     Callback functions registered to this event will include an array of possible phrases the user said
      * resultMatch - Fired when annyang was able to match between what the user said and a registered command
+     *     Callback functions registered to this event will contain three arguments in the following order:
+     *       * The phrase the user said that matched a command
+     *       * The command that was matched
+     *       * An array of possible alternative phrases the user might've said
      * resultNoMatch - Fired when what the user said didn't match any of the registered commands
      *     Callback functions registered to this event will include an array of possible phrases the user might've said
      *
@@ -421,7 +426,9 @@
      *       $('.myErrorText').text('There was an error!');
      *     });
      *
-     *     annyang.addCallback('result', function (phrases) {
+     *     annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+     *       console.log(userSaid); // sample output: 'hello'
+     *       console.log(commandText); // sample output: 'hello (there)'
      *       console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
      *     });
      *
