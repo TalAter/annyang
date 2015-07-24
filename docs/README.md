@@ -14,7 +14,7 @@ For a more in-depth look at annyang, read on.
 
 Initialize annyang with a list of commands to recognize.
 
-### Examples:
+#### Examples:
 ````javascript
 var commands = {'hello :name': helloFunction};
 var commands2 = {'hi': helloFunction};
@@ -44,7 +44,7 @@ Receives an optional options object which supports the following options:
 - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
 - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
 
-### Examples:
+#### Examples:
 ````javascript
 // Start listening, don't restart automatically
 annyang.start({ autoRestart: false });
@@ -99,7 +99,7 @@ See: [Languages](#languages)
 
 Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
 
-### Examples:
+#### Examples:
 ````javascript
 var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
 var commands2 = {'hi': helloFunction};
@@ -119,7 +119,7 @@ See: [Commands Object](#commands-object)
 
 Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
 
-### Examples:
+#### Examples:
 ````javascript
 var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
 
@@ -160,7 +160,7 @@ Add a callback function to be called in case one of the following events happens
 * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands
     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
 
-### Examples:
+#### Examples:
 ````javascript
 annyang.addCallback('error', function () {
   $('.myErrorText').text('There was an error!');
@@ -194,7 +194,7 @@ annyang understands commands with `named variables`, `splats`, and `optional wor
 * Use `splats` to capture multi-word text at the end of your command (greedy).
 * Use `optional words` or phrases to define a part of the command as optional.
 
-### Examples:
+#### Examples:
 ````html
 <script>
 var commands = {
@@ -233,7 +233,7 @@ a simple string command.
 This is done by passing an object containing two properties: `regexp`, and
 `callback` instead of the function.
 
-### Examples:
+#### Examples:
 ````javascript
 // Both of these commands will do exactly the same thing
 var commands = {
