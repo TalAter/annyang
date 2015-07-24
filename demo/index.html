@@ -70,7 +70,7 @@
     }
 
     // define our commands.
-    // * The key is what you want your users to say say.
+    // * The key is the phrase you want your users to say.
     // * The value is the action to do.
     //   You can pass a function, a function name (as a string), or write your function as part of the commands object.
     var commands = {
@@ -87,6 +87,8 @@
     annyang.addCommands(commands);
 
     // OPTIONAL: Set a language for speech recognition (defaults to English)
+    // For a full list of language codes, see the documentation:
+    // https://github.com/TalAter/annyang/blob/master/docs/README.md#languages
     annyang.setLanguage('en');
 
     // Start listening. You can call this here, or attach this call to an event, button, etc.

@@ -62,8 +62,9 @@
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
   var invokeCallbacks = function(callbacks) {
+    var args = Array.prototype.slice.call(arguments, 1);
     callbacks.forEach(function(callback) {
-      callback.callback.apply(callback.context);
+      callback.callback.apply(callback.context, args);
     });
   };
 
@@ -77,21 +78,28 @@
     return recognition !== undefined;
   };
 
+  var registerCommand = function(command, cb, phrase) {
+    commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+    if (debugState) {
+      root.console.log('Command successfully loaded: %c'+phrase, debugStyle);
+    }
+  };
+
   root.annyang = {
 
     /**
      * Initialize annyang with a list of commands to recognize.
      *
-     * ### Examples:
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello :name': helloFunction};
+     * var commands2 = {'hi': helloFunction};
      *
-     *     var commands = {'hello :name': helloFunction};
-     *     var commands2 = {'hi': helloFunction};
-     *
-     *     // initialize annyang, overwriting any previously added commands
-     *     annyang.init(commands, true);
-     *     // adds an additional command without removing the previous commands
-     *     annyang.init(commands2, false);
-     *
+     * // initialize annyang, overwriting any previously added commands
+     * annyang.init(commands, true);
+     * // adds an additional command without removing the previous commands
+     * annyang.init(commands2, false);
+     * ````
      * As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
      *
      * @param {Object} commands - Commands that annyang should listen to
@@ -171,13 +179,19 @@
           return false;
         }
 
-        invokeCallbacks(callbacks.result);
-        var results = event.results[event.resultIndex];
+        // Map the results to an array
+        var SpeechRecognitionResult = event.results[event.resultIndex];
+        var results = [];
+        for (var k = 0; k<SpeechRecognitionResult.length; k++) {
+          results[k] = SpeechRecognitionResult[k].transcript;
+        }
+
+        invokeCallbacks(callbacks.result, results);
         var commandText;
         // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
         for (var i = 0; i<results.length; i++) {
           // the text recognized
-          commandText = results[i].transcript.trim();
+          commandText = results[i].trim();
           if (debugState) {
             root.console.log('Speech recognized: %c'+commandText, debugStyle);
           }
@@ -195,12 +209,12 @@
               }
               // execute the matched command
               commandsList[j].callback.apply(this, parameters);
-              invokeCallbacks(callbacks.resultMatch);
+              invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
               return true;
             }
           }
         }
-        invokeCallbacks(callbacks.resultNoMatch);
+        invokeCallbacks(callbacks.resultNoMatch, results);
         return false;
       };
 
@@ -221,12 +235,13 @@
      * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
      * - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
      *
-     * ### Examples:
-     *     // Start listening, don't restart automatically
-     *     annyang.start({ autoRestart: false });
-     *     // Start listening, don't restart automatically, stop recognition after first phrase recognized
-     *     annyang.start({ autoRestart: false, continuous: false });
-     *
+     * #### Examples:
+     * ````javascript
+     * // Start listening, don't restart automatically
+     * annyang.start({ autoRestart: false });
+     * // Start listening, don't restart automatically, stop recognition after first phrase recognized
+     * annyang.start({ autoRestart: false, continuous: false });
+     * ````
      * @param {Object} [options] - Optional options.
      * @method start
      */
@@ -319,62 +334,63 @@
     /**
      * Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
      *
-     * ### Examples:
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
+     * var commands2 = {'hi': helloFunction};
      *
-     *     var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
-     *     var commands2 = {'hi': helloFunction};
-     *
-     *     annyang.addCommands(commands);
-     *     annyang.addCommands(commands2);
-     *     // annyang will now listen to all three commands
-     *
+     * annyang.addCommands(commands);
+     * annyang.addCommands(commands2);
+     * // annyang will now listen to all three commands
+     * ````
      *
      * @param {Object} commands - Commands that annyang should listen to
      * @method addCommands
      * @see [Commands Object](#commands-object)
      */
     addCommands: function(commands) {
-      var cb,
-          command;
+      var cb;
 
       initIfNeeded();
 
       for (var phrase in commands) {
         if (commands.hasOwnProperty(phrase)) {
           cb = root[commands[phrase]] || commands[phrase];
-          if (typeof cb !== 'function') {
+          if (typeof cb === 'function') {
+            // convert command to regex then register the command
+            registerCommand(commandToRegExp(phrase), cb, phrase);
+          } else if (typeof cb === 'object' && cb.regexp instanceof RegExp) {
+            // register the command
+            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
+          } else {
+            if (debugState) {
+              root.console.log('Can not register command: %c'+phrase, debugStyle);
+            }
             continue;
           }
-          //convert command to regex
-          command = commandToRegExp(phrase);
-
-          commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
         }
-      }
-      if (debugState) {
-        root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
     },
 
     /**
      * Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
      *
-     * ### Examples:
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
      *
-     *     var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+     * // Remove all existing commands
+     * annyang.removeCommands();
      *
-     *     // Remove all existing commands
-     *     annyang.removeCommands();
+     * // Add some commands
+     * annyang.addCommands(commands);
      *
-     *     // Add some commands
-     *     annyang.addCommands(commands);
+     * // Don't respond to hello
+     * annyang.removeCommands('hello');
      *
-     *     // Don't respond to hello
-     *     annyang.removeCommands('hello');
-     *
-     *     // Don't respond to howdy or hi
-     *     annyang.removeCommands(['howdy', 'hi']);
-     *
+     * // Don't respond to howdy or hi
+     * annyang.removeCommands(['howdy', 'hi']);
+     * ````
      * @param {String|Array|Undefined} [commandsToRemove] - Commands to remove
      * @method removeCommands
      */
@@ -397,17 +413,37 @@
     /**
      * Add a callback function to be called in case one of the following events happens:
      *
-     * start, error, end, result, resultMatch, resultNoMatch, errorNetwork, errorPermissionBlocked, errorPermissionDenied.
+     * * `start` - Fired as soon as the browser's Speech Recognition engine starts listening
+     * * `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
+     * * `errorNetwork` - Fired when Speech Recognition fails because of a network error
+     * * `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
+     * * `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
+     * * `end` - Fired when the browser's Speech Recognition engine stops
+     * * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
+     *     Callback functions registered to this event will include an array of possible phrases the user said as the first argument
+     * * `resultMatch` - Fired when annyang was able to match between what the user said and a registered command
+     *     Callback functions registered to this event will include three arguments in the following order:
+     *       * The phrase the user said that matched a command
+     *       * The command that was matched
+     *       * An array of possible alternative phrases the user might've said
+     * * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands
+     *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
      *
-     * ### Examples:
+     * #### Examples:
+     * ````javascript
+     * annyang.addCallback('error', function () {
+     *   $('.myErrorText').text('There was an error!');
+     * });
      *
-     *     annyang.addCallback('error', function () {
-     *       $('.myErrorText').text('There was an error!');
-     *     });
+     * annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+     *   console.log(userSaid); // sample output: 'hello'
+     *   console.log(commandText); // sample output: 'hello (there)'
+     *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+     * });
      *
-     *     // pass local context to a global function called notConnected
-     *     annyang.addCallback('errorNetwork', notConnected, this);
-     *
+     * // pass local context to a global function called notConnected
+     * annyang.addCallback('errorNetwork', notConnected, this);
+     * ````
      * @param {String} type - Name of event that will trigger this callback
      * @param {Function} callback - The function to call when event is triggered
      * @param {Object} [context] - Optional context for the callback function
@@ -440,36 +476,53 @@
  * * Use `splats` to capture multi-word text at the end of your command (greedy).
  * * Use `optional words` or phrases to define a part of the command as optional.
  *
- * ### Examples:
+ * #### Examples:
+ * ````html
+ * <script>
+ * var commands = {
+ *   // annyang will capture anything after a splat (*) and pass it to the function.
+ *   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
+ *   'show me *term': showFlickr,
  *
- *     <script>
- *     var commands = {
- *       // annyang will capture anything after a splat (*) and pass it to the function.
- *       // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
- *       'show me *term': showFlickr,
+ *   // A named variable is a one word variable, that can fit anywhere in your command.
+ *   // e.g. saying "calculate October stats" will call calculateStats('October');
+ *   'calculate :month stats': calculateStats,
  *
- *       // A named variable is a one word variable, that can fit anywhere in your command.
- *       // e.g. saying "calculate October stats" will call calculateStats('October');
- *       'calculate :month stats': calculateStats,
+ *   // By defining a part of the following command as optional, annyang will respond
+ *   // to both: "say hello to my little friend" as well as "say hello friend"
+ *   'say hello (to my little) friend': greeting
+ * };
  *
- *       // By defining a part of the following command as optional, annyang will respond
- *       // to both: "say hello to my little friend" as well as "say hello friend"
- *       'say hello (to my little) friend': greeting
- *     };
+ * var showFlickr = function(term) {
+ *   var url = 'http://api.flickr.com/services/rest/?tags='+tag;
+ *   $.getJSON(url);
+ * }
  *
- *     var showFlickr = function(term) {
- *       var url = 'http://api.flickr.com/services/rest/?tags='+tag;
- *       $.getJSON(url);
- *     }
+ * var calculateStats = function(month) {
+ *   $('#stats').text('Statistics for '+month);
+ * }
  *
- *     var calculateStats = function(month) {
- *       $('#stats').text('Statistics for '+month);
- *     }
+ * var greeting = function() {
+ *   $('#greeting').text('Hello!');
+ * }
+ * </script>
+ * ````
  *
- *     var greeting = function() {
- *       $('#greeting').text('Hello!');
- *     }
- *     </script>
+ * ### Using Regular Expressions in commands
+ * For advanced commands, you can pass a regular expression object, instead of
+ * a simple string command.
+ *
+ * This is done by passing an object containing two properties: `regexp`, and
+ * `callback` instead of the function.
+ *
+ * #### Examples:
+ * ````javascript
+ * // Both of these commands will do exactly the same thing
+ * var commands = {
+ *   'calculate :month stats': calculateFunction,
+ *   'calculate month stats': {'regexp': /^calculate (\w*) stats$/, 'callback': calculateFunction}
+ * }
+ * ````
  *
  * ## Languages
  *
