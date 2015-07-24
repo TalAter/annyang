@@ -225,6 +225,23 @@ var greeting = function() {
 }
 </script>
 ````
+
+### Using Regular Expressions in commands
+For advanced commands, you can pass a regular expression object, instead of
+a simple string command.
+
+This is done by passing an object containing two properties: `regexp`, and
+`callback` instead of the function.
+
+### Examples:
+````javascript
+// Both of these commands will do exactly the same thing
+var commands = {
+  'calculate :month stats': calculateFunction,
+  'calculate month stats': {'regexp': /^calculate (\w*) stats$/, 'callback': calculateFunction}
+}
+````
+
 ## Languages
 
 While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).

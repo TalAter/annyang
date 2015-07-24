@@ -78,6 +78,13 @@
     return recognition !== undefined;
   };
 
+  var registerCommand = function(command, cb, phrase) {
+    commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+    if (debugState) {
+      root.console.log('Command successfully loaded: %c'+phrase, debugStyle);
+    }
+  };
+
   root.annyang = {
 
     /**
@@ -342,28 +349,26 @@
      * @see [Commands Object](#commands-object)
      */
     addCommands: function(commands) {
-      var cb,
-          command;
+      var cb;
 
       initIfNeeded();
 
       for (var phrase in commands) {
         if (commands.hasOwnProperty(phrase)) {
           cb = root[commands[phrase]] || commands[phrase];
-          if (typeof cb !== 'function') {
+          if (typeof cb === 'function') {
+            // convert command to regex then register the command
+            registerCommand(commandToRegExp(phrase), cb, phrase);
+          } else if (typeof cb === 'object' && cb.regexp instanceof RegExp) {
+            // register the command
+            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
+          } else {
             if (debugState) {
               root.console.log('Can not register command: %c'+phrase, debugStyle);
             }
             continue;
           }
-          //convert command to regex
-          command = commandToRegExp(phrase);
-
-          commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
         }
-      }
-      if (debugState) {
-        root.console.log('Commands successfully loaded: %c'+commandsList.length, debugStyle);
       }
     },
 
@@ -502,6 +507,23 @@
  * }
  * </script>
  * ````
+ *
+ * ### Using Regular Expressions in commands
+ * For advanced commands, you can pass a regular expression object, instead of
+ * a simple string command.
+ *
+ * This is done by passing an object containing two properties: `regexp`, and
+ * `callback` instead of the function.
+ *
+ * ### Examples:
+ * ````javascript
+ * // Both of these commands will do exactly the same thing
+ * var commands = {
+ *   'calculate :month stats': calculateFunction,
+ *   'calculate month stats': {'regexp': /^calculate (\w*) stats$/, 'callback': calculateFunction}
+ * }
+ * ````
+ *
  * ## Languages
  *
  * While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
