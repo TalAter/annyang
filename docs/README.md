@@ -62,7 +62,7 @@ Stop listening, and turn off mic.
 
 Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
 
-See: [pause()](#pause) 
+See: [pause()](#pause)
 
 ## pause()
 
@@ -70,7 +70,7 @@ Pause listening. annyang will stop responding to commands (until the resume or s
 
 Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
 
-See: [abort()](#abort) 
+See: [abort()](#abort)
 
 ## resume()
 
