@@ -3,7 +3,7 @@
 
 A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
 
-annyang has no dependencies, weighs just 2kb, and is free to use and modify under the MIT license.
+annyang has no dependencies, weighs just 3kb, and is free to use and modify under the MIT license.
 
 Demo & Tutorial
 ---------------
@@ -15,9 +15,9 @@ Technical Documentation and API
 
 Hello World
 -----------
-It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/1.6.0/annyang.min.js) to your document, and defining the commands you want.
+It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js) to your document, and defining the commands you want.
 ````html
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/1.6.0/annyang.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.0.0/annyang.min.js"></script>
 <script>
 if (annyang) {
   // Let's define a command.

@@ -1,5 +1,5 @@
 //! annyang
-//! version : 1.6.0
+//! version : 2.0.0
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
@@ -517,12 +517,14 @@
  *
  * #### Examples:
  * ````javascript
- * // Both of these commands will do exactly the same thing
+ * var calculateFunction = function(month) { console.log(month); }
  * var commands = {
+ *   // This example will accept any word as the "month"
  *   'calculate :month stats': calculateFunction,
- *   'calculate month stats': {'regexp': /^calculate (\w*) stats$/, 'callback': calculateFunction}
+ *   // This example will only accept months which are at the start of a quarter
+ *   'calculate :quarter stats': {'regexp': /^calculate (January|April|July|October) stats$/, 'callback': calculateFunction}
  * }
- * ````
+ ````
  *
  * ## Languages
  *

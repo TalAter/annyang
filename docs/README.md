@@ -62,7 +62,7 @@ Stop listening, and turn off mic.
 
 Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
 
-See: [pause()](#pause) 
+See: [pause()](#pause)
 
 ## pause()
 
@@ -70,7 +70,7 @@ Pause listening. annyang will stop responding to commands (until the resume or s
 
 Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
 
-See: [abort()](#abort) 
+See: [abort()](#abort)
 
 ## resume()
 
@@ -235,12 +235,14 @@ This is done by passing an object containing two properties: `regexp`, and
 
 #### Examples:
 ````javascript
-// Both of these commands will do exactly the same thing
+var calculateFunction = function(month) { console.log(month); }
 var commands = {
+  // This example will accept any word as the "month"
   'calculate :month stats': calculateFunction,
-  'calculate month stats': {'regexp': /^calculate (\w*) stats$/, 'callback': calculateFunction}
+  // This example will only accept months which are at the start of a quarter
+  'calculate :quarter stats': {'regexp': /^calculate (January|April|July|October) stats$/, 'callback': calculateFunction}
 }
-````
+ ````
 
 ## Languages
 
