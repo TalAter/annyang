@@ -42,6 +42,8 @@
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
   var pauseListening = false;
+  var combinedTranscript = '';
+  var combinedTranscriptTimeoutId;
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
@@ -158,6 +160,14 @@
       };
 
       recognition.onend     = function() {
+        if (combinedTranscriptTimeoutId) {
+          if (debugState) {
+            root.console.log('Ignoring combined transcript: %c', combinedTranscript, debugStyle);
+          }
+          clearTimeout(combinedTranscriptTimeoutId);
+          combinedTranscriptTimeoutId = null;
+          combinedTranscript = '';
+        }
         invokeCallbacks(callbacks.end);
         // annyang will auto restart if it is closed automatically and not by user action.
         if (autoRestart) {
@@ -192,25 +202,36 @@
         for (var i = 0; i<results.length; i++) {
           // the text recognized
           commandText = results[i].trim();
-          if (debugState) {
-            root.console.log('Speech recognized: %c'+commandText, debugStyle);
+          if (commandText == combinedTranscript) {
+            // If commandText is the concatenation of all commandTexts seen since the last time
+            // start() was called, and onend() gets called within the next 200ms, this is an
+            // unexpected extra result returned by Chrome on Android, so ignore it.
+            combinedTranscriptTimeoutId = setTimeout(onValidResult, 200);
+            return false;
           }
+          return onValidResult();
+          function onValidResult() {
+            if (debugState) {
+              root.console.log('Speech recognized: %c'+commandText, debugStyle);
+            }
 
-          // try and match recognized text to one of the commands on the list
-          for (var j = 0, l = commandsList.length; j < l; j++) {
-            var result = commandsList[j].command.exec(commandText);
-            if (result) {
-              var parameters = result.slice(1);
-              if (debugState) {
-                root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
-                if (parameters.length) {
-                  root.console.log('with parameters', parameters);
+            // try and match recognized text to one of the commands on the list
+            for (var j = 0, l = commandsList.length; j < l; j++) {
+              var result = commandsList[j].command.exec(commandText);
+              if (result) {
+                combinedTranscript += combinedTranscript ? " " + commandText : commandText;
+                var parameters = result.slice(1);
+                if (debugState) {
+                  root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
+                  if (parameters.length) {
+                    root.console.log('with parameters', parameters);
+                  }
                 }
+                // execute the matched command
+                commandsList[j].callback.apply(this, parameters);
+                invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
+                return true;
               }
-              // execute the matched command
-              commandsList[j].callback.apply(this, parameters);
-              invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
-              return true;
             }
           }
         }
