@@ -192,7 +192,9 @@
         // Map the results to an array
         var SpeechRecognitionResult = event.results[event.resultIndex];
         var results = [];
-        for (var k = 0; k<SpeechRecognitionResult.length; k++) {
+        // Enforce maxAlternatives (not respected by Chrome on Android)
+        var K = Math.min(SpeechRecognitionResult.length, recognition.maxAlternatives);
+        for (var k = 0; k < K; k++) {
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
