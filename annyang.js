@@ -42,6 +42,7 @@
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
   var pauseListening = false;
+  var isListening = false;
 
   // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
   var optionalParam = /\s*\((.*?)\)\s*/g;
@@ -135,7 +136,10 @@
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
 
-      recognition.onstart   = function()      { invokeCallbacks(callbacks.start); };
+      recognition.onstart   = function() {
+        isListening = true;
+        invokeCallbacks(callbacks.start);
+      };
 
       recognition.onerror   = function(event) {
         invokeCallbacks(callbacks.error);
@@ -158,6 +162,7 @@
       };
 
       recognition.onend     = function() {
+        isListening = false;
         invokeCallbacks(callbacks.end);
         // annyang will auto restart if it is closed automatically and not by user action.
         if (autoRestart) {
@@ -458,6 +463,17 @@
         return;
       }
       callbacks[type].push({callback: cb, context: context || this});
+    },
+
+    /**
+     * Returns true if speech recognition is currently on.
+     * Returns false if speech recognition is off or annyang is paused.
+     *
+     * @return boolean true = SpeechRecognition is on and annyang is listening
+     * @method isListening
+     */
+    isListening: function() {
+      return isListening && !pauseListening;
     }
   };
 

@@ -182,6 +182,15 @@ annyang.addCallback('errorNetwork', notConnected, this);
 * **Function** *callback* - The function to call when event is triggered
 * **Object** *[context]* - Optional context for the callback function
 
+## isListening()
+
+Returns true if speech recognition is currently on.
+Returns false if speech recognition is off or annyang is paused.
+
+### Return:
+
+* boolean true = SpeechRecognition is on and annyang is listening
+
 # Good to Know
 
 ## Commands Object
