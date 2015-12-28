@@ -45,7 +45,7 @@ Chrome's implementation of SpeechRecognition behaves differently based on the pr
 
 - `http://`  Asks for permission repeatedly **on every page load**. Results are also returned significantly slower in HTTP.
 
-For a great user experience, don't compromise on anything less than HTTPS (avaliable free at GitHub Pages, CloudFlare and Let's Encrypt).
+For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
 
 Author
 ------
