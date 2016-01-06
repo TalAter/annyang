@@ -209,7 +209,7 @@ annyang understands commands with `named variables`, `splats`, and `optional wor
 var commands = {
   // annyang will capture anything after a splat (*) and pass it to the function.
   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
-  'show me *term': showFlickr,
+  'show me *tag': showFlickr,
 
   // A named variable is a one word variable, that can fit anywhere in your command.
   // e.g. saying "calculate October stats" will call calculateStats('October');
@@ -220,7 +220,7 @@ var commands = {
   'say hello (to my little) friend': greeting
 };
 
-var showFlickr = function(term) {
+var showFlickr = function(tag) {
   var url = 'http://api.flickr.com/services/rest/?tags='+tag;
   $.getJSON(url);
 }
