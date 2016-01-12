@@ -43,7 +43,7 @@ Speech KITT makes it easy to add a graphical interface for the user to start or 
 
 Speech KITT is fully customizable, and comes with many different themes (and instructions on how to create your own designs).
 
-![Speech Recognition GUI with Speech KITT](https://raw.githubusercontent.com/TalAter/SpeechKITT/master/demo/speechkitt-demo.gif)
+[![Speech Recognition GUI with Speech KITT](https://raw.githubusercontent.com/TalAter/SpeechKITT/master/demo/speechkitt-demo.gif)](https://github.com/TalAter/SpeechKITT)
 
 ````html
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.1.0/annyang.min.js"></script>
