@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['annyang.js', 'sites/facebook.js', 'sites/geektime.js', 'demo/css/main.css', '!**/node_modules/**'],
+      files: ['annyang.js', 'sites/facebook.js', 'sites/geektime.js', 'demo/css/main.css', 'test/spec/*Spec.js', '!**/node_modules/**'],
       tasks: ['default'],
     },
     uglify: {
