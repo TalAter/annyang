@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['annyang.js', 'sites/facebook.js', 'sites/geektime.js', 'demo/css/main.css', 'test/spec/*Spec.js', '!**/node_modules/**'],
-      tasks: ['default'],
+      tasks: ['default']
     },
     uglify: {
       options: {
@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         files: {
           'annyang.min.js': ['annyang.js'],
           'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js'],
-          'sites/geektime.min.js': ['annyang.js', 'sites/geektime.js'],
+          'sites/geektime.min.js': ['annyang.js', 'sites/geektime.js']
         }
       }
     },
@@ -42,7 +42,7 @@ module.exports = function(grunt) {
           src: ['*.{png,jpg,gif}'],       // Actual patterns to match
           dest: 'demo/images'             // Destination path prefix
         }]
-      },
+      }
     },
     cssmin: {
       combine: {
