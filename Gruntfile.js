@@ -10,6 +10,7 @@ module.exports = function(grunt) {
         'annyang.js',
         'sites/facebook.js',
         'sites/geektime.js',
+        'test/spec/*Spec.js'
       ],
       options: {
         jshintrc: true
