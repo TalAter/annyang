@@ -1,0 +1,2006 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for annyang.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">__root__/</a> annyang.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.89% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/151</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">2.38% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>2/84</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">4.17% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.89% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>24/151</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//! annyang
+//! version : 2.1.0
+//! author  : Tal Ater @TalAter
+//! license : MIT
+//! https://www.TalAter.com/annyang/
+&nbsp;
+(function (undefined) {
+  "use strict";
+&nbsp;
+  /**
+   * # Quick Tutorial, Intro and Demos
+   *
+   * The quickest way to get started is to visit the [annyang homepage](https://www.talater.com/annyang/).
+   *
+   * For a more in-depth look at annyang, read on.
+   *
+   * # API Reference
+   */
+&nbsp;
+  // Save a reference to the global object (window in the browser)
+  var root = this;
+&nbsp;
+  // Get the SpeechRecognition object, while handling browser prefixes
+  var SpeechRecognition = root.SpeechRecognition ||
+<span class="branch-1 cbranch-no" title="branch not covered" >                          root.webkitSpeechRecognition </span>||
+<span class="branch-2 cbranch-no" title="branch not covered" >                          root.mozSpeechRecognition </span>||
+<span class="branch-3 cbranch-no" title="branch not covered" >                          root.msSpeechRecognition </span>||
+<span class="branch-4 cbranch-no" title="branch not covered" >                          root.oSpeechRecognition;</span>
+&nbsp;
+  // Check browser support
+  // This is done as early as possible, to make it as fast as possible for unsupported browsers
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!SpeechRecognition) {
+<span class="cstat-no" title="statement not covered" >    root.annyang = null;</span>
+<span class="cstat-no" title="statement not covered" >    return undefined;</span>
+  }
+&nbsp;
+  var commandsList = [];
+  var recognition;
+  var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
+  var autoRestart;
+  var lastStartedAt = 0;
+  var debugState = false;
+  var debugStyle = 'font-weight: bold; color: #00f;';
+  var pauseListening = false;
+  var isListening = false;
+&nbsp;
+  // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
+  var optionalParam = /\s*\((.*?)\)\s*/g;
+  var optionalRegex = /(\(\?:[^)]+\))\?/g;
+  var namedParam    = /(\(\?)?:\w+/g;
+  var splatParam    = /\*\w+/g;
+  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#]/g;
+  var commandToRegExp = <span class="fstat-no" title="function not covered" >function(command) {</span>
+<span class="cstat-no" title="statement not covered" >    command = command.replace(escapeRegExp, '\\$&amp;')</span>
+                  .replace(optionalParam, '(?:$1)?')
+                  .replace(namedParam, <span class="fstat-no" title="function not covered" >function(match, optional) {</span>
+<span class="cstat-no" title="statement not covered" >                    return optional ? match : '([^\\s]+)';</span>
+                  })
+                  .replace(splatParam, '(.*?)')
+                  .replace(optionalRegex, '\\s*$1?\\s*');
+<span class="cstat-no" title="statement not covered" >    return new RegExp('^' + command + '$', 'i');</span>
+  };
+&nbsp;
+  // This method receives an array of callbacks to iterate over, and invokes each of them
+  var invokeCallbacks = <span class="fstat-no" title="function not covered" >function(callbacks) {</span>
+<span class="cstat-no" title="statement not covered" >    var args = Array.prototype.slice.call(arguments, 1);</span>
+<span class="cstat-no" title="statement not covered" >    callbacks.forEach(<span class="fstat-no" title="function not covered" >function(callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >      callback.callback.apply(callback.context, args);</span>
+    });
+  };
+&nbsp;
+  var initIfNeeded = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    if (!isInitialized()) {</span>
+<span class="cstat-no" title="statement not covered" >      root.annyang.init({}, false);</span>
+    }
+  };
+&nbsp;
+  var isInitialized = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >    return recognition !== undefined;</span>
+  };
+&nbsp;
+  var registerCommand = <span class="fstat-no" title="function not covered" >function(command, cb, phrase) {</span>
+<span class="cstat-no" title="statement not covered" >    commandsList.push({ command: command, callback: cb, originalPhrase: phrase });</span>
+<span class="cstat-no" title="statement not covered" >    if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >      root.console.log('Command successfully loaded: %c'+phrase, debugStyle);</span>
+    }
+  };
+&nbsp;
+  root.annyang = {
+&nbsp;
+    /**
+     * Initialize annyang with a list of commands to recognize.
+     *
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello :name': helloFunction};
+     * var commands2 = {'hi': helloFunction};
+     *
+     * // initialize annyang, overwriting any previously added commands
+     * annyang.init(commands, true);
+     * // adds an additional command without removing the previous commands
+     * annyang.init(commands2, false);
+     * ````
+     * As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
+     *
+     * @param {Object} commands - Commands that annyang should listen to
+     * @param {Boolean} [resetCommands=true] - Remove all commands before initializing?
+     * @method init
+     * @deprecated
+     * @see [Commands Object](#commands-object)
+     */
+    init: <span class="fstat-no" title="function not covered" >function(commands, resetCommands) {</span>
+&nbsp;
+      // resetCommands defaults to true
+<span class="cstat-no" title="statement not covered" >      if (resetCommands === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        resetCommands = true;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        resetCommands = !!resetCommands;</span>
+      }
+&nbsp;
+      // Abort previous instances of recognition already running
+<span class="cstat-no" title="statement not covered" >      if (recognition &amp;&amp; recognition.abort) {</span>
+<span class="cstat-no" title="statement not covered" >        recognition.abort();</span>
+      }
+&nbsp;
+      // initiate SpeechRecognition
+<span class="cstat-no" title="statement not covered" >      recognition = new SpeechRecognition();</span>
+&nbsp;
+      // Set the max number of alternative transcripts to try and match with a command
+<span class="cstat-no" title="statement not covered" >      recognition.maxAlternatives = 5;</span>
+&nbsp;
+      // In HTTPS, turn off continuous mode for faster results.
+      // In HTTP,  turn on  continuous mode for much slower results, but no repeating security notices
+<span class="cstat-no" title="statement not covered" >      recognition.continuous = root.location.protocol === 'http:';</span>
+&nbsp;
+      // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
+<span class="cstat-no" title="statement not covered" >      recognition.lang = 'en-US';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      recognition.onstart   = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        isListening = true;</span>
+<span class="cstat-no" title="statement not covered" >        invokeCallbacks(callbacks.start);</span>
+      };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      recognition.onerror   = <span class="fstat-no" title="function not covered" >function(event) {</span></span>
+<span class="cstat-no" title="statement not covered" >        invokeCallbacks(callbacks.error);</span>
+<span class="cstat-no" title="statement not covered" >        switch (event.error) {</span>
+        case 'network':
+<span class="cstat-no" title="statement not covered" >          invokeCallbacks(callbacks.errorNetwork);</span>
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        case 'not-allowed':
+        case 'service-not-allowed':
+          // if permission to use the mic is denied, turn off auto-restart
+<span class="cstat-no" title="statement not covered" >          autoRestart = false;</span>
+          // determine if permission was denied by user or automatically.
+<span class="cstat-no" title="statement not covered" >          if (new Date().getTime()-lastStartedAt &lt; 200) {</span>
+<span class="cstat-no" title="statement not covered" >            invokeCallbacks(callbacks.errorPermissionBlocked);</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            invokeCallbacks(callbacks.errorPermissionDenied);</span>
+          }
+<span class="cstat-no" title="statement not covered" >          break;</span>
+        }
+      };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      recognition.onend     = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        isListening = false;</span>
+<span class="cstat-no" title="statement not covered" >        invokeCallbacks(callbacks.end);</span>
+        // annyang will auto restart if it is closed automatically and not by user action.
+<span class="cstat-no" title="statement not covered" >        if (autoRestart) {</span>
+          // play nicely with the browser, and never restart annyang automatically more than once per second
+<span class="cstat-no" title="statement not covered" >          var timeSinceLastStart = new Date().getTime()-lastStartedAt;</span>
+<span class="cstat-no" title="statement not covered" >          if (timeSinceLastStart &lt; 1000) {</span>
+<span class="cstat-no" title="statement not covered" >            setTimeout(root.annyang.start, 1000-timeSinceLastStart);</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            root.annyang.start();</span>
+          }
+        }
+      };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      recognition.onresult  = <span class="fstat-no" title="function not covered" >function(event) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if(pauseListening) {</span>
+<span class="cstat-no" title="statement not covered" >          if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >            root.console.log('Speech heard, but annyang is paused');</span>
+          }
+<span class="cstat-no" title="statement not covered" >          return false;</span>
+        }
+&nbsp;
+        // Map the results to an array
+<span class="cstat-no" title="statement not covered" >        var SpeechRecognitionResult = event.results[event.resultIndex];</span>
+<span class="cstat-no" title="statement not covered" >        var results = [];</span>
+<span class="cstat-no" title="statement not covered" >        for (var k = 0; k&lt;SpeechRecognitionResult.length; k++) {</span>
+<span class="cstat-no" title="statement not covered" >          results[k] = SpeechRecognitionResult[k].transcript;</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        invokeCallbacks(callbacks.result, results);</span>
+<span class="cstat-no" title="statement not covered" >        var commandText;</span>
+        // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i&lt;results.length; i++) {</span>
+          // the text recognized
+<span class="cstat-no" title="statement not covered" >          commandText = results[i].trim();</span>
+<span class="cstat-no" title="statement not covered" >          if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >            root.console.log('Speech recognized: %c'+commandText, debugStyle);</span>
+          }
+&nbsp;
+          // try and match recognized text to one of the commands on the list
+<span class="cstat-no" title="statement not covered" >          for (var j = 0, l = commandsList.length; j &lt; l; j++) {</span>
+<span class="cstat-no" title="statement not covered" >            var result = commandsList[j].command.exec(commandText);</span>
+<span class="cstat-no" title="statement not covered" >            if (result) {</span>
+<span class="cstat-no" title="statement not covered" >              var parameters = result.slice(1);</span>
+<span class="cstat-no" title="statement not covered" >              if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >                root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);</span>
+<span class="cstat-no" title="statement not covered" >                if (parameters.length) {</span>
+<span class="cstat-no" title="statement not covered" >                  root.console.log('with parameters', parameters);</span>
+                }
+              }
+              // execute the matched command
+<span class="cstat-no" title="statement not covered" >              commandsList[j].callback.apply(this, parameters);</span>
+<span class="cstat-no" title="statement not covered" >              invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);</span>
+<span class="cstat-no" title="statement not covered" >              return true;</span>
+            }
+          }
+        }
+<span class="cstat-no" title="statement not covered" >        invokeCallbacks(callbacks.resultNoMatch, results);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
+      };
+&nbsp;
+      // build commands list
+<span class="cstat-no" title="statement not covered" >      if (resetCommands) {</span>
+<span class="cstat-no" title="statement not covered" >        commandsList = [];</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (commands.length) {</span>
+<span class="cstat-no" title="statement not covered" >        this.addCommands(commands);</span>
+      }
+    },
+&nbsp;
+    /**
+     * Start listening.
+     * It's a good idea to call this after adding some commands first, but not mandatory.
+     *
+     * Receives an optional options object which supports the following options:
+     * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     * - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
+     *
+     * #### Examples:
+     * ````javascript
+     * // Start listening, don't restart automatically
+     * annyang.start({ autoRestart: false });
+     * // Start listening, don't restart automatically, stop recognition after first phrase recognized
+     * annyang.start({ autoRestart: false, continuous: false });
+     * ````
+     * @param {Object} [options] - Optional options.
+     * @method start
+     */
+    start: <span class="fstat-no" title="function not covered" >function(options) {</span>
+<span class="cstat-no" title="statement not covered" >      pauseListening = false;</span>
+<span class="cstat-no" title="statement not covered" >      initIfNeeded();</span>
+<span class="cstat-no" title="statement not covered" >      options = options || {};</span>
+<span class="cstat-no" title="statement not covered" >      if (options.autoRestart !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        autoRestart = !!options.autoRestart;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        autoRestart = true;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      if (options.continuous !== undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        recognition.continuous = !!options.continuous;</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      lastStartedAt = new Date().getTime();</span>
+<span class="cstat-no" title="statement not covered" >      try {</span>
+<span class="cstat-no" title="statement not covered" >        recognition.start();</span>
+      } catch(e) {
+<span class="cstat-no" title="statement not covered" >        if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >          root.console.log(e.message);</span>
+        }
+      }
+    },
+&nbsp;
+    /**
+     * Stop listening, and turn off mic.
+     *
+     * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
+     * @see [pause()](#pause)
+     *
+     * @method abort
+     */
+    abort: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      autoRestart = false;</span>
+<span class="cstat-no" title="statement not covered" >      if (isInitialized) {</span>
+<span class="cstat-no" title="statement not covered" >        recognition.abort();</span>
+      }
+    },
+&nbsp;
+    /**
+     * Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
+     *
+     * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+     * @see [abort()](#abort)
+     *
+     * @method pause
+     */
+    pause: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      pauseListening = true;</span>
+    },
+&nbsp;
+    /**
+     * Resumes listening and restores command callback execution when a result matches.
+     * If SpeechRecognition was aborted (stopped), start it.
+     *
+     * @method resume
+     */
+    resume: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      root.annyang.start();</span>
+    },
+&nbsp;
+    /**
+     * Turn on output of debug messages to the console. Ugly, but super-handy!
+     *
+     * @param {Boolean} [newState=true] - Turn on/off debug messages
+     * @method debug
+     */
+    debug: <span class="fstat-no" title="function not covered" >function(newState) {</span>
+<span class="cstat-no" title="statement not covered" >      if (arguments.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >        debugState = !!newState;</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        debugState = true;</span>
+      }
+    },
+&nbsp;
+    /**
+     * Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
+     *
+     * @param {String} language - The language (locale)
+     * @method setLanguage
+     * @see [Languages](#languages)
+     */
+    setLanguage: <span class="fstat-no" title="function not covered" >function(language) {</span>
+<span class="cstat-no" title="statement not covered" >      initIfNeeded();</span>
+<span class="cstat-no" title="statement not covered" >      recognition.lang = language;</span>
+    },
+&nbsp;
+    /**
+     * Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
+     *
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
+     * var commands2 = {'hi': helloFunction};
+     *
+     * annyang.addCommands(commands);
+     * annyang.addCommands(commands2);
+     * // annyang will now listen to all three commands
+     * ````
+     *
+     * @param {Object} commands - Commands that annyang should listen to
+     * @method addCommands
+     * @see [Commands Object](#commands-object)
+     */
+    addCommands: <span class="fstat-no" title="function not covered" >function(commands) {</span>
+<span class="cstat-no" title="statement not covered" >      var cb;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      initIfNeeded();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      for (var phrase in commands) {</span>
+<span class="cstat-no" title="statement not covered" >        if (commands.hasOwnProperty(phrase)) {</span>
+<span class="cstat-no" title="statement not covered" >          cb = root[commands[phrase]] || commands[phrase];</span>
+<span class="cstat-no" title="statement not covered" >          if (typeof cb === 'function') {</span>
+            // convert command to regex then register the command
+<span class="cstat-no" title="statement not covered" >            registerCommand(commandToRegExp(phrase), cb, phrase);</span>
+          } else <span class="cstat-no" title="statement not covered" >if (typeof cb === 'object' &amp;&amp; cb.regexp instanceof RegExp) {</span>
+            // register the command
+<span class="cstat-no" title="statement not covered" >            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            if (debugState) {</span>
+<span class="cstat-no" title="statement not covered" >              root.console.log('Can not register command: %c'+phrase, debugStyle);</span>
+            }
+<span class="cstat-no" title="statement not covered" >            continue;</span>
+          }
+        }
+      }
+    },
+&nbsp;
+    /**
+     * Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
+     *
+     * #### Examples:
+     * ````javascript
+     * var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+     *
+     * // Remove all existing commands
+     * annyang.removeCommands();
+     *
+     * // Add some commands
+     * annyang.addCommands(commands);
+     *
+     * // Don't respond to hello
+     * annyang.removeCommands('hello');
+     *
+     * // Don't respond to howdy or hi
+     * annyang.removeCommands(['howdy', 'hi']);
+     * ````
+     * @param {String|Array|Undefined} [commandsToRemove] - Commands to remove
+     * @method removeCommands
+     */
+    removeCommands: <span class="fstat-no" title="function not covered" >function(commandsToRemove) {</span>
+<span class="cstat-no" title="statement not covered" >      if (commandsToRemove === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        commandsList = [];</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];</span>
+<span class="cstat-no" title="statement not covered" >      commandsList = commandsList.filter(<span class="fstat-no" title="function not covered" >function(command) {</span></span>
+<span class="cstat-no" title="statement not covered" >        for (var i = 0; i&lt;commandsToRemove.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >          if (commandsToRemove[i] === command.originalPhrase) {</span>
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+          }
+        }
+<span class="cstat-no" title="statement not covered" >        return true;</span>
+      });
+    },
+&nbsp;
+    /**
+     * Add a callback function to be called in case one of the following events happens:
+     *
+     * * `start` - Fired as soon as the browser's Speech Recognition engine starts listening
+     * * `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
+     * * `errorNetwork` - Fired when Speech Recognition fails because of a network error
+     * * `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
+     * * `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
+     * * `end` - Fired when the browser's Speech Recognition engine stops
+     * * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
+     *     Callback functions registered to this event will include an array of possible phrases the user said as the first argument
+     * * `resultMatch` - Fired when annyang was able to match between what the user said and a registered command
+     *     Callback functions registered to this event will include three arguments in the following order:
+     *       * The phrase the user said that matched a command
+     *       * The command that was matched
+     *       * An array of possible alternative phrases the user might've said
+     * * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands
+     *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
+     *
+     * #### Examples:
+     * ````javascript
+     * annyang.addCallback('error', function () {
+     *   $('.myErrorText').text('There was an error!');
+     * });
+     *
+     * annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+     *   console.log(userSaid); // sample output: 'hello'
+     *   console.log(commandText); // sample output: 'hello (there)'
+     *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+     * });
+     *
+     * // pass local context to a global function called notConnected
+     * annyang.addCallback('errorNetwork', notConnected, this);
+     * ````
+     * @param {String} type - Name of event that will trigger this callback
+     * @param {Function} callback - The function to call when event is triggered
+     * @param {Object} [context] - Optional context for the callback function
+     * @method addCallback
+     */
+    addCallback: <span class="fstat-no" title="function not covered" >function(type, callback, context) {</span>
+<span class="cstat-no" title="statement not covered" >      if (callbacks[type]  === undefined) {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      var cb = root[callback] || callback;</span>
+<span class="cstat-no" title="statement not covered" >      if (typeof cb !== 'function') {</span>
+<span class="cstat-no" title="statement not covered" >        return;</span>
+      }
+<span class="cstat-no" title="statement not covered" >      callbacks[type].push({callback: cb, context: context || this});</span>
+    },
+&nbsp;
+    /**
+     * Returns true if speech recognition is currently on.
+     * Returns false if speech recognition is off or annyang is paused.
+     *
+     * @return boolean true = SpeechRecognition is on and annyang is listening
+     * @method isListening
+     */
+    isListening: <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      return isListening &amp;&amp; !pauseListening;</span>
+    }
+  };
+&nbsp;
+}).call(this);
+&nbsp;
+/**
+ * # Good to Know
+ *
+ * ## Commands Object
+ *
+ * Both the [init()]() and addCommands() methods receive a `commands` object.
+ *
+ * annyang understands commands with `named variables`, `splats`, and `optional words`.
+ *
+ * * Use `named variables` for one word arguments in your command.
+ * * Use `splats` to capture multi-word text at the end of your command (greedy).
+ * * Use `optional words` or phrases to define a part of the command as optional.
+ *
+ * #### Examples:
+ * ````html
+ * &lt;script&gt;
+ * var commands = {
+ *   // annyang will capture anything after a splat (*) and pass it to the function.
+ *   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
+ *   'show me *tag': showFlickr,
+ *
+ *   // A named variable is a one word variable, that can fit anywhere in your command.
+ *   // e.g. saying "calculate October stats" will call calculateStats('October');
+ *   'calculate :month stats': calculateStats,
+ *
+ *   // By defining a part of the following command as optional, annyang will respond
+ *   // to both: "say hello to my little friend" as well as "say hello friend"
+ *   'say hello (to my little) friend': greeting
+ * };
+ *
+ * var showFlickr = function(tag) {
+ *   var url = 'http://api.flickr.com/services/rest/?tags='+tag;
+ *   $.getJSON(url);
+ * }
+ *
+ * var calculateStats = function(month) {
+ *   $('#stats').text('Statistics for '+month);
+ * }
+ *
+ * var greeting = function() {
+ *   $('#greeting').text('Hello!');
+ * }
+ * &lt;/script&gt;
+ * ````
+ *
+ * ### Using Regular Expressions in commands
+ * For advanced commands, you can pass a regular expression object, instead of
+ * a simple string command.
+ *
+ * This is done by passing an object containing two properties: `regexp`, and
+ * `callback` instead of the function.
+ *
+ * #### Examples:
+ * ````javascript
+ * var calculateFunction = function(month) { console.log(month); }
+ * var commands = {
+ *   // This example will accept any word as the "month"
+ *   'calculate :month stats': calculateFunction,
+ *   // This example will only accept months which are at the start of a quarter
+ *   'calculate :quarter stats': {'regexp': /^calculate (January|April|July|October) stats$/, 'callback': calculateFunction}
+ * }
+ ````
+ *
+ * ## Languages
+ *
+ * While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
+ *
+ * * Afrikaans `af`
+ * * Basque `eu`
+ * * Bulgarian `bg`
+ * * Catalan `ca`
+ * * Arabic (Egypt) `ar-EG`
+ * * Arabic (Jordan) `ar-JO`
+ * * Arabic (Kuwait) `ar-KW`
+ * * Arabic (Lebanon) `ar-LB`
+ * * Arabic (Qatar) `ar-QA`
+ * * Arabic (UAE) `ar-AE`
+ * * Arabic (Morocco) `ar-MA`
+ * * Arabic (Iraq) `ar-IQ`
+ * * Arabic (Algeria) `ar-DZ`
+ * * Arabic (Bahrain) `ar-BH`
+ * * Arabic (Lybia) `ar-LY`
+ * * Arabic (Oman) `ar-OM`
+ * * Arabic (Saudi Arabia) `ar-SA`
+ * * Arabic (Tunisia) `ar-TN`
+ * * Arabic (Yemen) `ar-YE`
+ * * Czech `cs`
+ * * Dutch `nl-NL`
+ * * English (Australia) `en-AU`
+ * * English (Canada) `en-CA`
+ * * English (India) `en-IN`
+ * * English (New Zealand) `en-NZ`
+ * * English (South Africa) `en-ZA`
+ * * English(UK) `en-GB`
+ * * English(US) `en-US`
+ * * Finnish `fi`
+ * * French `fr-FR`
+ * * Galician `gl`
+ * * German `de-DE`
+ * * Hebrew `he`
+ * * Hungarian `hu`
+ * * Icelandic `is`
+ * * Italian `it-IT`
+ * * Indonesian `id`
+ * * Japanese `ja`
+ * * Korean `ko`
+ * * Latin `la`
+ * * Mandarin Chinese `zh-CN`
+ * * Traditional Taiwan `zh-TW`
+ * * Simplified China zh-CN `?`
+ * * Simplified Hong Kong `zh-HK`
+ * * Yue Chinese (Traditional Hong Kong) `zh-yue`
+ * * Malaysian `ms-MY`
+ * * Norwegian `no-NO`
+ * * Polish `pl`
+ * * Pig Latin `xx-piglatin`
+ * * Portuguese `pt-PT`
+ * * Portuguese (Brasil) `pt-BR`
+ * * Romanian `ro-RO`
+ * * Russian `ru`
+ * * Serbian `sr-SP`
+ * * Slovak `sk`
+ * * Spanish (Argentina) `es-AR`
+ * * Spanish (Bolivia) `es-BO`
+ * * Spanish (Chile) `es-CL`
+ * * Spanish (Colombia) `es-CO`
+ * * Spanish (Costa Rica) `es-CR`
+ * * Spanish (Dominican Republic) `es-DO`
+ * * Spanish (Ecuador) `es-EC`
+ * * Spanish (El Salvador) `es-SV`
+ * * Spanish (Guatemala) `es-GT`
+ * * Spanish (Honduras) `es-HN`
+ * * Spanish (Mexico) `es-MX`
+ * * Spanish (Nicaragua) `es-NI`
+ * * Spanish (Panama) `es-PA`
+ * * Spanish (Paraguay) `es-PY`
+ * * Spanish (Peru) `es-PE`
+ * * Spanish (Puerto Rico) `es-PR`
+ * * Spanish (Spain) `es-ES`
+ * * Spanish (US) `es-US`
+ * * Spanish (Uruguay) `es-UY`
+ * * Spanish (Venezuela) `es-VE`
+ * * Swedish `sv-SE`
+ * * Turkish `tr`
+ * * Zulu `zu`
+ *
+ * ## Developing
+ *
+ * Prerequisities: node.js
+ *
+ * First, install dependencies in your local annyang copy:
+ *
+ *     npm install
+ *
+ * Make sure to run the default grunt task after each change to annyang.js. This can also be done automatically by running:
+ *
+ *     grunt watch
+ *
+ * You can also run a local server for testing your work with:
+ *
+ *     grunt dev
+ *
+ * Point your browser to `https://localhost:8443/demo/` to see the demo page.
+ * Since it's using self-signed certificate, you might need to click *"Proceed Anyway"*.
+ *
+ */
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Jan 14 2016 11:50:42 GMT+0200 (IST)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

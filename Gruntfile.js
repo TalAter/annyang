@@ -91,33 +91,54 @@ module.exports = function(grunt) {
           open: 'https://localhost:8443/demo'
         }
       }
+    },
+    jasmine: {
+      testAndCoverage: {
+        src: ['annyang.js'],
+        options: {
+          specs: ['test/spec/*Spec.js'],
+          outfile: 'test/SpecRunner.html',
+          polyfills: ['test/vendor/corti.js', 'test/init_corti.js'],
+          keepRunner: true,
+          template: require('grunt-template-jasmine-istanbul'),
+          templateOptions: {
+            coverage: 'test/coverage/coverage.json',
+            report: [
+              {
+                type: 'html',
+                options: {
+                  dir: 'test/coverage'
+                }
+              },
+              {
+                type: 'text'
+              }
+            ],
+            thresholds: {
+              lines: 0,
+              statements: 0,
+              branches: 0,
+              functions: 0
+            }
+          }
+        }
+      }
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load NPM tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  // Load the plugin that provides the "jshint" task.
   grunt.loadNpmTasks('grunt-contrib-jshint');
-
-  // Load the plugin that provides the "watch" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
-
-  // Load the plugin that provides the "cssmin" task.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-
-  // Load the plugin that provides the "imagemin" task.
   grunt.loadNpmTasks('grunt-contrib-imagemin');
-
-  // Load the plugin that provides the "connect" task.
   grunt.loadNpmTasks('grunt-contrib-connect');
-
-  // Load the plugin that provides the "markdox" task.
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-markdox');
 
-  // Default task(s).
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'markdox']);
-
+  // Register tasks
+  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jasmine', 'markdox']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
+  grunt.registerTask('test', ['jshint', 'jasmine']);
 
 };
