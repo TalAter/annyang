@@ -30,6 +30,7 @@
     "describe":           false,
     "expect":             false,
     "jasmine":            false,
+    "spyOn":              false,
     "it":                 false,
     "xit":                false,
     "annyang":            false

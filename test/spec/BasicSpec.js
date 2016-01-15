@@ -11,7 +11,7 @@
       expect(annyang.init).toEqual(jasmine.any(Function));
     });
 
-      it('should expose start method', function () {
+    it('should expose start method', function () {
       expect(annyang.start).toEqual(jasmine.any(Function));
     });
 
@@ -84,6 +84,45 @@
       expect(annyang.isListening()).toBe(false);
       annyang.resume();
       expect(annyang.isListening()).toBe(true);
+    });
+
+  });
+
+  describe('annyang.debug', function() {
+
+    beforeEach(function(){
+      spyOn(console, 'log');
+    });
+
+    it('should be off by default', function () {
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
+    it('should turn on debug messages when called without a parameter', function () {
+      annyang.debug();
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log).toHaveBeenCalled();
+    });
+
+    it('should turn off debug messages when called with a parameter that is false', function () {
+      annyang.debug(true);
+      annyang.debug(false);
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.debug(0);
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
+    it('should turn on debug messages when called with a parameter that is true', function () {
+      annyang.debug(false);
+      annyang.debug(1);
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log.calls.count()).toEqual(1);
+      annyang.debug(true);
+      annyang.addCommands({'test command': function() {}});
+      expect(console.log.calls.count()).toEqual(2);
     });
 
   });
