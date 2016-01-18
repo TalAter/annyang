@@ -191,6 +191,15 @@ Returns false if speech recognition is off or annyang is paused.
 
 * boolean true = SpeechRecognition is on and annyang is listening
 
+## getSpeechRecognizer()
+
+Returns the instance of the browser's SpeechRecognition object used by annyang.
+Useful in case you want direct access to the browser's Speech Recognition engine.
+
+### Return:
+
+* SpeechRecognition The browser's Speech Recognizer currently used by annyang
+
 # Good to Know
 
 ## Commands Object

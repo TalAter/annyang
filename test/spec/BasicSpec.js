@@ -55,6 +55,10 @@
       expect(annyang.isListening).toEqual(jasmine.any(Function));
     });
 
+    it('should expose getSpeechRecognizer method', function () {
+      expect(annyang.getSpeechRecognizer).toEqual(jasmine.any(Function));
+    });
+
   });
 
   describe('annyang.isListening', function() {
@@ -273,6 +277,23 @@
       expect(spyOnPause).not.toHaveBeenCalled();
       annyang.pause();
       expect(spyOnPause).not.toHaveBeenCalled();
+    });
+
+  });
+
+  describe("annyang.getSpeechRecognizer", function() {
+
+    beforeEach(function() {
+      annyang.abort();
+    });
+
+    it('should return the instance of SpeechRecognition used by annyang', function () {
+      var spyOnStart = jasmine.createSpy();
+      var recognition = annyang.getSpeechRecognizer();
+      recognition.addEventListener('start', spyOnStart);
+      expect(spyOnStart).not.toHaveBeenCalled();
+      annyang.start();
+      expect(spyOnStart.calls.count()).toEqual(1);
     });
 
   });

@@ -474,6 +474,17 @@
      */
     isListening: function() {
       return isListening && !pauseListening;
+    },
+
+    /**
+     * Returns the instance of the browser's SpeechRecognition object used by annyang.
+     * Useful in case you want direct access to the browser's Speech Recognition engine.
+     *
+     * @returns SpeechRecognition The browser's Speech Recognizer currently used by annyang
+     * @method getSpeechRecognizer
+     */
+    getSpeechRecognizer: function() {
+      return recognition;
     }
   };
 
