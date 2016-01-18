@@ -106,7 +106,7 @@
       expect(spyOnEnd).not.toHaveBeenCalled();
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
-      expect(spyOnEnd.calls.count()).toEqual(1);
+      expect(spyOnEnd).toHaveBeenCalledTimes(1);
     });
 
     it('should stop annyang if it is paused', function () {
@@ -115,7 +115,7 @@
       expect(spyOnEnd).not.toHaveBeenCalled();
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
-      expect(spyOnEnd.calls.count()).toEqual(1);
+      expect(spyOnEnd).toHaveBeenCalledTimes(1);
     });
 
     it('should do nothing when annyang is stopped', function () {
@@ -159,10 +159,10 @@
       annyang.debug(false);
       annyang.debug(1);
       annyang.addCommands({'test command': function() {}});
-      expect(console.log.calls.count()).toEqual(1);
+      expect(console.log).toHaveBeenCalledTimes(1);
       annyang.debug(true);
       annyang.addCommands({'test command': function() {}});
-      expect(console.log.calls.count()).toEqual(2);
+      expect(console.log).toHaveBeenCalledTimes(2);
     });
 
   });
@@ -188,8 +188,8 @@
       expect(spyOnStart).not.toHaveBeenCalled();
       expect(spyOnStart2).not.toHaveBeenCalled();
       annyang.start();
-      expect(spyOnStart.calls.count()).toEqual(1);
-      expect(spyOnStart2.calls.count()).toEqual(1);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+      expect(spyOnStart2).toHaveBeenCalledTimes(1);
     });
 
     it('should run callback in the context of annyang by default', function () {
@@ -227,7 +227,7 @@
       annyang.addCallback('start', spyOnStart);
       expect(spyOnStart).not.toHaveBeenCalled();
       annyang.start();
-      expect(spyOnStart.calls.count()).toEqual(1);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
     it('should not fire callback when annyang resumes from a paused state', function () {
@@ -250,7 +250,7 @@
       annyang.addCallback('start', spyOnStart);
       expect(spyOnStart).not.toHaveBeenCalled();
       annyang.resume();
-      expect(spyOnStart.calls.count()).toEqual(1);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
   });
@@ -268,7 +268,7 @@
       annyang.addCallback('end', spyOnAbort);
       expect(spyOnAbort).not.toHaveBeenCalled();
       annyang.abort();
-      expect(spyOnAbort.calls.count()).toEqual(1);
+      expect(spyOnAbort).toHaveBeenCalledTimes(1);
     });
 
     it('should not fire callback when annyang enters paused state', function () {
@@ -293,7 +293,7 @@
       recognition.addEventListener('start', spyOnStart);
       expect(spyOnStart).not.toHaveBeenCalled();
       annyang.start();
-      expect(spyOnStart.calls.count()).toEqual(1);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
   });
