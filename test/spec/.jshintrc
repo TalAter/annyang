@@ -28,6 +28,7 @@
     "afterEach":          false,
     "beforeEach":         false,
     "describe":           false,
+    "xdescribe":          false,
     "expect":             false,
     "jasmine":            false,
     "spyOn":              false,
