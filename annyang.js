@@ -644,4 +644,6 @@
  * Point your browser to `https://localhost:8443/demo/` to see the demo page.
  * Since it's using self-signed certificate, you might need to click *"Proceed Anyway"*.
  *
+ * For more info, check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) file
+ *
  */
