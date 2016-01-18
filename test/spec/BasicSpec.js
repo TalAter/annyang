@@ -277,4 +277,56 @@
 
   });
 
+  describe("annyang.addCommands", function() {
+
+    beforeEach(function() {
+      annyang.abort();
+      annyang.removeCommands();
+    });
+
+    xit('should accept an object consisting of key (sentence) and value (callback function)', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {'hello': spyOnMatch}
+      );
+    });
+
+    xit('should match commands when a sentence is recognized and call the callback', function () {
+    });
+
+    xit('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function () {
+    });
+
+    xit('should overwrite existing commands if their name matches a previous command', function () {
+    });
+
+    xit('should write to console each command that was successfully added', function () {
+    });
+
+    xit('should write to console when commands could not be added', function () {
+    });
+
+    xit('should accept commands with an object as the value which consists of a regexp and callback', function () {
+    });
+
+    xit('should match commands with named variables', function () {
+    });
+
+    xit('should pass named variables to the callback function', function () {
+    });
+
+    xit('should match commands with splats', function () {
+    });
+
+    xit('should pass splats to the callback function', function () {
+    });
+
+    xit('should match commands with optional words when the word is in the sentence', function () {
+    });
+
+    xit('should match commands with optional words when the word is not in the sentence', function () {
+    });
+
+  });
+
 })();
