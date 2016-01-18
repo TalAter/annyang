@@ -215,4 +215,30 @@
 
   });
 
+  describe("annyang.addCallback('end')", function() {
+
+    beforeEach(function() {
+      annyang.debug(false);
+      annyang.start();
+      annyang.debug(true);
+    });
+
+    it('should add a callback which will be called when annyang aborts', function () {
+      var spyOnAbort = jasmine.createSpy();
+      annyang.addCallback('end', spyOnAbort);
+      expect(spyOnAbort).not.toHaveBeenCalled();
+      annyang.abort();
+      expect(spyOnAbort.calls.count()).toEqual(1);
+    });
+
+    it('should not fire callback when annyang enters paused state', function () {
+      var spyOnPause = jasmine.createSpy();
+      annyang.addCallback('end', spyOnPause);
+      expect(spyOnPause).not.toHaveBeenCalled();
+      annyang.pause();
+      expect(spyOnPause).not.toHaveBeenCalled();
+    });
+
+  });
+
 })();
