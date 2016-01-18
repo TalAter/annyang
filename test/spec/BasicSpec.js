@@ -88,6 +88,42 @@
 
   });
 
+  describe('annyang.abort', function() {
+    var spyOnEnd;
+    beforeEach(function() {
+      annyang.abort();
+      spyOnEnd = jasmine.createSpy();
+      annyang.addCallback('end', spyOnEnd);
+    });
+
+    it('should stop annyang and Speech Recognition if it is started', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnEnd).not.toHaveBeenCalled();
+      annyang.abort();
+      expect(annyang.isListening()).toBe(false);
+      expect(spyOnEnd.calls.count()).toEqual(1);
+    });
+
+    it('should stop annyang if it is paused', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnEnd).not.toHaveBeenCalled();
+      annyang.abort();
+      expect(annyang.isListening()).toBe(false);
+      expect(spyOnEnd.calls.count()).toEqual(1);
+    });
+
+    it('should do nothing when annyang is stopped', function () {
+      expect(annyang.isListening()).toBe(false);
+      expect(spyOnEnd).not.toHaveBeenCalled();
+      annyang.abort();
+      expect(annyang.isListening()).toBe(false);
+      expect(spyOnEnd).not.toHaveBeenCalled();
+    });
+
+  });
+
   describe('annyang.debug', function() {
 
     beforeEach(function(){
