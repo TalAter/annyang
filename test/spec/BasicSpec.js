@@ -300,28 +300,107 @@
 
   describe("annyang.addCommands", function() {
 
+    var recognition;
+
     beforeEach(function() {
+      annyang.debug(false);
       annyang.abort();
       annyang.removeCommands();
+      recognition = annyang.getSpeechRecognizer();
+      spyOn(console, 'log');
     });
 
-    xit('should accept an object consisting of key (sentence) and value (callback function)', function () {
+    it('should accept an object consisting of key (sentence) and value (callback function)', function () {
+      expect(function() {
+        annyang.addCommands(
+          {'Time for some thrilling heroics': function() {}}
+        );
+      }).not.toThrowError();
+    });
+
+    it('should match commands when a sentence is recognized and call the callback', function () {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
-        {'hello': spyOnMatch}
+        {'Time for some thrilling heroics': spyOnMatch}
       );
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should match commands when a sentence is recognized and call the callback', function () {
+    it('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function () {
+      var spyOnMatch = jasmine.createSpy();
+      // For this test, the command text is what simulate saying plus 'and so on'.
+      // This is the structure of alternative text recognitions in Corti.
+      annyang.addCommands(
+        {'Time for some thrilling heroics and so on': spyOnMatch}
+      );
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function () {
+    it('should ignore commands in subsequent addCommands calls with existing command texts', function () {
+      var spyOnMatch1 = jasmine.createSpy();
+      var spyOnMatch2 = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': spyOnMatch1
+        }
+      );
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics':  spyOnMatch2
+        }
+      );
+      expect(spyOnMatch1).not.toHaveBeenCalled();
+      expect(spyOnMatch2).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch1).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch2).not.toHaveBeenCalled();
     });
 
-    xit('should overwrite existing commands if their name matches a previous command', function () {
+    it("should accept callbacks in commands object by reference. e.g. {'hello': helloFunc}", function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': spyOnMatch
+        }
+      );
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should write to console each command that was successfully added', function () {
+    it("should accept callbacks in commands object by reference. e.g. {'hello': 'helloFunc'}", function () {
+      window.globalSpy = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': 'globalSpy'
+        }
+      );
+      expect(window.globalSpy).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(window.globalSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should write to console each command that was successfully added when debug is on', function () {
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': function() {}
+        }
+      );
+      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledWith('Command successfully loaded: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+      annyang.addCommands(
+        {
+          'That sounds like something out of science fiction': function() {},
+          'We should start dealing in those black-market beagles': function() {}
+        }
+      );
+      expect(console.log).toHaveBeenCalledTimes(3);
     });
 
     xit('should write to console when commands could not be added', function () {
