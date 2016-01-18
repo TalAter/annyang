@@ -69,14 +69,14 @@
     });
   };
 
+  var isInitialized = function() {
+    return recognition !== undefined;
+  };
+
   var initIfNeeded = function() {
     if (!isInitialized()) {
       root.annyang.init({}, false);
     }
-  };
-
-  var isInitialized = function() {
-    return recognition !== undefined;
   };
 
   var registerCommand = function(command, cb, phrase) {
