@@ -403,16 +403,89 @@
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
-    xit('should write to console when commands could not be added', function () {
+    it('should write to console when commands could not be added', function () {
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': 'not_a_function'
+        }
+      );
+      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledWith('Can not register command: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
     });
 
-    xit('should accept commands with an object as the value which consists of a regexp and callback', function () {
+    it('should accept commands with an object as the value which consists of a regexp and callback', function () {
+      expect(function() {
+        annyang.addCommands(
+        {
+          'It is time': {
+            regexp: /\w* for some thrilling.*/,
+            callback: function() {}
+          }
+        });
+      }).not.toThrowError();
     });
 
-    xit('should match commands with named variables', function () {
+    it('should match commands passed as an object as the value which consists of a regexp and callback', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'It is time': {
+            regexp: /\w* for some thrilling.*/,
+            callback: spyOnMatch
+          }
+        }
+      );
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should pass named variables to the callback function', function () {
+    it('should pass variables from regexp capturing groups to the callback function', function () {
+      var capture1 = '';
+      var capture2 = '';
+      var getVariablesCaptured = function(s1, s2) {
+        capture1 = s1;
+        capture2 = s2;
+      };
+
+      annyang.addCommands(
+        {
+          'It is time': {
+            regexp: /Time for some (\w*) (\w*)/,
+            callback: getVariablesCaptured
+          }
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(capture1).toEqual('thrilling');
+      expect(capture2).toEqual('heroics');
+    });
+
+    it('should match commands with named variables', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some thrilling :stuff': spyOnMatch
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should pass named variables to the callback function', function () {
+      var capture = '';
+      var getVariablesCaptured = function(s) {
+        capture = s;
+      };
+      annyang.addCommands(
+        {
+          'Time for some thrilling :stuff': getVariablesCaptured
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(capture).toEqual('heroics');
     });
 
     xit('should match commands with splats', function () {

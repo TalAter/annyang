@@ -92,10 +92,10 @@ module.exports = function(grunt) {
               }
             ],
             thresholds: {
-              lines: 65,
-              statements: 65,
-              branches: 45,
-              functions: 80
+              lines: 70,
+              statements: 70,
+              branches: 50,
+              functions: 85
             }
           }
         }
