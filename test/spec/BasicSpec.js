@@ -488,16 +488,51 @@
       expect(capture).toEqual('heroics');
     });
 
-    xit('should match commands with splats', function () {
+    it('should match commands with splats', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some *stuff': spyOnMatch
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should pass splats to the callback function', function () {
+    it('should pass splats to the callback function', function () {
+      var capture = '';
+      var getVariablesCaptured = function(s) {
+        capture = s;
+      };
+      annyang.addCommands(
+        {
+          'Time for some *stuff': getVariablesCaptured
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(capture).toEqual('thrilling heroics');
     });
 
-    xit('should match commands with optional words when the word is in the sentence', function () {
+    it('should match commands with optional words when the word is in the sentence', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some (thrilling) heroics': spyOnMatch
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    xit('should match commands with optional words when the word is not in the sentence', function () {
+    it('should match commands with optional words when the word is not in the sentence', function () {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some (thrilling) heroics': spyOnMatch
+        }
+      );
+      recognition.say('Time for some heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
   });
