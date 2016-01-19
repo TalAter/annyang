@@ -537,4 +537,105 @@
 
   });
 
+  describe("annyang.removeCommands", function() {
+
+    var recognition;
+    var spyOnMatch1;
+    var spyOnMatch2;
+    var spyOnMatch3;
+    var spyOnMatch4;
+
+    beforeEach(function() {
+      spyOnMatch1 = jasmine.createSpy();
+      spyOnMatch2 = jasmine.createSpy();
+      spyOnMatch3 = jasmine.createSpy();
+      spyOnMatch4 = jasmine.createSpy();
+      annyang.debug(false);
+      annyang.abort();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some (thrilling) heroics': spyOnMatch1,
+        'We should start dealing in those *merchandise': spyOnMatch2,
+        'That sounds like something out of science fiction': spyOnMatch3,
+        'too pretty': {'regexp': /We are just too pretty for God to let us die/, callback: spyOnMatch4}
+      });
+      recognition = annyang.getSpeechRecognizer();
+      annyang.start();
+    });
+
+    it('should remove a single command when its name is passed as a string in the first parameter', function () {
+      annyang.removeCommands('Time for some (thrilling) heroics');
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).not.toHaveBeenCalled();
+      expect(spyOnMatch2).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch3).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should remove multiple commands when their names are passed as an array in the first parameter', function () {
+      annyang.removeCommands(['Time for some (thrilling) heroics', 'That sounds like something out of science fiction']);
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).not.toHaveBeenCalled();
+      expect(spyOnMatch2).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch3).not.toHaveBeenCalled();
+      expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should remove all commands when called with no parameters', function () {
+      annyang.removeCommands();
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).not.toHaveBeenCalled();
+      expect(spyOnMatch2).not.toHaveBeenCalled();
+      expect(spyOnMatch3).not.toHaveBeenCalled();
+      expect(spyOnMatch4).not.toHaveBeenCalled();
+    });
+
+    it('should remove a single command with an optional word when its name is passed as a string in the first parameter', function () {
+      annyang.removeCommands('Time for some (thrilling) heroics');
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).not.toHaveBeenCalled();
+      expect(spyOnMatch2).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch3).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should remove a single command with a splat when its name is passed as a parameter', function () {
+      annyang.removeCommands('We should start dealing in those *merchandise');
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch2).not.toHaveBeenCalled();
+      expect(spyOnMatch3).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should remove a single regexp command when its name is passed as a parameter', function () {
+      annyang.removeCommands('too pretty');
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      expect(spyOnMatch1).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch2).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch3).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch4).not.toHaveBeenCalled();
+    });
+
+  });
+
+
 })();
