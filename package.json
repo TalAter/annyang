@@ -22,6 +22,9 @@
   "bugs": {
     "url": "https://github.com/TalAter/annyang/issues"
   },
+  "scripts": {
+    "test": "grunt test"
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
     "async": "^1.5.0",
