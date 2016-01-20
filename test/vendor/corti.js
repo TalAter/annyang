@@ -1,5 +1,5 @@
 //! Corti - Replaces the browser's SpeechRecognition with a fake object.
-//! version : 0.2.0
+//! version : 0.2.1
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://github.com/TalAter/SpeechKITT/test/corti.js
@@ -52,6 +52,9 @@
     Object.defineProperty(this, 'lang', {
       get: function() { return _lang; },
       set: function(val) {
+        if (val === undefined) {
+          val = 'undefined';
+        }
         _lang = val.toString();
       }
     });
