@@ -652,5 +652,47 @@
 
   });
 
+  describe('annyang.pause', function() {
+
+    var recognition;
+    var spyOnMatch;
+
+    beforeEach(function() {
+      spyOnMatch = jasmine.createSpy();
+      annyang.abort();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnMatch
+      });
+      annyang.start();
+      recognition = annyang.getSpeechRecognizer();
+    });
+
+    it('should return undefined when called', function () {
+      expect(annyang.pause()).toEqual(undefined);
+    });
+
+    it('should cause annyang.isListening() to return false', function () {
+      expect(annyang.isListening()).toBe(true);
+      annyang.pause();
+      expect(annyang.isListening()).toBe(false);
+    });
+
+    it('should cause commands not to fire even if user says the right thing', function () {
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+      annyang.pause();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not stop the browser\'s Speech Recognition engine', function () {
+      expect(annyang.isListening()).toBe(true);
+      annyang.pause();
+      expect(annyang.isListening()).toBe(false);
+    });
+
+  });
 
 })();
