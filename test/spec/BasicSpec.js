@@ -688,9 +688,9 @@
     });
 
     it('should not stop the browser\'s Speech Recognition engine', function () {
-      expect(annyang.isListening()).toBe(true);
+      expect(recognition.isStarted()).toBe(true);
       annyang.pause();
-      expect(annyang.isListening()).toBe(false);
+      expect(recognition.isStarted()).toBe(true);
     });
 
   });
