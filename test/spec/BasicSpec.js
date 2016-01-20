@@ -544,12 +544,14 @@
     var spyOnMatch2;
     var spyOnMatch3;
     var spyOnMatch4;
+    var spyOnMatch5;
 
     beforeEach(function() {
       spyOnMatch1 = jasmine.createSpy();
       spyOnMatch2 = jasmine.createSpy();
       spyOnMatch3 = jasmine.createSpy();
       spyOnMatch4 = jasmine.createSpy();
+      spyOnMatch5 = jasmine.createSpy();
       annyang.debug(false);
       annyang.abort();
       annyang.removeCommands();
@@ -557,7 +559,8 @@
         'Time for some (thrilling) heroics': spyOnMatch1,
         'We should start dealing in those *merchandise': spyOnMatch2,
         'That sounds like something out of science fiction': spyOnMatch3,
-        'too pretty': {'regexp': /We are just too pretty for God to let us die/, callback: spyOnMatch4}
+        'too pretty': {'regexp': /We are just too pretty for God to let us die/, callback: spyOnMatch4},
+        'You can\'t take the :thing from me': spyOnMatch5
       });
       recognition = annyang.getSpeechRecognizer();
       annyang.start();
@@ -569,10 +572,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
       expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
     it('should remove multiple commands when their names are passed as an array in the first parameter', function () {
@@ -581,10 +586,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).not.toHaveBeenCalled();
       expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
     it('should remove all commands when called with no parameters', function () {
@@ -593,10 +600,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).not.toHaveBeenCalled();
       expect(spyOnMatch3).not.toHaveBeenCalled();
       expect(spyOnMatch4).not.toHaveBeenCalled();
+      expect(spyOnMatch5).not.toHaveBeenCalled();
     });
 
     it('should remove a single command with an optional word when its name is passed as a string in the first parameter', function () {
@@ -605,10 +614,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
       expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
     it('should remove a single command with a splat when its name is passed as a parameter', function () {
@@ -617,10 +628,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).toHaveBeenCalledTimes(1);
       expect(spyOnMatch2).not.toHaveBeenCalled();
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
       expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
     it('should remove a single regexp command when its name is passed as a parameter', function () {
@@ -629,10 +642,12 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
       expect(spyOnMatch1).toHaveBeenCalledTimes(1);
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
       expect(spyOnMatch4).not.toHaveBeenCalled();
+      expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
   });
