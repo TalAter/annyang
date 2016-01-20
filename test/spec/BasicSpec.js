@@ -695,4 +695,61 @@
 
   });
 
+  describe('annyang.resume', function() {
+
+    var recognition;
+    var spyOnMatch;
+
+    beforeEach(function() {
+      spyOnMatch = jasmine.createSpy();
+      annyang.abort();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnMatch
+      });
+      recognition = annyang.getSpeechRecognizer();
+      spyOn(console, 'log');
+    });
+
+    it('should return undefined when called', function () {
+      expect(annyang.resume()).toEqual(undefined);
+    });
+
+    it('should leave speech recognition on and turn annyang on, if called when annyang is paused', function () {
+      annyang.start();
+      annyang.pause();
+      expect(annyang.isListening()).toBe(false);
+      expect(recognition.isStarted()).toBe(true);
+      annyang.resume();
+      expect(annyang.isListening()).toBe(true);
+      expect(recognition.isStarted()).toBe(true);
+    });
+
+    it('should turn speech recognition and annyang on, if called when annyang is stopped', function () {
+      expect(annyang.isListening()).toBe(false);
+      expect(recognition.isStarted()).toBe(false);
+      annyang.resume();
+      expect(annyang.isListening()).toBe(true);
+      expect(recognition.isStarted()).toBe(true);
+    });
+
+    it('should leave speech recognition and annyang on, if called when annyang is listening', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(recognition.isStarted()).toBe(true);
+      annyang.resume();
+      expect(annyang.isListening()).toBe(true);
+      expect(recognition.isStarted()).toBe(true);
+    });
+
+    it('should log a message if debug is on, and resume was called when annyang is listening', function () {
+      annyang.debug(true);
+      annyang.start();
+      annyang.resume();
+      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+    });
+
+  });
+
 })();
