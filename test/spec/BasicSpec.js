@@ -281,6 +281,35 @@
 
   });
 
+  describe("annyang.addCallback('resultNoMatch')", function() {
+
+    var recognition;
+    var spyOnResultNoMatch;
+    var spyOnCommand;
+
+    beforeEach(function() {
+      annyang.debug(false);
+      recognition = annyang.getSpeechRecognizer();
+      spyOnResultNoMatch = jasmine.createSpy();
+      spyOnCommand = jasmine.createSpy();
+      annyang.abort();
+      annyang.start();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnCommand
+      });
+    });
+
+    it('should add a callback which will be called when result returned from Speech Recognition but no commands were matched', function () {
+      annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
+      expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+      recognition.say('That sounds like something out of science fiction');
+      expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
+      expect(spyOnCommand).not.toHaveBeenCalled();
+    });
+
+  });
+
   describe("annyang.getSpeechRecognizer", function() {
 
     beforeEach(function() {
