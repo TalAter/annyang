@@ -431,7 +431,7 @@
      *       * The phrase the user said that matched a command
      *       * The command that was matched
      *       * An array of possible alternative phrases the user might've said
-     * * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands
+     * * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands.
      *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
      *
      * #### Examples:
