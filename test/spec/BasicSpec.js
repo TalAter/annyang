@@ -622,6 +622,20 @@
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
+    it('should remove a single command with a named variable when its name is passed as a string in the first parameter', function() {
+      annyang.removeCommands('You can\'t take the :thing from me');
+      recognition.say('Time for some heroics');
+      recognition.say('We should start dealing in those black-market beagles');
+      recognition.say('That sounds like something out of science fiction');
+      recognition.say('We are just too pretty for God to let us die');
+      recognition.say('You can\'t take the sky from me');
+      expect(spyOnMatch1).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch2).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch3).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch4).toHaveBeenCalledTimes(1);
+      expect(spyOnMatch5).not.toHaveBeenCalled();
+    });
+
     it('should remove a single command with a splat when its name is passed as a parameter', function () {
       annyang.removeCommands('We should start dealing in those *merchandise');
       recognition.say('Time for some heroics');
