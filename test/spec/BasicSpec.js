@@ -752,4 +752,23 @@
 
   });
 
+  describe('annyang.setLanguage', function() {
+
+    var recognition;
+
+    beforeEach(function() {
+      recognition = annyang.getSpeechRecognizer();
+    });
+
+    it('should return undefined when called', function () {
+      expect(annyang.setLanguage()).toEqual(undefined);
+    });
+
+    it('should set the Speech Recognition engine to the value passed', function () {
+      annyang.setLanguage('he');
+      expect(recognition.lang).toEqual('he');
+    });
+
+  });
+
 })();
