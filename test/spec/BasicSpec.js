@@ -564,6 +564,21 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
+    it('should match commands with optional words only when the word is or is not in the sentence', function () {
+    	var spyOnMatch = jasmine.createSpy();
+	annyang.addCommands(
+	  {
+	    'Time for some (thrilling) heroics': spyOnMatch
+	  }
+	);
+	recognition.say('Time for some thrilling  heroics');
+	expect(spyOnMatch).toHaveBeenCalledTimes(1);
+	recognition.say('Time for some heroics');
+	expect(spyOnMatch).toHaveBeenCalledTimes(2);
+	recognition.say('Time for some gorram heroics');
+	expect(spyOnMatch).toHaveBeenCalledTimes(2);
+    });
+
   });
 
   describe("annyang.removeCommands", function() {
