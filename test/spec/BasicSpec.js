@@ -503,6 +503,21 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
+    it('should match commands with named variables', function () {
+        var spyOnMatch = jasmine.createSpy();
+        annyang.addCommands(
+          {
+            'Time for some :description heroics': spyOnMatch
+          }
+        );
+        recognition.say('Time for some thrilling heroics');
+        expect(spyOnMatch).toHaveBeenCalledTimes(1);
+        recognition.say('Time for some thrilling and fun heroics');
+        expect(spyOnMatch).toHaveBeenCalledTimes(1);
+        recognition.say('Time for some heroics');
+        expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
     it('should pass named variables to the callback function', function () {
       var capture = '';
       var getVariablesCaptured = function(s) {
