@@ -281,16 +281,17 @@
 
   });
 
-  describe("annyang.addCallback('resultMatch') and annyang.addCallback('resultNoMatch')", function() {
+
+  describe("annyang.addCallback('resultMatch')", function() {
 
     var recognition;
-    var spyOnCallBack;
+    var spyOnResultMatch;
     var spyOnCommand;
 
     beforeEach(function() {
       annyang.debug(false);
       recognition = annyang.getSpeechRecognizer();
-      spyOnCallBack = jasmine.createSpy();
+      spyOnResultMatch = jasmine.createSpy();
       spyOnCommand = jasmine.createSpy();
       annyang.abort();
       annyang.start();
@@ -300,28 +301,41 @@
       });
     });
 
-    describe("annyang.addCallback('resultMatch')", function() {
-
-      it('should add a callback which will be called when result returned from Speech Recognition and a command was matched', function() {
-        annyang.addCallback('resultMatch', spyOnCallBack);
-        expect(spyOnCallBack).not.toHaveBeenCalled();
-        recognition.say('Time for some thrilling heroics');
-        expect(spyOnCallBack).toHaveBeenCalledTimes(1);
-        expect(spyOnCommand).toHaveBeenCalledTimes(1);
-      });
-
+    it('should add a callback which will be called when result returned from Speech Recognition and a command was matched', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
+      expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
-    describe("annyang.addCallback('resultNoMatch')", function() {
+  });
 
-      it('should add a callback which will be called when result returned from Speech Recognition but no commands were matched', function () {
-        annyang.addCallback('resultNoMatch', spyOnCallBack);
-        expect(spyOnCallBack).not.toHaveBeenCalled();
-        recognition.say('That sounds like something out of science fiction');
-        expect(spyOnCallBack).toHaveBeenCalledTimes(1);
-        expect(spyOnCommand).not.toHaveBeenCalled();
+  describe("annyang.addCallback('resultNoMatch')", function() {
+
+    var recognition;
+    var spyOnResultNoMatch;
+    var spyOnCommand;
+
+    beforeEach(function() {
+      annyang.debug(false);
+      recognition = annyang.getSpeechRecognizer();
+      spyOnResultNoMatch = jasmine.createSpy();
+      spyOnCommand = jasmine.createSpy();
+      annyang.abort();
+      annyang.start();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnCommand
       });
+    });
 
+    it('should add a callback which will be called when result returned from Speech Recognition but no commands were matched', function () {
+      annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
+      expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+      recognition.say('That sounds like something out of science fiction');
+      expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
+      expect(spyOnCommand).not.toHaveBeenCalled();
     });
 
   });
