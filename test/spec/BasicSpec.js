@@ -342,12 +342,9 @@
 
     it('should add a callback which will not be called when result returned from Speech Recognition matches a command', function () {
       annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
-      annyang.addCallback('resultMatch', spyOnResultMatch);
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
-      expect(spyOnResultMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
-      expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
     });
 
   });
