@@ -609,7 +609,7 @@
 	  }
 	);
 	recognition.say('Time for some gorram heroics');
-	expect(spyOnMatch).toHaveBeenCalledTimes(0);
+	expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
   });
