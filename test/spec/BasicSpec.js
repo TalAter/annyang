@@ -602,14 +602,14 @@
     });
 
     it('should not match commands with optional words when a different word is in the sentence', function () {
-    	var spyOnMatch = jasmine.createSpy();
-	annyang.addCommands(
-	  {
-	    'Time for some (thrilling) heroics': spyOnMatch
-	  }
-	);
-	recognition.say('Time for some gorram heroics');
-	expect(spyOnMatch).not.toHaveBeenCalled();
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some (thrilling) heroics': spyOnMatch
+        }
+      );
+      recognition.say('Time for some gorram heroics');
+      expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
   });
