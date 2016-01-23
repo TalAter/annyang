@@ -315,14 +315,12 @@
 
     var recognition;
     var spyOnResultNoMatch;
-    var spyOnResultMatch;
     var spyOnCommand;
 
     beforeEach(function() {
       annyang.debug(false);
       recognition = annyang.getSpeechRecognizer();
       spyOnResultNoMatch = jasmine.createSpy();
-      spyOnResultMatch = jasmine.createSpy();
       spyOnCommand = jasmine.createSpy();
       annyang.abort();
       annyang.start();
