@@ -564,7 +564,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should not match commands with optional words when the word is wrong ', function () {
+    it('should not match commands with optional words when a different word is in the sentence', function () {
     	var spyOnMatch = jasmine.createSpy();
 	annyang.addCommands(
 	  {
