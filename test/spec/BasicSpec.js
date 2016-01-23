@@ -338,6 +338,13 @@
       expect(spyOnCommand).not.toHaveBeenCalled();
     });
 
+    it('should add a callback which will not be called when result returned from Speech Recognition matches a command', function () {
+      annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
+      expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+    });
+
   });
 
   describe("annyang.getSpeechRecognizer", function() {
