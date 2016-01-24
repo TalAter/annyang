@@ -756,37 +756,64 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">63×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">61×</span>
+=======
+<span class="cline-any cline-yes">62×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">63×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">61×</span>
+=======
+<span class="cline-any cline-yes">62×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">169×</span>
-<span class="cline-any cline-yes">169×</span>
-<span class="cline-any cline-yes">426×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">161×</span>
+<span class="cline-any cline-yes">161×</span>
+<span class="cline-any cline-yes">346×</span>
+=======
+<span class="cline-any cline-yes">167×</span>
+<span class="cline-any cline-yes">167×</span>
+<span class="cline-any cline-yes">424×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">86×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">82×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">86×</span>
+<span class="cline-any cline-yes">82×</span>
+=======
+<span class="cline-any cline-yes">85×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">85×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">73×</span>
-<span class="cline-any cline-yes">73×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">71×</span>
+<span class="cline-any cline-yes">71×</span>
+=======
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -882,7 +909,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-yes">54×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">52×</span>
+=======
+<span class="cline-any cline-yes">53×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -890,28 +921,52 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">53×</span>
-<span class="cline-any cline-yes">53×</span>
-<span class="cline-any cline-yes">53×</span>
-<span class="cline-any cline-yes">265×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">255×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">53×</span>
-<span class="cline-any cline-yes">53×</span>
+<span class="cline-any cline-yes">51×</span>
+<span class="cline-any cline-yes">51×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">53×</span>
+<span class="cline-any cline-yes">51×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">110×</span>
-<span class="cline-any cline-yes">110×</span>
+<span class="cline-any cline-yes">108×</span>
+<span class="cline-any cline-yes">108×</span>
+=======
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-yes">260×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">105×</span>
+<span class="cline-any cline-yes">105×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">110×</span>
-<span class="cline-any cline-yes">213×</span>
-<span class="cline-any cline-yes">213×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">108×</span>
+<span class="cline-any cline-yes">211×</span>
+<span class="cline-any cline-yes">211×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+=======
+<span class="cline-any cline-yes">105×</span>
+<span class="cline-any cline-yes">208×</span>
+<span class="cline-any cline-yes">208×</span>
 <span class="cline-any cline-yes">39×</span>
 <span class="cline-any cline-yes">39×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -987,9 +1042,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">55×</span>
-<span class="cline-any cline-yes">55×</span>
-<span class="cline-any cline-yes">55×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">53×</span>
+<span class="cline-any cline-yes">53×</span>
+<span class="cline-any cline-yes">53×</span>
+=======
+<span class="cline-any cline-yes">54×</span>
+<span class="cline-any cline-yes">54×</span>
+<span class="cline-any cline-yes">54×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1022,8 +1083,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">41×</span>
+=======
 <span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">42×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1059,16 +1125,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">45×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">43×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">45×</span>
+<span class="cline-any cline-yes">43×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">45×</span>
-<span class="cline-any cline-yes">74×</span>
-<span class="cline-any cline-yes">74×</span>
-<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
+<span class="cline-any cline-yes">72×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">63×</span>
+<span class="cline-any cline-yes">61×</span>
+=======
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44×</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-yes">73×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-yes">11×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10×</span>
@@ -1105,9 +1184,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">44×</span>
-<span class="cline-any cline-yes">38×</span>
-<span class="cline-any cline-yes">38×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">42×</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">36×</span>
+=======
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-yes">37×</span>
+<span class="cline-any cline-yes">37×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-yes">6×</span>
@@ -1189,7 +1274,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">40×</span>
+<<<<<<< HEAD
+<span class="cline-any cline-yes">38×</span>
+=======
+<span class="cline-any cline-yes">39×</span>
+>>>>>>> upstream/master
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2029,7 +2118,11 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 23 2016 22:07:39 GMT+0100 (CET)
+<<<<<<< HEAD
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 23 2016 09:59:55 GMT+0100 (CET)
+=======
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Jan 23 2016 16:31:42 GMT+0200 (IST)
+>>>>>>> upstream/master
 </div>
 </div>
 <script src="../prettify.js"></script>
