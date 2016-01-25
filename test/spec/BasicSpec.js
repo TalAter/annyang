@@ -503,19 +503,26 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should match any sentence with exactly one word replacing the named variable', function () {
+    it('should not match commands with more than one word in the position of a named variable', function () {
         var spyOnMatch = jasmine.createSpy();
         annyang.addCommands(
           {
             'Time for some :description heroics': spyOnMatch
           }
         );
-        recognition.say('Time for some thrilling heroics');
-        expect(spyOnMatch).toHaveBeenCalledTimes(1);
         recognition.say('Time for some thrilling and fun heroics');
-        expect(spyOnMatch).toHaveBeenCalledTimes(1);
+        expect(spyOnMatch).not.toHaveBeenCalled();
+    });
+
+    it('should not match commands with nothing in the position of a named variable', function() {
+        var spyOnMatch = jasmine.createSpy();
+        annyang.addCommands(
+          {
+            'Time for some :description heroics': spyOnMatch
+          }
+        );
         recognition.say('Time for some heroics');
-        expect(spyOnMatch).toHaveBeenCalledTimes(1);
+        expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
     it('should pass named variables to the callback function', function () {
