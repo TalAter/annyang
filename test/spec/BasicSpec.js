@@ -281,7 +281,6 @@
 
   });
 
-
   describe("annyang.addCallback('resultMatch')", function() {
 
     var recognition;
@@ -610,6 +609,24 @@
       );
       recognition.say('Time for some gorram heroics');
       expect(spyOnMatch).not.toHaveBeenCalled();
+    });
+
+    it('should not break when a command is removed by another command being called', function () {
+      var commands = {
+        'Malcolm': function() { annyang.removeCommands(); },
+        'Wash': function() { annyang.removeCommands('Malcolm'); }
+      };
+
+      annyang.addCommands(commands);
+      expect(function() {
+        recognition.say('Malcolm');
+      }).not.toThrowError();
+
+      annyang.removeCommands();
+      annyang.addCommands(commands);
+      expect(function() {
+        recognition.say('Wash');
+      }).not.toThrowError();
     });
 
   });
