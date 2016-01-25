@@ -629,6 +629,16 @@
       }).not.toThrowError();
     });
 
+    it('should not break when a command is added by another command being called', function () {
+      var commands = {
+        'Malcolm': function() { annyang.addCommands({'Zoe': function() {}}); }
+      };
+      annyang.addCommands(commands);
+      expect(function() {
+        recognition.say('Malcolm');
+      }).not.toThrowError();
+    });
+
   });
 
   describe("annyang.removeCommands", function() {
