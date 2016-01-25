@@ -503,7 +503,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should match commands with named variables', function () {
+    it('should match any sentence with exactly one word replacing the named variable', function () {
         var spyOnMatch = jasmine.createSpy();
         annyang.addCommands(
           {
