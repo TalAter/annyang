@@ -202,19 +202,20 @@
           }
 
           // try and match recognized text to one of the commands on the list
-          for (var j = 0, l = commandsList.length; j < l; j++) {
-            var result = commandsList[j].command.exec(commandText);
+          for (var j = 0; j<commandsList.length; j++) {
+            var currentCommand = commandsList[j];
+            var result = currentCommand.command.exec(commandText);
             if (result) {
               var parameters = result.slice(1);
               if (debugState) {
-                root.console.log('command matched: %c'+commandsList[j].originalPhrase, debugStyle);
+                root.console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
                 if (parameters.length) {
                   root.console.log('with parameters', parameters);
                 }
               }
               // execute the matched command
-              commandsList[j].callback.apply(this, parameters);
-              invokeCallbacks(callbacks.resultMatch, commandText, commandsList[j].originalPhrase, results);
+              currentCommand.callback.apply(this, parameters);
+              invokeCallbacks(callbacks.resultMatch, commandText, currentCommand.originalPhrase, results);
               return true;
             }
           }
