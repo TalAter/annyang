@@ -308,6 +308,13 @@
       expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
+    it('should add a callback which will not be called when result returned from Speech Recognition does not match a command', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      recognition.say('What was my line again?');
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+    });
+
   });
 
   describe("annyang.addCallback('resultNoMatch')", function() {
