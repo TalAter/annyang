@@ -467,6 +467,57 @@
     },
 
     /**
+     * Remove callbacks from events.
+     *
+     * - Pass an event name and a callback command to remove that callback command from that event type.
+     * - Pass just an event name to remove all callback commands from that event type.
+     * - Pass undefined as event name and a callback command to remove that callback command from all event types.
+     * - Pass no params to remove all callback commands from all event types.
+     *
+     * #### Examples:
+     * ````javascript
+     * annyang.addCallback('start', myFunction1);
+     * annyang.addCallback('start', myFunction2);
+     * annyang.addCallback('end', myFunction1);
+     * annyang.addCallback('end', myFunction2);
+     *
+     * // Remove myFunction2 from being called on start:
+     * annyang.removeCallback('start', myFunction2);
+     *
+     * // Remove all callbacks attached to end event:
+     * annyang.removeCallback('end');
+     *
+     * // Remove all callbacks from all events:
+     * annyang.removeCallback();
+     * ````
+     *
+     * @param type Name of event type to remove callback from
+     * @param callback The callback function to remove
+     * @returns undefined
+     * @method removeCallback
+     */
+    removeCallback: function(type, callback) {
+      var compareWithCallbackParameter = function(cb) {
+        return cb.callback !== callback;
+      };
+      // Go over each callback type in callbacks store object
+      for (var callbackType in callbacks) {
+        if (callbacks.hasOwnProperty(callbackType)) {
+          // if this is the type user asked to delete, or he asked to delete all, go ahead.
+          if (type === undefined || type === callbackType) {
+            // If user asked to delete all callbacks in this type or all types
+            if (callback === undefined) {
+                callbacks[callbackType] = [];
+              } else {
+                // Remove all matching callbacks
+                callbacks[callbackType] = callbacks[callbackType].filter(compareWithCallbackParameter);
+            }
+          }
+        }
+      }
+    },
+
+    /**
      * Returns true if speech recognition is currently on.
      * Returns false if speech recognition is off or annyang is paused.
      *

@@ -182,6 +182,41 @@ annyang.addCallback('errorNetwork', notConnected, this);
 * **Function** *callback* - The function to call when event is triggered
 * **Object** *[context]* - Optional context for the callback function
 
+## removeCallback(type, callback)
+
+Remove callbacks from events.
+
+- Pass an event name and a callback command to remove that callback command from that event type.
+- Pass just an event name to remove all callback commands from that event type.
+- Pass undefined as event name and a callback command to remove that callback command from all event types.
+- Pass no params to remove all callback commands from all event types.
+
+#### Examples:
+````javascript
+annyang.addCallback('start', myFunction1);
+annyang.addCallback('start', myFunction2);
+annyang.addCallback('end', myFunction1);
+annyang.addCallback('end', myFunction2);
+
+// Remove myFunction2 from being called on start:
+annyang.removeCallback('start', myFunction2);
+
+// Remove all callbacks attached to end event:
+annyang.removeCallback('end');
+
+// Remove all callbacks from all events:
+annyang.removeCallback();
+````
+
+### Params:
+
+* *type* Name of event type to remove callback from
+* *callback* The callback function to remove
+
+### Return:
+
+* undefined
+
 ## isListening()
 
 Returns true if speech recognition is currently on.

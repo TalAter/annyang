@@ -51,6 +51,10 @@
       expect(annyang.addCallback).toEqual(jasmine.any(Function));
     });
 
+    it('should expose removeCallback method', function () {
+      expect(annyang.removeCallback).toEqual(jasmine.any(Function));
+    });
+
     it('should expose isListening method', function () {
       expect(annyang.isListening).toEqual(jasmine.any(Function));
     });
@@ -349,6 +353,83 @@
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+    });
+
+  });
+
+  describe('annyang.removeCallback', function() {
+
+    var spy1;
+    var spy2;
+    var spy3;
+    var spy4;
+
+    beforeEach(function() {
+      annyang.abort();
+      spy1 = jasmine.createSpy();
+      spy2 = jasmine.createSpy();
+      spy3 = jasmine.createSpy();
+      spy4 = jasmine.createSpy();
+    });
+
+    it('should always return undefined', function () {
+      expect(annyang.removeCallback()).toEqual(undefined);
+      expect(annyang.removeCallback('blergh')).toEqual(undefined);
+      expect(annyang.removeCallback('start', function() {})).toEqual(undefined);
+    });
+
+    it('should delete all callbacks on all event types if passed undefined as the first parameter', function () {
+      annyang.addCallback('start', spy1);
+      annyang.addCallback('start', spy2);
+      annyang.addCallback('end', spy3);
+      annyang.addCallback('end', spy4);
+      annyang.removeCallback();
+      annyang.start();
+      annyang.abort();
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).not.toHaveBeenCalled();
+      expect(spy3).not.toHaveBeenCalled();
+      expect(spy4).not.toHaveBeenCalled();
+    });
+
+    it('should delete all callbacks on an event type if passed the event name as the first parameter and undefined as the second parameter', function () {
+      annyang.addCallback('start', spy1);
+      annyang.addCallback('start', spy2);
+      annyang.addCallback('end', spy3);
+      annyang.addCallback('end', spy4);
+      annyang.removeCallback('start');
+      annyang.start();
+      annyang.abort();
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).not.toHaveBeenCalled();
+      expect(spy3).toHaveBeenCalledTimes(1);
+      expect(spy4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should delete all callbacks on an event type passed as first parameter, and matching a function passed as the second parameter', function () {
+      annyang.addCallback('start', spy1);
+      annyang.addCallback('start', spy2);
+      annyang.addCallback('end', spy3);
+      annyang.addCallback('end', spy4);
+      annyang.removeCallback('start', spy2);
+      annyang.start();
+      annyang.abort();
+      expect(spy1).toHaveBeenCalledTimes(1);
+      expect(spy2).not.toHaveBeenCalled();
+      expect(spy3).toHaveBeenCalledTimes(1);
+      expect(spy4).toHaveBeenCalledTimes(1);
+    });
+
+    it('should delete all callbacks matching a function passed as the second parameter on all event types if first parameter is undefined', function () {
+      annyang.addCallback('start', spy1);
+      annyang.addCallback('start', spy2);
+      annyang.addCallback('end', spy1);
+      annyang.addCallback('end', spy2);
+      annyang.removeCallback(undefined, spy1);
+      annyang.start();
+      annyang.abort();
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalledTimes(2);
     });
 
   });
