@@ -198,14 +198,17 @@ annyang.addCallback('start', myFunction2);
 annyang.addCallback('end', myFunction1);
 annyang.addCallback('end', myFunction2);
 
-// Remove myFunction2 from being called on start:
-annyang.removeCallback('start', myFunction2);
+// Remove all callbacks from all events:
+annyang.removeCallback();
 
 // Remove all callbacks attached to end event:
 annyang.removeCallback('end');
 
-// Remove all callbacks from all events:
-annyang.removeCallback();
+// Remove myFunction2 from being called on start:
+annyang.removeCallback('start', myFunction2);
+
+// Remove myFunction1 from being called on all events:
+annyang.removeCallback(undefined, myFunction1);
 ````
 
 ### Params:
