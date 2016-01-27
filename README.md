@@ -15,9 +15,9 @@ Technical Documentation and API
 
 Hello World
 -----------
-It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/2.1.0/annyang.min.js) to your document, and defining the commands you want.
+It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js) to your document, and defining the commands you want.
 ````html
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.1.0/annyang.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
 <script>
 if (annyang) {
   // Let's define a command.
@@ -46,7 +46,7 @@ Speech KITT is fully customizable, and comes with many different themes (and ins
 [![Speech Recognition GUI with Speech KITT](https://raw.githubusercontent.com/TalAter/SpeechKITT/master/demo/speechkitt-demo.gif)](https://github.com/TalAter/SpeechKITT)
 
 ````html
-<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.1.0/annyang.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.2.1/annyang.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
 <script>
 if (annyang) {
