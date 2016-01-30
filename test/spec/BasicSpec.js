@@ -290,6 +290,10 @@
     var recognition;
     var spyOnResultMatch;
     var spyOnCommand;
+    var args;
+    var saveArguments = function() {
+      args = arguments;
+    };
 
     beforeEach(function() {
       annyang.debug(false);
@@ -300,7 +304,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': spyOnCommand
+        'Time for some thrilling :action': spyOnCommand
       });
     });
 
@@ -317,6 +321,33 @@
       expect(spyOnResultMatch).not.toHaveBeenCalled();
       recognition.say('What was my line again?');
       expect(spyOnResultMatch).not.toHaveBeenCalled();
+    });
+
+    it('should call the callback with the the first argument containing the phrase the user said that matched a command', function() {
+      annyang.addCallback('resultMatch', saveArguments);
+      recognition.say('Time for some thrilling heroics');
+      expect(args[0]).toEqual('Time for some thrilling heroics');
+    });
+
+    it('should call the callback with the the first argument containing the phrase the user said that matched a command', function() {
+      annyang.addCallback('resultMatch', saveArguments);
+      recognition.say('Time for some thrilling heroics');
+      expect(args[0]).toEqual('Time for some thrilling heroics');
+    });
+
+    it('should call the callback with the the second argument containing the matched command', function() {
+      annyang.addCallback('resultMatch', saveArguments);
+      recognition.say('Time for some thrilling heroics');
+      expect(args[1]).toEqual('Time for some thrilling :action');
+    });
+
+    it('should call the callback with the the third argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
+      annyang.addCallback('resultMatch', saveArguments);
+      recognition.say('Time for some thrilling heroics');
+      expect(typeof args[2]).toEqual('object');
+      expect(args[2][0]).toEqual('Time for some thrilling heroics');
+      expect(args[2][1]).toEqual('Time for some thrilling heroics and so on');
+      expect(args[2][2]).toEqual('Time for some thrilling heroics and so on and so on');
     });
 
   });
