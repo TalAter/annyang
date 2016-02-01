@@ -647,11 +647,22 @@
       expect(capture2).toEqual('heroics');
     });
 
-    it('should match commands with named variables', function () {
+    it('should match commands with a named variable as the last word in the sentence', function () {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
           'Time for some thrilling :stuff': spyOnMatch
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should match match commands with a named variable in the middle of the sentence', function() {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some :description heroics': spyOnMatch
         }
       );
       recognition.say('Time for some thrilling heroics');
