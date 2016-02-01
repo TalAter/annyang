@@ -658,6 +658,17 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
+    it('should match match commands with named variables in the middle', function() {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'Time for some :description heroics': spyOnMatch
+        }
+      );
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
     it('should not match commands with more than one word in the position of a named variable', function () {
         var spyOnMatch = jasmine.createSpy();
         annyang.addCommands(
