@@ -647,7 +647,7 @@
       expect(capture2).toEqual('heroics');
     });
 
-    it('should match commands with named variables', function () {
+    it('should match commands with a named variable as the last word in the sentence', function () {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -658,7 +658,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should match match commands with named variables in the middle', function() {
+    it('should match match commands with a named variable in the middle of the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
