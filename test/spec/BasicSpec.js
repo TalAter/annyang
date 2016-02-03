@@ -388,6 +388,39 @@
 
   });
 
+  describe("annyang.addCallback('result')", function() {
+
+    var recognition;
+    var spyOnResult;
+
+    beforeEach(function() {
+      annyang.debug(false);
+      recognition = annyang.getSpeechRecognizer();
+      spyOnResult = jasmine.createSpy();
+      annyang.abort();
+      annyang.start();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some thrilling heroics': function() {}
+      });
+    });
+
+    it('should add a callback which will be called when result returned from Speech Recognition and a command was matched', function() {
+      annyang.addCallback('result', spyOnResult);
+      expect(spyOnResult).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnResult).toHaveBeenCalledTimes(1);
+    });
+
+    it('should add a callback which will be called when result returned from Speech Recognition and a command was not matched', function() {
+      annyang.addCallback('result', spyOnResult);
+      expect(spyOnResult).not.toHaveBeenCalled();
+      recognition.say('That sounds like something out of science fiction');
+      expect(spyOnResult).toHaveBeenCalledTimes(1);
+    });
+
+  });
+
   describe('annyang.removeCallback', function() {
 
     var spy1;
