@@ -392,18 +392,16 @@
 
     var recognition;
     var spyOnResult;
-    var spyOnCommand;
 
     beforeEach(function() {
       annyang.debug(false);
       recognition = annyang.getSpeechRecognizer();
       spyOnResult = jasmine.createSpy();
-      spyOnCommand = jasmine.createSpy();
       annyang.abort();
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': spyOnCommand
+        'Time for some thrilling heroics': function() {}
       });
     });
 
@@ -412,7 +410,6 @@
       expect(spyOnResult).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnResult).toHaveBeenCalledTimes(1);
-      expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
     it('should add a callback which will be called when result returned from Speech Recognition and a command was not matched', function() {
@@ -420,7 +417,6 @@
       expect(spyOnResult).not.toHaveBeenCalled();
       recognition.say('That sounds like something out of science fiction');
       expect(spyOnResult).toHaveBeenCalledTimes(1);
-      expect(spyOnCommand).not.toHaveBeenCalled();
     });
 
   });
