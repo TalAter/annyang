@@ -73,6 +73,10 @@
 
   describe('annyang.isListening', function() {
 
+    beforeEach(function() {
+      annyang.abort();
+    });
+
     it('should return false when called before annyang starts', function () {
       expect(annyang.isListening()).toBe(false);
     });
@@ -82,20 +86,21 @@
       expect(annyang.isListening()).toBe(true);
     });
 
-    it('should return false when called when annyang is paused', function () {
+    it('should return true when called after annyang aborts', function () {
+      annyang.start();
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
+    });
+
+    it('should return false when called when annyang is paused', function () {
       annyang.start();
-      expect(annyang.isListening()).toBe(true);
       annyang.pause();
       expect(annyang.isListening()).toBe(false);
     });
 
     it('should return true when called after annyang is resumed', function () {
       annyang.start();
-      expect(annyang.isListening()).toBe(true);
       annyang.pause();
-      expect(annyang.isListening()).toBe(false);
       annyang.resume();
       expect(annyang.isListening()).toBe(true);
     });
