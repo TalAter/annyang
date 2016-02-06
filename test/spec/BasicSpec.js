@@ -109,6 +109,7 @@
 
   describe('annyang.abort', function() {
     var spyOnEnd;
+
     beforeEach(function() {
       annyang.abort();
       spyOnEnd = jasmine.createSpy();
@@ -139,6 +140,54 @@
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
       expect(spyOnEnd).not.toHaveBeenCalled();
+    });
+
+  });
+
+  describe('annyang.start', function() {
+    var spyOnStart;
+
+    beforeEach(function() {
+      annyang.abort();
+      spyOnStart = jasmine.createSpy();
+      annyang.addCallback('start', spyOnStart);
+    });
+
+    it('should start annyang and Speech Recognition if it was aborted', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should resume annyang if it was paused', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+      annyang.pause();
+      expect(annyang.isListening()).toBe(false);
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should do nothing when annyang is already started', function () {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+      expect(function() {
+        annyang.start();
+      }).not.toThrowError();
+      expect(annyang.isListening()).toBe(true);
+      expect(spyOnStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should write a message to log if annyang is already started and debug is on', function () {
+      spyOn(console, 'log');
+      annyang.debug(true);
+      annyang.start();
+      annyang.start();
+      annyang.debug(false);
+      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
     });
 
   });
