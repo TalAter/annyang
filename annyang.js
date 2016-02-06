@@ -238,6 +238,7 @@
      * It's a good idea to call this after adding some commands first, but not mandatory.
      *
      * Receives an optional options object which supports the following options:
+     *
      * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
      * - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
      *
