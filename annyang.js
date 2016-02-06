@@ -284,7 +284,7 @@
      */
     abort: function() {
       autoRestart = false;
-      if (isInitialized) {
+      if (isInitialized()) {
         recognition.abort();
       }
     },
