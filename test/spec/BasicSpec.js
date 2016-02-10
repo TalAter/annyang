@@ -1058,7 +1058,7 @@
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should leave the browser \'Speech Recognition off, if called after annyang.abort()', function() {
+    it("should leave the browser's Speech Recognition off, if called after annyang.abort()", function() {
       expect(recognition.isStarted()).toBe(true);
       annyang.abort();
       expect(recognition.isStarted()).toBe(false);
