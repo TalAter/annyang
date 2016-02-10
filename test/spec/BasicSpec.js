@@ -141,6 +141,7 @@
       expect(annyang.isListening()).toBe(false);
       expect(spyOnEnd).not.toHaveBeenCalled();
     });
+
   });
 
   describe('annyang.start', function() {
@@ -188,6 +189,7 @@
       annyang.debug(false);
       expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
     });
+
   });
 
   describe('annyang.debug', function() {
@@ -1048,8 +1050,7 @@
       expect(recognition.isStarted()).toBe(true);
     });
 
-
-    it('should leave annyang paused if called after annyang.abort()', function(){
+    it('should leave annyang paused if called after annyang.abort()', function() {
       expect(annyang.isListening()).toBe(true);
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
@@ -1057,7 +1058,7 @@
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should leave the browser \'Speech Recognition off, if called after annyang.abort()', function(){
+    it('should leave the browser \'Speech Recognition off, if called after annyang.abort()', function() {
       expect(recognition.isStarted()).toBe(true);
       annyang.abort();
       expect(recognition.isStarted()).toBe(false);
