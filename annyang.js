@@ -104,7 +104,7 @@
      * As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
      *
      * @param {Object} commands - Commands that annyang should listen to
-     * @param {Boolean} [resetCommands=true] - Remove all commands before initializing?
+     * @param {boolean} [resetCommands=true] - Remove all commands before initializing?
      * @method init
      * @deprecated
      * @see [Commands Object](#commands-object)
@@ -239,8 +239,8 @@
      *
      * Receives an optional options object which supports the following options:
      *
-     * - `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
-     * - `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
+     * - `autoRestart` (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     * - `continuous`  (boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
      *
      * #### Examples:
      * ````javascript
@@ -315,7 +315,7 @@
     /**
      * Turn on output of debug messages to the console. Ugly, but super-handy!
      *
-     * @param {Boolean} [newState=true] - Turn on/off debug messages
+     * @param {boolean} [newState=true] - Turn on/off debug messages
      * @method debug
      */
     debug: function(newState) {

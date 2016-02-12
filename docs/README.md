@@ -33,7 +33,7 @@ See: [Commands Object](#commands-object)
 ### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
-* **Boolean** *[resetCommands=true]* - Remove all commands before initializing?
+* **boolean** *[resetCommands=true]* - Remove all commands before initializing?
 
 ## start([options])
 
@@ -42,8 +42,8 @@ It's a good idea to call this after adding some commands first, but not mandator
 
 Receives an optional options object which supports the following options:
 
-- `autoRestart` (Boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
-- `continuous`  (Boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
+- `autoRestart` (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+- `continuous`  (boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
 
 #### Examples:
 ````javascript
@@ -84,7 +84,7 @@ Turn on output of debug messages to the console. Ugly, but super-handy!
 
 ### Params:
 
-* **Boolean** *[newState=true]* - Turn on/off debug messages
+* **boolean** *[newState=true]* - Turn on/off debug messages
 
 ## setLanguage(language)
 
