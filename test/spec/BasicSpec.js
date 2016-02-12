@@ -3,70 +3,70 @@
 
   describe('annyang', function() {
 
-    it('should exist in global namespace', function () {
+    it('should exist in global namespace', function() {
       expect(annyang).toEqual(jasmine.any(Object));
     });
 
-    it('should expose init method', function () {
+    it('should expose init method', function() {
       expect(annyang.init).toEqual(jasmine.any(Function));
     });
 
-    it('should expose start method', function () {
+    it('should expose start method', function() {
       expect(annyang.start).toEqual(jasmine.any(Function));
     });
 
-    it('should expose abort method', function () {
+    it('should expose abort method', function() {
       expect(annyang.abort).toEqual(jasmine.any(Function));
     });
 
-    it('should expose pause method', function () {
+    it('should expose pause method', function() {
       expect(annyang.pause).toEqual(jasmine.any(Function));
     });
 
-    it('should expose resume method', function () {
+    it('should expose resume method', function() {
       expect(annyang.resume).toEqual(jasmine.any(Function));
     });
 
-    it('should expose debug method', function () {
+    it('should expose debug method', function() {
       expect(annyang.debug).toEqual(jasmine.any(Function));
     });
 
-    it('should expose debug method', function () {
+    it('should expose debug method', function() {
       expect(annyang.debug).toEqual(jasmine.any(Function));
     });
 
-    it('should expose setLanguage method', function () {
+    it('should expose setLanguage method', function() {
       expect(annyang.setLanguage).toEqual(jasmine.any(Function));
     });
 
-    it('should expose addCommands method', function () {
+    it('should expose addCommands method', function() {
       expect(annyang.addCommands).toEqual(jasmine.any(Function));
     });
 
-    it('should expose removeCommands method', function () {
+    it('should expose removeCommands method', function() {
       expect(annyang.removeCommands).toEqual(jasmine.any(Function));
     });
 
-    it('should expose addCallback method', function () {
+    it('should expose addCallback method', function() {
       expect(annyang.addCallback).toEqual(jasmine.any(Function));
     });
 
-    it('should expose removeCallback method', function () {
+    it('should expose removeCallback method', function() {
       expect(annyang.removeCallback).toEqual(jasmine.any(Function));
     });
 
-    it('should expose isListening method', function () {
+    it('should expose isListening method', function() {
       expect(annyang.isListening).toEqual(jasmine.any(Function));
     });
 
-    it('should expose getSpeechRecognizer method', function () {
+    it('should expose getSpeechRecognizer method', function() {
       expect(annyang.getSpeechRecognizer).toEqual(jasmine.any(Function));
     });
 
   });
 
   describe('annyang.abort', function() {
-    it('should not throw an error when called before annyang starts', function () {
+    it('should not throw an error when called before annyang starts', function() {
       expect(annyang.abort()).toBe(undefined);
     });
   });
@@ -77,28 +77,28 @@
       annyang.abort();
     });
 
-    it('should return false when called before annyang starts', function () {
+    it('should return false when called before annyang starts', function() {
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should return true when called after annyang starts', function () {
+    it('should return true when called after annyang starts', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
     });
 
-    it('should return true when called after annyang aborts', function () {
+    it('should return true when called after annyang aborts', function() {
       annyang.start();
       annyang.abort();
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should return false when called when annyang is paused', function () {
+    it('should return false when called when annyang is paused', function() {
       annyang.start();
       annyang.pause();
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should return true when called after annyang is resumed', function () {
+    it('should return true when called after annyang is resumed', function() {
       annyang.start();
       annyang.pause();
       annyang.resume();
@@ -116,7 +116,7 @@
       annyang.addCallback('end', spyOnEnd);
     });
 
-    it('should stop annyang and Speech Recognition if it is started', function () {
+    it('should stop annyang and Speech Recognition if it is started', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(spyOnEnd).not.toHaveBeenCalled();
@@ -125,7 +125,7 @@
       expect(spyOnEnd).toHaveBeenCalledTimes(1);
     });
 
-    it('should stop annyang if it is paused', function () {
+    it('should stop annyang if it is paused', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(spyOnEnd).not.toHaveBeenCalled();
@@ -134,7 +134,7 @@
       expect(spyOnEnd).toHaveBeenCalledTimes(1);
     });
 
-    it('should do nothing when annyang is stopped', function () {
+    it('should do nothing when annyang is stopped', function() {
       expect(annyang.isListening()).toBe(false);
       expect(spyOnEnd).not.toHaveBeenCalled();
       annyang.abort();
@@ -153,13 +153,13 @@
       annyang.addCallback('start', spyOnStart);
     });
 
-    it('should start annyang and Speech Recognition if it was aborted', function () {
+    it('should start annyang and Speech Recognition if it was aborted', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
-    it('should resume annyang if it was paused', function () {
+    it('should resume annyang if it was paused', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(spyOnStart).toHaveBeenCalledTimes(1);
@@ -170,7 +170,7 @@
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
-    it('should do nothing when annyang is already started', function () {
+    it('should do nothing when annyang is already started', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(spyOnStart).toHaveBeenCalledTimes(1);
@@ -181,7 +181,7 @@
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
-    it('should write a message to log if annyang is already started and debug is on', function () {
+    it('should write a message to log if annyang is already started and debug is on', function() {
       spyOn(console, 'log');
       annyang.debug(true);
       annyang.start();
@@ -198,18 +198,18 @@
       spyOn(console, 'log');
     });
 
-    it('should be off by default', function () {
+    it('should be off by default', function() {
       annyang.addCommands({'test command': function() {}});
       expect(console.log).not.toHaveBeenCalled();
     });
 
-    it('should turn on debug messages when called without a parameter', function () {
+    it('should turn on debug messages when called without a parameter', function() {
       annyang.debug();
       annyang.addCommands({'test command': function() {}});
       expect(console.log).toHaveBeenCalled();
     });
 
-    it('should turn off debug messages when called with a parameter that is false', function () {
+    it('should turn off debug messages when called with a parameter that is false', function() {
       annyang.debug(true);
       annyang.debug(false);
       annyang.addCommands({'test command': function() {}});
@@ -219,7 +219,7 @@
       expect(console.log).not.toHaveBeenCalled();
     });
 
-    it('should turn on debug messages when called with a parameter that is true', function () {
+    it('should turn on debug messages when called with a parameter that is true', function() {
       annyang.debug(false);
       annyang.debug(1);
       annyang.addCommands({'test command': function() {}});
@@ -237,14 +237,14 @@
       annyang.abort();
     });
 
-    it('should always return undefined', function () {
+    it('should always return undefined', function() {
       expect(annyang.addCallback()).toEqual(undefined);
       expect(annyang.addCallback('blergh')).toEqual(undefined);
       expect(annyang.addCallback('start', function() {})).toEqual(undefined);
       expect(annyang.addCallback('start', function() {}, this)).toEqual(undefined);
     });
 
-    it('should be able to register multiple callbacks to one event', function () {
+    it('should be able to register multiple callbacks to one event', function() {
       var spyOnStart = jasmine.createSpy();
       var spyOnStart2 = jasmine.createSpy();
       annyang.addCallback('start', spyOnStart);
@@ -256,7 +256,7 @@
       expect(spyOnStart2).toHaveBeenCalledTimes(1);
     });
 
-    it('should run callback in the context of annyang by default', function () {
+    it('should run callback in the context of annyang by default', function() {
       annyang.variableChanged = false;
       var changeVariable = function() {
         annyang.variableChanged = true;
@@ -267,7 +267,7 @@
       annyang.abort();
     });
 
-    it('should run callbacks in the context given as the third parameter', function () {
+    it('should run callbacks in the context given as the third parameter', function() {
       // First test it in this context
       this.variableChanged = false;
       var changeVariable = function() {
@@ -286,7 +286,7 @@
       annyang.abort();
     });
 
-    it('should add a callback which will be called when annyang starts', function () {
+    it('should add a callback which will be called when annyang starts', function() {
       var spyOnStart = jasmine.createSpy();
       annyang.addCallback('start', spyOnStart);
       expect(spyOnStart).not.toHaveBeenCalled();
@@ -294,7 +294,7 @@
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
-    it('should not fire callback when annyang resumes from a paused state', function () {
+    it('should not fire callback when annyang resumes from a paused state', function() {
       // Turn off debugging during this test, as it logs a message when resuming from a paused state which we are not testing for here
       annyang.debug(false);
       var spyOnStart = jasmine.createSpy();
@@ -307,7 +307,7 @@
       annyang.debug(true);
     });
 
-    it('should fire callback when annyang resumes from an aborted (stopped) state', function () {
+    it('should fire callback when annyang resumes from an aborted (stopped) state', function() {
       var spyOnStart = jasmine.createSpy();
       annyang.start();
       annyang.abort();
@@ -327,7 +327,7 @@
       annyang.debug(true);
     });
 
-    it('should add a callback which will be called when annyang aborts', function () {
+    it('should add a callback which will be called when annyang aborts', function() {
       var spyOnAbort = jasmine.createSpy();
       annyang.addCallback('end', spyOnAbort);
       expect(spyOnAbort).not.toHaveBeenCalled();
@@ -335,7 +335,7 @@
       expect(spyOnAbort).toHaveBeenCalledTimes(1);
     });
 
-    it('should not fire callback when annyang enters paused state', function () {
+    it('should not fire callback when annyang enters paused state', function() {
       var spyOnPause = jasmine.createSpy();
       annyang.addCallback('end', spyOnPause);
       expect(spyOnPause).not.toHaveBeenCalled();
@@ -432,14 +432,14 @@
       });
     });
 
-    it('should add a callback which will be called when result returned from Speech Recognition but no commands were matched', function () {
+    it('should add a callback which will be called when result returned from Speech Recognition but no commands were matched', function() {
       annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
       recognition.say('That sounds like something out of science fiction');
       expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should add a callback which will not be called when result returned from Speech Recognition matches a command', function () {
+    it('should add a callback which will not be called when result returned from Speech Recognition matches a command', function() {
       annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
@@ -505,13 +505,13 @@
       spy4 = jasmine.createSpy();
     });
 
-    it('should always return undefined', function () {
+    it('should always return undefined', function() {
       expect(annyang.removeCallback()).toEqual(undefined);
       expect(annyang.removeCallback('blergh')).toEqual(undefined);
       expect(annyang.removeCallback('start', function() {})).toEqual(undefined);
     });
 
-    it('should delete all callbacks on all event types if passed undefined as the first parameter', function () {
+    it('should delete all callbacks on all event types if passed undefined as the first parameter', function() {
       annyang.addCallback('start', spy1);
       annyang.addCallback('start', spy2);
       annyang.addCallback('end', spy3);
@@ -525,7 +525,7 @@
       expect(spy4).not.toHaveBeenCalled();
     });
 
-    it('should delete all callbacks on an event type if passed the event name as the first parameter and undefined as the second parameter', function () {
+    it('should delete all callbacks on an event type if passed the event name as the first parameter and undefined as the second parameter', function() {
       annyang.addCallback('start', spy1);
       annyang.addCallback('start', spy2);
       annyang.addCallback('end', spy3);
@@ -539,7 +539,7 @@
       expect(spy4).toHaveBeenCalledTimes(1);
     });
 
-    it('should delete all callbacks on an event type passed as first parameter, and matching a function passed as the second parameter', function () {
+    it('should delete all callbacks on an event type passed as first parameter, and matching a function passed as the second parameter', function() {
       annyang.addCallback('start', spy1);
       annyang.addCallback('start', spy2);
       annyang.addCallback('end', spy3);
@@ -553,7 +553,7 @@
       expect(spy4).toHaveBeenCalledTimes(1);
     });
 
-    it('should delete all callbacks matching a function passed as the second parameter on all event types if first parameter is undefined', function () {
+    it('should delete all callbacks matching a function passed as the second parameter on all event types if first parameter is undefined', function() {
       annyang.addCallback('start', spy1);
       annyang.addCallback('start', spy2);
       annyang.addCallback('end', spy1);
@@ -573,7 +573,7 @@
       annyang.abort();
     });
 
-    it('should return the instance of SpeechRecognition used by annyang', function () {
+    it('should return the instance of SpeechRecognition used by annyang', function() {
       var spyOnStart = jasmine.createSpy();
       var recognition = annyang.getSpeechRecognizer();
       recognition.addEventListener('start', spyOnStart);
@@ -596,7 +596,7 @@
       spyOn(console, 'log');
     });
 
-    it('should accept an object consisting of key (sentence) and value (callback function)', function () {
+    it('should accept an object consisting of key (sentence) and value (callback function)', function() {
       expect(function() {
         annyang.addCommands(
           {'Time for some thrilling heroics': function() {}}
@@ -604,7 +604,7 @@
       }).not.toThrowError();
     });
 
-    it('should match commands when a sentence is recognized and call the callback', function () {
+    it('should match commands when a sentence is recognized and call the callback', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {'Time for some thrilling heroics': spyOnMatch}
@@ -614,7 +614,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function () {
+    it('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function() {
       var spyOnMatch = jasmine.createSpy();
       // For this test, the command text is what simulate saying plus 'and so on'.
       // This is the structure of alternative text recognitions in Corti.
@@ -626,7 +626,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should ignore commands in subsequent addCommands calls with existing command texts', function () {
+    it('should ignore commands in subsequent addCommands calls with existing command texts', function() {
       var spyOnMatch1 = jasmine.createSpy();
       var spyOnMatch2 = jasmine.createSpy();
       annyang.addCommands(
@@ -646,7 +646,7 @@
       expect(spyOnMatch2).not.toHaveBeenCalled();
     });
 
-    it("should accept callbacks in commands object by reference. e.g. {'hello': helloFunc}", function () {
+    it("should accept callbacks in commands object by reference. e.g. {'hello': helloFunc}", function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -658,7 +658,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it("should accept callbacks in commands object by reference. e.g. {'hello': 'helloFunc'}", function () {
+    it("should accept callbacks in commands object by reference. e.g. {'hello': 'helloFunc'}", function() {
       window.globalSpy = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -670,7 +670,7 @@
       expect(window.globalSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should write to console each command that was successfully added when debug is on', function () {
+    it('should write to console each command that was successfully added when debug is on', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       annyang.addCommands(
@@ -689,7 +689,7 @@
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
-    it('should write to console when commands could not be added', function () {
+    it('should write to console when commands could not be added', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       annyang.addCommands(
@@ -701,7 +701,7 @@
       expect(console.log).toHaveBeenCalledWith('Can not register command: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
     });
 
-    it('should accept commands with an object as the value which consists of a regexp and callback', function () {
+    it('should accept commands with an object as the value which consists of a regexp and callback', function() {
       expect(function() {
         annyang.addCommands(
         {
@@ -713,7 +713,7 @@
       }).not.toThrowError();
     });
 
-    it('should match commands passed as an object as the value which consists of a regexp and callback', function () {
+    it('should match commands passed as an object as the value which consists of a regexp and callback', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -728,7 +728,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should pass variables from regexp capturing groups to the callback function', function () {
+    it('should pass variables from regexp capturing groups to the callback function', function() {
       var capture1 = '';
       var capture2 = '';
       var getVariablesCaptured = function(s1, s2) {
@@ -749,7 +749,7 @@
       expect(capture2).toEqual('heroics');
     });
 
-    it('should match commands with a named variable as the last word in the sentence', function () {
+    it('should match commands with a named variable as the last word in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -771,7 +771,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should not match commands with more than one word in the position of a named variable', function () {
+    it('should not match commands with more than one word in the position of a named variable', function() {
         var spyOnMatch = jasmine.createSpy();
         annyang.addCommands(
           {
@@ -793,7 +793,7 @@
         expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
-    it('should pass named variables to the callback function', function () {
+    it('should pass named variables to the callback function', function() {
       var capture = '';
       var getVariablesCaptured = function(s) {
         capture = s;
@@ -807,7 +807,7 @@
       expect(capture).toEqual('heroics');
     });
 
-    it('should match commands with splats', function () {
+    it('should match commands with splats', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -818,7 +818,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should pass splats to the callback function', function () {
+    it('should pass splats to the callback function', function() {
       var capture = '';
       var getVariablesCaptured = function(s) {
         capture = s;
@@ -832,7 +832,7 @@
       expect(capture).toEqual('thrilling heroics');
     });
 
-    it('should match commands with optional words when the word is in the sentence', function () {
+    it('should match commands with optional words when the word is in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -843,7 +843,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should match commands with optional words when the word is not in the sentence', function () {
+    it('should match commands with optional words when the word is not in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -854,7 +854,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should not match commands with optional words when a different word is in the sentence', function () {
+    it('should not match commands with optional words when a different word is in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
       annyang.addCommands(
         {
@@ -865,7 +865,7 @@
       expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
-    it('should not break when a command is removed by another command being called', function () {
+    it('should not break when a command is removed by another command being called', function() {
       var commands = {
         'Malcolm': function() { annyang.removeCommands(); },
         'Wash': function() { annyang.removeCommands('Malcolm'); }
@@ -883,7 +883,7 @@
       }).not.toThrowError();
     });
 
-    it('should not break when a command is added by another command being called', function () {
+    it('should not break when a command is added by another command being called', function() {
       var commands = {
         'Malcolm': function() { annyang.addCommands({'Zoe': function() {}}); }
       };
@@ -924,7 +924,7 @@
       annyang.start();
     });
 
-    it('should remove a single command when its name is passed as a string in the first parameter', function () {
+    it('should remove a single command when its name is passed as a string in the first parameter', function() {
       annyang.removeCommands('Time for some (thrilling) heroics');
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -938,7 +938,7 @@
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
-    it('should remove multiple commands when their names are passed as an array in the first parameter', function () {
+    it('should remove multiple commands when their names are passed as an array in the first parameter', function() {
       annyang.removeCommands(['Time for some (thrilling) heroics', 'That sounds like something out of science fiction']);
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -952,7 +952,7 @@
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
-    it('should remove all commands when called with no parameters', function () {
+    it('should remove all commands when called with no parameters', function() {
       annyang.removeCommands();
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -966,7 +966,7 @@
       expect(spyOnMatch5).not.toHaveBeenCalled();
     });
 
-    it('should remove a single command with an optional word when its name is passed as a string in the first parameter', function () {
+    it('should remove a single command with an optional word when its name is passed as a string in the first parameter', function() {
       annyang.removeCommands('Time for some (thrilling) heroics');
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -994,7 +994,7 @@
       expect(spyOnMatch5).not.toHaveBeenCalled();
     });
 
-    it('should remove a single command with a splat when its name is passed as a parameter', function () {
+    it('should remove a single command with a splat when its name is passed as a parameter', function() {
       annyang.removeCommands('We should start dealing in those *merchandise');
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -1008,7 +1008,7 @@
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
-    it('should remove a single regexp command when its name is passed as a parameter', function () {
+    it('should remove a single regexp command when its name is passed as a parameter', function() {
       annyang.removeCommands('too pretty');
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
@@ -1040,17 +1040,17 @@
       recognition = annyang.getSpeechRecognizer();
     });
 
-    it('should return undefined when called', function () {
+    it('should return undefined when called', function() {
       expect(annyang.pause()).toEqual(undefined);
     });
 
-    it('should cause annyang.isListening() to return false', function () {
+    it('should cause annyang.isListening() to return false', function() {
       expect(annyang.isListening()).toBe(true);
       annyang.pause();
       expect(annyang.isListening()).toBe(false);
     });
 
-    it('should cause commands not to fire even if user says the right thing', function () {
+    it('should cause commands not to fire even if user says the right thing', function() {
       expect(spyOnMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
@@ -1059,7 +1059,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should not stop the browser\'s Speech Recognition engine', function () {
+    it('should not stop the browser\'s Speech Recognition engine', function() {
       expect(recognition.isStarted()).toBe(true);
       annyang.pause();
       expect(recognition.isStarted()).toBe(true);
@@ -1099,11 +1099,11 @@
       spyOn(console, 'log');
     });
 
-    it('should return undefined when called', function () {
+    it('should return undefined when called', function() {
       expect(annyang.resume()).toEqual(undefined);
     });
 
-    it('should leave speech recognition on and turn annyang on, if called when annyang is paused', function () {
+    it('should leave speech recognition on and turn annyang on, if called when annyang is paused', function() {
       annyang.start();
       annyang.pause();
       expect(annyang.isListening()).toBe(false);
@@ -1113,7 +1113,7 @@
       expect(recognition.isStarted()).toBe(true);
     });
 
-    it('should turn speech recognition and annyang on, if called when annyang is stopped', function () {
+    it('should turn speech recognition and annyang on, if called when annyang is stopped', function() {
       expect(annyang.isListening()).toBe(false);
       expect(recognition.isStarted()).toBe(false);
       annyang.resume();
@@ -1121,7 +1121,7 @@
       expect(recognition.isStarted()).toBe(true);
     });
 
-    it('should leave speech recognition and annyang on, if called when annyang is listening', function () {
+    it('should leave speech recognition and annyang on, if called when annyang is listening', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
       expect(recognition.isStarted()).toBe(true);
@@ -1130,7 +1130,7 @@
       expect(recognition.isStarted()).toBe(true);
     });
 
-    it('should log a message if debug is on, and resume was called when annyang is listening', function () {
+    it('should log a message if debug is on, and resume was called when annyang is listening', function() {
       annyang.debug(true);
       annyang.start();
       annyang.resume();
@@ -1148,11 +1148,11 @@
       recognition = annyang.getSpeechRecognizer();
     });
 
-    it('should return undefined when called', function () {
+    it('should return undefined when called', function() {
       expect(annyang.setLanguage()).toEqual(undefined);
     });
 
-    it('should set the Speech Recognition engine to the value passed', function () {
+    it('should set the Speech Recognition engine to the value passed', function() {
       annyang.setLanguage('he');
       expect(recognition.lang).toEqual('he');
     });

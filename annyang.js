@@ -4,7 +4,7 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 
-(function (undefined) {
+(function(undefined) {
   "use strict";
 
   /**
@@ -438,11 +438,11 @@
      *
      * #### Examples:
      * ````javascript
-     * annyang.addCallback('error', function () {
+     * annyang.addCallback('error', function() {
      *   $('.myErrorText').text('There was an error!');
      * });
      *
-     * annyang.addCallback('resultMatch', function (userSaid, commandText, phrases) {
+     * annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
      *   console.log(userSaid); // sample output: 'hello'
      *   console.log(commandText); // sample output: 'hello (there)'
      *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
