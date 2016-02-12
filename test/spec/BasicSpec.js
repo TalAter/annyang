@@ -355,6 +355,7 @@
     };
 
     beforeEach(function() {
+      args = undefined;
       annyang.debug(false);
       recognition = annyang.getSpeechRecognizer();
       spyOnResultMatch = jasmine.createSpy();
@@ -419,6 +420,7 @@
     };
 
     beforeEach(function() {
+      args = undefined;
       annyang.debug(false);
       recognition = annyang.getSpeechRecognizer();
       spyOnResultNoMatch = jasmine.createSpy();
@@ -452,6 +454,7 @@
       expect(args[0][1]).toEqual('That sounds like something out of science fiction and so on');
       expect(args[0][2]).toEqual('That sounds like something out of science fiction and so on and so on');
     });
+
   });
 
   describe("annyang.addCallback('result')", function() {
