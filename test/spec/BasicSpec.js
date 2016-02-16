@@ -381,25 +381,25 @@
       expect(spyOnResultMatch).not.toHaveBeenCalled();
     });
 
-    it('should call the callback with the the first argument containing the phrase the user said that matched a command', function() {
+    it('should call the callback with the first argument containing the phrase the user said that matched a command', function() {
       annyang.addCallback('resultMatch', saveArguments);
       recognition.say('Time for some thrilling heroics');
       expect(args[0]).toEqual('Time for some thrilling heroics');
     });
 
-    it('should call the callback with the the first argument containing the phrase the user said that matched a command', function() {
+    it('should call the callback with the first argument containing the phrase the user said that matched a command', function() {
       annyang.addCallback('resultMatch', saveArguments);
       recognition.say('Time for some thrilling heroics');
       expect(args[0]).toEqual('Time for some thrilling heroics');
     });
 
-    it('should call the callback with the the second argument containing the matched command', function() {
+    it('should call the callback with the second argument containing the matched command', function() {
       annyang.addCallback('resultMatch', saveArguments);
       recognition.say('Time for some thrilling heroics');
       expect(args[1]).toEqual('Time for some thrilling :action');
     });
 
-    it('should call the callback with the the third argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
+    it('should call the callback with the third argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
       annyang.addCallback('resultMatch', saveArguments);
       recognition.say('Time for some thrilling heroics');
       expect(typeof args[2]).toEqual('object');
@@ -446,7 +446,7 @@
       expect(spyOnResultNoMatch).not.toHaveBeenCalled();
     });
 
-    it('should call the callback with the the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
+    it('should call the callback with the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
       annyang.addCallback('resultNoMatch', saveArguments);
       recognition.say('That sounds like something out of science fiction');
       expect(typeof args[0]).toEqual('object');
