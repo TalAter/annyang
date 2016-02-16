@@ -461,6 +461,10 @@
 
     var recognition;
     var spyOnResult;
+    var args;
+    var saveArguments = function() {
+      args = arguments;
+    };
 
     beforeEach(function() {
       annyang.debug(false);
@@ -486,6 +490,15 @@
       expect(spyOnResult).not.toHaveBeenCalled();
       recognition.say('That sounds like something out of science fiction');
       expect(spyOnResult).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call the callback with the the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
+      annyang.addCallback('result', saveArguments);
+      recognition.say('That sounds like something out of science fiction');
+      expect(typeof args[0]).toEqual('object');
+      expect(args[0][0]).toEqual('That sounds like something out of science fiction');
+      expect(args[0][1]).toEqual('That sounds like something out of science fiction and so on');
+      expect(args[0][2]).toEqual('That sounds like something out of science fiction and so on and so on');
     });
 
   });
