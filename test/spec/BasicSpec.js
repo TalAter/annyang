@@ -492,7 +492,7 @@
       expect(spyOnResult).toHaveBeenCalledTimes(1);
     });
 
-    it('should call the callback with the the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
+    it('should call the callback with the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', function() {
       annyang.addCallback('result', saveArguments);
       recognition.say('That sounds like something out of science fiction');
       expect(typeof args[0]).toEqual('object');
