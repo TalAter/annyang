@@ -12,14 +12,14 @@ There are several ways you can help the project out:
 
 ### Contributing Code
 
-A lot of annyang's functionality came from pull requests sent over GitHub.
+A lot of annyang's functionality came from pull requests sent over GitHub. Here is how you can contribute too:
 
 - [x] Fork the repository from the [annyang GitHub page](https://github.com/TalAter/annyang).
 - [x] Clone a copy to your local machine with `$ git clone git@github.com:YOUR-GITHUB-USER-NAME/annyang.git`
 - [x] Make sure you have *node.js* and *npm* installed on your machine. You can use this [guide](https://docs.npmjs.com/getting-started/installing-node) for help.
 - [x] Install all of annyang's development dependencies with npm. `$ cd annyang; npm install`
 - [x] Run grunt to make sure everything runs smoothly `$ grunt`
-- [x] Add tests for the your code. See below.
+- [x] Add tests for your code. See below.
 - [x] Code, code, code.
 - [x] Run `$ grunt` after making changes to verify that everything still works and run the build process. Alternatively, you can just run `$ grunt watch` once, and leave that process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it.:+1:
 - [x] Before committing your changes, the last step must always be running `$ grunt`. This makes sure everything works, and all files are kept up to date with your changes.
