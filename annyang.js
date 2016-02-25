@@ -15,7 +15,7 @@
   } else { // Browser globals
     root.annyang = factory(root, undefined);
   }
-}(this, function (root, undefined) {
+}(typeof window !== 'undefined' ? window : this, function (root, undefined) {
   "use strict";
 
   /**

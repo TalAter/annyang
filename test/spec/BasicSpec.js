@@ -7,7 +7,7 @@
   } else { // Browser globals
     factory(root.annyang);
   }
-}(this, function factory(annyang) {
+}(typeof window !== 'undefined' ? window : this, function factory(annyang) {
   "use strict";
 
   describe('annyang', function() {
