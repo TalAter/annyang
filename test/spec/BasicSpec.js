@@ -1,4 +1,13 @@
-(function() {
+(function (root, factory) {
+  // jshint strict: false
+  if (typeof module === 'object' && module.exports) { // CommonJS
+    factory(require('../../annyang'));
+  } else if (typeof define === 'function' && define.amd) { // AMD
+    define(['annyang'], factory);
+  } else { // Browser globals
+    factory(root.annyang);
+  }
+}(this, function factory(annyang) {
   "use strict";
 
   describe('annyang', function() {
@@ -1172,4 +1181,4 @@
 
   });
 
-})();
+}));
