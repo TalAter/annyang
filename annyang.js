@@ -3,8 +3,19 @@
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
-
-(function(undefined) {
+(function (root, factory) {
+  // istanbul ignore next
+  // jshint strict: false
+  if (typeof define === 'function' && define.amd) { // AMD
+    define([], function () {
+      return (root.annyang = factory(root, undefined));
+    });
+  } else if (typeof module === 'object' && module.exports) { // CommonJS
+    module.exports = factory(root, undefined);
+  } else { // Browser globals
+    root.annyang = factory(root, undefined);
+  }
+}(this, function (root, undefined) {
   "use strict";
 
   /**
@@ -17,8 +28,7 @@
    * # API Reference
    */
 
-  // Save a reference to the global object (window in the browser)
-  var root = this;
+  var annyang = {};
 
   // Get the SpeechRecognition object, while handling browser prefixes
   var SpeechRecognition = root.SpeechRecognition ||
@@ -30,7 +40,6 @@
   // Check browser support
   // This is done as early as possible, to make it as fast as possible for unsupported browsers
   if (!SpeechRecognition) {
-    root.annyang = null;
     return undefined;
   }
 
@@ -75,18 +84,18 @@
 
   var initIfNeeded = function() {
     if (!isInitialized()) {
-      root.annyang.init({}, false);
+      annyang.init({}, false);
     }
   };
 
   var registerCommand = function(command, cb, phrase) {
     commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
     if (debugState) {
-      root.console.log('Command successfully loaded: %c'+phrase, debugStyle);
+      console.log('Command successfully loaded: %c'+phrase, debugStyle);
     }
   };
 
-  root.annyang = {
+  annyang = {
 
     /**
      * Initialize annyang with a list of commands to recognize.
@@ -169,9 +178,9 @@
           // play nicely with the browser, and never restart annyang automatically more than once per second
           var timeSinceLastStart = new Date().getTime()-lastStartedAt;
           if (timeSinceLastStart < 1000) {
-            setTimeout(root.annyang.start, 1000-timeSinceLastStart);
+            setTimeout(annyang.start, 1000-timeSinceLastStart);
           } else {
-            root.annyang.start();
+            annyang.start();
           }
         }
       };
@@ -179,7 +188,7 @@
       recognition.onresult  = function(event) {
         if(pauseListening) {
           if (debugState) {
-            root.console.log('Speech heard, but annyang is paused');
+            console.log('Speech heard, but annyang is paused');
           }
           return false;
         }
@@ -198,7 +207,7 @@
           // the text recognized
           commandText = results[i].trim();
           if (debugState) {
-            root.console.log('Speech recognized: %c'+commandText, debugStyle);
+            console.log('Speech recognized: %c'+commandText, debugStyle);
           }
 
           // try and match recognized text to one of the commands on the list
@@ -208,9 +217,9 @@
             if (result) {
               var parameters = result.slice(1);
               if (debugState) {
-                root.console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
+                console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
                 if (parameters.length) {
-                  root.console.log('with parameters', parameters);
+                  console.log('with parameters', parameters);
                 }
               }
               // execute the matched command
@@ -270,7 +279,7 @@
         recognition.start();
       } catch(e) {
         if (debugState) {
-          root.console.log(e.message);
+          console.log(e.message);
         }
       }
     },
@@ -309,7 +318,7 @@
      * @method resume
      */
     resume: function() {
-      root.annyang.start();
+      annyang.start();
     },
 
     /**
@@ -371,7 +380,7 @@
             registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
           } else {
             if (debugState) {
-              root.console.log('Can not register command: %c'+phrase, debugStyle);
+              console.log('Can not register command: %c'+phrase, debugStyle);
             }
             continue;
           }
@@ -544,7 +553,9 @@
     }
   };
 
-}).call(this);
+  return annyang;
+
+}));
 
 /**
  * # Good to Know
