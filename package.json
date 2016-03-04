@@ -29,7 +29,7 @@
     "grunt": "~0.4.5",
     "async": "^1.5.0",
     "grunt-contrib-connect": "^0.11.2",
-    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-cssmin": "^1.0.0",
     "grunt-contrib-imagemin": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^0.11.0",
