@@ -34,6 +34,7 @@
     "spyOn":              false,
     "it":                 false,
     "xit":                false,
-    "annyang":            false
+    "annyang":            false,
+    "define":             false
   }
 }
