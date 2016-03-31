@@ -70,6 +70,20 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
+      browserAMD: {
+        src: ['annyang.js'],
+        options: {
+          specs: 'test/spec/*Spec.js',
+          outfile: 'test/SpecRunner.html',
+          vendor: ['test/vendor/corti.js', 'test/init_corti.js'], // https://github.com/cloudchen/grunt-template-jasmine-requirejs/issues/72
+          template: require('grunt-template-jasmine-requirejs'),
+          templateOptions: {
+            requireConfig: {
+              baseUrl: '../'
+            }
+          }
+        }
+      },
       testAndCoverage: {
         src: ['annyang.js'],
         options: {
@@ -96,20 +110,6 @@ module.exports = function(grunt) {
               branches: 65,
               functions: 95,
               lines: 80
-            }
-          }
-        }
-      },
-      browserAMD: {
-        src: ['annyang.js'],
-        options: {
-          specs: 'test/spec/*Spec.js',
-          outfile: 'test/SpecRunner.html',
-          vendor: ['test/vendor/corti.js', 'test/init_corti.js'], // https://github.com/cloudchen/grunt-template-jasmine-requirejs/issues/72
-          template: require('grunt-template-jasmine-requirejs'),
-          templateOptions: {
-            requireConfig: {
-              baseUrl: '../'
             }
           }
         }
