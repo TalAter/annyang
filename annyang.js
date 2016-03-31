@@ -4,8 +4,8 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 (function (root, factory) {
+  "use strict";
   // istanbul ignore next
-  // jshint strict: false
   if (typeof define === 'function' && define.amd) { // AMD
     define([], function () {
       return (root.annyang = factory(root, undefined));
