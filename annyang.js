@@ -5,7 +5,6 @@
 //! https://www.TalAter.com/annyang/
 (function (root, factory) {
   "use strict";
-  // istanbul ignore next
   if (typeof define === 'function' && define.amd) { // AMD
     define([], function () {
       return (root.annyang = factory(root));
