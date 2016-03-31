@@ -5,7 +5,7 @@
 //! https://www.TalAter.com/annyang/
 (function (root, factory) {
   "use strict";
-  if (typeof define === 'function' && define.amd) { // AMD
+  if (typeof define === 'function' && define.amd) { // AMD + global
     define([], function () {
       return (root.annyang = factory(root));
     });
