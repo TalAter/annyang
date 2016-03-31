@@ -5,15 +5,15 @@
 //! https://github.com/TalAter/SpeechKITT/test/corti.js
 
 (function (root, factory) {
-  // jshint strict: false
-  if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
+  "use strict";
+  if (typeof define === 'function' && define.amd) { // AMD + global
     define([], function () {
-      return (root.Corti = factory(root, undefined));
+      return (root.Corti = factory(root));
     });
   } else if (typeof module === 'object' && module.exports) { // CommonJS
-    module.exports = factory(root, undefined);
+    module.exports = factory(root);
   } else { // Browser globals
-    root.Corti = factory(root, undefined);
+    root.Corti = factory(root);
   }
 }(typeof window !== 'undefined' ? window : this, function (_root, undefined) {
   "use strict";
