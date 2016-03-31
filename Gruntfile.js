@@ -70,12 +70,27 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
+      browserAMD: {
+        src: ['annyang.js'],
+        options: {
+          specs: 'test/spec/*Spec.js',
+          outfile: 'test/SpecRunner.html',
+          vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
+          keepRunner: true,
+          template: require('grunt-template-jasmine-requirejs'),
+          templateOptions: {
+            requireConfig: {
+              baseUrl: '../'
+            }
+          }
+        }
+      },
       testAndCoverage: {
         src: ['annyang.js'],
         options: {
           specs: ['test/spec/*Spec.js'],
           outfile: 'test/SpecRunner.html',
-          polyfills: ['test/vendor/corti.js', 'test/init_corti.js'],
+          vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
           keepRunner: true,
           template: require('grunt-template-jasmine-istanbul'),
           templateOptions: {
@@ -94,7 +109,7 @@ module.exports = function(grunt) {
             thresholds: {
               statements: 80,
               branches: 65,
-              functions: 95,
+              functions: 90,
               lines: 80
             }
           }
