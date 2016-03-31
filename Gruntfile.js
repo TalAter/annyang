@@ -75,7 +75,7 @@ module.exports = function(grunt) {
         options: {
           specs: 'test/spec/*Spec.js',
           outfile: 'test/SpecRunner.html',
-          vendor: ['test/vendor/corti.js', 'test/init_corti.js'], // https://github.com/cloudchen/grunt-template-jasmine-requirejs/issues/72
+          vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
             requireConfig: {
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
         options: {
           specs: ['test/spec/*Spec.js'],
           outfile: 'test/SpecRunner.html',
-          polyfills: ['test/vendor/corti.js', 'test/init_corti.js'],
+          vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
           keepRunner: true,
           template: require('grunt-template-jasmine-istanbul'),
           templateOptions: {
