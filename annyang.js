@@ -8,12 +8,12 @@
   // istanbul ignore next
   if (typeof define === 'function' && define.amd) { // AMD
     define([], function () {
-      return (root.annyang = factory(root, undefined));
+      return (root.annyang = factory(root));
     });
   } else if (typeof module === 'object' && module.exports) { // CommonJS
-    module.exports = factory(root, undefined);
+    module.exports = factory(root);
   } else { // Browser globals
-    root.annyang = factory(root, undefined);
+    root.annyang = factory(root);
   }
 }(typeof window !== 'undefined' ? window : this, function (root, undefined) {
   "use strict";
