@@ -39,7 +39,7 @@
   // Check browser support
   // This is done as early as possible, to make it as fast as possible for unsupported browsers
   if (!SpeechRecognition) {
-    return undefined;
+    return null;
   }
 
   var commandsList = [];
