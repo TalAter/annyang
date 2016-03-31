@@ -76,6 +76,7 @@ module.exports = function(grunt) {
           specs: 'test/spec/*Spec.js',
           outfile: 'test/SpecRunner.html',
           vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
+          keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
             requireConfig: {
