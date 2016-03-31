@@ -4,11 +4,19 @@
 //! license : MIT
 //! https://github.com/TalAter/SpeechKITT/test/corti.js
 
-(function (undefined) {
+(function (root, factory) {
+  // jshint strict: false
+  if (typeof define === 'function' && define.amd) { // AMD. Register as an anonymous module.
+    define([], function () {
+      return (root.Corti = factory(root, undefined));
+    });
+  } else if (typeof module === 'object' && module.exports) { // CommonJS
+    module.exports = factory(root, undefined);
+  } else { // Browser globals
+    root.Corti = factory(root, undefined);
+  }
+}(typeof window !== 'undefined' ? window : this, function (_root, undefined) {
   "use strict";
-
-  // Save a reference to the global object (window in the browser)
-  var _root = this;
 
   // Holds the browser's implementation
   var _productionVersion = false;
@@ -164,7 +172,7 @@
   };
 
   // Expose functionality
-  _root.Corti = {
+  return {
     patch: function() {
       if (_productionVersion === false) {
         _productionVersion = _root.SpeechRecognition ||
@@ -181,4 +189,4 @@
     }
   };
 
-}).call(this);
+}));
