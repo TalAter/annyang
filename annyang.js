@@ -28,7 +28,7 @@
    * # API Reference
    */
 
-  var annyang = {};
+  var annyang;
 
   // Get the SpeechRecognition object, while handling browser prefixes
   var SpeechRecognition = root.SpeechRecognition ||
