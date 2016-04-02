@@ -638,7 +638,7 @@
 
     it('should match commands even if a recognition is not the first SpeechRecognitionAlternative', function() {
       var spyOnMatch = jasmine.createSpy();
-      // For this test, the command text is what simulate saying plus 'and so on'.
+      // For this test, the command text is what we will be saying plus 'and so on'.
       // This is the structure of alternative text recognitions in Corti.
       annyang.addCommands(
         {'Time for some thrilling heroics and so on': spyOnMatch}
