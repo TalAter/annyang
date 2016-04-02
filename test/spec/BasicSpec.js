@@ -72,6 +72,10 @@
       expect(annyang.getSpeechRecognizer).toEqual(jasmine.any(Function));
     });
 
+    xit('should expose trigger method', function() {
+      expect(annyang.trigger).toEqual(jasmine.any(Function));
+    });
+
   });
 
   describe('annyang.abort', function() {
@@ -1178,6 +1182,82 @@
       annyang.setLanguage('he');
       expect(recognition.lang).toEqual('he');
     });
+
+  });
+
+  xdescribe('annyang.trigger', function() {
+
+    var spyOnCommand;
+    var spyOnResult;
+    var spyOnResultMatch;
+    var spyOnResultNoMatch;
+    var sentence1 = 'Time for some thrilling heroics';
+    var sentence2 = 'That sounds like something out of science fiction';
+
+    beforeEach(function() {
+      spyOnCommand = jasmine.createSpy();
+      spyOnResult = jasmine.createSpy();
+      spyOnResultMatch = jasmine.createSpy();
+      spyOnResultNoMatch = jasmine.createSpy();
+      annyang.abort();
+      annyang.start();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Time for some :type *action': spyOnCommand
+      });
+    });
+
+    it('should accept a string with a word or sentence as the first argument', function() {
+      expect(annyang.trigger(sentence1)).toEqual(undefined);
+    });
+
+    // @TODO: Add support for passing in an array of sentences
+    xit('should accept an array of strings, each with a word or sentence as the first argument', function() {
+      expect(annyang.trigger([sentence1, sentence1+' and so on'])).toEqual(undefined);
+    });
+
+    it('should trigger a matching command to execute as if it was passed from Speech Recognition', function() {
+      expect(spyOnCommand).not.toHaveBeenCalled();
+      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      expect(spyOnCommand).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger a result event', function() {
+      annyang.addCallback('result', spyOnResult);
+      expect(spyOnResult).not.toHaveBeenCalled();
+      annyang.trigger(sentence1);
+      expect(spyOnResult).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger a resultMatch event if sentence matches a command', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      annyang.trigger(sentence1);
+      expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should trigger a resultNoMatch event if sentence does not match a command', function() {
+      annyang.addCallback('resultNoMatch', spyOnResultNoMatch);
+      expect(spyOnResultNoMatch).not.toHaveBeenCalled();
+      annyang.trigger(sentence2);
+      expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not trigger a matching command if annyang is aborted or not started', function() {
+      expect(spyOnCommand).not.toHaveBeenCalled();
+      annyang.abort();
+      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      expect(spyOnCommand).not.toHaveBeenCalled();
+    });
+
+    it('should not trigger a matching command if annyang is paused', function() {
+      expect(spyOnCommand).not.toHaveBeenCalled();
+      annyang.pause();
+      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      expect(spyOnCommand).not.toHaveBeenCalled();
+    });
+
+    // @TODO: Add a setting which will allow trigger to work even when annyang/Speech Recognition is paused/aborted
 
   });
 
