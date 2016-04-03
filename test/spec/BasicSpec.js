@@ -1203,7 +1203,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some :type *action': spyOnCommand
+        'Time for some :type heroics': spyOnCommand
       });
     });
 
@@ -1216,9 +1216,16 @@
       expect(annyang.trigger([sentence1, sentence1+' and so on'])).toEqual(undefined);
     });
 
-    it('should trigger a matching command to execute as if it was passed from Speech Recognition', function() {
+    it('should match a sentence passed as a string to a command and execute it as if it was passed from Speech Recognition', function() {
       expect(spyOnCommand).not.toHaveBeenCalled();
-      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      annyang.trigger(sentence1);
+      expect(spyOnCommand).toHaveBeenCalledTimes(1);
+    });
+
+    // @TODO: Add support for passing in an array of sentences
+    xit('should match a sentence passed in an array to a command and execute it as if it was passed from Speech Recognition', function() {
+      expect(spyOnCommand).not.toHaveBeenCalled();
+      annyang.trigger([sentence1+' and so on', sentence1]);
       expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
@@ -1246,18 +1253,16 @@
     it('should not trigger a matching command if annyang is aborted or not started', function() {
       expect(spyOnCommand).not.toHaveBeenCalled();
       annyang.abort();
-      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      annyang.trigger(sentence1);
       expect(spyOnCommand).not.toHaveBeenCalled();
     });
 
     it('should not trigger a matching command if annyang is paused', function() {
       expect(spyOnCommand).not.toHaveBeenCalled();
       annyang.pause();
-      expect(annyang.trigger(sentence1)).toEqual(undefined);
+      annyang.trigger(sentence1);
       expect(spyOnCommand).not.toHaveBeenCalled();
     });
-
-    // @TODO: Add a setting which will allow trigger to work even when annyang/Speech Recognition is paused/aborted
 
   });
 
