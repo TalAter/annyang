@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       browserAMD: {
         src: ['annyang.js'],
         options: {
-          specs: 'test/spec/*Spec.js',
+          specs: 'test/spec/BasicSpec.js',
           outfile: 'test/SpecRunner.html',
           vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
           keepRunner: true,
