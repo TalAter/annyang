@@ -253,6 +253,7 @@
     it('should always return undefined', function() {
       expect(annyang.addCallback()).toEqual(undefined);
       expect(annyang.addCallback('blergh')).toEqual(undefined);
+      expect(annyang.addCallback('start')).toEqual(undefined);
       expect(annyang.addCallback('start', function() {})).toEqual(undefined);
       expect(annyang.addCallback('start', function() {}, this)).toEqual(undefined);
     });
