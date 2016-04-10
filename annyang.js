@@ -94,6 +94,39 @@
     }
   };
 
+  var parseResults = function(results) {
+    invokeCallbacks(callbacks.result, results);
+    var commandText;
+    // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
+    for (var i = 0; i<results.length; i++) {
+      // the text recognized
+      commandText = results[i].trim();
+      if (debugState) {
+        console.log('Speech recognized: %c'+commandText, debugStyle);
+      }
+
+      // try and match recognized text to one of the commands on the list
+      for (var j = 0, l = commandsList.length; j < l; j++) {
+        var currentCommand = commandsList[j];
+        var result = currentCommand.command.exec(commandText);
+        if (result) {
+          var parameters = result.slice(1);
+          if (debugState) {
+            console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
+            if (parameters.length) {
+              console.log('with parameters', parameters);
+            }
+          }
+          // execute the matched command
+          currentCommand.callback.apply(this, parameters);
+          invokeCallbacks(callbacks.resultMatch, commandText, currentCommand.originalPhrase, results);
+          return;
+        }
+      }
+    }
+    invokeCallbacks(callbacks.resultNoMatch, results);
+  };
+
   annyang = {
 
     /**
@@ -199,37 +232,7 @@
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
-        invokeCallbacks(callbacks.result, results);
-        var commandText;
-        // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
-        for (var i = 0; i<results.length; i++) {
-          // the text recognized
-          commandText = results[i].trim();
-          if (debugState) {
-            console.log('Speech recognized: %c'+commandText, debugStyle);
-          }
-
-          // try and match recognized text to one of the commands on the list
-          for (var j = 0, l = commandsList.length; j < l; j++) {
-            var currentCommand = commandsList[j];
-            var result = currentCommand.command.exec(commandText);
-            if (result) {
-              var parameters = result.slice(1);
-              if (debugState) {
-                console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
-                if (parameters.length) {
-                  console.log('with parameters', parameters);
-                }
-              }
-              // execute the matched command
-              currentCommand.callback.apply(this, parameters);
-              invokeCallbacks(callbacks.resultMatch, commandText, currentCommand.originalPhrase, results);
-              return true;
-            }
-          }
-        }
-        invokeCallbacks(callbacks.resultNoMatch, results);
-        return false;
+        parseResults(results);
       };
 
       // build commands list
@@ -549,6 +552,44 @@
      */
     getSpeechRecognizer: function() {
       return recognition;
+    },
+
+    /**
+     * Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
+     * detects speech.
+     *
+     * Can accept either a string containing a single sentence, or an array containing multiple sentences to be checked
+     * in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
+     *
+     * #### Examples:
+     * ````javascript
+     * annyang.trigger('Time for some thrilling heroics');
+     * annyang.trigger(
+     *     ['Time for some thrilling heroics', 'Time for some thrilling aerobics']
+     *   );
+     * ````
+     *
+     * @param string|array sentences A sentence as a string or an array of strings of possible sentences
+     * @returns undefined
+     * @method trigger
+     */
+    trigger: function(sentences) {
+      if(!annyang.isListening()) {
+        if (debugState) {
+          if (!isListening) {
+            console.log('Cannot trigger while annyang is aborted');
+          } else {
+            console.log('Speech heard, but annyang is paused');
+          }
+        }
+        return;
+      }
+
+      if (!Array.isArray(sentences)) {
+        sentences = [sentences];
+      }
+
+      parseResults(sentences);
     }
   };
 

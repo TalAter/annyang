@@ -72,7 +72,7 @@
       expect(annyang.getSpeechRecognizer).toEqual(jasmine.any(Function));
     });
 
-    xit('should expose trigger method', function() {
+    it('should expose trigger method', function() {
       expect(annyang.trigger).toEqual(jasmine.any(Function));
     });
 
@@ -1185,7 +1185,7 @@
 
   });
 
-  xdescribe('annyang.trigger', function() {
+  describe('annyang.trigger', function() {
 
     var spyOnCommand;
     var spyOnResult;
@@ -1195,6 +1195,7 @@
     var sentence2 = 'That sounds like something out of science fiction';
 
     beforeEach(function() {
+      annyang.debug(false);
       spyOnCommand = jasmine.createSpy();
       spyOnResult = jasmine.createSpy();
       spyOnResultMatch = jasmine.createSpy();
@@ -1211,8 +1212,7 @@
       expect(annyang.trigger(sentence1)).toEqual(undefined);
     });
 
-    // @TODO: Add support for passing in an array of sentences
-    xit('should accept an array of strings, each with a word or sentence as the first argument', function() {
+    it('should accept an array of strings, each with a word or sentence as the first argument', function() {
       expect(annyang.trigger([sentence1, sentence1+' and so on'])).toEqual(undefined);
     });
 
@@ -1222,8 +1222,7 @@
       expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
-    // @TODO: Add support for passing in an array of sentences
-    xit('should match a sentence passed in an array to a command and execute it as if it was passed from Speech Recognition', function() {
+    it('should match a sentence passed in an array to a command and execute it as if it was passed from Speech Recognition', function() {
       expect(spyOnCommand).not.toHaveBeenCalled();
       annyang.trigger([sentence1+' and so on', sentence1]);
       expect(spyOnCommand).toHaveBeenCalledTimes(1);

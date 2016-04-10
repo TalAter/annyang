@@ -239,6 +239,30 @@ Useful in case you want direct access to the browser's Speech Recognition engine
 
 * SpeechRecognition The browser's Speech Recognizer currently used by annyang
 
+## trigger(string|array)
+
+Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
+detects speech.
+
+Can accept either a string containing a single sentence, or an array containing multiple sentences to be checked
+in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
+
+#### Examples:
+````javascript
+annyang.trigger('Time for some thrilling heroics');
+annyang.trigger(
+    ['Time for some thrilling heroics', 'Time for some thrilling aerobics']
+  );
+````
+
+### Params:
+
+* *string|array* sentences A sentence as a string or an array of strings of possible sentences
+
+### Return:
+
+* undefined
+
 # Good to Know
 
 ## Commands Object
