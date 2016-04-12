@@ -653,6 +653,35 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
+    it('should write to console when a command matches', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).toHaveBeenCalledTimes(2); // 1 console log for speech recognized + 1 for the command matching
+      expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+    });
+
+    it('should write to console with argument matched when command with an argument matches', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling :action': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).toHaveBeenCalledTimes(3); // 1 console log for speech recognized + 1 for the command matching + 1 for the parameter
+      expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling :action', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('with parameters', ['heroics']);
+    });
+
     it('should ignore commands in subsequent addCommands calls with existing command texts', function() {
       var spyOnMatch1 = jasmine.createSpy();
       var spyOnMatch2 = jasmine.createSpy();
@@ -1262,6 +1291,48 @@
       annyang.pause();
       annyang.trigger(sentence1);
       expect(spyOnCommand).not.toHaveBeenCalled();
+    });
+
+  });
+
+  describe('annyang', function() {
+
+    var recognition;
+
+    beforeEach(function() {
+      annyang.debug(false);
+      annyang.abort();
+      annyang.removeCommands();
+      recognition = annyang.getSpeechRecognizer();
+      spyOn(console, 'log');
+    });
+
+    it('should write to console all speech recognition alternative that is recognized when no command matches', function() {
+      annyang.start();
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).toHaveBeenCalledTimes(5);
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on and so on', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on and so on and so on', 'font-weight: bold; color: #00f;');
+    });
+
+    it('should write to console each speech recognition alternative that is recognized, until a command is matched', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics and so on': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).toHaveBeenCalledTimes(3); // 2 console logs for speech recognized + 1 for the command matching
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
     });
 
   });
