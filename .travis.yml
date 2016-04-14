@@ -9,3 +9,13 @@ node_js:
 before_script:
   - 'npm install -g grunt-cli'
   - 'grunt'
+deploy:
+  provider: npm
+  email:    tal@talater.com
+  api_key:
+    secure: B7djVh1jMSccBqDoFYO+yDcucgd5u7vR8dy6U1p48BKcA78bNlIm58MO2XF22Qx0uqKAv3piD385DgUoICoHU4Au9BXFBEdMpxbLsd4LVIOekPCnOlF2GHz9p8mhUzNbXP4qXLjoNz1tZlcd9LgSujN35PnNDp00AKdjs8vIceo=
+  on:
+    tags:   true
+    branch: master
+    node:   '5'
+    repo:   TalAter/annyang
