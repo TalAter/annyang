@@ -163,11 +163,19 @@
   describe('annyang.start', function() {
 
     var spyOnStart;
+    var recognition;
 
     beforeEach(function() {
+      jasmine.clock().install();
       annyang.abort();
       spyOnStart = jasmine.createSpy();
       annyang.addCallback('start', spyOnStart);
+      recognition = annyang.getSpeechRecognizer();
+    });
+
+    afterEach(function() {
+      jasmine.clock().tick(2000);
+      jasmine.clock().uninstall();
     });
 
     it('should start annyang and Speech Recognition if it was aborted', function() {
@@ -205,6 +213,46 @@
       annyang.start();
       annyang.debug(false);
       expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+    });
+
+    it('should accept an options object as its first argument', function() {
+      expect(function() {annyang.start({});}).not.toThrowError();
+    });
+
+    it('should accept an autoRestart property in options object which defaults to true', function() {
+      annyang.start();
+      recognition.abort();
+      expect(annyang.isListening()).toBe(false);
+      jasmine.clock().tick(1000);
+      expect(annyang.isListening()).toBe(true);
+    });
+
+    describe('annyang.start({ autoRestart: true })', function() {
+
+      it('should cause annyang to restart after 1 second when Speech Recognition engine was aborted', function() {
+        annyang.start();
+        expect(annyang.isListening()).toBe(true);
+        recognition.abort();
+        expect(annyang.isListening()).toBe(false);
+        jasmine.clock().tick(999);
+        expect(annyang.isListening()).toBe(false);
+        jasmine.clock().tick(1);
+        expect(annyang.isListening()).toBe(true);
+      });
+
+    });
+
+    describe('annyang.start({ autoRestart: false })', function() {
+
+      it('should cause annyang to not restart when Speech Recognition engine was aborted', function() {
+        annyang.start({ autoRestart: false });
+        expect(annyang.isListening()).toBe(true);
+        recognition.abort();
+        expect(annyang.isListening()).toBe(false);
+        jasmine.clock().tick(1000);
+        expect(annyang.isListening()).toBe(false);
+      });
+
     });
 
   });
@@ -1304,17 +1352,11 @@
     var recognition;
 
     beforeEach(function() {
-      jasmine.clock().install();
       annyang.debug(false);
       annyang.abort();
       annyang.removeCommands();
       recognition = annyang.getSpeechRecognizer();
       spyOn(console, 'log');
-    });
-
-    afterEach(function() {
-      jasmine.clock().tick(2000);
-      jasmine.clock().uninstall();
     });
 
     it('should write to console all speech recognition alternative that is recognized when no command matches', function() {
@@ -1350,17 +1392,6 @@
       expect(annyang.isListening()).toBe(true);
       recognition.abort();
       expect(annyang.isListening()).toBe(false);
-    });
-
-    it('should restart annyang after 1 second when Speech Recognition engine was aborted', function() {
-      annyang.start();
-      expect(annyang.isListening()).toBe(true);
-      recognition.abort();
-      expect(annyang.isListening()).toBe(false);
-      jasmine.clock().tick(999);
-      expect(annyang.isListening()).toBe(false);
-      jasmine.clock().tick(1);
-      expect(annyang.isListening()).toBe(true);
     });
 
   });
