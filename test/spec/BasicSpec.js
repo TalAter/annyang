@@ -1304,11 +1304,16 @@
     var recognition;
 
     beforeEach(function() {
+      jasmine.clock().install();
       annyang.debug(false);
       annyang.abort();
       annyang.removeCommands();
       recognition = annyang.getSpeechRecognizer();
       spyOn(console, 'log');
+    });
+
+    afterEach(function() {
+      jasmine.clock().uninstall();
     });
 
     it('should write to console all speech recognition alternative that is recognized when no command matches', function() {
@@ -1344,6 +1349,17 @@
       expect(annyang.isListening()).toBe(true);
       recognition.abort();
       expect(annyang.isListening()).toBe(false);
+    });
+
+    it('should restart annyang after 1 second when Speech Recognition engine was aborted', function() {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      recognition.abort();
+      expect(annyang.isListening()).toBe(false);
+      jasmine.clock().tick(999);
+      expect(annyang.isListening()).toBe(false);
+      jasmine.clock().tick(1);
+      expect(annyang.isListening()).toBe(true);
     });
 
   });
