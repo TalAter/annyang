@@ -161,7 +161,7 @@
   });
 
   describe('annyang.start', function() {
-    
+
     var spyOnStart;
 
     beforeEach(function() {
@@ -1337,6 +1337,13 @@
       expect(console.log).toHaveBeenCalledTimes(3); // 2 console logs for speech recognized + 1 for the command matching
       expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
       expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
+    });
+
+    it('should recognize when Speech Recognition engine was aborted', function() {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+      recognition.abort();
+      expect(annyang.isListening()).toBe(false);
     });
 
   });
