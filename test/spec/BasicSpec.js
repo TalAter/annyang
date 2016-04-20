@@ -1313,6 +1313,7 @@
     });
 
     afterEach(function() {
+      jasmine.clock().tick(2000);
       jasmine.clock().uninstall();
     });
 
