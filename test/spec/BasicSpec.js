@@ -79,9 +79,11 @@
   });
 
   describe('annyang.abort', function() {
+
     it('should not throw an error when called before annyang starts', function() {
       expect(annyang.abort()).toBe(undefined);
     });
+
   });
 
   describe('annyang.isListening', function() {
@@ -121,6 +123,7 @@
   });
 
   describe('annyang.abort', function() {
+
     var spyOnEnd;
 
     beforeEach(function() {
@@ -158,6 +161,7 @@
   });
 
   describe('annyang.start', function() {
+    
     var spyOnStart;
 
     beforeEach(function() {
