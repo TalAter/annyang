@@ -2,7 +2,7 @@
 
 ## What languages are supported?
 
-While there isn't an official list of supported languages (cultures? locales?), here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
+Language support is up to each browser. While there isn't an official list of supported languages in Chrome, here is a list based on [anecdotal evidence](http://stackoverflow.com/a/14302134/338039).
 
 * Afrikaans `af`
 * Basque `eu`
