@@ -342,7 +342,7 @@
      *
      * @param {String} language - The language (locale)
      * @method setLanguage
-     * @see [Languages](#languages)
+     * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
      */
     setLanguage: function(language) {
       initIfNeeded();

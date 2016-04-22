@@ -90,7 +90,7 @@ Turn on output of debug messages to the console. Ugly, but super-handy!
 
 Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
 
-See: [Languages](#languages)
+See: [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
 
 ### Params:
 
