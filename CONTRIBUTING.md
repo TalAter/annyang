@@ -21,7 +21,12 @@ A lot of annyang's functionality came from pull requests sent over GitHub. Here 
 - [x] Run grunt to make sure everything runs smoothly `$ grunt`
 - [x] Add tests for your code. [See details below](#automated-testing).
 - [x] Code, code, code.
-- [x] Run `$ grunt` after making changes to verify that everything still works and run the build process. Alternatively, you can just run `$ grunt watch` once, and leave that process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it.:+1:
+- [x] Run `$ grunt` after making changes to verify that everything still works and the tests all pass.
+
+  :bulb: A great alternative to repeatedly running `$ grunt` is to run `$ grunt watch` once, and leave this process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it. :+1:
+- [x] You can run a local server to test your work in the browser by running `$ grunt dev`. This will also automatically run `$ grunt watch` for you.
+  Point your browser to `https://localhost:8443/demo/` to see the demo page.
+  Since it's using self-signed certificate, you might need to click *"Proceed Anyway"*.
 - [x] Before committing your changes, the last step must always be running `$ grunt`. This makes sure everything works, and all files are kept up to date with your changes.
 - [x] Once you've made sure all your changes work correctly and have been committed, push your local changes back to github with `$ git push -u origin master`
 - [x] Visit your fork on GitHub.com ([https://github.com/YOUR-USER-NAME/annyang](https://github.com/YOUR-USER-NAME/annyang)) and create a pull request for your changes.
