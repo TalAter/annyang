@@ -82,3 +82,7 @@ Language support is up to each browser. While there isn't an official list of su
 * Swedish `sv-SE`
 * Turkish `tr`
 * Zulu `zu`
+
+## How can I contribute to annyang's development?
+
+There are three main ways for you to help. Check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) file for more details.

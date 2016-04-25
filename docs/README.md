@@ -325,26 +325,5 @@ var commands = {
 }
  ````
 
-## Developing
-
-Prerequisities: node.js
-
-First, install dependencies in your local annyang copy:
-
-    npm install
-
-Make sure to run the default grunt task after each change to annyang.js. This can also be done automatically by running:
-
-    grunt watch
-
-You can also run a local server for testing your work with:
-
-    grunt dev
-
-Point your browser to `https://localhost:8443/demo/` to see the demo page.
-Since it's using self-signed certificate, you might need to click *"Proceed Anyway"*.
-
-For more info, check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) file
-
 <!-- End annyang.js -->
 
