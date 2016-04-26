@@ -1352,12 +1352,19 @@
     var recognition;
 
     beforeEach(function() {
+      jasmine.clock().install();
       annyang.debug(false);
       annyang.abort();
       annyang.removeCommands();
       recognition = annyang.getSpeechRecognizer();
       spyOn(console, 'log');
     });
+
+    afterEach(function() {
+      jasmine.clock().tick(2000);
+      jasmine.clock().uninstall();
+    });
+
 
     it('should write to console all speech recognition alternative that is recognized when no command matches', function() {
       annyang.start();
@@ -1392,6 +1399,17 @@
       expect(annyang.isListening()).toBe(true);
       recognition.abort();
       expect(annyang.isListening()).toBe(false);
+    });
+
+    it('should recognize when Speech Recognition engine is repeatedly aborted as soon as it is started and console.log about it once every 10 seconds', function() {
+      recognition.addEventListener('start', function() {
+        setTimeout(function() {recognition.abort();}, 1);
+      });
+      annyang.start();
+      annyang.debug(true);
+      jasmine.clock().tick(20000);
+      expect(console.log).toHaveBeenCalledTimes(2); // 2 console logs for speech recognized + 1 for the command matching
+      expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
     });
 
   });

@@ -47,6 +47,7 @@
   var callbacks = { start: [], error: [], end: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
   var autoRestart;
   var lastStartedAt = 0;
+  var autoRestartCount = 0;
   var debugState = false;
   var debugStyle = 'font-weight: bold; color: #00f;';
   var pauseListening = false;
@@ -209,6 +210,12 @@
         if (autoRestart) {
           // play nicely with the browser, and never restart annyang automatically more than once per second
           var timeSinceLastStart = new Date().getTime()-lastStartedAt;
+          autoRestartCount += 1;
+          if (autoRestartCount % 10 === 0) {
+            if (debugState) {
+              console.log('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+            }
+          }
           if (timeSinceLastStart < 1000) {
             setTimeout(annyang.start, 1000-timeSinceLastStart);
           } else {
@@ -296,6 +303,7 @@
      */
     abort: function() {
       autoRestart = false;
+      autoRestartCount = 0;
       if (isInitialized()) {
         recognition.abort();
       }
