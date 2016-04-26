@@ -89,7 +89,7 @@ There are three main ways for you to help. Check out the [CONTRIBUTING](https://
 
 ## Why does Speech Recognition repeatedly starts and stops?
  
-The most common reason for this is because you have opened more than one tab or window using Speech Recognition in your browser at the same time (e.g. if you open annyang's homepage in one tab, and the page you are currently developing in another).
+The most common reason for this is because you have opened more than one tab or window that uses Speech Recognition in your browser at the same time (e.g. if you open annyang's homepage in one tab, and the Speech Recognition app you are developing in another).
 
 When a browser detects that one tab has started Speech Recognition, it aborts all other Speech Recognition processes in other tabs. annyang detects when it is aborted by an external process and restarts itself. If you have two windows aborting each other, and restarting themselves you may experience Speech Recognition starting and stopping over and over again.  
 
