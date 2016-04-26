@@ -82,10 +82,6 @@ Chrome's implementation of SpeechRecognition behaves differently based on the pr
 
 For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
 
-Pretty Badges
--------------
-[![Build Status](https://travis-ci.org/TalAter/annyang.svg?branch=master)](https://travis-ci.org/TalAter/annyang) [![Dependency Status](https://gemnasium.com/TalAter/annyang.svg)](https://gemnasium.com/TalAter/annyang)
-
 Author
 ------
 Tal Ater: [@TalAter](https://twitter.com/TalAter)
