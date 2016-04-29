@@ -50,8 +50,8 @@ export declare module annyang {
      * @interface CommandOption
      */
     export interface CommandOption {
-		[command:string]: CommandOptionRegex | (() => void)
-	}
+        [command:string]: CommandOptionRegex | (() => void)
+    }
     
     /**
      * Supported Events that will be triggered to listeners, you attach using `annyang.addCallback()`
