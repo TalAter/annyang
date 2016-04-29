@@ -268,5 +268,4 @@ export declare module annyang {
      * @param {string[]} command
      */
     export function trigger(command : string[]) : void
-    
 }
