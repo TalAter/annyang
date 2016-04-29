@@ -25,6 +25,7 @@
   "scripts": {
     "test": "grunt test"
   },
+  "typings": "./annyang.d.ts",
   "devDependencies": {
     "grunt": "~0.4.5",
     "async": "^1.5.0",
