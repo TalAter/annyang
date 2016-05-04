@@ -234,9 +234,9 @@
         expect(annyang.isListening()).toBe(true);
         recognition.abort();
         expect(annyang.isListening()).toBe(false);
-        jasmine.clock().tick(999);
+        jasmine.clock().tick(900);
         expect(annyang.isListening()).toBe(false);
-        jasmine.clock().tick(1);
+        jasmine.clock().tick(100);
         expect(annyang.isListening()).toBe(true);
       });
 
