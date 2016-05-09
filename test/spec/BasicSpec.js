@@ -206,13 +206,22 @@
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
 
-    it('should write a message to log if annyang is already started and debug is on', function() {
+    it('should write a message to log when annyang is already started and debug is on', function() {
       spyOn(console, 'log');
       annyang.debug(true);
       annyang.start();
       annyang.start();
       annyang.debug(false);
+      expect(console.log).toHaveBeenCalledTimes(1);
       expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+    });
+
+    it('should not write a message to log when annyang is already started but debug is off', function() {
+      spyOn(console, 'log');
+      annyang.debug(false);
+      annyang.start();
+      annyang.start();
+      expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should accept an options object as its first argument', function() {
