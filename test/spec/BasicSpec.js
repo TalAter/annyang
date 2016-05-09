@@ -1138,6 +1138,7 @@
     var spyOnMatch;
 
     beforeEach(function() {
+      annyang.debug(false);
       spyOnMatch = jasmine.createSpy();
       annyang.abort();
       annyang.removeCommands();
@@ -1146,6 +1147,7 @@
       });
       annyang.start();
       recognition = annyang.getSpeechRecognizer();
+      spyOn(console, 'log');
     });
 
     it('should return undefined when called', function() {
@@ -1165,6 +1167,23 @@
       annyang.pause();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should cause a debug message if speech detected while paused and debug is on', function() {
+      annyang.debug(true);
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.pause();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledWith('Speech heard, but annyang is paused');
+    });
+
+    it('should not cause a debug message if speech detected while paused but debug is off', function() {
+      annyang.debug(false);
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.pause();
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should not stop the browser\'s Speech Recognition engine', function() {
