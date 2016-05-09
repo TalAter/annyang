@@ -1447,7 +1447,7 @@
       annyang.start();
       annyang.debug(true);
       jasmine.clock().tick(20000);
-      expect(console.log).toHaveBeenCalledTimes(2); // 2 console logs for speech recognized + 1 for the command matching
+      expect(console.log).toHaveBeenCalledTimes(2);
       expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
     });
 
