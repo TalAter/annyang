@@ -806,7 +806,7 @@
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
-    it('should write to console when commands could not be added', function() {
+    it('should write to console when commands could not be added and debug is on', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       annyang.addCommands(
@@ -816,6 +816,17 @@
       );
       expect(console.log).toHaveBeenCalledTimes(1);
       expect(console.log).toHaveBeenCalledWith('Can not register command: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+    });
+
+    it('should not write to console when commands could not be added but debug is off', function() {
+      annyang.debug(false);
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': 'not_a_function'
+        }
+      );
+      expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should accept commands with an object as the value which consists of a regexp and callback', function() {
