@@ -1451,6 +1451,16 @@
       expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
     });
 
+    it('should not log to console when Speech Recognition engine is repeatedly aborted if debug is off', function() {
+      recognition.addEventListener('start', function() {
+        setTimeout(function() {recognition.abort();}, 1);
+      });
+      annyang.start();
+      annyang.debug(false);
+      jasmine.clock().tick(20000);
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
   });
 
 }));
