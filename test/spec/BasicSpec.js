@@ -1405,7 +1405,7 @@
     });
 
 
-    it('should write to console all speech recognition alternative that is recognized when no command matches', function() {
+    it('should write to console each speech recognition alternative that is recognized when no command matches', function() {
       annyang.start();
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
