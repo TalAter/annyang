@@ -1433,6 +1433,18 @@
       expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
     });
 
+    it('should not write to console speech recognition alternatives when debug is off', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics and so on': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(false);
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
     it('should recognize when Speech Recognition engine was aborted', function() {
       annyang.start();
       expect(annyang.isListening()).toBe(true);
