@@ -1418,6 +1418,13 @@
       expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on and so on and so on', 'font-weight: bold; color: #00f;');
     });
 
+    it('should not write to console the speech recognition alternatives when no command matches and debug is off', function() {
+      annyang.start();
+      annyang.debug(false);
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
     it('should write to console each speech recognition alternative that is recognized, until a command is matched', function() {
       annyang.addCommands(
         {
