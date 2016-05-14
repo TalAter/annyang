@@ -1285,6 +1285,13 @@
       expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
     });
 
+    it('should not log a message if debug is off, and resume was called when annyang is listening', function() {
+      annyang.debug(false);
+      annyang.start();
+      annyang.resume();
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
   });
 
   describe('annyang.setLanguage', function() {
