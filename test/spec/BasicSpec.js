@@ -728,6 +728,18 @@
       expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
     });
 
+    it('should not write to console when a command matches if debug is off', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(false);
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
     it('should write to console with argument matched when command with an argument matches', function() {
       annyang.addCommands(
         {
@@ -1410,7 +1422,6 @@
       jasmine.clock().tick(2000);
       jasmine.clock().uninstall();
     });
-
 
     it('should write to console each speech recognition alternative that is recognized when no command matches', function() {
       annyang.start();
