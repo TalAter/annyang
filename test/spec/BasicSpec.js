@@ -818,6 +818,22 @@
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
+    it('should not write to console each command that is successfully added when debug is off', function() {
+      annyang.debug(false);
+      annyang.addCommands(
+        {
+          'Time for some thrilling heroics': function() {}
+        }
+      );
+      annyang.addCommands(
+        {
+          'That sounds like something out of science fiction': function() {},
+          'We should start dealing in those black-market beagles': function() {}
+        }
+      );
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
     it('should write to console when commands could not be added and debug is on', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
