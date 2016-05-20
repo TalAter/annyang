@@ -91,7 +91,7 @@
   var registerCommand = function(command, cb, phrase) {
     commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
     if (debugState) {
-      console.log('Command successfully loaded: %c'+phrase, debugStyle);
+      logMessage('Command successfully loaded: %c'+phrase);
     }
   };
 
@@ -103,7 +103,7 @@
       // the text recognized
       commandText = results[i].trim();
       if (debugState) {
-        console.log('Speech recognized: %c'+commandText, debugStyle);
+        logMessage('Speech recognized: %c'+commandText);
       }
 
       // try and match recognized text to one of the commands on the list
@@ -113,9 +113,9 @@
         if (result) {
           var parameters = result.slice(1);
           if (debugState) {
-            console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
+            logMessage('command matched: %c'+currentCommand.originalPhrase);
             if (parameters.length) {
-              console.log('with parameters', parameters);
+              logMessage('with parameters "'+parameters.join('", "')+'"');
             }
           }
           // execute the matched command
@@ -126,6 +126,15 @@
       }
     }
     invokeCallbacks(callbacks.resultNoMatch, results);
+  };
+
+  var logMessage = function(logMsg, emphStyle) {
+    emphStyle = emphStyle || debugStyle;
+    if (/%c/.test(logMsg)) {
+      console.log(logMsg,emphStyle);
+    } else {
+      console.log(logMsg);
+    }
   };
 
   annyang = {
@@ -213,7 +222,7 @@
           autoRestartCount += 1;
           if (autoRestartCount % 10 === 0) {
             if (debugState) {
-              console.log('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+              logMessage('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
             }
           }
           if (timeSinceLastStart < 1000) {
@@ -227,7 +236,7 @@
       recognition.onresult  = function(event) {
         if(pauseListening) {
           if (debugState) {
-            console.log('Speech heard, but annyang is paused');
+            logMessage('Speech heard, but annyang is paused');
           }
           return false;
         }
@@ -288,7 +297,7 @@
         recognition.start();
       } catch(e) {
         if (debugState) {
-          console.log(e.message);
+          logMessage(e.message);
         }
       }
     },
@@ -390,7 +399,7 @@
             registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
           } else {
             if (debugState) {
-              console.log('Can not register command: %c'+phrase, debugStyle);
+              logMessage('Can not register command: %c'+phrase);
             }
             continue;
           }
@@ -585,9 +594,9 @@
       if(!annyang.isListening()) {
         if (debugState) {
           if (!isListening) {
-            console.log('Cannot trigger while annyang is aborted');
+            logMessage('Cannot trigger while annyang is aborted');
           } else {
-            console.log('Speech heard, but annyang is paused');
+            logMessage('Speech heard, but annyang is paused');
           }
         }
         return;
