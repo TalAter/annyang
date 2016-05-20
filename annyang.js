@@ -82,6 +82,12 @@
     return recognition !== undefined;
   };
 
+  // method for logging in developer console when debug mode is on
+  var logMessage = function(text,logStyle){
+  	logStyle = logStyle || debugStyle;
+  	console.log(text,logStyle);
+  };
+
   var initIfNeeded = function() {
     if (!isInitialized()) {
       annyang.init({}, false);
@@ -91,7 +97,7 @@
   var registerCommand = function(command, cb, phrase) {
     commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
     if (debugState) {
-      console.log('Command successfully loaded: %c'+phrase, debugStyle);
+      logMessage('Command successfully loaded: %c'+phrase, debugStyle);
     }
   };
 
@@ -103,7 +109,7 @@
       // the text recognized
       commandText = results[i].trim();
       if (debugState) {
-        console.log('Speech recognized: %c'+commandText, debugStyle);
+        logMessage('Speech recognized: %c'+commandText, debugStyle);
       }
 
       // try and match recognized text to one of the commands on the list
@@ -113,9 +119,9 @@
         if (result) {
           var parameters = result.slice(1);
           if (debugState) {
-            console.log('command matched: %c'+currentCommand.originalPhrase, debugStyle);
+            logMessage('command matched: %c'+currentCommand.originalPhrase, debugStyle);
             if (parameters.length) {
-              console.log('with parameters', parameters);
+              logMessage('with parameters', parameters);
             }
           }
           // execute the matched command
@@ -213,7 +219,7 @@
           autoRestartCount += 1;
           if (autoRestartCount % 10 === 0) {
             if (debugState) {
-              console.log('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+              logMessage('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
             }
           }
           if (timeSinceLastStart < 1000) {
@@ -227,7 +233,7 @@
       recognition.onresult  = function(event) {
         if(pauseListening) {
           if (debugState) {
-            console.log('Speech heard, but annyang is paused');
+            logMessage('Speech heard, but annyang is paused');
           }
           return false;
         }
@@ -288,7 +294,7 @@
         recognition.start();
       } catch(e) {
         if (debugState) {
-          console.log(e.message);
+          logMessage(e.message);
         }
       }
     },
@@ -390,7 +396,7 @@
             registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
           } else {
             if (debugState) {
-              console.log('Can not register command: %c'+phrase, debugStyle);
+              logMessage('Can not register command: %c'+phrase, debugStyle);
             }
             continue;
           }
@@ -462,9 +468,9 @@
      * });
      *
      * annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-     *   console.log(userSaid); // sample output: 'hello'
-     *   console.log(commandText); // sample output: 'hello (there)'
-     *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+     *   logMessage(userSaid); // sample output: 'hello'
+     *   logMessage(commandText); // sample output: 'hello (there)'
+     *   logMessage(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
      * });
      *
      * // pass local context to a global function called notConnected
@@ -585,9 +591,9 @@
       if(!annyang.isListening()) {
         if (debugState) {
           if (!isListening) {
-            console.log('Cannot trigger while annyang is aborted');
+            logMessage('Cannot trigger while annyang is aborted');
           } else {
-            console.log('Speech heard, but annyang is paused');
+            logMessage('Speech heard, but annyang is paused');
           }
         }
         return;
@@ -659,7 +665,7 @@
  *
  * #### Examples:
  * ````javascript
- * var calculateFunction = function(month) { console.log(month); }
+ * var calculateFunction = function(month) { logMessage(month); }
  * var commands = {
  *   // This example will accept any word as the "month"
  *   'calculate :month stats': calculateFunction,
