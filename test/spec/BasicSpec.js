@@ -755,6 +755,18 @@
       expect(console.log).toHaveBeenCalledWith('with parameters', ['heroics']);
     });
 
+    it('should not write to console the argument matched when command with an argument matches if debug is off', function() {
+      annyang.addCommands(
+        {
+          'Time for some thrilling :action': function() {}
+        }
+      );
+      annyang.start();
+      annyang.debug(false);
+      recognition.say('Time for some thrilling heroics');
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
     it('should ignore commands in subsequent addCommands calls with existing command texts', function() {
       var spyOnMatch1 = jasmine.createSpy();
       var spyOnMatch2 = jasmine.createSpy();
