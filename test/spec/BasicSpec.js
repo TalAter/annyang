@@ -1276,6 +1276,7 @@
     var spyOnMatch;
 
     beforeEach(function() {
+      annyang.debug(false);
       spyOnMatch = jasmine.createSpy();
       annyang.abort();
       annyang.removeCommands();
