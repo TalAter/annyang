@@ -752,7 +752,7 @@
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(3); // 1 console log for speech recognized + 1 for the command matching + 1 for the parameter
       expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling :action', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('with parameters', ['heroics']);
+      expect(console.log).toHaveBeenCalledWith('with parameters "heroics"');
     });
 
     it('should not write to console the argument matched when command with an argument matches if debug is off', function() {

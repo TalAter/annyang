@@ -38,5 +38,8 @@
     "grunt-template-jasmine-istanbul": "^0.4.0",
     "grunt-template-jasmine-requirejs": "^0.2.3",
     "grunt-markdox": "^1.2.1"
+  },
+  "dependencies": {
+    "lodash": "~4.12.0"
   }
 }
