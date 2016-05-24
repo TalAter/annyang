@@ -83,9 +83,9 @@
   };
 
   // method for logging in developer console when debug mode is on
-  var logMessage = function(text,logStyle){
-  	logStyle = logStyle || debugStyle;
-  	console.log(text,logStyle);
+  var logMessage = function(text, extraParameters) {
+  	extraParameters = extraParameters || debugStyle;
+  	console.log(text, extraParameters);
   };
 
   var initIfNeeded = function() {
@@ -468,9 +468,9 @@
      * });
      *
      * annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-     *   logMessage(userSaid); // sample output: 'hello'
-     *   logMessage(commandText); // sample output: 'hello (there)'
-     *   logMessage(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+     *   console.log(userSaid); // sample output: 'hello'
+     *   console.log(commandText); // sample output: 'hello (there)'
+     *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
      * });
      *
      * // pass local context to a global function called notConnected
