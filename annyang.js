@@ -665,7 +665,7 @@
  *
  * #### Examples:
  * ````javascript
- * var calculateFunction = function(month) { logMessage(month); }
+ * var calculateFunction = function(month) { console.log(month); }
  * var commands = {
  *   // This example will accept any word as the "month"
  *   'calculate :month stats': calculateFunction,
