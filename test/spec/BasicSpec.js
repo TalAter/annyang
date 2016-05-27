@@ -213,7 +213,7 @@
       annyang.start();
       annyang.debug(false);
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.','font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
     });
 
     it('should not write a message to log when annyang is already started but debug is off', function() {
@@ -1235,7 +1235,7 @@
       annyang.pause();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Speech heard, but annyang is paused','font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech heard, but annyang is paused');
     });
 
     it('should not cause a debug message if speech detected while paused but debug is off', function() {
@@ -1323,7 +1323,7 @@
       annyang.start();
       annyang.resume();
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.','font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
     });
 
     it('should not log a message if debug is off, and resume was called when annyang is listening', function() {
@@ -1514,7 +1514,7 @@
       annyang.debug(true);
       jasmine.clock().tick(20000);
       expect(console.log).toHaveBeenCalledTimes(2);
-      expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.','font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
     });
 
     it('should not log to console when Speech Recognition engine is repeatedly aborted if debug is off', function() {
