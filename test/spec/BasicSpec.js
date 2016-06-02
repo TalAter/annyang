@@ -1375,6 +1375,7 @@
       annyang.addCommands({
         'Time for some :type heroics': spyOnCommand
       });
+      spyOn(console, 'log');
     });
 
     it('should accept a string with a word or sentence as the first argument', function() {
@@ -1430,6 +1431,15 @@
       annyang.pause();
       annyang.trigger(sentence1);
       expect(spyOnCommand).not.toHaveBeenCalled();
+    });
+
+    it('should log to console if attemting to trigger a command while annyang is aborted or not started', function() {
+      annyang.debug(true);
+      annyang.abort();
+      expect(console.log).not.toHaveBeenCalled();
+      annyang.trigger(sentence1);
+      expect(console.log).toHaveBeenCalledTimes(1);
+      expect(console.log).toHaveBeenCalledWith('Cannot trigger while annyang is aborted');
     });
 
   });
