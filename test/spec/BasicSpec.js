@@ -1442,6 +1442,13 @@
       expect(console.log).toHaveBeenCalledWith('Cannot trigger while annyang is aborted');
     });
 
+    it('should not log to console if attemting to trigger a command while annyang is aborted or not started and debug is off', function() {
+      annyang.debug(false);
+      annyang.abort();
+      annyang.trigger(sentence1);
+      expect(console.log).not.toHaveBeenCalled();
+    });
+
   });
 
   describe('annyang', function() {
