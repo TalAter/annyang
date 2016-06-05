@@ -3,6 +3,7 @@
 - [What languages are supported?](#what-languages-are-supported)
 - [How can I contribute to annyang's development?](#how-can-i-contribute-to-annyangs-development)
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
+- [Can annyang work offline?](#can-annyang-work-offline)
 
 ## What languages are supported?
 
@@ -98,3 +99,7 @@ The most common reason for this is because you have opened more than one tab or 
 When a browser detects that one tab has started Speech Recognition, it aborts all other Speech Recognition processes in other tabs. annyang detects when it is aborted by an external process and restarts itself. If you have two windows aborting each other, and restarting themselves you may experience Speech Recognition starting and stopping over and over again.  
 
 Another possible reason for this might be that you are offline.
+
+## Can annyang work offline?
+
+No. annyang relies on the browser's own speech recognition engine. In Chrome, this engine performs the recognition in the cloud.
