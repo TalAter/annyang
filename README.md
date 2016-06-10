@@ -69,19 +69,6 @@ if (annyang) {
 
 For help with setting up a GUI with KITT, check out the [Speech KITT page](https://github.com/TalAter/SpeechKITT).
 
-
-(annyang) would like to use your microphone
--------------------------------------------
-![](http://i.imgur.com/Z3zooUC.png)
-
-Chrome's implementation of SpeechRecognition behaves differently based on the protocol used:
-
-- `https://` Asks for permission once and remembers the choice.
-
-- `http://`  Asks for permission repeatedly **on every page load**. Results are also returned significantly slower in HTTP.
-
-For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
-
 Author
 ------
 Tal Ater: [@TalAter](https://twitter.com/TalAter)

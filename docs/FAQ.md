@@ -1,6 +1,7 @@
 # Frequently Asked Questions
 
 - [What languages are supported?](#what-languages-are-supported)
+- [Why does the browser repeatedly ask for permission to use the microphone?](#why-does-the-browser-repeatedly-ask-for-permission-to-use-the-microphone)
 - [How can I contribute to annyang's development?](#how-can-i-contribute-to-annyangs-development)
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
@@ -87,6 +88,18 @@ Language support is up to each browser. While there isn't an official list of su
 * Swedish `sv-SE`
 * Turkish `tr`
 * Zulu `zu`
+
+## Why does the browser repeatedly ask for permission to use the microphone?
+
+![](http://i.imgur.com/Z3zooUC.png)
+
+Chrome's speech recognition behaves differently based on the protocol used:
+
+- `https://` Asks for permission once and remembers the choice.
+
+- `http://`  Asks for permission repeatedly **on every page load**. Results are also returned significantly slower in HTTP.
+
+For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
 
 ## How can I contribute to annyang's development?
 
