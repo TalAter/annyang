@@ -895,6 +895,31 @@
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
+    
+    it('should accept commands with an object as the value which consists of just a callback', function() {
+      expect(function() {
+        annyang.addCommands(
+        {
+          'It is time': {
+            callback: function() {}
+          }
+        });
+      }).not.toThrowError();
+    });
+
+    it('should match commands passed as an object as the value which consists of just a callback', function() {
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands(
+        {
+          'It is time': {
+            callback: spyOnMatch
+          }
+        }
+      );
+      expect(spyOnMatch).not.toHaveBeenCalled();
+      recognition.say('It is time');
+      expect(spyOnMatch).toHaveBeenCalledTimes(1);
+    });
 
     it('should pass variables from regexp capturing groups to the callback function', function() {
       var capture1 = '';

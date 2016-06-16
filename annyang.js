@@ -395,9 +395,14 @@
           if (typeof cb === 'function') {
             // convert command to regex then register the command
             registerCommand(commandToRegExp(phrase), cb, phrase);
-          } else if (typeof cb === 'object' && cb.regexp instanceof RegExp) {
-            // register the command
-            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
+          } else if (typeof cb === 'object') {
+            if (cb.regexp instanceof RegExp) {
+              // register the command
+              registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase); 
+            } else {
+              // convert command to regex then register the command
+              registerCommand(commandToRegExp(phrase), cb, phrase);
+            }
           } else {
             if (debugState) {
               logMessage('Can not register command: %c'+phrase, debugStyle);
