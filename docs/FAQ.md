@@ -5,6 +5,7 @@
 - [How can I contribute to annyang's development?](#how-can-i-contribute-to-annyangs-development)
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
+- [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
 
 ## What languages are supported?
 
@@ -116,3 +117,29 @@ Another possible reason for this might be that you are offline.
 ## Can annyang work offline?
 
 No. annyang relies on the browser's own speech recognition engine. In Chrome, this engine performs the recognition in the cloud.
+
+## Can annyang be used to capture the full text spoken by the user?
+
+Yes. You can listen to the `result` event which is triggered whenever speech is recognized. This event will fire with a list of possible phrases the user may have said, regardless of whether any of them matched an annyang command or not. You can even do this without registering any commands:
+
+````javascript
+annyang.addCallback('result', function(phrases) {
+  console.log("I think the user said: ", phrases[0]);
+  console.log("But then again, it could be any of the following: ", phrases);
+});
+````
+
+Alternatively, you may choose to only capture what the user said when it matches an annyang command (`resultMatch`), or when it does not match a command (`resultNoMatch`).
+
+````javascript
+annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+  console.log(userSaid); // sample output: 'hello'
+  console.log(commandText); // sample output: 'hello (there)'
+  console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+});
+
+annyang.addCallback('resultNoMatch', function(phrases) {
+  console.log("I think the user said: ", phrases[0]);
+  console.log("But then again, it could be any of the following: ", phrases);
+});
+````
