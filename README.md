@@ -9,9 +9,11 @@ Demo & Tutorial
 ---------------
 [Play with some live speech recognition demos](https://www.talater.com/annyang)
 
-Technical Documentation and API
--------------------------------
-[Docs and full API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
+FAQ, Technical Documentation and API Reference
+----------------------------------------------
+- [annyang Frequently Asked Questions](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md)
+- [annyang API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
+- [annyang tutorial](https://www.talater.com/annyang)
 
 Hello World
 -----------
