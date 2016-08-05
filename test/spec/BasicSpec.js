@@ -343,7 +343,7 @@
     });
 
     it('should run callbacks in the context given as the third parameter', function() {
-      // First test it in this context
+      // First set it in this context
       this.variableChanged = false;
       var changeVariable = function() {
         this.variableChanged = true;
