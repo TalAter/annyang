@@ -194,10 +194,10 @@
       };
 
       recognition.onerror   = function(event) {
-        invokeCallbacks(callbacks.error);
+        invokeCallbacks(callbacks.error, event);
         switch (event.error) {
         case 'network':
-          invokeCallbacks(callbacks.errorNetwork);
+          invokeCallbacks(callbacks.errorNetwork, event);
           break;
         case 'not-allowed':
         case 'service-not-allowed':
@@ -205,9 +205,9 @@
           autoRestart = false;
           // determine if permission was denied by user or automatically.
           if (new Date().getTime()-lastStartedAt < 200) {
-            invokeCallbacks(callbacks.errorPermissionBlocked);
+            invokeCallbacks(callbacks.errorPermissionBlocked, event);
           } else {
-            invokeCallbacks(callbacks.errorPermissionDenied);
+            invokeCallbacks(callbacks.errorPermissionDenied, event);
           }
           break;
         }
@@ -451,19 +451,23 @@
      *
      * * `start` - Fired as soon as the browser's Speech Recognition engine starts listening
      * * `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
+     *     Callback function will be called with the error event as the first argument
      * * `errorNetwork` - Fired when Speech Recognition fails because of a network error
+     *     Callback function will be called with the error event as the first argument
      * * `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
+     *     Callback function will be called with the error event as the first argument
      * * `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
+     *     Callback function will be called with the error event as the first argument
      * * `end` - Fired when the browser's Speech Recognition engine stops
      * * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
-     *     Callback functions registered to this event will include an array of possible phrases the user said as the first argument
+     *     Callback functions for to this event will be called with an array of possible phrases the user said as the first argument
      * * `resultMatch` - Fired when annyang was able to match between what the user said and a registered command
-     *     Callback functions registered to this event will include three arguments in the following order:
+     *     Callback functions for this event will be called with three arguments in the following order:
      *       * The phrase the user said that matched a command
      *       * The command that was matched
-     *       * An array of possible alternative phrases the user might've said
+     *       * An array of possible alternative phrases the user might have said
      * * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands.
-     *     Callback functions registered to this event will include an array of possible phrases the user might've said as the first argument
+     *     Callback functions for this event will be called with an array of possible phrases the user might've said as the first argument
      *
      * #### Examples:
      * ````javascript
