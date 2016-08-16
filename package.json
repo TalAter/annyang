@@ -23,6 +23,7 @@
     "url": "https://github.com/TalAter/annyang/issues"
   },
   "scripts": {
+    "start": "grunt dev",
     "test": "grunt test"
   },
   "devDependencies": {
