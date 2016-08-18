@@ -148,17 +148,17 @@ annyang.addCallback('resultNoMatch', function(phrases) {
 
 ## Can annyang be used in Chromium or Electron?
 
-Yes, however you must create your own Chromium keys and are limeted to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs. 
+Yes, however you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs. 
 
 ## Can annyang be used in Cordova?
 
-Yes. In order to use `webKitSpeechRecognition` you must use [Crosswalk](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview) and the [Cordova Media Plugin](https://github.com/apache/cordova-plugin-media). These can be added to an existing cordova project with the following commands:
+Yes. In order to use `webKitSpeechRecognition` you will need to use [Crosswalk](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview) and the [Cordova Media Plugin](https://github.com/apache/cordova-plugin-media). These can be added to an existing cordova project with the following commands:
 
 ```
 cordova plugin add cordova-plugin-crosswalk-webview
 cordova plugin add cordova-plugin-media
 ```
 **Known issues:**
- - This has only been verified to work Android.
- - This will not work on a device without a SpeechRecognizer ([like the Kindel Fire](https://forums.developer.amazon.com/questions/13597/does-speech-recognition-work-in-kindle-fire-hd-tab.html)) unless you sideload the [Google Now Launcher](https://play.google.com/store/apps/details?id=com.google.android.launcher).
+ - This has only been verified to work on Android.
+ - This will not work on a device without a SpeechRecognizer ([like the Kindle Fire](https://forums.developer.amazon.com/questions/13597/does-speech-recognition-work-in-kindle-fire-hd-tab.html)) unless you sideload the [Google Now Launcher](https://play.google.com/store/apps/details?id=com.google.android.launcher).
  - Your app will ding with the native speech recognition sound, you have no control over this. See [#194](https://github.com/TalAter/annyang/issues/194).
