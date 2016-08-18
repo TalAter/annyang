@@ -104,7 +104,7 @@ For a great user experience, don't compromise on anything less than HTTPS (avail
 
 ## How can I contribute to annyang's development?
 
-There are three main ways for you to help. Check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) file for more details.
+There are three main ways for you to help. Check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) guide for more details.
 
 ## Why does Speech Recognition repeatedly starts and stops?
 
