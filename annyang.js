@@ -267,8 +267,9 @@
      *
      * Receives an optional options object which supports the following options:
      *
-     * - `autoRestart` (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
-     * - `continuous`  (boolean, default: undefined) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
+     * - `autoRestart`  (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     * - `continuous`   (boolean) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
+     * - `paused`       (boolean, default: true) Start annyang in paused mode.
      *
      * #### Examples:
      * ````javascript
@@ -281,9 +282,13 @@
      * @method start
      */
     start: function(options) {
-      pauseListening = false;
       initIfNeeded();
       options = options || {};
+      if (options.paused !== undefined) {
+        pauseListening = !!options.paused;
+      } else {
+        pauseListening = false;
+      }
       if (options.autoRestart !== undefined) {
         autoRestart = !!options.autoRestart;
       } else {

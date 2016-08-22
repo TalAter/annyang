@@ -264,6 +264,22 @@
 
     });
 
+    it('should accept a pause property in options object which defaults to false', function() {
+      annyang.start();
+      expect(annyang.isListening()).toBe(true);
+    });
+
+    describe('annyang.start({ paused: true })', function() {
+
+      it('should cause start annyang in paused mode', function() {
+        annyang.start({ paused: true });
+        expect(annyang.isListening()).toBe(false);
+      });
+
+    });
+
+
+
   });
 
   describe('annyang.debug', function() {
