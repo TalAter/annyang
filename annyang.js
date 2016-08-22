@@ -188,12 +188,12 @@
       // Sets the language to the default 'en-US'. This can be changed with annyang.setLanguage()
       recognition.lang = 'en-US';
 
-      recognition.onstart   = function() {
+      recognition.onstart = function() {
         isListening = true;
         invokeCallbacks(callbacks.start);
       };
 
-      recognition.onerror   = function(event) {
+      recognition.onerror = function(event) {
         invokeCallbacks(callbacks.error, event);
         switch (event.error) {
         case 'network':
@@ -213,7 +213,7 @@
         }
       };
 
-      recognition.onend     = function() {
+      recognition.onend = function() {
         isListening = false;
         invokeCallbacks(callbacks.end);
         // annyang will auto restart if it is closed automatically and not by user action.
@@ -234,7 +234,7 @@
         }
       };
 
-      recognition.onresult  = function(event) {
+      recognition.onresult = function(event) {
         if(pauseListening) {
           if (debugState) {
             logMessage('Speech heard, but annyang is paused');
