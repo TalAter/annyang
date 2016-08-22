@@ -271,14 +271,12 @@
 
     describe('annyang.start({ paused: true })', function() {
 
-      it('should cause start annyang in paused mode', function() {
+      it('should start annyang in paused mode', function() {
         annyang.start({ paused: true });
         expect(annyang.isListening()).toBe(false);
       });
 
     });
-
-
 
   });
 
