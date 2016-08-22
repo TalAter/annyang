@@ -1,8 +1,8 @@
 //! Corti - Replaces the browser's SpeechRecognition with a fake object.
-//! version : 0.2.1
+//! version : 0.3.0
 //! author  : Tal Ater @TalAter
 //! license : MIT
-//! https://github.com/TalAter/SpeechKITT/test/corti.js
+//! https://github.com/TalAter/Corti
 
 (function (undefined) {
   "use strict";
@@ -156,6 +156,11 @@
       event.interpretation = null;
       event.emma = null;
       _listeners.dispatchEvent(event);
+
+      //stop if not set to continuous mode
+      if (!_self.continuous) {
+        _self.abort();
+      }
     };
 
     this.addEventListener = function(event, callback) {
