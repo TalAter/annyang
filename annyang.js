@@ -227,9 +227,11 @@
             }
           }
           if (timeSinceLastStart < 1000) {
-            setTimeout(annyang.start, 1000-timeSinceLastStart);
+            setTimeout(function() {
+              annyang.start({ paused: pauseListening });
+            }, 1000-timeSinceLastStart);
           } else {
-            annyang.start();
+            annyang.start({ paused: pauseListening });
           }
         }
       };
