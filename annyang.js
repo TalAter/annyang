@@ -117,7 +117,7 @@
       }
 
       // try and match recognized text to one of the commands on the list
-      for (var j = 0, l = commandsList.length; j < l; j++) {
+      for (var j = 0; j < commandsList.length; j++) {
         var currentCommand = commandsList[j];
         var result = currentCommand.command.exec(commandText);
         if (result) {
