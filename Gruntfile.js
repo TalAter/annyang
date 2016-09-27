@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     jshint: {
       all: [
         'Gruntfile.js',
-        'annyang.js',
+        'src/annyang.js',
         'sites/facebook.js',
         'sites/geektime.js',
         'test/spec/*Spec.js'
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['annyang.js', 'sites/facebook.js', 'sites/geektime.js', 'demo/css/main.css', 'test/spec/*Spec.js', '!**/node_modules/**'],
+      files: ['src/*.js', 'sites/*.js', 'demo/css/*.css', 'test/spec/*Spec.js', '!**/node_modules/**'],
       tasks: ['default']
     },
     uglify: {
@@ -26,9 +26,9 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          'annyang.min.js': ['annyang.js'],
-          'sites/facebook.min.js': ['annyang.js', 'sites/facebook.js'],
-          'sites/geektime.min.js': ['annyang.js', 'sites/geektime.js']
+          'dist/annyang.min.js': ['src/annyang.js'],
+          'sites/facebook.min.js': ['src/annyang.js', 'sites/facebook.js'],
+          'sites/geektime.min.js': ['src/annyang.js', 'sites/geektime.js']
         }
       }
     },
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     markdox: {
       target: {
         files: [
-          {src: 'annyang.js', dest: 'docs/README.md'}
+          {src: 'src/annyang.js', dest: 'docs/README.md'}
         ]
       }
     },
@@ -80,13 +80,13 @@ module.exports = function(grunt) {
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
             requireConfig: {
-              baseUrl: '../'
+              baseUrl: '../src/'
             }
           }
         }
       },
       testAndCoverage: {
-        src: ['annyang.js'],
+        src: ['src/annyang.js'],
         options: {
           specs: ['test/spec/*Spec.js'],
           outfile: 'test/SpecRunner.html',
