@@ -164,14 +164,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @deprecated
      * @see [Commands Object](#commands-object)
      */
-    init: function init(commands, resetCommands) {
-
-      // resetCommands defaults to true
-      if (resetCommands === undefined) {
-        resetCommands = true;
-      } else {
-        resetCommands = !!resetCommands;
-      }
+    init: function init(commands) {
+      var resetCommands = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
       // Abort previous instances of recognition already running
       if (recognition && recognition.abort) {

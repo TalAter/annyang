@@ -160,15 +160,7 @@
      * @deprecated
      * @see [Commands Object](#commands-object)
      */
-    init: function(commands, resetCommands) {
-
-      // resetCommands defaults to true
-      if (resetCommands === undefined) {
-        resetCommands = true;
-      } else {
-        resetCommands = !!resetCommands;
-      }
-
+    init: function(commands, resetCommands = true) {
       // Abort previous instances of recognition already running
       if (recognition && recognition.abort) {
         recognition.abort();
