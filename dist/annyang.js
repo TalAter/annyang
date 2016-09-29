@@ -101,10 +101,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
   };
 
-  var registerCommand = function registerCommand(command, cb, phrase) {
-    commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+  var registerCommand = function registerCommand(command, callback, originalPhrase) {
+    commandsList.push({ command: command, callback: callback, originalPhrase: originalPhrase });
     if (debugState) {
-      logMessage('Command successfully loaded: %c' + phrase, debugStyle);
+      logMessage('Command successfully loaded: %c' + originalPhrase, debugStyle);
     }
   };
 

@@ -97,10 +97,10 @@
     }
   };
 
-  var registerCommand = function(command, cb, phrase) {
-    commandsList.push({ command: command, callback: cb, originalPhrase: phrase });
+  var registerCommand = function(command, callback, originalPhrase) {
+    commandsList.push({ command, callback, originalPhrase });
     if (debugState) {
-      logMessage('Command successfully loaded: %c'+phrase, debugStyle);
+      logMessage('Command successfully loaded: %c'+originalPhrase, debugStyle);
     }
   };
 
