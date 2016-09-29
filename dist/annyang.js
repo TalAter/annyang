@@ -492,11 +492,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @method addCallback
      */
     addCallback: function addCallback(type, callback, context) {
-      if (callbacks[type] === undefined) {
-        return;
-      }
       var cb = root[callback] || callback;
-      if (typeof cb !== 'function') {
+      if (typeof cb !== 'function' || callbacks[type] === undefined) {
         return;
       }
       callbacks[type].push({ callback: cb, context: context || this });
