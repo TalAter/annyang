@@ -354,12 +354,8 @@
      * @param {boolean} [newState=true] - Turn on/off debug messages
      * @method debug
      */
-    debug: function(newState) {
-      if (arguments.length > 0) {
-        debugState = !!newState;
-      } else {
-        debugState = true;
-      }
+    debug: function(newState = true) {
+      debugState = !!newState;
     },
 
     /**

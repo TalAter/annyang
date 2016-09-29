@@ -354,12 +354,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @param {boolean} [newState=true] - Turn on/off debug messages
      * @method debug
      */
-    debug: function debug(newState) {
-      if (arguments.length > 0) {
-        debugState = !!newState;
-      } else {
-        debugState = true;
-      }
+    debug: function debug() {
+      var newState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+
+      debugState = !!newState;
     },
 
     /**
