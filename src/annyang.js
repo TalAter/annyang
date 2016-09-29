@@ -427,17 +427,17 @@
     removeCommands: function(commandsToRemove) {
       if (commandsToRemove === undefined) {
         commandsList = [];
-        return;
-      }
-      commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
-      commandsList = commandsList.filter(function(command) {
-        for (var i = 0; i<commandsToRemove.length; i++) {
-          if (commandsToRemove[i] === command.originalPhrase) {
-            return false;
+      } else {
+        commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
+        commandsList = commandsList.filter(function(command) {
+          for (var i = 0; i<commandsToRemove.length; i++) {
+            if (commandsToRemove[i] === command.originalPhrase) {
+              return false;
+            }
           }
-        }
-        return true;
-      });
+          return true;
+        });        
+      }
     },
 
     /**
