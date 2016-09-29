@@ -72,7 +72,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
   var invokeCallbacks = function invokeCallbacks(callbacks) {
-    var args = Array.prototype.slice.call(arguments, 1);
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
     callbacks.forEach(function (callback) {
       callback.callback.apply(callback.context, args);
     });

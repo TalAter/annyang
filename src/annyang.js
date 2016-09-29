@@ -71,8 +71,7 @@
   };
 
   // This method receives an array of callbacks to iterate over, and invokes each of them
-  var invokeCallbacks = function(callbacks) {
-    var args = Array.prototype.slice.call(arguments, 1);
+  var invokeCallbacks = function(callbacks, ...args) {
     callbacks.forEach(function(callback) {
       callback.callback.apply(callback.context, args);
     });
