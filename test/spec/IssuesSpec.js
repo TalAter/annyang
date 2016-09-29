@@ -1,7 +1,7 @@
 (function (root, factory) {
   // jshint strict: false
   if (typeof module === 'object' && module.exports) { // CommonJS
-    factory(require('../../annyang'));
+    factory(require('../../dist/annyang.js'));
   } else if (typeof define === 'function' && define.amd) { // AMD
     define(['annyang'], factory);
   } else { // Browser globals

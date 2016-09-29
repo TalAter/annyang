@@ -24,6 +24,7 @@
   "strict"    : true,
   "white"     : false,
   "indent"    : 2,
+  "esversion" : 6,
   "globals"   : {
     "define" : false
   }

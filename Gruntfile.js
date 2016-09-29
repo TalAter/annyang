@@ -16,6 +16,17 @@ module.exports = function(grunt) {
         jshintrc: true
       }
     },
+    "babel": {
+      options: {
+        sourceMap: true,
+        presets: ['es2015']
+      },
+      dist: {
+        files: {
+          "dist/annyang.js": "src/annyang.js"
+        }
+      }
+    },
     watch: {
       files: ['src/*.js', 'sites/*.js', 'demo/css/*.css', 'test/spec/*Spec.js', '!**/node_modules/**'],
       tasks: ['default']
@@ -26,9 +37,9 @@ module.exports = function(grunt) {
       },
       all: {
         files: {
-          'dist/annyang.min.js': ['src/annyang.js'],
-          'sites/facebook.min.js': ['src/annyang.js', 'sites/facebook.js'],
-          'sites/geektime.min.js': ['src/annyang.js', 'sites/geektime.js']
+          'dist/annyang.min.js': ['dist/annyang.js'],
+          'sites/facebook.min.js': ['dist/annyang.js', 'sites/facebook.js'],
+          'sites/geektime.min.js': ['dist/annyang.js', 'sites/geektime.js']
         }
       }
     },
@@ -71,7 +82,7 @@ module.exports = function(grunt) {
     },
     jasmine: {
       browserAMD: {
-        src: ['annyang.js'],
+        src: ['dist/annyang.min.js'],
         options: {
           specs: 'test/spec/*Spec.js',
           outfile: 'test/SpecRunner.html',
@@ -80,13 +91,13 @@ module.exports = function(grunt) {
           template: require('grunt-template-jasmine-requirejs'),
           templateOptions: {
             requireConfig: {
-              baseUrl: '../src/'
+              baseUrl: '../dist/'
             }
           }
         }
       },
       testAndCoverage: {
-        src: ['src/annyang.js'],
+        src: ['dist/annyang.min.js'],
         options: {
           specs: ['test/spec/*Spec.js'],
           outfile: 'test/SpecRunner.html',
@@ -124,8 +135,8 @@ module.exports = function(grunt) {
   });
 
   // Register tasks
-  grunt.registerTask('default', ['jshint', 'uglify', 'cssmin', 'jasmine', 'markdox']);
+  grunt.registerTask('default', ['jshint', 'babel', 'uglify', 'cssmin', 'jasmine', 'markdox']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
-  grunt.registerTask('test', ['jshint', 'jasmine']);
+  grunt.registerTask('test', ['jshint', 'babel', 'jasmine']);
 
 };
