@@ -429,14 +429,14 @@
         commandsList = [];
       } else {
         commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
-        commandsList = commandsList.filter(function(command) {
+        commandsList = commandsList.filter(command => {
           for (var i = 0; i<commandsToRemove.length; i++) {
             if (commandsToRemove[i] === command.originalPhrase) {
               return false;
             }
           }
           return true;
-        });        
+        });
       }
     },
 
