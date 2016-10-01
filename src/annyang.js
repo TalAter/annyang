@@ -86,8 +86,7 @@
     if (text.indexOf('%c') === -1 && !extraParameters) {
       console.log(text);
     } else {
-      extraParameters = extraParameters || debugStyle;
-      console.log(text, extraParameters);
+      console.log(text, extraParameters || debugStyle);
     }
   };
 
