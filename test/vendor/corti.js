@@ -1,5 +1,5 @@
 //! Corti - Replaces the browser's SpeechRecognition with a fake object.
-//! version : 0.3.0
+//! version : 0.4.0
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://github.com/TalAter/Corti
@@ -26,7 +26,8 @@
     var _self = this;
     var _listeners = document.createElement('div');
     _self._started = false;
-    _self.eventListenerTypes = ['start', 'end', 'result'];
+    _self._soundStarted = false;
+    _self.eventListenerTypes = ['start', 'soundstart', 'end', 'result'];
     _self.maxAlternatives = 1;
 
     // Add listeners for events registered through attributes (e.g. recognition.onend = function) and not as proper listeners
@@ -89,6 +90,7 @@
         return;
       }
       _self._started = false;
+      _self._soundStarted = false;
       // Create and dispatch an event
       var event = document.createEvent('CustomEvent');
       event.initCustomEvent('end', false, false, null);
@@ -104,6 +106,9 @@
     };
 
     this.say = function(sentence) {
+      if (!_self._started) {
+        return;
+      }
       // Create some speech alternatives
       var results = [];
       var commandIterator;
@@ -130,11 +135,11 @@
         results.push(sentence+etc);
       }
 
-      // Create the event
-      var event = document.createEvent('CustomEvent');
-      event.initCustomEvent('result', false, false, {'sentence': sentence});
-      event.resultIndex = 0;
-      event.results = {
+      // Create the start event
+      var startEvent = document.createEvent('CustomEvent');
+      startEvent.initCustomEvent('result', false, false, {'sentence': sentence});
+      startEvent.resultIndex = 0;
+      startEvent.results = {
         'item': itemFunction,
         0: {
           'item': itemFunction,
@@ -142,20 +147,28 @@
         }
       };
       for (commandIterator = 0; commandIterator<_maxAlternatives; commandIterator++) {
-        event.results[0][commandIterator] = {
+        startEvent.results[0][commandIterator] = {
           'transcript': results[commandIterator],
           'confidence': Math.max(1-0.01*commandIterator, 0.001)
         };
       }
-      Object.defineProperty(event.results, 'length', {
+      Object.defineProperty(startEvent.results, 'length', {
         get: function() { return 1; }
       });
-      Object.defineProperty(event.results[0], 'length', {
+      Object.defineProperty(startEvent.results[0], 'length', {
         get: function() { return _maxAlternatives; }
       });
-      event.interpretation = null;
-      event.emma = null;
-      _listeners.dispatchEvent(event);
+      startEvent.interpretation = null;
+      startEvent.emma = null;
+      _listeners.dispatchEvent(startEvent);
+
+      // Create soundstart event
+      if (!_self._soundStarted) {
+        _self._soundStarted = true;
+        var soundStartEvent = document.createEvent('CustomEvent');
+        soundStartEvent.initCustomEvent('soundstart', false, false, null);
+        _listeners.dispatchEvent(soundStartEvent);
+      }
 
       //stop if not set to continuous mode
       if (!_self.continuous) {

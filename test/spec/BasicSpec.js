@@ -696,6 +696,7 @@
       annyang.removeCommands();
       recognition = annyang.getSpeechRecognizer();
       spyOn(console, 'log');
+      annyang.start();
     });
 
     it('should accept an object consisting of key (sentence) and value (callback function)', function() {
@@ -1103,6 +1104,7 @@
         'You can\'t take the :thing from me': spyOnMatch5
       });
       recognition = annyang.getSpeechRecognizer();
+      annyang.start({ continuous: true });
       annyang.start();
     });
 
