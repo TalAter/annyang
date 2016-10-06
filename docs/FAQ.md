@@ -6,6 +6,7 @@
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
 - [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
+- [Can I detect when the user starts and stops speaking?](#can-i-detect-when-the-user-starts-and-stops-speaking)
 - [Can annyang be used in Chromium or Electron?](#can-annyang-be-used-in-chromium-or-electron)
 - [Can annyang be used in Cordova?](#can-annyang-be-used-in-cordova)
 
@@ -146,9 +147,30 @@ annyang.addCallback('resultNoMatch', function(phrases) {
 });
 ````
 
+## Can I detect when the user starts and stops speaking?
+
+Yes. Sometimes.
+
+You can detect when a sound is first detected by the microphone with the `soundstart` event. Unfortunately, due to a [bug in Chrome](https://bugs.chromium.org/p/chromium/issues/detail?id=572697&thanks=572697&ts=1451323087), this event will only fire once in every speech recognition session. If you are in non-continuous mode and annyang is restarting after every sentence recognized (the default in HTTPS), this will not be a problem. Because speech recognition will abort and restart, soundstart will fire again correctly.
+
+The following code will detect when a user starts and stops speaking.
+
+````javascript
+annyang.addCallback('soundstart', function() {
+  console.log('sound detected');
+});
+
+annyang.addCallback('result', function() {
+  console.log('sound stopped');
+});
+
+````
+
+*Note*: The `soundstart` event is only available in annyang v2.6.0 and up.
+
 ## Can annyang be used in Chromium or Electron?
 
-Yes, however you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs. 
+Yes, however you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs.
 
 ## Can annyang be used in Cordova?
 
