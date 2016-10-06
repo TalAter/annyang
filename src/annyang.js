@@ -107,7 +107,7 @@
     invokeCallbacks(callbacks.result, results);
     var commandText;
     // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
-    for (var i = 0; i<results.length; i++) {
+    for (let i = 0; i<results.length; i++) {
       // the text recognized
       commandText = results[i].trim();
       if (debugState) {
@@ -115,7 +115,7 @@
       }
 
       // try and match recognized text to one of the commands on the list
-      for (var j = 0, l = commandsList.length; j < l; j++) {
+      for (let j = 0, l = commandsList.length; j < l; j++) {
         var currentCommand = commandsList[j];
         var result = currentCommand.command.exec(commandText);
         if (result) {
@@ -237,7 +237,7 @@
         // Map the results to an array
         var SpeechRecognitionResult = event.results[event.resultIndex];
         var results = [];
-        for (var k = 0; k<SpeechRecognitionResult.length; k++) {
+        for (let k = 0; k<SpeechRecognitionResult.length; k++) {
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
@@ -382,7 +382,7 @@
 
       initIfNeeded();
 
-      for (var phrase in commands) {
+      for (let phrase in commands) {
         if (commands.hasOwnProperty(phrase)) {
           cb = root[commands[phrase]] || commands[phrase];
           if (typeof cb === 'function') {
@@ -429,7 +429,7 @@
       } else {
         commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
         commandsList = commandsList.filter(command => {
-          for (var i = 0; i<commandsToRemove.length; i++) {
+          for (let i = 0; i<commandsToRemove.length; i++) {
             if (commandsToRemove[i] === command.originalPhrase) {
               return false;
             }
@@ -528,7 +528,7 @@
         return cb.callback !== callback;
       };
       // Go over each callback type in callbacks store object
-      for (var callbackType in callbacks) {
+      for (let callbackType in callbacks) {
         if (callbacks.hasOwnProperty(callbackType)) {
           // if this is the type user asked to delete, or he asked to delete all, go ahead.
           if (type === undefined || type === callbackType) {
