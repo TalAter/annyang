@@ -148,7 +148,7 @@ Add a callback function to be called in case one of the following events happens
 
 * `start` - Fired as soon as the browser's Speech Recognition engine starts listening
 * `soundstart` - Fired as soon as any sound (possibly speech) has been detected.
-    This will fire once per Speech Recognition starting.
+    This will fire once per Speech Recognition starting. See https://is.gd/annyang_sound_start
 * `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined)
     Callback function will be called with the error event as the first argument
 * `errorNetwork` - Fired when Speech Recognition fails because of a network error
