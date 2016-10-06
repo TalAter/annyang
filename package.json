@@ -1,6 +1,6 @@
 {
   "name": "annyang",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "A javascript library for adding voice commands to your site, using speech recognition",
   "homepage": "https://www.talater.com/annyang/",
   "main": "dist/annyang.min.js",
