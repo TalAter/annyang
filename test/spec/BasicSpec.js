@@ -239,7 +239,7 @@
     describe('annyang.start({ autoRestart: true })', function() {
 
       it('should cause annyang to restart after 1 second when Speech Recognition engine was aborted', function() {
-        annyang.start();
+        annyang.start({ autoRestart: true });
         expect(annyang.isListening()).toBe(true);
         recognition.abort();
         expect(annyang.isListening()).toBe(false);
