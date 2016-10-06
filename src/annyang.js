@@ -484,10 +484,9 @@
      */
     addCallback: function(type, callback, context) {
       var cb = root[callback] || callback;
-      if (typeof cb !== 'function' || callbacks[type] === undefined) {
-        return;
+      if (typeof cb === 'function' && callbacks[type] !== undefined) {
+        callbacks[type].push({callback: cb, context: context || this});
       }
-      callbacks[type].push({callback: cb, context: context || this});
     },
 
     /**
