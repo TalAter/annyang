@@ -434,6 +434,57 @@
 
   });
 
+  describe("annyang.addCallback('soundstart')", function() {
+
+    var recognition;
+
+    beforeEach(function() {
+      recognition = annyang.getSpeechRecognizer();
+      annyang.debug(false);
+      jasmine.clock().install();
+    });
+
+    afterEach(function() {
+      annyang.abort();
+      annyang.removeCallback();
+      jasmine.clock().tick(2000);
+      jasmine.clock().uninstall();
+    });
+
+    it('should add a callback which will be called when annyang detects sound', function() {
+      annyang.start();
+      var spyOnSoundStart = jasmine.createSpy();
+      annyang.addCallback('soundstart', spyOnSoundStart);
+      expect(spyOnSoundStart).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fire callback once in continuous mode', function() {
+      annyang.start({ continuous: true });
+      var spyOnSoundStart = jasmine.createSpy();
+      annyang.addCallback('soundstart', spyOnSoundStart);
+      expect(spyOnSoundStart).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
+      recognition.say('That sounds like something out of science fiction');
+      expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
+    });
+
+    it('should fire callback multiple times in non-continuous mode with autorestart', function() {
+      annyang.start({ continuous: false, autoRestart: true });
+      var spyOnSoundStart = jasmine.createSpy();
+      annyang.addCallback('soundstart', spyOnSoundStart);
+      expect(spyOnSoundStart).not.toHaveBeenCalled();
+      recognition.say('Time for some thrilling heroics');
+      expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
+      jasmine.clock().tick(1000);
+      recognition.say('That sounds like something out of science fiction');
+      expect(spyOnSoundStart).toHaveBeenCalledTimes(2);
+    });
+
+  });
+
   describe("annyang.addCallback('resultMatch')", function() {
 
     var recognition;
