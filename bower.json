@@ -1,7 +1,7 @@
 {
   "name": "annyang",
   "description": "A javascript library for adding voice commands to your site, using speech recognition",
-  "main": "annyang.js",
+  "main": "dist/annyang.min.js",
   "keywords": [
     "annyang",
     "annyang.js",
