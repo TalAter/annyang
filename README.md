@@ -1,4 +1,4 @@
-*annyang!*
+*annyang!* [![CDNJS](https://img.shields.io/cdnjs/v/annyang.svg)](https://cdnjs.com/libraries/annyang)
 -----------------------------------------------
 
 A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
