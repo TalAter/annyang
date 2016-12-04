@@ -97,7 +97,7 @@ See: [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what
 
 * **String** *language* - The language (locale)
 
-## addCommands(commands)
+## addCommands(commands, [commandPrefix])
 
 Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
 
@@ -107,7 +107,8 @@ var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
 var commands2 = {'hi': helloFunction};
 
 annyang.addCommands(commands);
-annyang.addCommands(commands2);
+annyang.addCommands(commands2, 'Okay js');
+// commands2 will listen for 'Okay js hi'
 // annyang will now listen to all three commands
 ````
 
@@ -116,6 +117,7 @@ See: [Commands Object](#commands-object)
 ### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
+* **string** *[commandPrefix]* - Prefix command by a string (like "Ok Google")
 
 ## removeCommands([commandsToRemove])
 

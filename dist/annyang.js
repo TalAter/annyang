@@ -381,15 +381,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * var commands2 = {'hi': helloFunction};
      *
      * annyang.addCommands(commands);
-     * annyang.addCommands(commands2);
+     * annyang.addCommands(commands2, 'Okay js');
+     * // commands2 will listen for 'Okay js hi'
      * // annyang will now listen to all three commands
      * ````
      *
      * @param {Object} commands - Commands that annyang should listen to
+     * @param {string} [commandPrefix] - Prefix command by a string (like "Ok Google")
      * @method addCommands
      * @see [Commands Object](#commands-object)
      */
     addCommands: function addCommands(commands) {
+      var commandPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
       var cb;
 
       initIfNeeded();
@@ -399,10 +403,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           cb = root[commands[phrase]] || commands[phrase];
           if (typeof cb === 'function') {
             // convert command to regex then register the command
-            registerCommand(commandToRegExp(phrase), cb, phrase);
+            registerCommand(commandToRegExp(commandPrefix + phrase), cb, commandPrefix + phrase);
           } else if ((typeof cb === 'undefined' ? 'undefined' : _typeof(cb)) === 'object' && cb.regexp instanceof RegExp) {
             // register the command
-            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
+            registerCommand(new RegExp(commandPrefix + cb.regexp.source, 'i'), cb.callback, commandPrefix + phrase);
           } else {
             if (debugState) {
               logMessage('Can not register command: %c' + phrase, debugStyle);
