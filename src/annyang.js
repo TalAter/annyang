@@ -383,8 +383,9 @@
      * @method addCommands
      * @see [Commands Object](#commands-object)
      */
-    addCommands: function(commands, commandPrefix = '') {
+    addCommands: function(commands, commandPrefix) {
       var cb;
+      commandPrefix = commandPrefix || '';
 
       initIfNeeded();
 

@@ -391,10 +391,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @method addCommands
      * @see [Commands Object](#commands-object)
      */
-    addCommands: function addCommands(commands) {
-      var commandPrefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
+    addCommands: function addCommands(commands, commandPrefix) {
       var cb;
+      commandPrefix = commandPrefix || '';
 
       initIfNeeded();
 
