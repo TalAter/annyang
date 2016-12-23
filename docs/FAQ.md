@@ -2,6 +2,7 @@
 
 - [What languages are supported?](#what-languages-are-supported)
 - [Why does the browser repeatedly ask for permission to use the microphone?](#why-does-the-browser-repeatedly-ask-for-permission-to-use-the-microphone)
+- [What can I do to make speech recognition results return faster?](#what-can-i-do-to-make-speech-recognition-results-return-faster)
 - [How can I contribute to annyang's development?](#how-can-i-contribute-to-annyangs-development)
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
@@ -105,6 +106,24 @@ Chrome's speech recognition behaves differently based on the protocol used:
 
 For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
 
+## What can I do to make speech recognition results return faster?
+
+First, remember that because the actual speech-to-text processing is done in the cloud, a faster connection can mean faster results.
+
+Second, when the speech recognition is in continuous mode, results are returned slower (the browser waits after you finish talking to see if there's anything else you'd like to add).
+
+Turning continuous mode off tends to make the browser return recognized results much faster.
+
+To start annyang in non-continuous mode, you can pass `continuous: false` in the options object that `annyang.start()` accepts. You will most likely want to also turn on `autoRestart` if you do that. You can read more about both options in the [annyang API Docs](https://github.com/TalAter/annyang/blob/master/docs/README.md#startoptions)
+
+For example:
+
+````javascript
+annyang.start({ autoRestart: true, continuous: false });
+````
+
+Note that these settings are already the default if you are using HTTPS. If you are using HTTP, continuous mode will be turned on by default (resulting in slower recognition) to prevent [repeated security notices](#why-does-the-browser-repeatedly-ask-for-permission-to-use-the-microphone).
+
 ## How can I contribute to annyang's development?
 
 There are three main ways for you to help. Check out the [CONTRIBUTING](https://github.com/TalAter/annyang/blob/master/CONTRIBUTING.md) guide for more details.
@@ -113,7 +132,7 @@ There are three main ways for you to help. Check out the [CONTRIBUTING](https://
 
 The most common reason for this is because you have opened more than one tab or window that uses Speech Recognition in your browser at the same time (e.g. if you open annyang's homepage in one tab, and the Speech Recognition app you are developing in another).
 
-When a browser detects that one tab has started Speech Recognition, it aborts all other Speech Recognition processes in other tabs. annyang detects when it is aborted by an external process and restarts itself. If you have two windows aborting each other, and restarting themselves you may experience Speech Recognition starting and stopping over and over again.  
+When a browser detects that one tab has started Speech Recognition, it aborts all other Speech Recognition processes in other tabs. annyang detects when it is aborted by an external process and restarts itself. If you have two windows aborting each other, and restarting themselves you may experience Speech Recognition starting and stopping over and over again.
 
 Another possible reason for this might be that you are offline.
 
