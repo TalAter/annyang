@@ -48,7 +48,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   var commandsList = [];
   var recognition;
-  var callbacks = { start: [], error: [], end: [], soundstart: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
+  var callbacks = { start: [], error: [], end: [], soundstart: [], live: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
   var autoRestart;
   var lastStartedAt = 0;
   var autoRestartCount = 0;
@@ -177,6 +177,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       // Set the max number of alternative transcripts to try and match with a command
       recognition.maxAlternatives = 5;
 
+      // Returns the result during recognition
+      recognition.interimResults = true;
+
       // In HTTPS, turn off continuous mode for faster results.
       // In HTTP,  turn on  continuous mode for much slower results, but no repeating security notices
       recognition.continuous = root.location.protocol === 'http:';
@@ -251,7 +254,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
-        parseResults(results);
+        invokeCallbacks(callbacks.live, results[0]);
+        if (event.results[ 0 ].isFinal)
+          parseResults(results);
       };
 
       // build commands list
