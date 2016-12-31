@@ -484,6 +484,46 @@
     });
 
   });
+  describe("annyang.addCommands(command, commandPrefix)", function() {
+    var recognition;
+    var spyOnResultMatch;
+    var args;
+
+    beforeEach(function() {
+      args = undefined;
+      annyang.debug(false);
+      recognition = annyang.getSpeechRecognizer();
+      spyOnResultMatch = jasmine.createSpy();
+      annyang.abort();
+      annyang.start();
+      annyang.removeCommands();
+      annyang.addCommands({
+        'Prefixed command': function() {}
+      }, 'Ok annyang ');
+    });
+
+    it('should call the callback when the speach contains the commandPrefix', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      recognition.say('Ok annyang Prefixed command');
+      expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not call the callback when the speach doesn\'t contain the commandPrefix', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      recognition.say('Prefixed command');
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+    });
+
+    it('should not call the callback when the speach only contain the commandPrefix', function() {
+      annyang.addCallback('resultMatch', spyOnResultMatch);
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+      recognition.say('Okay annyang ');
+      expect(spyOnResultMatch).not.toHaveBeenCalled();
+    });
+
+  });
 
   describe("annyang.addCallback('resultMatch')", function() {
 
