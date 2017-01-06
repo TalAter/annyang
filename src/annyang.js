@@ -4,7 +4,7 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 (function (root, factory) {
-  "use strict";
+  'use strict';
   if (typeof define === 'function' && define.amd) { // AMD + global
     define([], function () {
       return (root.annyang = factory(root));
@@ -15,7 +15,7 @@
     root.annyang = factory(root);
   }
 }(typeof window !== 'undefined' ? window : this, function (root, undefined) {
-  "use strict";
+  'use strict';
 
   /**
    * # Quick Tutorial, Intro and Demos
@@ -539,10 +539,10 @@
           if (type === undefined || type === callbackType) {
             // If user asked to delete all callbacks in this type or all types
             if (callback === undefined) {
-                callbacks[callbackType] = [];
-              } else {
-                // Remove all matching callbacks
-                callbacks[callbackType] = callbacks[callbackType].filter(compareWithCallbackParameter);
+              callbacks[callbackType] = [];
+            } else {
+              // Remove all matching callbacks
+              callbacks[callbackType] = callbacks[callbackType].filter(compareWithCallbackParameter);
             }
           }
         }

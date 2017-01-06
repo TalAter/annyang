@@ -8,7 +8,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 (function (root, factory) {
-  "use strict";
+  'use strict';
 
   if (typeof define === 'function' && define.amd) {
     // AMD + global
@@ -23,7 +23,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     root.annyang = factory(root);
   }
 })(typeof window !== 'undefined' ? window : undefined, function (root, undefined) {
-  "use strict";
+  'use strict';
 
   /**
    * # Quick Tutorial, Intro and Demos
