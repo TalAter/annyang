@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-  "use strict";
+  'use strict';
 
   // Project configuration.
   grunt.initConfig({
@@ -16,14 +16,14 @@ module.exports = function(grunt) {
         jshintrc: true
       }
     },
-    "babel": {
+    'babel': {
       options: {
         sourceMap: true,
         presets: ['es2015']
       },
       dist: {
         files: {
-          "dist/annyang.js": "src/annyang.js"
+          'dist/annyang.js': 'src/annyang.js'
         }
       }
     },
