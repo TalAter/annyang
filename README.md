@@ -1,6 +1,8 @@
 *annyang!*
 -----------------------------------------------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/TalAter/annyang.svg)](https://greenkeeper.io/)
+
 A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
 
 annyang has no dependencies, weighs just 2 KB, and is free to use and modify under the MIT license.
