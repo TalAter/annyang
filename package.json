@@ -32,7 +32,7 @@
     "grunt": "~0.4.5",
     "grunt-babel": "^6.0.0",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-cssmin": "^2.1.0",
+    "grunt-contrib-cssmin": "^2.2.0",
     "grunt-contrib-imagemin": "^1.0.1",
     "grunt-contrib-jasmine": "^1.1.0",
     "grunt-contrib-jshint": "^1.1.0",

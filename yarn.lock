@@ -744,9 +744,9 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-clean-css@~4.0.12:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.0.12.tgz#a02e61707f1840bd3338f54dbc9acbda4e772fa3"
+clean-css@~4.1.1:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.1.2.tgz#6029aea30b1d9520a968a3caee0dabb1184e353a"
   dependencies:
     source-map "0.5.x"
 
@@ -1595,12 +1595,12 @@ grunt-contrib-connect@^1.0.2:
     serve-index "^1.7.1"
     serve-static "^1.10.0"
 
-grunt-contrib-cssmin@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-cssmin/-/grunt-contrib-cssmin-2.1.0.tgz#16a49953cb153c34fff977c062886aebc30b0a41"
+grunt-contrib-cssmin@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/grunt-contrib-cssmin/-/grunt-contrib-cssmin-2.2.0.tgz#72def40628ee8e213ad9a76804d131db66604a41"
   dependencies:
     chalk "^1.0.0"
-    clean-css "~4.0.12"
+    clean-css "~4.1.1"
     maxmin "^2.1.0"
 
 grunt-contrib-imagemin@^1.0.1:
