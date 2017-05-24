@@ -34,7 +34,7 @@
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-cssmin": "^2.2.0",
     "grunt-contrib-imagemin": "^1.0.1",
-    "grunt-contrib-jasmine": "^1.1.0",
+    "grunt-contrib-jasmine": "1.0.3",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.0.1",
     "grunt-contrib-watch": "^1.0.0",
