@@ -780,7 +780,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it('should write to console when a command matches', function() {
+    it('should write to console when a command matches if debug is on', function() {
       annyang.addCommands(
         {
           'Time for some thrilling heroics': function() {}
@@ -806,7 +806,7 @@
       expect(console.log).not.toHaveBeenCalled();
     });
 
-    it('should write to console with argument matched when command with an argument matches', function() {
+    it('should write to console with argument matched when command with an argument matches if debug is on', function() {
       annyang.addCommands(
         {
           'Time for some thrilling :action': function() {}
@@ -865,7 +865,7 @@
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
-    it("should accept callbacks in commands object by reference. e.g. {'hello': 'helloFunc'}", function() {
+    it("should accept callbacks in commands object by name. e.g. {'hello': 'helloFunc'}", function() {
       window.globalSpy = jasmine.createSpy();
       annyang.addCommands(
         {
