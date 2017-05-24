@@ -1163,6 +1163,10 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+es5-shim@^4.0.1:
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/es5-shim/-/es5-shim-4.5.9.tgz#2a1e2b9e583ff5fed0c20a3ee2cbf3f75230a5c0"
+
 es6-promise@~4.0.3:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.0.5.tgz#7882f30adde5b240ccfa7f7d78c548330951ae42"
@@ -1613,13 +1617,14 @@ grunt-contrib-imagemin@^1.0.1:
     imagemin "^4.0.0"
     pretty-bytes "^3.0.1"
 
-grunt-contrib-jasmine@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-jasmine/-/grunt-contrib-jasmine-1.1.0.tgz#f682f7757da297759fe3e1b4c65d4670cc3aea49"
+grunt-contrib-jasmine@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/grunt-contrib-jasmine/-/grunt-contrib-jasmine-1.0.3.tgz#1915711364755242e038b3ea778946cb5929c6ce"
   dependencies:
     chalk "^1.0.0"
+    es5-shim "^4.0.1"
     grunt-lib-phantomjs "^1.0.0"
-    jasmine-core "~2.4.0"
+    jasmine-core "^2.2.0"
     lodash "~2.4.1"
     rimraf "^2.1.4"
     sprintf-js "~1.0.3"
@@ -2214,9 +2219,9 @@ istanbul@^0.4.3:
     which "^1.1.1"
     wordwrap "^1.0.0"
 
-jasmine-core@~2.4.0:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.4.1.tgz#6f83ab3a0f16951722ce07d206c773d57cc838be"
+jasmine-core@^2.2.0:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.6.2.tgz#74ea1f7cf428691af201107d631234027a09daab"
 
 jodid25519@^1.0.0:
   version "1.0.2"
@@ -3231,11 +3236,11 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@^2.1.4, rimraf@~2.2.8:
+rimraf@^2.1.4, rimraf@^2.2.6, rimraf@~2.2.8:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
 
-rimraf@^2.2.6, rimraf@^2.2.8, rimraf@^2.5.2:
+rimraf@^2.2.8, rimraf@^2.5.2:
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.5.4.tgz#96800093cbf1a0c86bd95b4625467535c29dfa04"
   dependencies:
