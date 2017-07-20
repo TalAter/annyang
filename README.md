@@ -1,23 +1,23 @@
-*annyang!*
------------------------------------------------
+# annyang!
 
 A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
 
 annyang has no dependencies, weighs just 2 KB, and is free to use and modify under the MIT license.
 
-Demo & Tutorial
----------------
+## Demo and Tutorial
+
 [Play with some live speech recognition demos](https://www.talater.com/annyang)
 
-FAQ, Technical Documentation and API Reference
-----------------------------------------------
+## FAQ, Technical Documentation and API Reference
+
 - [annyang Frequently Asked Questions](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md)
 - [annyang API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
 - [annyang tutorial](https://www.talater.com/annyang)
 
-Hello World
------------
+## Hello World
+
 It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js) to your document, and defining the commands you want.
+
 ````html
 <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
 <script>
@@ -35,10 +35,11 @@ if (annyang) {
 }
 </script>
 ````
+
 **Check out some [live speech recognition demos and advanced samples](https://www.talater.com/annyang), then read the full [API Docs](https://github.com/TalAter/annyang/blob/master/docs/README.md).**
 
-Adding a GUI
-------------
+## Adding a GUI
+
 You can easily add a GUI for the user to interact with Speech Recognition using [Speech KITT](https://github.com/TalAter/SpeechKITT).
 
 Speech KITT makes it easy to add a graphical interface for the user to start or stop Speech Recognition and see its current status. KITT also provides clear visual hints to the user on how to interact with your site using their voice, providing instructions and sample commands.
@@ -71,10 +72,10 @@ if (annyang) {
 
 For help with setting up a GUI with KITT, check out the [Speech KITT page](https://github.com/TalAter/SpeechKITT).
 
-Author
-------
+## Author
+
 Tal Ater: [@TalAter](https://twitter.com/TalAter)
 
-License
--------
+## License
+
 Licensed under [MIT](https://github.com/TalAter/annyang/blob/master/LICENSE).
