@@ -6,6 +6,7 @@
 - [How can I contribute to annyang's development?](#how-can-i-contribute-to-annyangs-development)
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
+- [Which browsers are supported?](#which-browsers-are-supported)
 - [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
 - [Can I detect when the user starts and stops speaking?](#can-i-detect-when-the-user-starts-and-stops-speaking)
 - [Can annyang be used in Chromium or Electron?](#can-annyang-be-used-in-chromium-or-electron)
@@ -139,6 +140,22 @@ Another possible reason for this might be that you are offline.
 ## Can annyang work offline?
 
 No. annyang relies on the browser's own speech recognition engine. In Chrome, this engine performs the recognition in the cloud.
+
+## Which browsers are supported?
+
+annyang works with all browsers that implement the Speech Recognition interface of the Web Speech API (such as Google Chrome, and Samsung Internet).
+
+We believe in progressive enhancement and so if the user's browser does not support speech recognition, annyang will fail quietly and the annyang variable will equal null.
+
+To check if the user's browser supports speech recognition, simply check if annyang is equal to null.
+
+```javascript
+if (!annyang) {
+  console.log("Speech Recognition is not supported");
+}
+``` 
+
+You can find out the current state of browser support on [caniuse.com](http://caniuse.com/#feat=speech-recognition).
 
 ## Can annyang be used to capture the full text spoken by the user?
 
