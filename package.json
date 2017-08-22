@@ -26,6 +26,7 @@
     "start": "grunt dev",
     "test": "grunt test"
   },
+  "typings": "./annyang.d.ts",
   "devDependencies": {
     "async": "^2.4.1",
     "babel-core": "^6.25.0",
