@@ -5,8 +5,6 @@ node_js:
   - '5'
   - '4'
   - 'node'
-before_script:
-  - 'npm start'
 deploy:
   provider: npm
   email:    tal@talater.com
