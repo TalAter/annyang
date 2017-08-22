@@ -6,8 +6,7 @@ node_js:
   - '4'
   - 'node'
 before_script:
-  - 'npm install -g grunt-cli'
-  - 'grunt'
+  - 'npm start'
 deploy:
   provider: npm
   email:    tal@talater.com
