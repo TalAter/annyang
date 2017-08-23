@@ -128,6 +128,11 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+    exec: {
+        'types-test': {
+            command: 'npm run types-test'
+        }
     }
   });
 
@@ -137,7 +142,7 @@ module.exports = function(grunt) {
   });
 
   // Register tasks
-  grunt.registerTask('default', ['jshint', 'babel', 'uglify', 'cssmin', 'jasmine', 'markdox']);
+  grunt.registerTask('default', ['jshint', 'babel', 'uglify', 'cssmin', 'jasmine', 'exec', 'markdox']);
   grunt.registerTask('dev', ['default', 'connect', 'watch']);
   grunt.registerTask('test', ['default']);
 
