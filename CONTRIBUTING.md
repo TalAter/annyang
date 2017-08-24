@@ -22,7 +22,7 @@ A lot of annyang's functionality came from pull requests sent over GitHub. Here 
 - [x] Run grunt to make sure everything runs smoothly `$ grunt`
 - [x] Add tests for your code. [See details below](#automated-testing).
 - [x] Code, code, code. Changes should be done in `/src/annyang.js`. They will be transpiled to `/dist/annyang.js` and `/dist/annyang.min.js`.
-- [x] If you add new or modify existing functions or update externally facing data structures, update the typescript definition file under `types/index.d.ts` and add test code for dts linting at `types/annyang-tests.ts`
+- [x] If you add new or modify existing functions or externally facing data structures, update the typescript definition file under `types/index.d.ts` and add test code for dts linting at `types/annyang-tests.ts`
 - [x] Run `$ grunt` after making changes to verify that everything still works and the tests all pass.
 
   :bulb: A great alternative to repeatedly running `$ grunt` is to run `$ grunt watch` once, and leave this process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it. :+1:
