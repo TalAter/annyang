@@ -48,6 +48,7 @@ Language support is up to each browser. While there isn't an official list of su
 * French `fr-FR`
 * Galician `gl`
 * German `de-DE`
+* Greek  `el-GR`
 * Hebrew `he`
 * Hungarian `hu`
 * Icelandic `is`
