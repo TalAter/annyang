@@ -43,6 +43,6 @@
     "grunt-markdox": "^1.2.1",
     "grunt-template-jasmine-istanbul": "^0.5.0",
     "grunt-template-jasmine-requirejs": "^0.2.3",
-    "load-grunt-tasks": "^3.5.2"
+    "load-grunt-tasks": "^4.0.0"
   }
 }
