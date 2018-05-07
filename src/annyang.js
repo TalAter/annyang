@@ -1,5 +1,5 @@
 //! annyang
-//! version : 2.6.0
+//! version : 2.6.1
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
