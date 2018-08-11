@@ -44,7 +44,7 @@ Receives an optional options object which supports the following options:
 
 - `autoRestart`  (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
 - `continuous`   (boolean) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
-- `paused`       (boolean, default: true) Start annyang in paused mode.
+- `paused`       (boolean, default: false) Start annyang in paused mode.
 
 #### Examples:
 ````javascript
