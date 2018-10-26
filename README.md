@@ -1,8 +1,8 @@
-# annyang!
+# Annyang!
 
 A tiny javascript SpeechRecognition library that lets your users control your site with voice commands.
 
-annyang has no dependencies, weighs just 2 KB, and is free to use and modify under the MIT license.
+Annyang has no dependencies, weighs just 2 KB, and is free to use and modify under the MIT license.
 
 ## Demo and Tutorial
 
@@ -10,9 +10,9 @@ annyang has no dependencies, weighs just 2 KB, and is free to use and modify und
 
 ## FAQ, Technical Documentation, and API Reference
 
-- [annyang Frequently Asked Questions](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md)
-- [annyang API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
-- [annyang tutorial](https://www.talater.com/annyang)
+- [Annyang Frequently Asked Questions](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md)
+- [Annyang API reference](https://github.com/TalAter/annyang/blob/master/docs/README.md)
+- [Annyang tutorial](https://www.talater.com/annyang)
 
 ## Hello World
 
