@@ -110,7 +110,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var parseResults = function parseResults(results) {
     invokeCallbacks(callbacks.result, results);
     var commandText;
-    // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
+    // go over each of the 5 results and alternative results received (we have set maxAlternatives to 5 above)
     for (var i = 0; i < results.length; i++) {
       // the text recognized
       commandText = results[i].trim();

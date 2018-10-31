@@ -1,41 +1,91 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Jasmine Spec Runner</title>
-  <link rel="shortcut icon" type="image/png" href=".grunt/grunt-contrib-jasmine/jasmine_favicon.png">
+function(obj) {
+obj || (obj = {});
+var __t, __p = '', __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<!doctype html>\n<html>\n<head>\n  <meta charset="utf-8">\n  <title>Jasmine Spec Runner</title>\n\n  ';
+ css.forEach(function(style){ ;
+__p += '\n  <link rel="stylesheet" type="text/css" href="' +
+((__t = ( style )) == null ? '' : __t) +
+'">\n  ';
+ }) ;
+__p += '\n\n  ';
+ with (scripts) { ;
+__p += '\n  ';
+ [].concat(vendor).forEach(function(script){ ;
+__p += '\n  <script src="' +
+((__t = ( script )) == null ? '' : __t) +
+'"></script>\n  ';
+ }) ;
+__p += '\n  ';
+ }; ;
+__p += '\n\n  <script src="' +
+((__t = ( temp ? temp + "/" : temp )) == null ? '' : __t) +
+'require.js"></script>\n\n  ';
+ with (scripts) { ;
+__p += '\n  ';
+ [].concat(jasmine, boot, helpers).forEach(function(script){ ;
+__p += '\n  <script src="' +
+((__t = ( script )) == null ? '' : __t) +
+'"></script>\n  ';
+ }) ;
+__p += '\n  ';
+ }; ;
+__p += '\n\n  <script>\n    require.onError = function(error) {\n      var message = error.requireType + \': \';\n      if (error.requireType === \'scripterror\' || error.requireType === \'notloaded\' && error.requireModules) {\n        message += \'Illegal path or script error: \' + \'[\\\'\' + error.requireModules.join("\', \'") + \'\\\']\';\n      } else {\n        message += error.message;\n      }\n\n      throw Error(message);\n    };\n  </script>\n\n  <script>\n    ';
+ if (options.mainRequireConfig) { ;
+__p += '\n      require.config(' +
+((__t = ( serializeRequireConfig(options.mainRequireConfig) )) == null ? '' : __t) +
+');\n    ';
+ } ;
+__p += '\n\n    ';
+ var hasCallback = false;
+       if (options.requireConfig) {
+        if ('callback' in options.requireConfig) {
+            /* Inserting launchTest() as the last statement in callback function
+               to make sure spec is called after all initialization stuffs */
 
-  <link rel="stylesheet" type="text/css" href="../.grunt/grunt-contrib-jasmine/jasmine.css">
+            // capture the arguments and body fo callback function
+            options.requireConfig['callback'].toString().replace(/^function\s+\w*\(([^\)]*)\)\s*\{((?:.|[\n\r])*)}/m, function(match, args, body) {
+                var being_recreated_function = [];
+                if (args.length > 0) {
+                    args = args.split(/,\s*/);
+                    being_recreated_function = being_recreated_function.concat(args);
+                }
+                // append launchTest() to the end of function body
+                body += '\nlaunchTest();';
 
+                being_recreated_function = being_recreated_function.concat(body);
 
-</head>
-<body>
+                // recreate an anonymouse function with modified body
+                // re-assign callback property by just created new function
+                // (return value dosen't matter)
+                options.requireConfig['callback'] = Function.apply(this, being_recreated_function);
+                hasCallback = true;
+            });
+        }
+    ;
+__p += '\n      require.config(' +
+((__t = ( serializeRequireConfig(options.requireConfig) )) == null ? '' : __t) +
+');\n    ';
+ } ;
+__p += '\n  </script>\n\n  <script>\n    // Delay onLoad function until we are ready\n    var startTests = window.onload;\n    window.onload = null;\n\n    function launchTest() {\n    require([\n      ';
+ scripts.src.forEach(function(script, i){ ;
+__p += '\n        ';
+ script = script.replace(/\\/g, '/') // replace all backward slashes to forward slash ;
+__p += '\n        \'' +
+((__t = ( script )) == null ? '' : __t) +
+'\' ' +
+((__t = ( i < scripts.src.length-1 ? ',' : '' )) == null ? '' : __t) +
+'\n      ';
+ }) ;
+__p += '\n    ],\n    function(){\n      require([\'' +
+((__t = ( [].concat(scripts.specs,scripts.reporters).join("','") )) == null ? '' : __t) +
+'\'], function(){\n        startTests();\n      });\n    }\n    )\n  }\n  </script>\n\n  ';
+ if (!hasCallback) { ;
+__p += '\n  <script>\n  launchTest();\n  </script>\n  ';
+ } ;
+__p += '\n</head>\n<body>\n</body>\n</html>\n';
 
-  
-  <script src="../.grunt/grunt-contrib-jasmine/es5-shim.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/jasmine.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/json2.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/boot.js"></script>
-  
-  <script src="vendor/corti.js"></script>
-  
-  <script src="init_corti.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/dist/annyang.min.js"></script>
-  
-  <script src="spec/BasicSpec.js"></script>
-  
-  <script src="spec/IssuesSpec.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/grunt-template-jasmine-istanbul/reporter.js"></script>
-  
-  <script src="../.grunt/grunt-contrib-jasmine/reporter.js"></script>
-  
-
-</body>
-</html>
+}
+return __p
+}
