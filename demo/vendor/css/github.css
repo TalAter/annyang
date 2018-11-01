@@ -14,7 +14,7 @@ pre .comment,
 pre .template_comment,
 pre .diff .header,
 pre .javadoc {
-  color: #998;
+  color: #6b6b5b;
   font-style: italic
 }
 

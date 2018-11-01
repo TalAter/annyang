@@ -51,7 +51,7 @@ pre .template_comment,
 pre .diff .header,
 pre .chunk,
 pre .markdown .blockquote {
-  color: #888;
+  color: #6b6b5b;
 }
 
 pre .number,
@@ -131,5 +131,5 @@ pre .xml .javascript,
 pre .xml .vbscript,
 pre .xml .css,
 pre .xml .cdata {
-  opacity: 0.5;
+  opacity: 1;
 }
