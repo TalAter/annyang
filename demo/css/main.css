@@ -11,7 +11,7 @@ body {
 }
 
 a, a:visited {
-  color: #90b8de;
+  color: #d9e7f3;
   text-decoration: underline;
 }
 a:hover {
@@ -95,15 +95,15 @@ section {
   text-align: center;
 }
 #section_hello {
-  background-color: #1abc96;
+  background-color: #0b4f3f;
   color: #fff;
 }
 #section_image_search {
-  background-color: #407eb8;
+  background-color: #295074;
   color: #fff;
 }
 #section_biz_use {
-  background-color: #95a5a6;
+  background-color: #4a5758;
   color: #fff;
 }
 #section_footer {
