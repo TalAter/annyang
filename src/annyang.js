@@ -3,7 +3,7 @@
 //! author  : Tal Ater @TalAter
 //! license : MIT
 //! https://www.TalAter.com/annyang/
-(function (root, factory) {
+(function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) { // AMD + global
     define([], function () {
@@ -14,7 +14,7 @@
   } else { // Browser globals
     root.annyang = factory(root);
   }
-}(typeof window !== 'undefined' ? window : this, function (root, undefined) {
+})(typeof window !== 'undefined' ? window : this, function(root, undefined) {
   'use strict';
 
   /**
@@ -44,7 +44,18 @@
 
   var commandsList = [];
   var recognition;
-  var callbacks = { start: [], error: [], end: [], soundstart: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
+  var callbacks = {
+    start: [],
+    error: [],
+    end: [],
+    soundstart: [],
+    result: [],
+    resultMatch: [],
+    resultNoMatch: [],
+    errorNetwork: [],
+    errorPermissionBlocked: [],
+    errorPermissionDenied: [],
+  };
   var autoRestart;
   var lastStartedAt = 0;
   var autoRestartCount = 0;
@@ -60,13 +71,14 @@
   var splatParam    = /\*\w+/g;
   var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#]/g;
   var commandToRegExp = function(command) {
-    command = command.replace(escapeRegExp, '\\$&')
-                  .replace(optionalParam, '(?:$1)?')
-                  .replace(namedParam, function(match, optional) {
-                    return optional ? match : '([^\\s]+)';
-                  })
-                  .replace(splatParam, '(.*?)')
-                  .replace(optionalRegex, '\\s*$1?\\s*');
+    command = command
+      .replace(escapeRegExp, '\\$&')
+      .replace(optionalParam, '(?:$1)?')
+      .replace(namedParam, function(match, optional) {
+        return optional ? match : '([^\\s]+)';
+      })
+      .replace(splatParam, '(.*?)')
+      .replace(optionalRegex, '\\s*$1?\\s*');
     return new RegExp('^' + command + '$', 'i');
   };
 
@@ -99,7 +111,10 @@
   var registerCommand = function(command, callback, originalPhrase) {
     commandsList.push({ command, callback, originalPhrase });
     if (debugState) {
-      logMessage('Command successfully loaded: %c'+originalPhrase, debugStyle);
+      logMessage(
+        'Command successfully loaded: %c' + originalPhrase,
+        debugStyle
+      );
     }
   };
 
@@ -107,11 +122,11 @@
     invokeCallbacks(callbacks.result, results);
     var commandText;
     // go over each of the 5 results and alternative results received (we have set maxAlternatives to 5 above)
-    for (let i = 0; i<results.length; i++) {
+    for (let i = 0; i < results.length; i++) {
       // the text recognized
       commandText = results[i].trim();
       if (debugState) {
-        logMessage('Speech recognized: %c'+commandText, debugStyle);
+        logMessage('Speech recognized: %c' + commandText, debugStyle);
       }
 
       // try and match recognized text to one of the commands on the list
@@ -121,14 +136,22 @@
         if (result) {
           var parameters = result.slice(1);
           if (debugState) {
-            logMessage('command matched: %c'+currentCommand.originalPhrase, debugStyle);
+            logMessage(
+              'command matched: %c' + currentCommand.originalPhrase,
+              debugStyle
+            );
             if (parameters.length) {
               logMessage('with parameters', parameters);
             }
           }
           // execute the matched command
           currentCommand.callback.apply(this, parameters);
-          invokeCallbacks(callbacks.resultMatch, commandText, currentCommand.originalPhrase, results);
+          invokeCallbacks(
+            callbacks.resultMatch,
+            commandText,
+            currentCommand.originalPhrase,
+            results
+          );
           return;
         }
       }
@@ -137,7 +160,6 @@
   };
 
   annyang = {
-
     /**
      * Initialize annyang with a list of commands to recognize.
      *
@@ -190,20 +212,20 @@
       recognition.onerror = function(event) {
         invokeCallbacks(callbacks.error, event);
         switch (event.error) {
-        case 'network':
-          invokeCallbacks(callbacks.errorNetwork, event);
-          break;
-        case 'not-allowed':
-        case 'service-not-allowed':
-          // if permission to use the mic is denied, turn off auto-restart
-          autoRestart = false;
-          // determine if permission was denied by user or automatically.
-          if (new Date().getTime()-lastStartedAt < 200) {
-            invokeCallbacks(callbacks.errorPermissionBlocked, event);
-          } else {
-            invokeCallbacks(callbacks.errorPermissionDenied, event);
-          }
-          break;
+          case 'network':
+            invokeCallbacks(callbacks.errorNetwork, event);
+            break;
+          case 'not-allowed':
+          case 'service-not-allowed':
+            // if permission to use the mic is denied, turn off auto-restart
+            autoRestart = false;
+            // determine if permission was denied by user or automatically.
+            if (new Date().getTime() - lastStartedAt < 200) {
+              invokeCallbacks(callbacks.errorPermissionBlocked, event);
+            } else {
+              invokeCallbacks(callbacks.errorPermissionDenied, event);
+            }
+            break;
         }
       };
 
@@ -213,17 +235,19 @@
         // annyang will auto restart if it is closed automatically and not by user action.
         if (autoRestart) {
           // play nicely with the browser, and never restart annyang automatically more than once per second
-          var timeSinceLastStart = new Date().getTime()-lastStartedAt;
+          var timeSinceLastStart = new Date().getTime() - lastStartedAt;
           autoRestartCount += 1;
           if (autoRestartCount % 10 === 0) {
             if (debugState) {
-              logMessage('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+              logMessage(
+                'Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.'
+              );
             }
           }
           if (timeSinceLastStart < 1000) {
             setTimeout(function() {
               annyang.start({ paused: pauseListening });
-            }, 1000-timeSinceLastStart);
+            }, 1000 - timeSinceLastStart);
           } else {
             annyang.start({ paused: pauseListening });
           }
@@ -231,7 +255,7 @@
       };
 
       recognition.onresult = function(event) {
-        if(pauseListening) {
+        if (pauseListening) {
           if (debugState) {
             logMessage('Speech heard, but annyang is paused');
           }
@@ -241,7 +265,7 @@
         // Map the results to an array
         var SpeechRecognitionResult = event.results[event.resultIndex];
         var results = [];
-        for (let k = 0; k<SpeechRecognitionResult.length; k++) {
+        for (let k = 0; k < SpeechRecognitionResult.length; k++) {
           results[k] = SpeechRecognitionResult[k].transcript;
         }
 
@@ -297,7 +321,7 @@
       lastStartedAt = new Date().getTime();
       try {
         recognition.start();
-      } catch(e) {
+      } catch (e) {
         if (debugState) {
           logMessage(e.message);
         }
@@ -394,10 +418,14 @@
             registerCommand(commandToRegExp(phrase), cb, phrase);
           } else if (typeof cb === 'object' && cb.regexp instanceof RegExp) {
             // register the command
-            registerCommand(new RegExp(cb.regexp.source, 'i'), cb.callback, phrase);
+            registerCommand(
+              new RegExp(cb.regexp.source, 'i'),
+              cb.callback,
+              phrase
+            );
           } else {
             if (debugState) {
-              logMessage('Can not register command: %c'+phrase, debugStyle);
+              logMessage('Can not register command: %c' + phrase, debugStyle);
             }
             continue;
           }
@@ -433,7 +461,7 @@
       } else {
         commandsToRemove = Array.isArray(commandsToRemove) ? commandsToRemove : [commandsToRemove];
         commandsList = commandsList.filter(command => {
-          for (let i = 0; i<commandsToRemove.length; i++) {
+          for (let i = 0; i < commandsToRemove.length; i++) {
             if (commandsToRemove[i] === command.originalPhrase) {
               return false;
             }
@@ -491,7 +519,7 @@
     addCallback: function(type, callback, context) {
       var cb = root[callback] || callback;
       if (typeof cb === 'function' && callbacks[type] !== undefined) {
-        callbacks[type].push({callback: cb, context: context || this});
+        callbacks[type].push({ callback: cb, context: context || this });
       }
     },
 
@@ -591,7 +619,7 @@
      * @method trigger
      */
     trigger: function(sentences) {
-      if(!annyang.isListening()) {
+      if (!annyang.isListening()) {
         if (debugState) {
           if (!isListening) {
             logMessage('Cannot trigger while annyang is aborted');
@@ -607,12 +635,11 @@
       }
 
       parseResults(sentences);
-    }
+    },
   };
 
   return annyang;
-
-}));
+});
 
 /**
  * # Good to Know
