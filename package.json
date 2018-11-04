@@ -15,17 +15,18 @@
   "bugs": {
     "url": "https://github.com/TalAter/annyang/issues"
   },
-  "license": "MIT",
-  "author": "Tal Ater <tal@talater.com> (https://www.talater.com/)",
-  "main": "dist/annyang.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/TalAter/annyang.git"
   },
+  "license": "MIT",
+  "author": "Tal Ater <tal@talater.com> (https://www.talater.com/)",
+  "main": "dist/annyang.min.js",
   "scripts": {
     "start": "grunt dev",
     "test": "grunt test"
   },
+  "dependencies": {},
   "devDependencies": {
     "async": "^2.6.0",
     "babel-core": "^6.26.0",
