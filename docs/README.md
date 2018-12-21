@@ -184,7 +184,7 @@ Add a callback function to be called in case one of the following events happens
 
 * `resultNoMatch` - Fired when what the user said didn't match any of the registered commands.
 
-    Callback functions for this event will be called with an array of possible phrases the user might've said as the first argument
+    Callback functions for this event will be called with an array of possible phrases the user might have said as the first argument.
 
 #### Examples:
 ````javascript
