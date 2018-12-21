@@ -48,7 +48,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   var commandsList = [];
   var recognition;
-  var callbacks = { start: [], error: [], end: [], soundstart: [], result: [], resultMatch: [], resultNoMatch: [], errorNetwork: [], errorPermissionBlocked: [], errorPermissionDenied: [] };
+  var callbacks = {
+    start: [],
+    error: [],
+    end: [],
+    soundstart: [],
+    result: [],
+    resultMatch: [],
+    resultNoMatch: [],
+    errorNetwork: [],
+    errorPermissionBlocked: [],
+    errorPermissionDenied: []
+  };
   var autoRestart;
   var lastStartedAt = 0;
   var autoRestartCount = 0;
@@ -110,7 +121,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var parseResults = function parseResults(results) {
     invokeCallbacks(callbacks.result, results);
     var commandText;
-    // go over each of the 5 results and alternative results received (we've set maxAlternatives to 5 above)
+    // go over each of the 5 results and alternative results received (we have set maxAlternatives to 5 above)
     for (var i = 0; i < results.length; i++) {
       // the text recognized
       commandText = results[i].trim();
@@ -141,7 +152,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   };
 
   annyang = {
-
     /**
      * Initialize annyang with a list of commands to recognize.
      *
@@ -269,9 +279,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      *
      * Receives an optional options object which supports the following options:
      *
-     * - `autoRestart`  (boolean, default: true) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
+     * - `autoRestart`  (boolean) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
      * - `continuous`   (boolean) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
-     * - `paused`       (boolean, default: true) Start annyang in paused mode.
+     * - `paused`       (boolean) Start annyang in paused mode.
      *
      * #### Examples:
      * ````javascript
