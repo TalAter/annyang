@@ -4,9 +4,9 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 
-(function () {
+(function() {
   /*global annyang,jQuery */
-  "use strict";
+  'use strict';
   var root = this;
 
   if (annyang) {
@@ -14,11 +14,11 @@
     annyang.setLanguage('he');
 
     var nextPage = function() {
-      root.location.href = jQuery('.next-page a').attr("href") || '/';
+      root.location.href = jQuery('.next-page a').attr('href') || '/';
     };
 
     var prevPage = function() {
-      root.location.href = jQuery('.prev-page a').attr("href") || '/';
+      root.location.href = jQuery('.prev-page a').attr('href') || '/';
     };
 
     var gotoHome = function() {
@@ -62,11 +62,11 @@
     };
 
     var gotoSearch = function(search) {
-      root.location.href = '/?s='+search;
+      root.location.href = '/?s=' + search;
     };
 
     var scrollToTop = function() {
-      jQuery("html, body").animate({ scrollTop: 0 }, 1500);
+      jQuery('html, body').animate({ scrollTop: 0 }, 1500);
       return false;
     };
 
@@ -104,5 +104,4 @@
     });
     annyang.start();
   }
-
-}).call(this);
+}.call(this));

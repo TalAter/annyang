@@ -4,9 +4,9 @@
 //! license : MIT
 //! https://www.TalAter.com/annyang/
 
-(function () {
+(function() {
   /*global annyang,$ */
-  "use strict";
+  'use strict';
   var root = this;
 
   if (annyang) {
@@ -23,11 +23,11 @@
     };
 
     var searchMore = function(term) {
-      root.goURI('/search/more/?q='+term);
+      root.goURI('/search/more/?q=' + term);
     };
 
     var gotoPage = function(term) {
-      root.goURI('/'+term.replace(/[^\w]/ig, ''));
+      root.goURI('/' + term.replace(/[^\w]/gi, ''));
     };
 
     var stream = function() {
@@ -63,11 +63,13 @@
     };
 
     var photos = function(name) {
-      root.goURI('/'+(name || 'me').replace(/[^\w]/ig, '')+'/photos');
+      root.goURI('/' + (name || 'me').replace(/[^\w]/gi, '') + '/photos');
     };
 
     var albums = function(name) {
-      root.goURI('/'+(name || 'me').replace(/[^\w]/ig, '')+'/photos_albums');
+      root.goURI(
+        '/' + (name || 'me').replace(/[^\w]/gi, '') + '/photos_albums'
+      );
     };
 
     var goBack = function() {
@@ -76,9 +78,9 @@
 
     var pageScroll = function(direction) {
       if (direction === 'up') {
-        window.scrollBy(0, -(window.innerHeight-$('pageHead').offsetHeight));
+        window.scrollBy(0, -(window.innerHeight - $('pageHead').offsetHeight));
       } else {
-        window.scrollBy(0, window.innerHeight-$('pageHead').offsetHeight);
+        window.scrollBy(0, window.innerHeight - $('pageHead').offsetHeight);
       }
     };
 
@@ -119,5 +121,4 @@
     });
     annyang.start();
   }
-
-}).call(this);
+}.call(this));
