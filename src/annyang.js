@@ -135,6 +135,9 @@
         var result = currentCommand.command.exec(commandText);
         if (result) {
           var parameters = result.slice(1);
+          if (parameters.length == 0) {
+            parameters = result;
+          }
           if (debugState) {
             logMessage(
               'command matched: %c' + currentCommand.originalPhrase,
