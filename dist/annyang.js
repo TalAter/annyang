@@ -73,7 +73,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   var optionalRegex = /(\(\?:[^)]+\))\?/g;
   var namedParam = /(\(\?)?:\w+/g;
   var splatParam = /\*\w+/g;
-  var escapeRegExp = /[\-{}\[\]+?.,\\\^$|#]/g;
+  var escapeRegExp = /[-{}[\]+?.,\\^$|#]/g;
   var commandToRegExp = function commandToRegExp(command) {
     command = command.replace(escapeRegExp, '\\$&').replace(optionalParam, '(?:$1)?').replace(namedParam, function (match, optional) {
       return optional ? match : '([^\\s]+)';

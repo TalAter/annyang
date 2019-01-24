@@ -69,7 +69,7 @@
   var optionalRegex = /(\(\?:[^)]+\))\?/g;
   var namedParam    = /(\(\?)?:\w+/g;
   var splatParam    = /\*\w+/g;
-  var escapeRegExp  = /[\-{}\[\]+?.,\\\^$|#]/g;
+  var escapeRegExp  = /[-{}[\]+?.,\\^$|#]/g;
   var commandToRegExp = function(command) {
     command = command
       .replace(escapeRegExp, '\\$&')
