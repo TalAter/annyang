@@ -140,7 +140,7 @@ Another possible reason for this might be that you are offline.
 
 ## Can annyang work offline?
 
-No. annyang relies on the browser's own speech recognition engine. In Chrome, this engine performs the recognition in the cloud.
+No. annyang relies on the browser's own speech recognition engine. In Chrome, this engine performs recognition in the cloud.
 
 ## Which browsers are supported?
 
@@ -207,11 +207,11 @@ annyang.addCallback('result', function() {
 
 ## Can annyang be used in Chromium or Electron?
 
-Yes, however you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs.
+Yes, however, you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs.
 
 ## Can annyang be used in Cordova?
 
-Yes. In order to use `webKitSpeechRecognition` you will need to use [Crosswalk](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview) and the [Cordova Media Plugin](https://github.com/apache/cordova-plugin-media). These can be added to an existing cordova project with the following commands:
+Yes. In order to use `webKitSpeechRecognition` you will need to use [Crosswalk](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview) and the [Cordova Media Plugin](https://github.com/apache/cordova-plugin-media). These can be added to an existing Cordova project with the following commands:
 
 ```
 cordova plugin add cordova-plugin-crosswalk-webview
