@@ -68,16 +68,16 @@ See: [pause()](#pause)
 
 ## pause()
 
-Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's speech recognition engine or the mic.
+Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
 
-Alternatively, to stop the speech recognition engine and close the mic, use abort() instead.
+Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
 
 See: [abort()](#abort)
 
 ## resume()
 
 Resumes listening and restore command callback execution when a result matches.
-If SpeechRecognition was aborted (stopped), start it.
+If speech recognition was aborted (stopped), start it.
 
 ## debug([newState=true])
 
@@ -146,29 +146,29 @@ annyang.removeCommands(['howdy', 'hi']);
 
 Add a callback function to be called in case one of the following events happens:
 
-* `start` - Fired as soon as the browser's Speech Recognition engine starts listening.
+* `start` - Fired as soon as the browser's SpeechRecognition engine starts listening.
 
 * `soundstart` - Fired as soon as any sound (possibly speech) has been detected.
 
-    This will fire once per Speech Recognition starting. See https://is.gd/annyang_sound_start.
+    This will fire once per SpeechRecognition starting. See https://is.gd/annyang_sound_start.
 
-* `error` - Fired when the browser's Speech Recognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
-
-    The callback function will be called with the error event as the first argument.
-
-* `errorNetwork` - Fired when Speech Recognition fails because of a network error.
+* `error` - Fired when the browser's SpeechRecognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
 
     The callback function will be called with the error event as the first argument.
 
-* `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
+* `errorNetwork` - Fired when SpeechRecognition fails because of a network error.
 
     The callback function will be called with the error event as the first argument.
 
-* `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
+* `errorPermissionBlocked` - Fired when the browser blocks the permission request to use SpeechRecognition.
 
     The callback function will be called with the error event as the first argument.
 
-* `end` - Fired when the browser's Speech Recognition engine stops.
+* `errorPermissionDenied` - Fired when the user blocks the permission request to use SpeechRecognition.
+
+    The callback function will be called with the error event as the first argument.
+
+* `end` - Fired when the browser's SpeechRecognition engine stops.
 
 * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
 
@@ -258,19 +258,19 @@ Returns false if speech recognition is off or annyang is paused.
 ## getSpeechRecognizer()
 
 Returns the instance of the browser's SpeechRecognition object used by annyang.
-Useful in case you want direct access to the browser's Speech Recognition engine.
+Useful in case you want direct access to the browser's SpeechRecognition engine.
 
 ### Return:
 
-* SpeechRecognition The browser's Speech Recognizer currently used by annyang
+* SpeechRecognition The browser's SpeechRecognition currently used by annyang
 
 ## trigger(string|array)
 
-Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
+Simulate speech being recognized. This will trigger the same events and behavior as when the SpeechRecognition
 detects speech.
 
 Can accept either a string containing a single sentence or an array containing multiple sentences to be checked
-in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
+in order until one of them matches a command (similar to the way SpeechRecognition Alternatives are parsed)
 
 #### Examples:
 ````javascript
@@ -298,7 +298,7 @@ annyang understands commands with `named variables`, `splats`, and `optional wor
 
 * Use `named variables` for one-word arguments in your command.
 * Use `splats` to capture multi-word text at the end of your command (greedy).
-* Use `optional words` or phrases to define a part of the command is optional.
+* Use `optional words` or phrases to define a part of the command as optional.
 
 #### Examples:
 ````html
