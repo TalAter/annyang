@@ -50,7 +50,7 @@ annyang is tested using [Jasmine](http://jasmine.github.io/2.0/introduction.html
 Please include tests for any changes you make:
 * If you found a bug, please write a test that fails because of that bug, then fix the bug so that the test passes.
 * If you are adding a new feature, write tests that thoroughly test every possible use of your code.
-* If you are changing existing functionality, make sure to update existing tests so they pass. (This is the last resort. Whenever possible try to maintain backward compatibility)
+* If you are changing existing functionality, make sure to update existing tests so they pass. (This is a last resort move. Whenever possible try to maintain backward compatibility)
 
 The tests reside in *BasicSpec.js*. The file contains a series of spec groups (e.g. `describe('a spec group', function() {});`) which each contain 1 or more specs (e.g. `it('should do stuff', function() {});`). Some of the spec groups also contain some code which runs before each spec (`beforeEach(function() {});`).
 
