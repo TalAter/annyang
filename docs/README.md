@@ -2,7 +2,7 @@
 
 <!-- Start src/annyang.js -->
 
-# Quick Tutorial, Intro and Demos
+# Quick Tutorial, Intro, and Demos
 
 The quickest way to get started is to visit the [annyang homepage](https://www.talater.com/annyang/).
 
@@ -68,20 +68,20 @@ See: [pause()](#pause)
 
 ## pause()
 
-Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
+Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's speech recognition engine or the mic.
 
-Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+Alternatively, to stop the speech recognition engine and close the mic, use abort() instead.
 
 See: [abort()](#abort)
 
 ## resume()
 
-Resumes listening and restores command callback execution when a result matches.
+Resumes listening and restore command callback execution when a result matches.
 If SpeechRecognition was aborted (stopped), start it.
 
 ## debug([newState=true])
 
-Turn on output of debug messages to the console. Ugly, but super-handy!
+Turn on the output of debug messages to the console. Ugly, but super-handy!
 
 ### Params:
 
@@ -119,7 +119,7 @@ See: [Commands Object](#commands-object)
 
 ## removeCommands([commandsToRemove])
 
-Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
+Remove existing commands. Called with a single phrase, an array of phrases, or methodically. Pass no params to remove all commands.
 
 #### Examples:
 ````javascript
@@ -152,21 +152,21 @@ Add a callback function to be called in case one of the following events happens
 
     This will fire once per Speech Recognition starting. See https://is.gd/annyang_sound_start.
 
-* `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
+* `error` - Fired when the browser's Speech Recognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
 
-    Callback function will be called with the error event as the first argument.
+    The callback function will be called with the error event as the first argument.
 
 * `errorNetwork` - Fired when Speech Recognition fails because of a network error.
 
-    Callback function will be called with the error event as the first argument.
+    The callback function will be called with the error event as the first argument.
 
 * `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
 
-    Callback function will be called with the error event as the first argument.
+    The callback function will be called with the error event as the first argument.
 
 * `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
 
-    Callback function will be called with the error event as the first argument.
+    The callback function will be called with the error event as the first argument.
 
 * `end` - Fired when the browser's Speech Recognition engine stops.
 
@@ -269,7 +269,7 @@ Useful in case you want direct access to the browser's Speech Recognition engine
 Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
 detects speech.
 
-Can accept either a string containing a single sentence, or an array containing multiple sentences to be checked
+Can accept either a string containing a single sentence or an array containing multiple sentences to be checked
 in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
 
 #### Examples:
@@ -296,9 +296,9 @@ Both the [init()]() and addCommands() methods receive a `commands` object.
 
 annyang understands commands with `named variables`, `splats`, and `optional words`.
 
-* Use `named variables` for one word arguments in your command.
+* Use `named variables` for one-word arguments in your command.
 * Use `splats` to capture multi-word text at the end of your command (greedy).
-* Use `optional words` or phrases to define a part of the command as optional.
+* Use `optional words` or phrases to define a part of the command is optional.
 
 #### Examples:
 ````html
@@ -308,7 +308,7 @@ var commands = {
   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
   'show me *tag': showFlickr,
 
-  // A named variable is a one word variable, that can fit anywhere in your command.
+  // A named variable is a one-word variable, that can fit anywhere in your command.
   // e.g. saying "calculate October stats" will call calculateStats('October');
   'calculate :month stats': calculateStats,
 
