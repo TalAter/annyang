@@ -1,6 +1,6 @@
 
 
-<!-- Start src/annyang.js -->
+<!-- Start src\annyang.js -->
 
 # Quick Tutorial, Intro, and Demos
 
@@ -77,7 +77,7 @@ See: [abort()](#abort)
 ## resume()
 
 Resumes listening and restore command callback execution when a result matches.
-If speech recognition was aborted (stopped), start it.
+If SpeechRecognition was aborted (stopped), start it.
 
 ## debug([newState=true])
 
@@ -146,37 +146,37 @@ annyang.removeCommands(['howdy', 'hi']);
 
 Add a callback function to be called in case one of the following events happens:
 
-* `start` - Fired as soon as the browser's SpeechRecognition engine starts listening.
+* `start` - Fired as soon as the browser's Speech Recognition engine starts listening.
 
 * `soundstart` - Fired as soon as any sound (possibly speech) has been detected.
 
-    This will fire once per SpeechRecognition starting. See https://is.gd/annyang_sound_start.
+    This will fire once per Speech Recognition starting. See https://is.gd/annyang_sound_start.
 
-* `error` - Fired when the browser's SpeechRecognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
+* `error` - Fired when the browser's Speech Recognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
 
-    The callback function will be called with the error event as the first argument.
+    The Callback function will be called with the error event as the first argument.
 
-* `errorNetwork` - Fired when SpeechRecognition fails because of a network error.
+* `errorNetwork` - Fired when Speech Recognition fails because of a network error.
 
-    The callback function will be called with the error event as the first argument.
+    The Callback function will be called with the error event as the first argument.
 
-* `errorPermissionBlocked` - Fired when the browser blocks the permission request to use SpeechRecognition.
+* `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
 
-    The callback function will be called with the error event as the first argument.
+    The Callback function will be called with the error event as the first argument.
 
-* `errorPermissionDenied` - Fired when the user blocks the permission request to use SpeechRecognition.
+* `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
 
-    The callback function will be called with the error event as the first argument.
+    The Callback function will be called with the error event as the first argument.
 
-* `end` - Fired when the browser's SpeechRecognition engine stops.
+* `end` - Fired when the browser's Speech Recognition engine stops.
 
 * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
 
-    Callback functions for this event will be called with an array of possible phrases the user said as the first argument.
+    The Callback functions for this event will be called with an array of possible phrases the user said as the first argument.
 
 * `resultMatch` - Fired when annyang was able to match between what the user said and a registered command.
 
-    Callback functions for this event will be called with three arguments in the following order:
+    The Callback functions for this event will be called with three arguments in the following order:
 
     * The phrase the user said that matched a command.
     * The command that was matched.
@@ -258,19 +258,19 @@ Returns false if speech recognition is off or annyang is paused.
 ## getSpeechRecognizer()
 
 Returns the instance of the browser's SpeechRecognition object used by annyang.
-Useful in case you want direct access to the browser's SpeechRecognition engine.
+Useful in case you want direct access to the browser's Speech Recognition engine.
 
 ### Return:
 
-* SpeechRecognition The browser's SpeechRecognition currently used by annyang
+* SpeechRecognition The browser's Speech Recognizer currently used by annyang
 
 ## trigger(string|array)
 
-Simulate speech being recognized. This will trigger the same events and behavior as when the SpeechRecognition
+Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
 detects speech.
 
 Can accept either a string containing a single sentence or an array containing multiple sentences to be checked
-in order until one of them matches a command (similar to the way SpeechRecognition Alternatives are parsed)
+in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
 
 #### Examples:
 ````javascript
@@ -350,5 +350,5 @@ var commands = {
 }
  ````
 
-<!-- End src/annyang.js -->
+<!-- End src\annyang.js -->
 
