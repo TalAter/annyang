@@ -1,6 +1,6 @@
 
 
-<!-- Start src\annyang.js -->
+<!-- Start src/annyang.js -->
 
 # Quick Tutorial, Intro, and Demos
 
@@ -350,5 +350,5 @@ var commands = {
 }
  ````
 
-<!-- End src\annyang.js -->
+<!-- End src/annyang.js -->
 
