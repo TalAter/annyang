@@ -27,7 +27,7 @@ A lot of annyang's functionality came from pull requests sent over GitHub. Here 
   :bulb: A great alternative to repeatedly running `$ grunt` is to run `$ grunt watch` once, and leave this process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it. :+1:
 - [x] You can run a local server to test your work in the browser by running `$ grunt dev`. This will also automatically run `$ grunt watch` for you.
   Point your browser to `https://localhost:8443/demo/` to see the demo page.
-  Since it's using self-signed certificate, you might need to click *"Proceed Anyway"*.
+  Since it's using a self-signed certificate, you might need to click *"Proceed Anyway"*.
 - [x] Before committing your changes, the last step must always be running `$ grunt`. This makes sure everything works, and all files are kept up to date with your changes.
 - [x] Once you've made sure all your changes work correctly and have been committed, push your local changes back to github with `$ git push -u origin master`
 - [x] Visit your fork on GitHub.com ([https://github.com/YOUR-USER-NAME/annyang](https://github.com/YOUR-USER-NAME/annyang)) and create a pull request for your changes.
@@ -50,7 +50,7 @@ annyang is tested using [Jasmine](http://jasmine.github.io/2.0/introduction.html
 Please include tests for any changes you make:
 * If you found a bug, please write a test that fails because of that bug, then fix the bug so that the test passes.
 * If you are adding a new feature, write tests that thoroughly test every possible use of your code.
-* If you are changing existing functionality, make sure to update existing tests so they pass. (This is a last resort. Whenever possible try to maintain backwards compatibility)
+* If you are changing existing functionality, make sure to update existing tests so they pass. (This is a last resort move. Whenever possible try to maintain backward compatibility)
 
 The tests reside in *BasicSpec.js*. The file contains a series of spec groups (e.g. `describe('a spec group', function() {});`) which each contain 1 or more specs (e.g. `it('should do stuff', function() {});`). Some of the spec groups also contain some code which runs before each spec (`beforeEach(function() {});`).
 
@@ -70,6 +70,6 @@ Explain the problem and include additional details to help maintainers reproduce
 
 ### Feature Requests and Ideas
 
-We track discussions of new features, proposed changes and other ideas as [GitHub issues](https://github.com/TalAter/annyang/issues). If you would like to discuss one of those, please first look through existing open and closed [GitHub issues](https://github.com/TalAter/annyang/issues?q=is%3Aissue) and see if there is already a discussion on this topic which you can join. If there isn't, please open a [new issue](https://github.com/TalAter/annyang/issues/new).
+We track discussions of new features, proposed changes, and other ideas as [GitHub issues](https://github.com/TalAter/annyang/issues). If you would like to discuss one of those, please first look through existing open and closed [GitHub issues](https://github.com/TalAter/annyang/issues?q=is%3Aissue) and see if there is already a discussion on this topic which you can join. If there isn't, please open a [new issue](https://github.com/TalAter/annyang/issues/new).
 
 When discussing new ideas or proposing changes, please take the time to be as descriptive as possible about the topic at hand. Please take the time to explain the issue you are facing, or the problem you propose to solve in as much detail as possible.
