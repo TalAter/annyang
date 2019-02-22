@@ -26,7 +26,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   'use strict';
 
   /**
-   * # Quick Tutorial, Intro and Demos
+   * # Quick Tutorial, Intro, and Demos
    *
    * The quickest way to get started is to visit the [annyang homepage](https://www.talater.com/annyang/).
    *
@@ -349,7 +349,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
 
     /**
-     * Resumes listening and restores command callback execution when a result matches.
+     * Resumes listening and restore command callback execution when a result matches.
      * If SpeechRecognition was aborted (stopped), start it.
      *
      * @method resume
@@ -359,7 +359,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
 
     /**
-     * Turn on output of debug messages to the console. Ugly, but super-handy!
+     * Turn on the output of debug messages to the console. Ugly, but super-handy!
      *
      * @param {boolean} [newState=true] - Turn on/off debug messages
      * @method debug
@@ -424,7 +424,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
 
     /**
-     * Remove existing commands. Called with a single phrase, array of phrases, or methodically. Pass no params to remove all commands.
+     * Remove existing commands. Called with a single phrase, an array of phrases, or methodically. Pass no params to remove all commands.
      *
      * #### Examples:
      * ````javascript
@@ -470,31 +470,31 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      *
      *     This will fire once per Speech Recognition starting. See https://is.gd/annyang_sound_start.
      *
-     * * `error` - Fired when the browser's Speech Recogntion engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
+     * * `error` - Fired when the browser's Speech Recognition engine returns an error, this generic error callback will be followed by more accurate error callbacks (both will fire if both are defined).
      *
-     *     Callback function will be called with the error event as the first argument.
+     *     The Callback function will be called with the error event as the first argument.
      *
      * * `errorNetwork` - Fired when Speech Recognition fails because of a network error.
      *
-     *     Callback function will be called with the error event as the first argument.
+     *     The Callback function will be called with the error event as the first argument.
      *
      * * `errorPermissionBlocked` - Fired when the browser blocks the permission request to use Speech Recognition.
      *
-     *     Callback function will be called with the error event as the first argument.
+     *     The Callback function will be called with the error event as the first argument.
      *
      * * `errorPermissionDenied` - Fired when the user blocks the permission request to use Speech Recognition.
      *
-     *     Callback function will be called with the error event as the first argument.
+     *     The Callback function will be called with the error event as the first argument.
      *
      * * `end` - Fired when the browser's Speech Recognition engine stops.
      *
      * * `result` - Fired as soon as some speech was identified. This generic callback will be followed by either the `resultMatch` or `resultNoMatch` callbacks.
      *
-     *     Callback functions for this event will be called with an array of possible phrases the user said as the first argument.
+     *     The Callback functions for this event will be called with an array of possible phrases the user said as the first argument.
      *
      * * `resultMatch` - Fired when annyang was able to match between what the user said and a registered command.
      *
-     *     Callback functions for this event will be called with three arguments in the following order:
+     *     The Callback functions for this event will be called with three arguments in the following order:
      *
      *     * The phrase the user said that matched a command.
      *     * The command that was matched.
@@ -611,7 +611,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
      * detects speech.
      *
-     * Can accept either a string containing a single sentence, or an array containing multiple sentences to be checked
+     * Can accept either a string containing a single sentence or an array containing multiple sentences to be checked
      * in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
      *
      * #### Examples:
@@ -658,7 +658,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  *
  * annyang understands commands with `named variables`, `splats`, and `optional words`.
  *
- * * Use `named variables` for one word arguments in your command.
+ * * Use `named variables` for one-word arguments in your command.
  * * Use `splats` to capture multi-word text at the end of your command (greedy).
  * * Use `optional words` or phrases to define a part of the command as optional.
  *
@@ -670,7 +670,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  *   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
  *   'show me *tag': showFlickr,
  *
- *   // A named variable is a one word variable, that can fit anywhere in your command.
+ *   // A named variable is a one-word variable, that can fit anywhere in your command.
  *   // e.g. saying "calculate October stats" will call calculateStats('October');
  *   'calculate :month stats': calculateStats,
  *
