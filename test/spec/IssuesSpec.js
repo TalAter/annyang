@@ -33,8 +33,10 @@
       annyang.start({ autoRestart: true, continuous: false });
       annyang.pause();
       recognition.abort();
+
       expect(annyang.isListening()).toBe(false);
       jasmine.clock().tick(1000);
+
       expect(annyang.isListening()).toBe(false);
     });
   });
