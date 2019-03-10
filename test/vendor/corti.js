@@ -4,8 +4,8 @@
 //! license : MIT
 //! https://github.com/TalAter/Corti
 
-(function (undefined) {
-  "use strict";
+(function(undefined) {
+  'use strict';
 
   // Save a reference to the global object (window in the browser)
   var _root = this;
@@ -32,51 +32,65 @@
 
     // Add listeners for events registered through attributes (e.g. recognition.onend = function) and not as proper listeners
     _self.eventListenerTypes.forEach(function(eventName) {
-      _listeners.addEventListener(eventName, function () {
-        if (typeof _self['on'+eventName] === 'function') {
-          _self['on'+eventName].apply(_listeners, arguments);
-        }
-      }, false);
+      _listeners.addEventListener(
+        eventName,
+        function() {
+          if (typeof _self['on' + eventName] === 'function') {
+            _self['on' + eventName].apply(_listeners, arguments);
+          }
+        },
+        false,
+      );
     });
 
     Object.defineProperty(this, 'maxAlternatives', {
-      get: function() { return _maxAlternatives; },
+      get: function() {
+        return _maxAlternatives;
+      },
       set: function(val) {
         if (typeof val === 'number') {
           _maxAlternatives = Math.floor(val);
         } else {
           _maxAlternatives = 0;
         }
-      }
+      },
     });
 
     Object.defineProperty(this, 'lang', {
-      get: function() { return _lang; },
+      get: function() {
+        return _lang;
+      },
       set: function(val) {
         if (val === undefined) {
           val = 'undefined';
         }
         _lang = val.toString();
-      }
+      },
     });
 
     Object.defineProperty(this, 'continuous', {
-      get: function() { return _continuous; },
+      get: function() {
+        return _continuous;
+      },
       set: function(val) {
         _continuous = Boolean(val);
-      }
+      },
     });
 
     Object.defineProperty(this, 'interimResults', {
-      get: function() { return _interimResults; },
+      get: function() {
+        return _interimResults;
+      },
       set: function(val) {
         _interimResults = Boolean(val);
-      }
+      },
     });
 
     this.start = function() {
       if (_self._started) {
-        throw new DOMException('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+        throw new DOMException(
+          "Failed to execute 'start' on 'SpeechRecognition': recognition has already started.",
+        );
       }
       _self._started = true;
       // Create and dispatch an event
@@ -115,7 +129,9 @@
       var etcIterator;
       var itemFunction = function(index) {
         if (undefined === index) {
-          throw new DOMException('Failed to execute \'item\' on \'SpeechRecognitionResult\': 1 argument required, but only 0 present.');
+          throw new DOMException(
+            "Failed to execute 'item' on 'SpeechRecognitionResult': 1 argument required, but only 0 present.",
+          );
         }
         index = Number(index);
         if (isNaN(index)) {
@@ -127,36 +143,50 @@
           return this[index];
         }
       };
-      for (commandIterator = 0; commandIterator<_maxAlternatives; commandIterator++) {
+      for (
+        commandIterator = 0;
+        commandIterator < _maxAlternatives;
+        commandIterator++
+      ) {
         var etc = '';
-        for (etcIterator = 0; etcIterator<commandIterator; etcIterator++) {
+        for (etcIterator = 0; etcIterator < commandIterator; etcIterator++) {
           etc += ' and so on';
         }
-        results.push(sentence+etc);
+        results.push(sentence + etc);
       }
 
       // Create the start event
       var startEvent = document.createEvent('CustomEvent');
-      startEvent.initCustomEvent('result', false, false, {'sentence': sentence});
+      startEvent.initCustomEvent('result', false, false, {
+        sentence: sentence,
+      });
       startEvent.resultIndex = 0;
       startEvent.results = {
-        'item': itemFunction,
+        item: itemFunction,
         0: {
-          'item': itemFunction,
-          'final': true
-        }
+          item: itemFunction,
+          final: true,
+        },
       };
-      for (commandIterator = 0; commandIterator<_maxAlternatives; commandIterator++) {
+      for (
+        commandIterator = 0;
+        commandIterator < _maxAlternatives;
+        commandIterator++
+      ) {
         startEvent.results[0][commandIterator] = {
-          'transcript': results[commandIterator],
-          'confidence': Math.max(1-0.01*commandIterator, 0.001)
+          transcript: results[commandIterator],
+          confidence: Math.max(1 - 0.01 * commandIterator, 0.001),
         };
       }
       Object.defineProperty(startEvent.results, 'length', {
-        get: function() { return 1; }
+        get: function() {
+          return 1;
+        },
       });
       Object.defineProperty(startEvent.results[0], 'length', {
-        get: function() { return _maxAlternatives; }
+        get: function() {
+          return _maxAlternatives;
+        },
       });
       startEvent.interpretation = null;
       startEvent.emma = null;
@@ -185,7 +215,8 @@
   _root.Corti = {
     patch: function() {
       if (_productionVersion === false) {
-        _productionVersion = _root.SpeechRecognition ||
+        _productionVersion =
+          _root.SpeechRecognition ||
           _root.webkitSpeechRecognition ||
           _root.mozSpeechRecognition ||
           _root.msSpeechRecognition ||
@@ -196,7 +227,6 @@
 
     unpatch: function() {
       _root.SpeechRecognition = _productionVersion;
-    }
+    },
   };
-
-}).call(this);
+}.call(this));

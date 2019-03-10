@@ -1,17 +1,19 @@
-(function (root, factory) {
+(function(root, factory) {
   // jshint strict: false
-  if (typeof module === 'object' && module.exports) { // CommonJS
+  if (typeof module === 'object' && module.exports) {
+    // CommonJS
     factory(require('../../annyang'));
-  } else if (typeof define === 'function' && define.amd) { // AMD
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
     define(['annyang'], factory);
-  } else { // Browser globals
+  } else {
+    // Browser globals
     factory(root.annyang);
   }
-}(typeof window !== 'undefined' ? window : this, function factory(annyang) {
-  "use strict";
+})(typeof window !== 'undefined' ? window : this, function factory(annyang) {
+  'use strict';
 
   describe('annyang', function() {
-
     it('should exist in global namespace', function() {
       expect(annyang).toEqual(jasmine.any(Object));
     });
@@ -75,19 +77,15 @@
     it('should expose trigger method', function() {
       expect(annyang.trigger).toEqual(jasmine.any(Function));
     });
-
   });
 
   describe('annyang.abort', function() {
-
     it('should not throw an error when called before annyang starts', function() {
       expect(annyang.abort()).toBe(undefined);
     });
-
   });
 
   describe('annyang.isListening', function() {
-
     beforeEach(function() {
       annyang.abort();
     });
@@ -119,11 +117,9 @@
       annyang.resume();
       expect(annyang.isListening()).toBe(true);
     });
-
   });
 
   describe('annyang.abort', function() {
-
     var spyOnEnd;
 
     beforeEach(function() {
@@ -157,11 +153,9 @@
       expect(annyang.isListening()).toBe(false);
       expect(spyOnEnd).not.toHaveBeenCalled();
     });
-
   });
 
   describe('annyang.start', function() {
-
     var spyOnStart;
     var recognition;
 
@@ -213,7 +207,9 @@
       annyang.start();
       annyang.debug(false);
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+      expect(console.log).toHaveBeenCalledWith(
+        "Failed to execute 'start' on 'SpeechRecognition': recognition has already started.",
+      );
     });
 
     it('should not write a message to log when annyang is already started but debug is off', function() {
@@ -225,7 +221,9 @@
     });
 
     it('should accept an options object as its first argument', function() {
-      expect(function() {annyang.start({});}).not.toThrowError();
+      expect(function() {
+        annyang.start({});
+      }).not.toThrowError();
     });
 
     it('should accept an autoRestart property in options object which defaults to true', function() {
@@ -237,7 +235,6 @@
     });
 
     describe('annyang.start({ autoRestart: true })', function() {
-
       it('should cause annyang to restart after 1 second when Speech Recognition engine was aborted', function() {
         annyang.start({ autoRestart: true });
         expect(annyang.isListening()).toBe(true);
@@ -248,11 +245,9 @@
         jasmine.clock().tick(100);
         expect(annyang.isListening()).toBe(true);
       });
-
     });
 
     describe('annyang.start({ autoRestart: false })', function() {
-
       it('should cause annyang to not restart when Speech Recognition engine was aborted', function() {
         annyang.start({ autoRestart: false });
         expect(annyang.isListening()).toBe(true);
@@ -261,7 +256,6 @@
         jasmine.clock().tick(1000);
         expect(annyang.isListening()).toBe(false);
       });
-
     });
 
     it('should accept a pause property in options object which defaults to false', function() {
@@ -270,57 +264,51 @@
     });
 
     describe('annyang.start({ paused: true })', function() {
-
       it('should start annyang in paused mode', function() {
         annyang.start({ paused: true });
         expect(annyang.isListening()).toBe(false);
       });
-
     });
-
   });
 
   describe('annyang.debug', function() {
-
-    beforeEach(function(){
+    beforeEach(function() {
       spyOn(console, 'log');
     });
 
     it('should be off by default', function() {
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should turn on debug messages when called without a parameter', function() {
       annyang.debug();
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).toHaveBeenCalled();
     });
 
     it('should turn off debug messages when called with a parameter that is false', function() {
       annyang.debug(true);
       annyang.debug(false);
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).not.toHaveBeenCalled();
       annyang.debug(0);
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should turn on debug messages when called with a parameter that is true', function() {
       annyang.debug(false);
       annyang.debug(1);
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).toHaveBeenCalledTimes(1);
       annyang.debug(true);
-      annyang.addCommands({'test command': function() {}});
+      annyang.addCommands({ 'test command': function() {} });
       expect(console.log).toHaveBeenCalledTimes(2);
     });
-
   });
 
   describe('annyang.addCallback', function() {
-
     beforeEach(function() {
       annyang.abort();
     });
@@ -330,7 +318,9 @@
       expect(annyang.addCallback('blergh')).toEqual(undefined);
       expect(annyang.addCallback('start')).toEqual(undefined);
       expect(annyang.addCallback('start', function() {})).toEqual(undefined);
-      expect(annyang.addCallback('start', function() {}, this)).toEqual(undefined);
+      expect(annyang.addCallback('start', function() {}, this)).toEqual(
+        undefined,
+      );
     });
 
     it('should be able to register multiple callbacks to one event', function() {
@@ -366,11 +356,9 @@
       annyang.start();
       expect(this.variableChanged).toEqual(true);
     });
-
   });
 
   describe("annyang.addCallback('start')", function() {
-
     beforeEach(function() {
       annyang.abort();
     });
@@ -405,11 +393,9 @@
       annyang.resume();
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe("annyang.addCallback('end')", function() {
-
     beforeEach(function() {
       annyang.debug(false);
       annyang.start();
@@ -431,11 +417,9 @@
       annyang.pause();
       expect(spyOnPause).not.toHaveBeenCalled();
     });
-
   });
 
   describe("annyang.addCallback('soundstart')", function() {
-
     var recognition;
 
     beforeEach(function() {
@@ -482,11 +466,9 @@
       recognition.say('That sounds like something out of science fiction');
       expect(spyOnSoundStart).toHaveBeenCalledTimes(2);
     });
-
   });
 
   describe("annyang.addCallback('resultMatch')", function() {
-
     var recognition;
     var spyOnResultMatch;
     var args;
@@ -503,7 +485,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling :action': function() {}
+        'Time for some thrilling :action': function() {},
       });
     });
 
@@ -545,13 +527,13 @@
       expect(typeof args[2]).toEqual('object');
       expect(args[2][0]).toEqual('Time for some thrilling heroics');
       expect(args[2][1]).toEqual('Time for some thrilling heroics and so on');
-      expect(args[2][2]).toEqual('Time for some thrilling heroics and so on and so on');
+      expect(args[2][2]).toEqual(
+        'Time for some thrilling heroics and so on and so on',
+      );
     });
-
   });
 
   describe("annyang.addCallback('resultNoMatch')", function() {
-
     var recognition;
     var spyOnResultNoMatch;
     var args;
@@ -568,7 +550,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': function() {}
+        'Time for some thrilling heroics': function() {},
       });
     });
 
@@ -590,15 +572,19 @@
       annyang.addCallback('resultNoMatch', saveArguments);
       recognition.say('That sounds like something out of science fiction');
       expect(typeof args[0]).toEqual('object');
-      expect(args[0][0]).toEqual('That sounds like something out of science fiction');
-      expect(args[0][1]).toEqual('That sounds like something out of science fiction and so on');
-      expect(args[0][2]).toEqual('That sounds like something out of science fiction and so on and so on');
+      expect(args[0][0]).toEqual(
+        'That sounds like something out of science fiction',
+      );
+      expect(args[0][1]).toEqual(
+        'That sounds like something out of science fiction and so on',
+      );
+      expect(args[0][2]).toEqual(
+        'That sounds like something out of science fiction and so on and so on',
+      );
     });
-
   });
 
   describe("annyang.addCallback('result')", function() {
-
     var recognition;
     var spyOnResult;
     var args;
@@ -614,7 +600,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': function() {}
+        'Time for some thrilling heroics': function() {},
       });
     });
 
@@ -636,15 +622,19 @@
       annyang.addCallback('result', saveArguments);
       recognition.say('That sounds like something out of science fiction');
       expect(typeof args[0]).toEqual('object');
-      expect(args[0][0]).toEqual('That sounds like something out of science fiction');
-      expect(args[0][1]).toEqual('That sounds like something out of science fiction and so on');
-      expect(args[0][2]).toEqual('That sounds like something out of science fiction and so on and so on');
+      expect(args[0][0]).toEqual(
+        'That sounds like something out of science fiction',
+      );
+      expect(args[0][1]).toEqual(
+        'That sounds like something out of science fiction and so on',
+      );
+      expect(args[0][2]).toEqual(
+        'That sounds like something out of science fiction and so on and so on',
+      );
     });
-
   });
 
   describe('annyang.removeCallback', function() {
-
     var spy1;
     var spy2;
     var spy3;
@@ -717,11 +707,9 @@
       expect(spy1).not.toHaveBeenCalled();
       expect(spy2).toHaveBeenCalledTimes(2);
     });
-
   });
 
-  describe("annyang.getSpeechRecognizer", function() {
-
+  describe('annyang.getSpeechRecognizer', function() {
     beforeEach(function() {
       annyang.abort();
     });
@@ -734,11 +722,9 @@
       annyang.start();
       expect(spyOnStart).toHaveBeenCalledTimes(1);
     });
-
   });
 
-  describe("annyang.addCommands", function() {
-
+  describe('annyang.addCommands', function() {
     var recognition;
 
     beforeEach(function() {
@@ -752,17 +738,15 @@
 
     it('should accept an object consisting of key (sentence) and value (callback function)', function() {
       expect(function() {
-        annyang.addCommands(
-          {'Time for some thrilling heroics': function() {}}
-        );
+        annyang.addCommands({
+          'Time for some thrilling heroics': function() {},
+        });
       }).not.toThrowError();
     });
 
     it('should match commands when a sentence is recognized and call the callback', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {'Time for some thrilling heroics': spyOnMatch}
-      );
+      annyang.addCommands({ 'Time for some thrilling heroics': spyOnMatch });
       expect(spyOnMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
@@ -772,34 +756,33 @@
       var spyOnMatch = jasmine.createSpy();
       // For this test, the command text is what we will be saying plus 'and so on'.
       // This is the structure of alternative text recognitions in Corti.
-      annyang.addCommands(
-        {'Time for some thrilling heroics and so on': spyOnMatch}
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics and so on': spyOnMatch,
+      });
       expect(spyOnMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should write to console when a command matches if debug is on', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': function() {},
+      });
       annyang.start();
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(2); // 1 console log for speech recognized + 1 for the command matching
-      expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith(
+        'command matched: %cTime for some thrilling heroics',
+        'font-weight: bold; color: #00f;',
+      );
     });
 
     it('should not write to console when a command matches if debug is off', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': function() {},
+      });
       annyang.start();
       annyang.debug(false);
       recognition.say('Time for some thrilling heroics');
@@ -807,26 +790,25 @@
     });
 
     it('should write to console with argument matched when command with an argument matches if debug is on', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling :action': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling :action': function() {},
+      });
       annyang.start();
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(3); // 1 console log for speech recognized + 1 for the command matching + 1 for the parameter
-      expect(console.log).toHaveBeenCalledWith('command matched: %cTime for some thrilling :action', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith(
+        'command matched: %cTime for some thrilling :action',
+        'font-weight: bold; color: #00f;',
+      );
       expect(console.log).toHaveBeenCalledWith('with parameters', ['heroics']);
     });
 
     it('should not write to console the argument matched when command with an argument matches if debug is off', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling :action': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling :action': function() {},
+      });
       annyang.start();
       annyang.debug(false);
       recognition.say('Time for some thrilling heroics');
@@ -836,16 +818,12 @@
     it('should ignore commands in subsequent addCommands calls with existing command texts', function() {
       var spyOnMatch1 = jasmine.createSpy();
       var spyOnMatch2 = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': spyOnMatch1
-        }
-      );
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics':  spyOnMatch2
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnMatch1,
+      });
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnMatch2,
+      });
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
@@ -855,11 +833,9 @@
 
     it("should accept callbacks in commands object by reference. e.g. {'hello': helloFunc}", function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': spyOnMatch,
+      });
       expect(spyOnMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
@@ -867,11 +843,9 @@
 
     it("should accept callbacks in commands object by name. e.g. {'hello': 'helloFunc'}", function() {
       window.globalSpy = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': 'globalSpy'
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': 'globalSpy',
+      });
       expect(window.globalSpy).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(window.globalSpy).toHaveBeenCalledTimes(1);
@@ -880,83 +854,74 @@
     it('should write to console each command that was successfully added when debug is on', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': function() {},
+      });
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Command successfully loaded: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
-      annyang.addCommands(
-        {
-          'That sounds like something out of science fiction': function() {},
-          'We should start dealing in those black-market beagles': function() {}
-        }
+      expect(console.log).toHaveBeenCalledWith(
+        'Command successfully loaded: %cTime for some thrilling heroics',
+        'font-weight: bold; color: #00f;',
       );
+      annyang.addCommands({
+        'That sounds like something out of science fiction': function() {},
+        'We should start dealing in those black-market beagles': function() {},
+      });
       expect(console.log).toHaveBeenCalledTimes(3);
     });
 
     it('should not write to console each command that is successfully added when debug is off', function() {
       annyang.debug(false);
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': function() {}
-        }
-      );
-      annyang.addCommands(
-        {
-          'That sounds like something out of science fiction': function() {},
-          'We should start dealing in those black-market beagles': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': function() {},
+      });
+      annyang.addCommands({
+        'That sounds like something out of science fiction': function() {},
+        'We should start dealing in those black-market beagles': function() {},
+      });
       expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should write to console when commands could not be added and debug is on', function() {
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': 'not_a_function'
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': 'not_a_function',
+      });
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Can not register command: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith(
+        'Can not register command: %cTime for some thrilling heroics',
+        'font-weight: bold; color: #00f;',
+      );
     });
 
     it('should not write to console when commands could not be added but debug is off', function() {
       annyang.debug(false);
       expect(console.log).not.toHaveBeenCalled();
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics': 'not_a_function'
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics': 'not_a_function',
+      });
       expect(console.log).not.toHaveBeenCalled();
     });
 
     it('should accept commands with an object as the value which consists of a regexp and callback', function() {
       expect(function() {
-        annyang.addCommands(
-        {
+        annyang.addCommands({
           'It is time': {
             regexp: /\w* for some thrilling.*/,
-            callback: function() {}
-          }
+            callback: function() {},
+          },
         });
       }).not.toThrowError();
     });
 
     it('should match commands passed as an object as the value which consists of a regexp and callback', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'It is time': {
-            regexp: /\w* for some thrilling.*/,
-            callback: spyOnMatch
-          }
-        }
-      );
+      annyang.addCommands({
+        'It is time': {
+          regexp: /\w* for some thrilling.*/,
+          callback: spyOnMatch,
+        },
+      });
       expect(spyOnMatch).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
@@ -970,14 +935,12 @@
         capture2 = s2;
       };
 
-      annyang.addCommands(
-        {
-          'It is time': {
-            regexp: /Time for some (\w*) (\w*)/,
-            callback: getVariablesCaptured
-          }
-        }
-      );
+      annyang.addCommands({
+        'It is time': {
+          regexp: /Time for some (\w*) (\w*)/,
+          callback: getVariablesCaptured,
+        },
+      });
       recognition.say('Time for some thrilling heroics');
       expect(capture1).toEqual('thrilling');
       expect(capture2).toEqual('heroics');
@@ -985,46 +948,38 @@
 
     it('should match commands with a named variable as the last word in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some thrilling :stuff': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling :stuff': spyOnMatch,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should match match commands with a named variable in the middle of the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some :description heroics': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some :description heroics': spyOnMatch,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should not match commands with more than one word in the position of a named variable', function() {
-        var spyOnMatch = jasmine.createSpy();
-        annyang.addCommands(
-          {
-            'Time for some :description heroics': spyOnMatch
-          }
-        );
-        recognition.say('Time for some thrilling and fun heroics');
-        expect(spyOnMatch).not.toHaveBeenCalled();
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands({
+        'Time for some :description heroics': spyOnMatch,
+      });
+      recognition.say('Time for some thrilling and fun heroics');
+      expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
     it('should not match commands with nothing in the position of a named variable', function() {
-        var spyOnMatch = jasmine.createSpy();
-        annyang.addCommands(
-          {
-            'Time for some :description heroics': spyOnMatch
-          }
-        );
-        recognition.say('Time for some heroics');
-        expect(spyOnMatch).not.toHaveBeenCalled();
+      var spyOnMatch = jasmine.createSpy();
+      annyang.addCommands({
+        'Time for some :description heroics': spyOnMatch,
+      });
+      recognition.say('Time for some heroics');
+      expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
     it('should pass named variables to the callback function', function() {
@@ -1032,22 +987,18 @@
       var getVariablesCaptured = function(s) {
         capture = s;
       };
-      annyang.addCommands(
-        {
-          'Time for some thrilling :stuff': getVariablesCaptured
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling :stuff': getVariablesCaptured,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(capture).toEqual('heroics');
     });
 
     it('should match commands with splats', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some *stuff': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some *stuff': spyOnMatch,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
@@ -1057,52 +1008,48 @@
       var getVariablesCaptured = function(s) {
         capture = s;
       };
-      annyang.addCommands(
-        {
-          'Time for some *stuff': getVariablesCaptured
-        }
-      );
+      annyang.addCommands({
+        'Time for some *stuff': getVariablesCaptured,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(capture).toEqual('thrilling heroics');
     });
 
     it('should match commands with optional words when the word is in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some (thrilling) heroics': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some (thrilling) heroics': spyOnMatch,
+      });
       recognition.say('Time for some thrilling heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should match commands with optional words when the word is not in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some (thrilling) heroics': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some (thrilling) heroics': spyOnMatch,
+      });
       recognition.say('Time for some heroics');
       expect(spyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should not match commands with optional words when a different word is in the sentence', function() {
       var spyOnMatch = jasmine.createSpy();
-      annyang.addCommands(
-        {
-          'Time for some (thrilling) heroics': spyOnMatch
-        }
-      );
+      annyang.addCommands({
+        'Time for some (thrilling) heroics': spyOnMatch,
+      });
       recognition.say('Time for some gorram heroics');
       expect(spyOnMatch).not.toHaveBeenCalled();
     });
 
     it('should not break when a command is removed by another command being called', function() {
       var commands = {
-        'Malcolm': function() { annyang.removeCommands(); },
-        'Wash': function() { annyang.removeCommands('Malcolm'); }
+        Malcolm: function() {
+          annyang.removeCommands();
+        },
+        Wash: function() {
+          annyang.removeCommands('Malcolm');
+        },
       };
 
       annyang.addCommands(commands);
@@ -1119,18 +1066,18 @@
 
     it('should not break when a command is added by another command being called', function() {
       var commands = {
-        'Malcolm': function() { annyang.addCommands({'Zoe': function() {}}); }
+        Malcolm: function() {
+          annyang.addCommands({ Zoe: function() {} });
+        },
       };
       annyang.addCommands(commands);
       expect(function() {
         recognition.say('Malcolm');
       }).not.toThrowError();
     });
-
   });
 
-  describe("annyang.removeCommands", function() {
-
+  describe('annyang.removeCommands', function() {
     var recognition;
     var spyOnMatch1;
     var spyOnMatch2;
@@ -1151,8 +1098,11 @@
         'Time for some (thrilling) heroics': spyOnMatch1,
         'We should start dealing in those *merchandise': spyOnMatch2,
         'That sounds like something out of science fiction': spyOnMatch3,
-        'too pretty': {'regexp': /We are just too pretty for God to let us die/, callback: spyOnMatch4},
-        'You can\'t take the :thing from me': spyOnMatch5
+        'too pretty': {
+          regexp: /We are just too pretty for God to let us die/,
+          callback: spyOnMatch4,
+        },
+        "You can't take the :thing from me": spyOnMatch5,
       });
       recognition = annyang.getSpeechRecognizer();
       annyang.start({ continuous: true });
@@ -1165,7 +1115,7 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
@@ -1174,12 +1124,15 @@
     });
 
     it('should remove multiple commands when their names are passed as an array in the first parameter', function() {
-      annyang.removeCommands(['Time for some (thrilling) heroics', 'That sounds like something out of science fiction']);
+      annyang.removeCommands([
+        'Time for some (thrilling) heroics',
+        'That sounds like something out of science fiction',
+      ]);
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).not.toHaveBeenCalled();
@@ -1193,7 +1146,7 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).not.toHaveBeenCalled();
       expect(spyOnMatch3).not.toHaveBeenCalled();
@@ -1207,7 +1160,7 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).not.toHaveBeenCalled();
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
@@ -1216,12 +1169,12 @@
     });
 
     it('should remove a single command with a named variable when its name is passed as a string in the first parameter', function() {
-      annyang.removeCommands('You can\'t take the :thing from me');
+      annyang.removeCommands("You can't take the :thing from me");
       recognition.say('Time for some heroics');
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).toHaveBeenCalledTimes(1);
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
@@ -1235,7 +1188,7 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).toHaveBeenCalledTimes(1);
       expect(spyOnMatch2).not.toHaveBeenCalled();
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
@@ -1249,18 +1202,16 @@
       recognition.say('We should start dealing in those black-market beagles');
       recognition.say('That sounds like something out of science fiction');
       recognition.say('We are just too pretty for God to let us die');
-      recognition.say('You can\'t take the sky from me');
+      recognition.say("You can't take the sky from me");
       expect(spyOnMatch1).toHaveBeenCalledTimes(1);
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
       expect(spyOnMatch3).toHaveBeenCalledTimes(1);
       expect(spyOnMatch4).not.toHaveBeenCalled();
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
-
   });
 
   describe('annyang.pause', function() {
-
     var recognition;
     var spyOnMatch;
 
@@ -1270,7 +1221,7 @@
       annyang.abort();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': spyOnMatch
+        'Time for some thrilling heroics': spyOnMatch,
       });
       annyang.start();
       recognition = annyang.getSpeechRecognizer();
@@ -1302,7 +1253,9 @@
       annyang.pause();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Speech heard, but annyang is paused');
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech heard, but annyang is paused',
+      );
     });
 
     it('should not cause a debug message if speech detected while paused but debug is off', function() {
@@ -1313,7 +1266,7 @@
       expect(console.log).not.toHaveBeenCalled();
     });
 
-    it('should not stop the browser\'s Speech Recognition engine', function() {
+    it("should not stop the browser's Speech Recognition engine", function() {
       expect(recognition.isStarted()).toBe(true);
       annyang.pause();
       expect(recognition.isStarted()).toBe(true);
@@ -1334,11 +1287,9 @@
       annyang.pause();
       expect(recognition.isStarted()).toBe(false);
     });
-
   });
 
   describe('annyang.resume', function() {
-
     var recognition;
     var spyOnMatch;
 
@@ -1348,7 +1299,7 @@
       annyang.abort();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some thrilling heroics': spyOnMatch
+        'Time for some thrilling heroics': spyOnMatch,
       });
       recognition = annyang.getSpeechRecognizer();
       spyOn(console, 'log');
@@ -1390,7 +1341,9 @@
       annyang.start();
       annyang.resume();
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Failed to execute \'start\' on \'SpeechRecognition\': recognition has already started.');
+      expect(console.log).toHaveBeenCalledWith(
+        "Failed to execute 'start' on 'SpeechRecognition': recognition has already started.",
+      );
     });
 
     it('should not log a message if debug is off, and resume was called when annyang is listening', function() {
@@ -1399,11 +1352,9 @@
       annyang.resume();
       expect(console.log).not.toHaveBeenCalled();
     });
-
   });
 
   describe('annyang.setLanguage', function() {
-
     var recognition;
 
     beforeEach(function() {
@@ -1418,11 +1369,9 @@
       annyang.setLanguage('he');
       expect(recognition.lang).toEqual('he');
     });
-
   });
 
   describe('annyang.trigger', function() {
-
     var spyOnCommand;
     var spyOnResult;
     var spyOnResultMatch;
@@ -1440,7 +1389,7 @@
       annyang.start();
       annyang.removeCommands();
       annyang.addCommands({
-        'Time for some :type heroics': spyOnCommand
+        'Time for some :type heroics': spyOnCommand,
       });
       spyOn(console, 'log');
     });
@@ -1450,7 +1399,9 @@
     });
 
     it('should accept an array of strings, each with a word or sentence as the first argument', function() {
-      expect(annyang.trigger([sentence1, sentence1+' and so on'])).toEqual(undefined);
+      expect(annyang.trigger([sentence1, sentence1 + ' and so on'])).toEqual(
+        undefined,
+      );
     });
 
     it('should match a sentence passed as a string to a command and execute it as if it was passed from Speech Recognition', function() {
@@ -1461,7 +1412,7 @@
 
     it('should match a sentence passed in an array to a command and execute it as if it was passed from Speech Recognition', function() {
       expect(spyOnCommand).not.toHaveBeenCalled();
-      annyang.trigger([sentence1+' and so on', sentence1]);
+      annyang.trigger([sentence1 + ' and so on', sentence1]);
       expect(spyOnCommand).toHaveBeenCalledTimes(1);
     });
 
@@ -1506,7 +1457,9 @@
       expect(console.log).not.toHaveBeenCalled();
       annyang.trigger(sentence1);
       expect(console.log).toHaveBeenCalledTimes(1);
-      expect(console.log).toHaveBeenCalledWith('Cannot trigger while annyang is aborted');
+      expect(console.log).toHaveBeenCalledWith(
+        'Cannot trigger while annyang is aborted',
+      );
     });
 
     it('should not log to console if attemting to trigger a command while annyang is aborted or not started and debug is off', function() {
@@ -1515,11 +1468,9 @@
       annyang.trigger(sentence1);
       expect(console.log).not.toHaveBeenCalled();
     });
-
   });
 
   describe('annyang', function() {
-
     var recognition;
 
     beforeEach(function() {
@@ -1542,11 +1493,26 @@
       expect(console.log).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(5);
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on and so on', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on and so on and so on and so on', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics',
+        'font-weight: bold; color: #00f;',
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics and so on',
+        'font-weight: bold; color: #00f;',
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics and so on and so on',
+        'font-weight: bold; color: #00f;',
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics and so on and so on and so on',
+        'font-weight: bold; color: #00f;',
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics and so on and so on and so on and so on',
+        'font-weight: bold; color: #00f;',
+      );
     });
 
     it('should not write to console the speech recognition alternatives when no command matches and debug is off', function() {
@@ -1557,26 +1523,28 @@
     });
 
     it('should write to console each speech recognition alternative that is recognized, until a command is matched', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics and so on': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics and so on': function() {},
+      });
       annyang.start();
       annyang.debug(true);
       expect(console.log).not.toHaveBeenCalled();
       recognition.say('Time for some thrilling heroics');
       expect(console.log).toHaveBeenCalledTimes(3); // 2 console logs for speech recognized + 1 for the command matching
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics', 'font-weight: bold; color: #00f;');
-      expect(console.log).toHaveBeenCalledWith('Speech recognized: %cTime for some thrilling heroics and so on', 'font-weight: bold; color: #00f;');
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics',
+        'font-weight: bold; color: #00f;',
+      );
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech recognized: %cTime for some thrilling heroics and so on',
+        'font-weight: bold; color: #00f;',
+      );
     });
 
     it('should not write to console speech recognition alternatives when debug is off', function() {
-      annyang.addCommands(
-        {
-          'Time for some thrilling heroics and so on': function() {}
-        }
-      );
+      annyang.addCommands({
+        'Time for some thrilling heroics and so on': function() {},
+      });
       annyang.start();
       annyang.debug(false);
       recognition.say('Time for some thrilling heroics');
@@ -1592,25 +1560,29 @@
 
     it('should recognize when Speech Recognition engine is repeatedly aborted as soon as it is started and console.log about it once every 10 seconds', function() {
       recognition.addEventListener('start', function() {
-        setTimeout(function() {recognition.abort();}, 1);
+        setTimeout(function() {
+          recognition.abort();
+        }, 1);
       });
       annyang.start();
       annyang.debug(true);
       jasmine.clock().tick(20000);
       expect(console.log).toHaveBeenCalledTimes(2);
-      expect(console.log).toHaveBeenCalledWith('Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.');
+      expect(console.log).toHaveBeenCalledWith(
+        'Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.',
+      );
     });
 
     it('should not log to console when Speech Recognition engine is repeatedly aborted if debug is off', function() {
       recognition.addEventListener('start', function() {
-        setTimeout(function() {recognition.abort();}, 1);
+        setTimeout(function() {
+          recognition.abort();
+        }, 1);
       });
       annyang.start();
       annyang.debug(false);
       jasmine.clock().tick(20000);
       expect(console.log).not.toHaveBeenCalled();
     });
-
   });
-
-}));
+});

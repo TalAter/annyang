@@ -1,18 +1,20 @@
-(function (root, factory) {
+(function(root, factory) {
   // jshint strict: false
-  if (typeof module === 'object' && module.exports) { // CommonJS
+  if (typeof module === 'object' && module.exports) {
+    // CommonJS
     factory(require('../../dist/annyang.js'));
-  } else if (typeof define === 'function' && define.amd) { // AMD
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD
     define(['annyang'], factory);
-  } else { // Browser globals
+  } else {
+    // Browser globals
     factory(root.annyang);
   }
-}(typeof window !== 'undefined' ? window : this, function factory(annyang) {
-  "use strict";
+})(typeof window !== 'undefined' ? window : this, function factory(annyang) {
+  'use strict';
 
   // Issue #193 (https://github.com/TalAter/annyang/issues/193)
   describe('Speech recognition aborting while annyang is paused', function() {
-
     var recognition;
 
     beforeEach(function() {
@@ -35,7 +37,5 @@
       jasmine.clock().tick(1000);
       expect(annyang.isListening()).toBe(false);
     });
-
   });
-
-}));
+});
