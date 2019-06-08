@@ -19,7 +19,6 @@
     "Gruntfile.js",
     "package.json",
     "bower.json",
-    "demo",
-    "sites"
+    "demo"
   ]
 }
