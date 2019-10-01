@@ -10,11 +10,11 @@
 
 ## Possible Solution
 <!--- Not obligatory, but suggest a fix/reason for the bug, -->
-<!--- or ideas on how to implement the addition or change -->
+<!--- or ideas for how to implement the addition or change. -->
 
 ## Steps to Reproduce (for bugs)
 <!--- Provide a link to a live example or an unambiguous set of steps to -->
-<!--- reproduce this bug. Include code to reproduce, if relevant -->
+<!--- reproduce this bug. Include code to reproduce, if relevant. -->
 1.
 2.
 3.
@@ -22,11 +22,11 @@
 
 ## Context
 <!--- How has this issue affected you? What are you trying to accomplish? -->
-<!--- Providing context helps us come up with a solution that is most useful in the real world -->
+<!--- Providing context helps us come up with a solution that is most useful in the real world. -->
 
 ## Your Environment
-<!--- Include as many relevant details about the environment you experienced the bug in -->
-* Version Used:
-* Browser Name and Version:
-* Operating System and Version (desktop or mobile):
+<!--- Include as many relevant details about the environment you experienced the bug in. -->
+* Version used:
+* Browser name and version:
+* Operating system and version (desktop or mobile):
 * Link to your project:
