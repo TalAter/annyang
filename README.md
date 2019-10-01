@@ -44,7 +44,7 @@ You can easily add a GUI for the user to interact with Speech Recognition using 
 
 Speech KITT makes it easy to add a graphical interface for the user to start or stop Speech Recognition and see its current status. KITT also provides clear visual hints to the user on how to interact with your site using their voice, providing instructions and sample commands.
 
-Speech KITT is fully customizable, and it comes with many different themes, and instructions on how to create your own designs.
+Speech KITT is fully customizable and it comes with many different themes, and instructions on how to create your own designs.
 
 [![Speech Recognition GUI with Speech KITT](https://raw.githubusercontent.com/TalAter/SpeechKITT/master/demo/speechkitt-demo.gif)](https://github.com/TalAter/SpeechKITT)
 
@@ -55,7 +55,7 @@ Speech KITT is fully customizable, and it comes with many different themes, and 
 if (annyang) {
   // Add our commands to annyang
   annyang.addCommands({
-    'hello': function() { alert('Hello, world!'); }
+    'hello': function() { alert('Hello world!'); }
   });
 
   // Tell KITT to use annyang
@@ -70,7 +70,7 @@ if (annyang) {
 </script>
 ````
 
-For help with setting up a GUI with Speech KITT, check out the [Speech KITT page](https://github.com/TalAter/SpeechKITT).
+For help with setting up a GUI with KITT, check out the [Speech KITT page](https://github.com/TalAter/SpeechKITT).
 
 ## Author
 
