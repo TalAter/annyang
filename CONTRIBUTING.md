@@ -14,15 +14,15 @@ There are several ways you can help the project out:
 
 A lot of annyang's functionality came from pull requests sent over GitHub. Here is how you can contribute too:
 
-- [x] Fork the repository from the [annyang GitHub page](https://github.com/TalAter/annyang).
-- [x] Clone a copy to your local machine with `$ git clone git@github.com:YOUR-GITHUB-USER-NAME/annyang.git`
-- [x] Make sure you have *node.js* and *npm* installed on your machine. You can use this [guide](https://docs.npmjs.com/getting-started/installing-node) for help.
-- [x] Install all of annyang's development dependencies with npm. `$ cd annyang; npm install`
-- [x] If you do not have the grunt-cli installed globally, run `$ npm install -g grunt-cli`
-- [x] Run grunt to make sure everything runs smoothly `$ grunt`
-- [x] Add tests for your code. [See details below](#automated-testing).
-- [x] Code, code, code. Changes should be done in `/src/annyang.js`. They will be transpiled to `/dist/annyang.js` and `/dist/annyang.min.js`.
-- [x] Run `$ grunt` after making changes to verify that everything still works and the tests all pass.
+- [] Fork the repository from the [annyang GitHub page](https://github.com/TalAter/annyang).
+- [] Clone a copy to your local machine with `$ git clone git@github.com:YOUR-GITHUB-USER-NAME/annyang.git`
+- [] Make sure you have *node.js* and *npm* installed on your machine. You can use this [guide](https://docs.npmjs.com/getting-started/installing-node) for help.
+- [] Install all of annyang's development dependencies with npm. `$ cd annyang; npm install`
+- [] If you do not have the grunt-cli installed globally, run `$ npm install -g grunt-cli`
+- [] Run grunt to make sure everything runs smoothly `$ grunt`
+- [] Add tests for your code. [See details below](#automated-testing).
+- [] Code, code, code. Changes should be done in `/src/annyang.js`. They will be transpiled to `/dist/annyang.js` and `/dist/annyang.min.js`.
+- [] Run `$ grunt` after making changes to verify that everything still works and the tests all pass.
 
   :bulb: A great alternative to repeatedly running `$ grunt` is to run `$ grunt watch` once, and leave this process running. It will continuously run all the tests and build the files every time you make a change to one of annyang's files. It will even *beep* if you make an error, and help you debug it. :+1:
 - [x] You can run a local server to test your work in the browser by running `$ grunt dev`. This will also automatically run `$ grunt watch` for you.
