@@ -30,7 +30,7 @@ if (annyang) {
   // Add our commands to annyang
   annyang.addCommands(commands);
 
-  // Start listening.
+  // Start listening
   annyang.start();
 }
 </script>
