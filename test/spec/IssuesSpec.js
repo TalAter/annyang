@@ -8,6 +8,7 @@
     define(['annyang'], factory);
   } else {
     // Browser globals
+    // Ignore this line
     factory(root.annyang);
   }
 })(typeof window !== 'undefined' ? window : this, function factory(annyang) {

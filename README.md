@@ -31,6 +31,7 @@ if (annyang) {
   annyang.addCommands(commands);
 
   // Start listening
+  // start annyang application
   annyang.start();
 }
 </script>
