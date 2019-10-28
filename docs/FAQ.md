@@ -67,7 +67,7 @@ Language support is up to each browser. While there isn't an official list of su
 * Polish `pl`
 * Pig Latin `xx-piglatin`
 * Portuguese `pt-PT`
-* Portuguese (Brasil) `pt-BR`
+* Portuguese (Brasil) `pt-br`
 * Romanian `ro-RO`
 * Russian `ru`
 * Serbian `sr-SP`
