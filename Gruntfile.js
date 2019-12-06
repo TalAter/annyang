@@ -93,36 +93,6 @@ module.exports = function(grunt) {
             }
           }
         }
-      },
-      testAndCoverage: {
-        src: ['dist/annyang.min.js'],
-        options: {
-          specs: ['test/spec/*Spec.js'],
-          outfile: 'test/SpecRunner.html',
-          vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
-          keepRunner: true,
-          template: require('grunt-template-jasmine-istanbul'),
-          templateOptions: {
-            coverage: 'test/coverage/coverage.json',
-            report: [
-              {
-                type: 'html',
-                options: {
-                  dir: 'test/coverage'
-                }
-              },
-              {
-                type: 'text'
-              }
-            ],
-            thresholds: {
-              statements: 80,
-              branches: 65,
-              functions: 90,
-              lines: 80
-            }
-          }
-        }
       }
     }
   });
