@@ -13,6 +13,11 @@
 })(typeof window !== 'undefined' ? window : this, function factory(annyang) {
   'use strict';
 
+  var env = jasmine.getEnv();
+  env.configure({
+    random: false
+  });
+
   // Issue #193 (https://github.com/TalAter/annyang/issues/193)
   describe('Speech recognition aborting while annyang is paused', function() {
     var recognition;

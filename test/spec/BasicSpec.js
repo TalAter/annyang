@@ -13,6 +13,11 @@
 })(typeof window !== 'undefined' ? window : this, function factory(annyang) {
   'use strict';
 
+  var env = jasmine.getEnv();
+  env.configure({
+    random: false
+  });
+
   describe('annyang', function() {
     it('should exist in global namespace', function() {
       expect(annyang).toEqual(jasmine.any(Object));
