@@ -34,7 +34,7 @@
     "grunt": "^0.4.5",
     "grunt-babel": "^7.0.0",
     "grunt-cli": "^1.3.2",
-    "grunt-contrib-connect": "^2.0.0",
+    "grunt-contrib-connect": "^2.1.0",
     "grunt-contrib-cssmin": "^3.0.0",
     "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-jasmine": "1.2.0",
