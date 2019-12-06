@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         src: ['dist/annyang.min.js'],
         options: {
           specs: 'test/spec/*Spec.js',
-          outfile: 'test/SpecRunner.html?random=false',
+          outfile: 'test/SpecRunner.html',
           vendor: ['test/vendor/corti.js', 'test/init_corti.js'],
           keepRunner: true,
           template: require('grunt-template-jasmine-requirejs'),
