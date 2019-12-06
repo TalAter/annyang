@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Jasmine Spec Runner</title>
+
+  
+  <link rel="stylesheet" type="text/css" href="../.grunt/grunt-contrib-jasmine/jasmine.css">
+  
+
+  
+  
+  <script src="vendor/corti.js"></script>
+  
+  <script src="init_corti.js"></script>
+  
+  
+
+  <script src="../.grunt/grunt-contrib-jasmine/require.js"></script>
+
+  
+  
+  <script src="../.grunt/grunt-contrib-jasmine/jasmine.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/json2.js"></script>
+  
+  <script src="../.grunt/grunt-contrib-jasmine/boot.js"></script>
+  
+  
+
+  <script>
+    require.onError = function(error) {
+      var message = error.requireType + ': ';
+      if (error.requireType === 'scripterror' || error.requireType === 'notloaded' && error.requireModules) {
+        message += 'Illegal path or script error: ' + '[\'' + error.requireModules.join("', '") + '\']';
+      } else {
+        message += error.message;
+      }
+
+      throw Error(message);
+    };
+  </script>
+
+  <script>
+    
+
+    
+      require.config({
+  "baseUrl": "../dist/"
+});
+    
+  </script>
+
+  <script>
+    // Delay onLoad function until we are ready
+    var startTests = window.onload;
+    window.onload = null;
+
+    function launchTest() {
+    require([
+      
+        
+        'annyang.min' 
+      
+    ],
+    function(){
+      require(['spec/BasicSpec.js','spec/IssuesSpec.js','../.grunt/grunt-contrib-jasmine/reporter.js'], function(){
+        startTests();
+      });
+    }
+    )
+  }
+  </script>
+
+  
+  <script>
+  launchTest();
+  </script>
+  
+</head>
+<body>
+</body>
+</html>
