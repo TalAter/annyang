@@ -7,6 +7,7 @@
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
 - [Which browsers are supported?](#which-browsers-are-supported)
+- [What about Chrome on iOS?](#what-about-chrome-on-ios)
 - [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
 - [Can I detect when the user starts and stops speaking?](#can-i-detect-when-the-user-starts-and-stops-speaking)
 - [Can annyang be used in Chromium or Electron?](#can-annyang-be-used-in-chromium-or-electron)
@@ -157,6 +158,12 @@ if (!annyang) {
 ``` 
 
 You can find out the current state of browser support on [caniuse.com](http://caniuse.com/#feat=speech-recognition).
+
+## What about Chrome on iOS?
+
+Unfortunately Chrome on iOS does not support the Speech Recognition interface which annyang uses.
+
+In accordance with Apple's requirements for browsers released through the App Store, the iOS version of Chrome uses the iOS WebKit – which is Apple's own mobile rendering engine, developed for Safari. In other words, Chrome on an iPhone, iPad, or iPod Touch is actually more Safari than Chrome.
 
 ## Can annyang be used to capture the full text spoken by the user?
 
