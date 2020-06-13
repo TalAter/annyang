@@ -10,30 +10,25 @@ For a more in-depth look at annyang, read on.
 
 # API Reference
 
-## init(commands, [resetCommands=true])
+## addCommands(commands)
 
-Initialize annyang with a list of commands to recognize.
+Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
 
 #### Examples:
 ````javascript
-var commands = {'hello :name': helloFunction};
+var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
 var commands2 = {'hi': helloFunction};
 
-// initialize annyang, overwriting any previously added commands
-annyang.init(commands, true);
-// adds an additional command without removing the previous commands
-annyang.init(commands2, false);
+annyang.addCommands(commands);
+annyang.addCommands(commands2);
+// annyang will now listen to all three commands
 ````
-As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
-
-**Deprecated**
 
 See: [Commands Object](#commands-object)
 
 ### Params:
 
 * **Object** *commands* - Commands that annyang should listen to
-* **boolean** *[resetCommands=true]* - Remove all commands before initializing?
 
 ## start([options])
 
@@ -96,26 +91,6 @@ See: [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what
 ### Params:
 
 * **String** *language* - The language (locale)
-
-## addCommands(commands)
-
-Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
-
-#### Examples:
-````javascript
-var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
-var commands2 = {'hi': helloFunction};
-
-annyang.addCommands(commands);
-annyang.addCommands(commands2);
-// annyang will now listen to all three commands
-````
-
-See: [Commands Object](#commands-object)
-
-### Params:
-
-* **Object** *commands* - Commands that annyang should listen to
 
 ## removeCommands([commandsToRemove])
 
@@ -287,6 +262,31 @@ annyang.trigger(
 ### Return:
 
 * undefined
+
+## init(commands, [resetCommands=true])
+
+Initialize annyang with a list of commands to recognize.
+
+#### Examples:
+````javascript
+var commands = {'hello :name': helloFunction};
+var commands2 = {'hi': helloFunction};
+
+// initialize annyang, overwriting any previously added commands
+annyang.init(commands, true);
+// adds an additional command without removing the previous commands
+annyang.init(commands2, false);
+````
+As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
+
+**Deprecated**
+
+See: [Commands Object](#commands-object)
+
+### Params:
+
+* **Object** *commands* - Commands that annyang should listen to
+* **boolean** *[resetCommands=true]* - Remove all commands before initializing?
 
 # Good to Know
 
