@@ -23,7 +23,7 @@ It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/an
 <script>
 if (annyang) {
   // Let's define a command.
-  var commands = {
+  const commands = {
     'hello': function() { alert('Hello world!'); }
   };
 

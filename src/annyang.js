@@ -165,8 +165,8 @@
      *
      * #### Examples:
      * ````javascript
-     * var commands = {'hello :name': helloFunction, 'howdy': helloFunction};
-     * var commands2 = {'hi': helloFunction};
+     * const commands = {'hello :name': helloFunction, 'howdy': helloFunction};
+     * const commands2 = {'hi': helloFunction};
      *
      * annyang.addCommands(commands);
      * annyang.addCommands(commands2);
@@ -317,7 +317,7 @@
      *
      * #### Examples:
      * ````javascript
-     * var commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+     * const commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
      *
      * // Remove all existing commands
      * annyang.removeCommands();
@@ -539,8 +539,8 @@
      *
      * #### Examples:
      * ````javascript
-     * var commands = {'hello :name': helloFunction};
-     * var commands2 = {'hi': helloFunction};
+     * const commands = {'hello :name': helloFunction};
+     * const commands2 = {'hi': helloFunction};
      *
      * // initialize annyang, overwriting any previously added commands
      * annyang.init(commands, true);
@@ -675,7 +675,7 @@
  * #### Examples:
  * ````html
  * <script>
- * var commands = {
+ * const commands = {
  *   // annyang will capture anything after a splat (*) and pass it to the function.
  *   // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
  *   'show me *tag': showFlickr,
@@ -689,16 +689,16 @@
  *   'say hello (to my little) friend': greeting
  * };
  *
- * var showFlickr = function(tag) {
+ * const showFlickr = function(tag) {
  *   var url = 'http://api.flickr.com/services/rest/?tags='+tag;
  *   $.getJSON(url);
  * }
  *
- * var calculateStats = function(month) {
+ * const calculateStats = function(month) {
  *   $('#stats').text('Statistics for '+month);
  * }
  *
- * var greeting = function() {
+ * const greeting = function() {
  *   $('#greeting').text('Hello!');
  * }
  * </script>
@@ -713,8 +713,8 @@
  *
  * #### Examples:
  * ````javascript
- * var calculateFunction = function(month) { console.log(month); }
- * var commands = {
+ * const calculateFunction = function(month) { console.log(month); }
+ * const commands = {
  *   // This example will accept any word as the "month"
  *   'calculate :month stats': calculateFunction,
  *   // This example will only accept months which are at the start of a quarter

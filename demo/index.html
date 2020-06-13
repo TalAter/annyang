@@ -133,7 +133,7 @@
 &lt;script&gt;
 if (annyang) {
   // Let's define our first command. First the text we expect, and then the function it should call
-  var commands = {
+  const commands = {
     'show tps report': function() {
       $('#tpsreport').animate({bottom: '-100px'});
     }
@@ -154,7 +154,7 @@ if (annyang) {
     <p>Use <strong>splats</strong> to capture multi-word text at the end of your command (greedy).</p>
     <p>Use <strong>optional words or phrases</strong> to define a part of the command as optional.</p>
     <pre><code>&lt;script&gt;
-var commands = {
+const commands = {
   // annyang will capture anything after a splat (*) and pass it to the function.
   // e.g. saying "Show me Batman and Robin" is the same as calling showFlickr('Batman and Robin');
   'show me *tag': showFlickr,
@@ -168,16 +168,16 @@ var commands = {
   'say hello (to my little) friend': greeting
 };
 
-var showFlickr = function(tag) {
+const showFlickr = function(tag) {
   var url = 'http://api.flickr.com/services/rest/?tags='+tag;
   $.getJSON(url);
 }
 
-var calculateStats = function(month) {
+const calculateStats = function(month) {
   $('#stats').text('Statistics for '+month);
 }
 
-var greeting = function() {
+const greeting = function() {
   $('#greeting').text('Hello!');
 }
 
