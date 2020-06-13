@@ -24,7 +24,7 @@ It's as easy as adding [one javascript file](//cdnjs.cloudflare.com/ajax/libs/an
 if (annyang) {
   // Let's define a command.
   const commands = {
-    'hello': function() { alert('Hello world!'); }
+    'hello': () => { alert('Hello world!'); }
   };
 
   // Add our commands to annyang
