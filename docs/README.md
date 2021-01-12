@@ -21,19 +21,19 @@ const commands2 = {'hi': helloFunction};
 
 annyang.addCommands(commands);
 annyang.addCommands(commands2);
-// annyang will now listen to all three commands
+// annyang will now listen for all three commands
 ````
 
 See: [Commands Object](#commands-object)
 
 ### Params:
 
-* **Object** *commands* - Commands that annyang should listen to
+* **Object** *commands* - Commands that annyang should listen for
 
 ## start([options])
 
 Start listening.
-It's a good idea to call this after adding some commands first, but not mandatory.
+It's a good idea to call this after adding some commands first (but not mandatory)
 
 Receives an optional options object which supports the following options:
 
@@ -71,7 +71,7 @@ See: [abort()](#abort)
 
 ## resume()
 
-Resumes listening and restore command callback execution when a result matches.
+Resumes listening and restore command callback execution when a command is matched.
 If SpeechRecognition was aborted (stopped), start it.
 
 ## debug([newState=true])

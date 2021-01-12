@@ -129,7 +129,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         logMessage('Speech recognized: %c' + commandText, debugStyle);
       }
 
-      // try and match recognized text to one of the commands on the list
+      // try and match the recognized text to one of the commands on the list
       for (var j = 0, l = commandsList.length; j < l; j++) {
         var currentCommand = commandsList[j];
         var result = currentCommand.command.exec(commandText);
@@ -162,10 +162,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      *
      * annyang.addCommands(commands);
      * annyang.addCommands(commands2);
-     * // annyang will now listen to all three commands
+     * // annyang will now listen for all three commands
      * ````
      *
-     * @param {Object} commands - Commands that annyang should listen to
+     * @param {Object} commands - Commands that annyang should listen for
      * @method addCommands
      * @see [Commands Object](#commands-object)
      */
@@ -195,7 +195,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     /**
      * Start listening.
-     * It's a good idea to call this after adding some commands first, but not mandatory.
+     * It's a good idea to call this after adding some commands first (but not mandatory)
      *
      * Receives an optional options object which supports the following options:
      *
@@ -269,7 +269,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     },
 
     /**
-     * Resumes listening and restore command callback execution when a result matches.
+     * Resumes listening and restore command callback execution when a command is matched.
      * If SpeechRecognition was aborted (stopped), start it.
      *
      * @method resume
