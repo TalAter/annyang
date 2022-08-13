@@ -105,7 +105,7 @@
       expect(annyang.isListening()).toBe(true);
     });
 
-    it('should return true when called after annyang aborts', function() {
+    it('should return false when called after annyang aborts', function() {
       annyang.start();
       annyang.abort();
 
