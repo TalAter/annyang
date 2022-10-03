@@ -29,17 +29,12 @@
 
   var annyang;
 
-  // Get the SpeechRecognition object, while handling browser prefixes
-  var SpeechRecognition = root.SpeechRecognition ||
-                          root.webkitSpeechRecognition ||
-                          root.mozSpeechRecognition ||
-                          root.msSpeechRecognition ||
-                          root.oSpeechRecognition;
+  // Initialize the SpeechRecognition object
+  var SpeechRecognition = {};
 
-  // Check browser support
-  // This is done as early as possible, to make it as fast as possible for unsupported browsers
+  // Get the SpeechRecognition object, while handling browser prefixes
   if (!SpeechRecognition) {
-    return null;
+    SpeechRecognition = root.SpeechRecognition || root.webkitSpeechRecognition || root.mozSpeechRecognition || root.msSpeechRecognition || root.oSpeechRecognition;
   }
 
   var commandsList = [];
