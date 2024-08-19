@@ -51,11 +51,7 @@ const commandToRegExp = (command) => {
     return new RegExp(`^${parsedCommand}$`, 'i');
 };
 // Get the SpeechRecognition object, accounting for possible browser prefixes
-const getSpeechRecognition = () => globalThis.SpeechRecognition ||
-    globalThis.webkitSpeechRecognition ||
-    globalThis.mozSpeechRecognition ||
-    globalThis.msSpeechRecognition ||
-    globalThis.oSpeechRecognition;
+const getSpeechRecognition = () => globalThis.SpeechRecognition || globalThis.webkitSpeechRecognition;
 // Check if annyang is already initialized
 const isInitialized = () => {
     return recognition !== undefined;
