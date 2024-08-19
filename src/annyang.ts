@@ -8,13 +8,30 @@
  * # API Reference
  */
 
-let recognition;
-let listening = false;
-let autoRestart = true;
-let debugState = false;
-const debugStyle = 'font-weight: bold; color: #00f;';
-const commandsList = new Map();
-const callbacks = new Map([
+let recognition: SpeechRecognition;
+let listening: boolean = false;
+let autoRestart: boolean = true;
+let debugState: boolean = false;
+const debugStyle: string = 'font-weight: bold; color: #00f;';
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+type CallbackFunction = Function;
+const commandsList: Map<string, { command: RegExp; callback: CallbackFunction }> = new Map();
+interface SpeechRecognitionEventCallback {
+  callback: CallbackFunction;
+  context: object | undefined;
+}
+type CallbackTypes =
+  | 'start'
+  | 'error'
+  | 'end'
+  | 'soundstart'
+  | 'result'
+  | 'resultMatch'
+  | 'resultNoMatch'
+  | 'errorNetwork'
+  | 'errorPermissionBlocked'
+  | 'errorPermissionDenied';
+const callbacks: Map<CallbackTypes, SpeechRecognitionEventCallback[]> = new Map([
   ['start', []],
   ['error', []],
   ['end', []],
@@ -26,9 +43,9 @@ const callbacks = new Map([
   ['errorPermissionBlocked', []],
   ['errorPermissionDenied', []],
 ]);
-let lastStartedAt = 0;
-let autoRestartCount = 0;
-let pauseListening = false;
+let lastStartedAt: number = 0;
+let autoRestartCount: number = 0;
+let pauseListening: boolean = false;
 
 // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
 const optionalParam = /\s*\((.*?)\)\s*/g;
@@ -36,7 +53,7 @@ const optionalRegex = /(\(\?:[^)]+\))\?/g;
 const namedParam = /(\(\?)?:\w+/g;
 const splatParam = /\*\w+/g;
 const escapeRegExp = /[-{}[\]+?.,\\^$|#]/g;
-const commandToRegExp = command => {
+const commandToRegExp = (command: string) => {
   const parsedCommand = command
     .replace(escapeRegExp, '\\$&')
     .replace(optionalParam, '(?:$1)?')
@@ -62,7 +79,7 @@ const isInitialized = () => {
 };
 
 // Method for logging to the console when debug mode is on
-const logMessage = (text, extraParameters) => {
+const logMessage = (text: string, extraParameters?: string | string[]) => {
   if (debugState) {
     if (text.indexOf('%c') === -1 && !extraParameters) {
       console.log(text);
@@ -73,13 +90,16 @@ const logMessage = (text, extraParameters) => {
 };
 
 // Add a command to the commands list
-const registerCommand = (command, callback, originalPhrase) => {
+const registerCommand = (command: RegExp, callback: CallbackFunction, originalPhrase: string) => {
   commandsList.set(originalPhrase, { command, callback });
   logMessage(`Command successfully loaded: %c${originalPhrase}`, debugStyle);
 };
 
 // This method receives an array of callbacks and invokes each of them
-const invokeCallbacks = (callbacksArr, ...args) => {
+const invokeCallbacks = (
+  callbacksArr: SpeechRecognitionEventCallback[] = [],
+  ...args: (string | string[] | SpeechRecognitionErrorEvent)[]
+) => {
   callbacksArr.forEach(callback => {
     callback.callback.apply(callback.context, args);
   });
@@ -158,7 +178,7 @@ const init = () => {
     }
   };
 
-  recognition.onresult = event => {
+  recognition.onresult = (event: SpeechRecognitionEvent) => {
     if (pauseListening) {
       logMessage('Speech heard, but annyang is paused');
       return;
@@ -178,8 +198,8 @@ const initIfNeeded = () => {
   }
 };
 
-const parseResults = recognitionResults => {
-  const parseCommand = (currentCommand, originalPhrase) => {
+const parseResults = (recognitionResults: string[]) => {
+  const parseCommand = (currentCommand: { command: RegExp; callback: CallbackFunction }, originalPhrase: string) => {
     if (commandMatchFound) return;
     const matchedCommand = currentCommand.command.exec(commandText);
     if (matchedCommand) {
@@ -195,7 +215,7 @@ const parseResults = recognitionResults => {
     }
   };
   invokeCallbacks(callbacks.get('result'), recognitionResults);
-  let commandText;
+  let commandText: string;
   // go over each of the RecognitionResults received (maxAlternatives is set to 5)
   let commandMatchFound = false;
   for (let i = 0; i < recognitionResults.length; i += 1) {
@@ -216,6 +236,10 @@ const parseResults = recognitionResults => {
  * @returns {boolean} true if SpeechRecognition is supported by the browser
  */
 const isSpeechRecognitionSupported = () => !!getSpeechRecognition();
+
+interface CommandsList {
+  [key: string]: CallbackFunction | { regexp: RegExp; callback: CallbackFunction } | string;
+}
 
 /**
  * Add commands that annyang will respond to.
@@ -239,7 +263,7 @@ const isSpeechRecognitionSupported = () => !!getSpeechRecognition();
  * @method addCommands
  * @see [Commands Object](#commands-object)
  */
-const addCommands = (commands, resetCommands = false) => {
+const addCommands = (commands: CommandsList, resetCommands = false) => {
   initIfNeeded();
 
   if (resetCommands) {
@@ -247,7 +271,11 @@ const addCommands = (commands, resetCommands = false) => {
   }
 
   Object.keys(commands).forEach(phrase => {
-    const cb = globalThis[commands[phrase]] || commands[phrase];
+    const cb =
+      typeof commands[phrase] === 'string'
+        ? (globalThis as Window & typeof globalThis)[commands[phrase] as keyof Window]
+        : commands[phrase];
+
     if (typeof cb === 'function') {
       // convert command to regex then register the command
       registerCommand(commandToRegExp(phrase), cb, phrase);
@@ -282,7 +310,7 @@ const addCommands = (commands, resetCommands = false) => {
  * @param {string|string[]|undefined} [commandsToRemove] - Commands to remove
  * @method removeCommands
  */
-const removeCommands = commandsToRemove => {
+const removeCommands = (commandsToRemove?: string | string[] | undefined) => {
   if (commandsToRemove === undefined) {
     commandsList.clear();
   } else {
@@ -290,6 +318,12 @@ const removeCommands = commandsToRemove => {
     commandsToRemoveArray.forEach(command => commandsList.delete(command));
   }
 };
+
+interface StartOptions {
+  autoRestart?: boolean;
+  continuous?: boolean;
+  paused?: boolean;
+}
 
 /**
  * Start listening.
@@ -311,7 +345,7 @@ const removeCommands = commandsToRemove => {
  * @param {Object} [options] - Optional options.
  * @method start
  */
-const start = (options = {}) => {
+const start = (options: StartOptions = {}) => {
   initIfNeeded();
   if (options.paused !== undefined) {
     pauseListening = !!options.paused;
@@ -329,9 +363,10 @@ const start = (options = {}) => {
 
   lastStartedAt = new Date().getTime();
   try {
+    // @TODO: test this by throwing an Error as well as other stuff
     recognition.start();
-  } catch (e) {
-    logMessage(e.message);
+  } catch (e: unknown) {
+    logMessage(e instanceof Error ? e.message : String(e));
   }
 };
 
@@ -436,9 +471,11 @@ const resume = () => {
  * @param {Object} [context] - Optional context for the callback function
  * @method addCallback
  */
-const addCallback = (type, callback, context = undefined) => {
-  if (typeof callback === 'function' && callbacks.has(type)) {
-    callbacks.get(type).push({ callback, context });
+const addCallback = (type: CallbackTypes, callback: CallbackFunction, context: object | undefined = undefined) => {
+  const callbacksOfType = callbacks.get(type);
+  if (typeof callback === 'function' && callbacksOfType) {
+    // @TODO: add a test to the testing suite that tries an invalid type
+    callbacksOfType.push({ callback, context });
   }
 };
 
@@ -475,8 +512,8 @@ const addCallback = (type, callback, context = undefined) => {
  * @returns undefined
  * @method removeCallback
  */
-const removeCallback = (type, callback) => {
-  const compareWithCallbackParameter = cb => {
+const removeCallback = (type?: CallbackTypes, callback?: CallbackFunction) => {
+  const compareWithCallbackParameter = (cb: SpeechRecognitionEventCallback) => {
     return cb.callback !== callback;
   };
   // Iterate over each callback type in the callbacks object
@@ -485,10 +522,10 @@ const removeCallback = (type, callback) => {
     if (type === undefined || type === callbackType) {
       // If user asked to delete all callbacks in this type or all types
       if (callback === undefined) {
-        callbacks.get(callbackType).length = 0;
+        callbacks.get(callbackType)!.length = 0;
       } else {
         // Remove all matching callbacks
-        callbacks.set(callbackType, callbacks.get(callbackType).filter(compareWithCallbackParameter));
+        callbacks.set(callbackType, callbacksArray.filter(compareWithCallbackParameter));
       }
     }
   });
@@ -512,7 +549,7 @@ const isListening = () => {
  * @method setLanguage
  * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
  */
-const setLanguage = language => {
+const setLanguage = (language: string): void => {
   initIfNeeded();
   recognition.lang = language;
 };
@@ -523,7 +560,7 @@ const setLanguage = language => {
  * @param {boolean} [newState=true] - Turn debug messages on or off
  * @method debug
  */
-const debug = (newState = true) => {
+const debug = (newState: boolean = true): void => {
   debugState = !!newState;
 };
 
@@ -546,7 +583,7 @@ const debug = (newState = true) => {
  * @returns undefined
  * @method trigger
  */
-const trigger = (sentences = []) => {
+const trigger = (sentences: string | string[] = []) => {
   if (!isListening()) {
     if (!listening) {
       logMessage('Cannot trigger while annyang is aborted');

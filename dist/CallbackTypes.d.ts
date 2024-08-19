@@ -1,0 +1,2 @@
+export type CallbackTypes = 'start' | 'error' | 'end' | 'soundstart' | 'result' | 'resultMatch' | 'resultNoMatch' | 'errorNetwork' | 'errorPermissionBlocked' | 'errorPermissionDenied';
+//# sourceMappingURL=CallbackTypes.d.ts.map

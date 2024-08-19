@@ -7,6 +7,10 @@ import { isSpeechRecognitionSupported, start, isListening } from '../../src/anny
 
 const logFormatString = 'font-weight: bold; color: #00f;';
 
+interface CortiSpeechRecognition extends SpeechRecognition {
+  say(text: string | string[]): void;
+}
+
 test('SpeechRecognition is mocked', () => {
   expect(globalThis.SpeechRecognition).toBeDefined();
   expect(new globalThis.SpeechRecognition()).toBeInstanceOf(MockSpeechRecognition);
@@ -91,11 +95,13 @@ describe('annyang', () => {
       expect(logSpy).toHaveBeenCalled();
     });
     it('should turn on debug messages when called with a truthy parameter', () => {
+      // @ts-expect-error
       annyang.debug(11);
       annyang.addCommands({ 'test command': () => {} });
       expect(logSpy).toHaveBeenCalled();
     });
     it('should turn off debug messages when called with a falsy parameter', () => {
+      // @ts-expect-error
       annyang.debug(0);
       annyang.addCommands({ 'test command': () => {} });
       expect(logSpy).not.toHaveBeenCalled();
@@ -125,7 +131,7 @@ describe('annyang', () => {
       it('should work when a command object with a single simple command is passed', () => {
         annyang.addCommands({ 'Time for some thrilling heroics': spyOnMatch });
         annyang.start();
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        (annyang.getSpeechRecognizer() as CortiSpeechRecognition).say('Time for some thrilling heroics');
         expect(spyOnMatch).toHaveBeenCalledTimes(1);
       });
     });
@@ -338,8 +344,11 @@ describe('annyang', () => {
     });
 
     it('should always return undefined', () => {
+      // @ts-expect-error
       expect(annyang.addCallback()).toEqual(undefined);
+      // @ts-expect-error
       expect(annyang.addCallback('blergh')).toEqual(undefined);
+      // @ts-expect-error
       expect(annyang.addCallback('start')).toEqual(undefined);
       expect(annyang.addCallback('start', () => {})).toEqual(undefined);
       expect(annyang.addCallback('start', () => {}, this)).toEqual(undefined);
@@ -447,6 +456,7 @@ describe('annyang', () => {
 
     it('should always return undefined', () => {
       expect(annyang.removeCallback()).toEqual(undefined);
+      // @ts-expect-error
       expect(annyang.removeCallback('blergh')).toEqual(undefined);
       expect(annyang.removeCallback('start')).toEqual(undefined);
       expect(annyang.removeCallback('start', () => {})).toEqual(undefined);
@@ -589,6 +599,7 @@ describe('annyang', () => {
 
     it('should accept an options object as its first argument', () => {
       expect(() => {
+        // @ts-expect-error
         annyang.start({ option: true });
       }).not.toThrowError();
     });
@@ -893,6 +904,7 @@ describe('annyang', () => {
     });
 
     it('should return undefined when called', () => {
+      // @ts-expect-error
       expect(annyang.setLanguage()).toEqual(undefined);
     });
 
@@ -1101,25 +1113,28 @@ describe('annyang', () => {
       it('should fire callback once when in continuous mode even when multiples phrases are said', () => {
         // Corti which is used to mock SpeechRecognition fires the soundstart event as soon as it starts
         annyang.start({ continuous: true });
+        const recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
         expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        recognition.say('Time for some thrilling heroics');
         expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
       });
 
       it('should fire callback multiple times in non-continuous mode with autorestart', () => {
         annyang.start({ continuous: false, autoRestart: true });
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        const recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
+        recognition.say('Time for some thrilling heroics');
         expect(spyOnSoundStart).toHaveBeenCalledTimes(1);
         vi.advanceTimersByTime(1000);
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnSoundStart).toHaveBeenCalledTimes(2);
       });
     });
 
     describe('result', () => {
       let spyOnResult;
+      let recognition;
 
       beforeEach(() => {
         spyOnResult = vi.fn();
@@ -1128,23 +1143,24 @@ describe('annyang', () => {
           'Time for some thrilling heroics': () => {},
         });
         annyang.start();
+        recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
       });
 
       it('should fire callback when a result is returned from Speech Recognition and a command was matched', () => {
         expect(spyOnResult).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        recognition.say('Time for some thrilling heroics');
         expect(spyOnResult).toHaveBeenCalledTimes(1);
       });
 
       it('should fire callback when a result is returned from Speech Recognition and a command was not matched', () => {
         expect(spyOnResult).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnResult).toHaveBeenCalledTimes(1);
       });
 
       it('should call the callback with the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', () => {
         expect(spyOnResult).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnResult).toHaveBeenCalledTimes(1);
         expect(spyOnResult).toHaveBeenCalledWith([
           'That sounds like something out of science fiction',
@@ -1158,6 +1174,7 @@ describe('annyang', () => {
 
     describe('resultMatch', () => {
       let spyOnResultMatch;
+      let recognition;
 
       beforeEach(() => {
         spyOnResultMatch = vi.fn();
@@ -1166,30 +1183,31 @@ describe('annyang', () => {
           'Time for some (thrilling) heroics': () => {},
         });
         annyang.start();
+        recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
       });
 
       it('should fire callback when a result is returned from Speech Recognition and a command was matched', () => {
         expect(spyOnResultMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        recognition.say('Time for some thrilling heroics');
         expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
       });
 
       it('should not fire callback when a result is returned from Speech Recognition and a command was not matched', () => {
         expect(spyOnResultMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnResultMatch).not.toHaveBeenCalled();
       });
 
       it('should call the callback with the first argument containing the phrase the user said that matched a command', () => {
         expect(spyOnResultMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some heroics');
+        recognition.say('Time for some heroics');
         expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
         expect(spyOnResultMatch).toHaveBeenCalledWith('Time for some heroics', expect.anything(), expect.anything());
       });
 
       it('should call the callback with the second argument containing the name of the matched command', () => {
         expect(spyOnResultMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some heroics');
+        recognition.say('Time for some heroics');
         expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
         expect(spyOnResultMatch).toHaveBeenCalledWith(
           expect.anything(),
@@ -1200,7 +1218,7 @@ describe('annyang', () => {
 
       it('should call the callback with the third argument containing an array of all possible Speech Recognition Alternatives the user may have said', () => {
         expect(spyOnResultMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some heroics');
+        recognition.say('Time for some heroics');
         expect(spyOnResultMatch).toHaveBeenCalledTimes(1);
         expect(spyOnResultMatch).toHaveBeenCalledWith(expect.anything(), expect.anything(), [
           'Time for some heroics',
@@ -1214,6 +1232,7 @@ describe('annyang', () => {
 
     describe('resultNoMatch', () => {
       let spyOnResultNoMatch;
+      let recognition;
 
       beforeEach(() => {
         spyOnResultNoMatch = vi.fn();
@@ -1222,23 +1241,24 @@ describe('annyang', () => {
           'Time for some (thrilling) heroics': () => {},
         });
         annyang.start();
+        recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
       });
 
       it('should not fire callback when a result is returned from Speech Recognition and a command was matched', () => {
         expect(spyOnResultNoMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('Time for some thrilling heroics');
+        recognition.say('Time for some thrilling heroics');
         expect(spyOnResultNoMatch).not.toHaveBeenCalled();
       });
 
       it('should fire callback when a result is returned from Speech Recognition and a command was not matched', () => {
         expect(spyOnResultNoMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
       });
 
       it('should call the callback with the first argument containing an array of all possible Speech Recognition Alternatives the user may have said', () => {
         expect(spyOnResultNoMatch).not.toHaveBeenCalled();
-        annyang.getSpeechRecognizer().say('That sounds like something out of science fiction');
+        recognition.say('That sounds like something out of science fiction');
         expect(spyOnResultNoMatch).toHaveBeenCalledTimes(1);
         expect(spyOnResultNoMatch).toHaveBeenCalledWith([
           'That sounds like something out of science fiction',

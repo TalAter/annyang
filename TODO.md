@@ -17,6 +17,7 @@
 - [ ] Go over skipped tests
 - [ ] Consider removing extraParameters from logMessage
 - [ ] TypeScript
+  - [ ] Consider replacing Documentation.js, perhaps with TypeDoc?
 
 ### Change log
 

@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import typescript from '@rollup/plugin-typescript';
 
 const { version } = JSON.parse(readFileSync('./package.json', 'utf8'));
 
@@ -9,7 +10,7 @@ const banner = `//! annyang
 //! https://www.TalAter.com/annyang/`;
 
 export default {
-  input: 'src/annyang.js',
+  input: 'src/annyang.ts',
   output: [
     {
       file: 'dist/annyang.js',
@@ -28,4 +29,5 @@ export default {
       banner,
     },
   ],
+  plugins: [typescript()],
 };
