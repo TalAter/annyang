@@ -13,7 +13,8 @@
     "declaration": true,
     "declarationMap": true,
     "lib": ["ESNext", "DOM"],
+    "typeRoots": ["./node_modules/@types", "./dist"]
   },
-  "include": ["src/**/*", "test/**/*"],
+  "include": ["src", "test"],
   "exclude": ["node_modules", "dist"]
 }
