@@ -35,6 +35,7 @@
     "doc": "docs"
   },
   "files": ["dist", "LICENSE", "README.md"],
+  "types": "dist/annyang.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "npm-run-all -c -s dev:format-lint-build dev:watch",
