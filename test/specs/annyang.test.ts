@@ -1,9 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, test, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, test, vi, MockInstance } from 'vitest';
 
-import { SpeechRecognition as MockSpeechRecognition } from 'corti';
-
-import * as annyang from '../../src/annyang';
-import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang';
+import * as annyang from '../../src/annyang.ts';
+import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang.ts';
 
 const logFormatString = 'font-weight: bold; color: #00f;';
 
@@ -13,7 +11,7 @@ interface CortiSpeechRecognition extends SpeechRecognition {
 
 test('SpeechRecognition is mocked', () => {
   expect(globalThis.SpeechRecognition).toBeDefined();
-  expect(new globalThis.SpeechRecognition()).toBeInstanceOf(MockSpeechRecognition);
+  expect(globalThis.SpeechRecognition.prototype).toHaveProperty('say', expect.any(Function));
 });
 
 test('Can import annyang as an object', () => {
@@ -31,7 +29,7 @@ test('Can import individual named exports from annyang', () => {
 });
 
 describe('annyang', () => {
-  let logSpy;
+  let logSpy!: MockInstance;
 
   beforeEach(() => {
     vi.useFakeTimers();
@@ -95,13 +93,13 @@ describe('annyang', () => {
       expect(logSpy).toHaveBeenCalled();
     });
     it('should turn on debug messages when called with a truthy parameter', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       annyang.debug(11);
       annyang.addCommands({ 'test command': () => {} });
       expect(logSpy).toHaveBeenCalled();
     });
     it('should turn off debug messages when called with a falsy parameter', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       annyang.debug(0);
       annyang.addCommands({ 'test command': () => {} });
       expect(logSpy).not.toHaveBeenCalled();
@@ -122,7 +120,7 @@ describe('annyang', () => {
     });
 
     describe('command matching', () => {
-      let spyOnMatch;
+      let spyOnMatch!: MockInstance;
 
       beforeEach(() => {
         spyOnMatch = vi.fn();
@@ -199,11 +197,11 @@ describe('annyang', () => {
 
   describe('removeCommands()', () => {
     let recognition;
-    let spyOnMatch1;
-    let spyOnMatch2;
-    let spyOnMatch3;
-    let spyOnMatch4;
-    let spyOnMatch5;
+    let spyOnMatch1!: MockInstance;
+    let spyOnMatch2!: MockInstance;
+    let spyOnMatch3!: MockInstance;
+    let spyOnMatch4!: MockInstance;
+    let spyOnMatch5!: MockInstance;
 
     beforeEach(() => {
       spyOnMatch1 = vi.fn();
@@ -344,19 +342,19 @@ describe('annyang', () => {
     });
 
     it('should always return undefined', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       expect(annyang.addCallback()).toEqual(undefined);
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       expect(annyang.addCallback('blergh')).toEqual(undefined);
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       expect(annyang.addCallback('start')).toEqual(undefined);
       expect(annyang.addCallback('start', () => {})).toEqual(undefined);
       expect(annyang.addCallback('start', () => {}, this)).toEqual(undefined);
     });
 
     it('should be able to register multiple callbacks to one event type', () => {
-      const spy1 = vi.fn();
-      const spy2 = vi.fn();
+      const spy1: MockInstance = vi.fn();
+      const spy2: MockInstance = vi.fn();
 
       annyang.addCallback('start', spy1);
       annyang.addCallback('start', spy2);
@@ -420,7 +418,7 @@ describe('annyang', () => {
     });
 
     it('should run arrow function callbacks with `this` being equal to the current context regardless of the context given as the third parameter', () => {
-      const spy1 = vi.fn();
+      const spy1: MockInstance = vi.fn();
 
       const fn = () => {
         spy1(this);
@@ -434,10 +432,10 @@ describe('annyang', () => {
   });
 
   describe('removeCallback()', () => {
-    let spy1;
-    let spy2;
-    let spy3;
-    let spy4;
+    let spy1!: MockInstance;
+    let spy2!: MockInstance;
+    let spy3!: MockInstance;
+    let spy4!: MockInstance;
 
     beforeEach(() => {
       spy1 = vi.fn();
@@ -456,7 +454,7 @@ describe('annyang', () => {
 
     it('should always return undefined', () => {
       expect(annyang.removeCallback()).toEqual(undefined);
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       expect(annyang.removeCallback('blergh')).toEqual(undefined);
       expect(annyang.removeCallback('start')).toEqual(undefined);
       expect(annyang.removeCallback('start', () => {})).toEqual(undefined);
@@ -514,9 +512,9 @@ describe('annyang', () => {
     });
 
     it('should return the instance of SpeechRecognition used by annyang', () => {
-      const spyOnStart = vi.fn();
+      const spyOnStart: MockInstance = vi.fn();
       const recognition = annyang.getSpeechRecognizer();
-      expect(recognition).toBeInstanceOf(MockSpeechRecognition);
+      expect(recognition).toBeInstanceOf(globalThis.SpeechRecognition);
 
       // Make sure it's the one used by annyang
       recognition.addEventListener('start', spyOnStart);
@@ -528,8 +526,8 @@ describe('annyang', () => {
 
   describe('start()', () => {
     let recognition;
-    let spyOnStart1;
-    let spyOnStart2;
+    let spyOnStart1!: MockInstance;
+    let spyOnStart2!: MockInstance;
 
     beforeEach(() => {
       recognition = annyang.getSpeechRecognizer();
@@ -599,7 +597,7 @@ describe('annyang', () => {
 
     it('should accept an options object as its first argument', () => {
       expect(() => {
-        // @ts-expect-error
+        // @ts-expect-error testing invalid parameter
         annyang.start({ option: true });
       }).not.toThrowError();
     });
@@ -649,8 +647,8 @@ describe('annyang', () => {
       });
 
       describe('continuous', () => {
-        let spyOnEnd;
-        let spyOnResult;
+        let spyOnEnd!: MockInstance;
+        let spyOnResult!: MockInstance;
 
         beforeEach(() => {
           spyOnEnd = vi.fn();
@@ -710,7 +708,7 @@ describe('annyang', () => {
   });
 
   describe('abort()', () => {
-    let spyOnEnd;
+    let spyOnEnd!: MockInstance;
     let recognition;
 
     beforeEach(() => {
@@ -774,7 +772,7 @@ describe('annyang', () => {
     });
 
     it('should cause commands not to fire even when a command phrase is matched', () => {
-      const spyOnMatch = vi.fn();
+      const spyOnMatch: MockInstance = vi.fn();
       annyang.addCommands({
         'Time for some thrilling heroics': spyOnMatch,
       });
@@ -904,7 +902,7 @@ describe('annyang', () => {
     });
 
     it('should return undefined when called', () => {
-      // @ts-expect-error
+      // @ts-expect-error testing invalid parameter
       expect(annyang.setLanguage()).toEqual(undefined);
     });
 
@@ -957,8 +955,8 @@ describe('annyang', () => {
   });
 
   describe('trigger()', () => {
-    let spyOnCommand;
-    let spyOnResult;
+    let spyOnCommand!: MockInstance;
+    let spyOnResult!: MockInstance;
 
     beforeEach(() => {
       spyOnCommand = vi.fn();
@@ -1035,7 +1033,7 @@ describe('annyang', () => {
 
   describe('events', () => {
     describe('start', () => {
-      let spyOnStart;
+      let spyOnStart!: MockInstance;
 
       beforeEach(() => {
         spyOnStart = vi.fn();
@@ -1068,7 +1066,7 @@ describe('annyang', () => {
     });
 
     describe('end', () => {
-      let spyOnEnd;
+      let spyOnEnd!: MockInstance;
 
       beforeEach(() => {
         spyOnEnd = vi.fn();
@@ -1096,7 +1094,7 @@ describe('annyang', () => {
     });
 
     describe('soundstart', () => {
-      let spyOnSoundStart;
+      let spyOnSoundStart!: MockInstance;
 
       beforeEach(() => {
         spyOnSoundStart = vi.fn();
@@ -1133,7 +1131,7 @@ describe('annyang', () => {
     });
 
     describe('result', () => {
-      let spyOnResult;
+      let spyOnResult!: MockInstance;
       let recognition;
 
       beforeEach(() => {
@@ -1173,7 +1171,7 @@ describe('annyang', () => {
     });
 
     describe('resultMatch', () => {
-      let spyOnResultMatch;
+      let spyOnResultMatch!: MockInstance;
       let recognition;
 
       beforeEach(() => {
@@ -1231,7 +1229,7 @@ describe('annyang', () => {
     });
 
     describe('resultNoMatch', () => {
-      let spyOnResultNoMatch;
+      let spyOnResultNoMatch!: MockInstance;
       let recognition;
 
       beforeEach(() => {
@@ -1277,11 +1275,11 @@ describe('annyang', () => {
   });
 
   describe('result matching', () => {
-    let spyOnMatch1;
-    let spyOnMatch2;
-    let spyOnMatch3;
-    let spyOnMatch4;
-    let spyOnMatch5;
+    let spyOnMatch1!: MockInstance;
+    let spyOnMatch2!: MockInstance;
+    let spyOnMatch3!: MockInstance;
+    let spyOnMatch4!: MockInstance;
+    let spyOnMatch5!: MockInstance;
     let recognition;
 
     beforeEach(() => {
@@ -1385,10 +1383,10 @@ describe('annyang', () => {
     });
 
     it('should not break when a command is removed by another command being called', () => {
-      const spyMal = vi.fn(() => {
+      const spyMal: MockInstance = vi.fn(() => {
         annyang.removeCommands();
       });
-      const spyWash = vi.fn(() => {
+      const spyWash: MockInstance = vi.fn(() => {
         annyang.removeCommands('Mal');
       });
 
@@ -1414,9 +1412,9 @@ describe('annyang', () => {
     });
 
     it('should not break when a command is added by another command being called', () => {
-      const spyZoe = vi.fn();
+      const spyZoe: MockInstance = vi.fn();
 
-      const spyMal = vi.fn(() => {
+      const spyMal: MockInstance = vi.fn(() => {
         annyang.addCommands({ Zoe: spyZoe });
       });
 

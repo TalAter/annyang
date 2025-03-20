@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import * as annyang from '../../src/annyang';
+import * as annyang from '../../src/annyang.ts';
 
 describe('Issues', () => {
   beforeEach(() => {
