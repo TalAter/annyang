@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, test, vi, MockInstance } from 'vitest';
 
+import annyangDefault from '../../src/annyang.ts';
 import * as annyang from '../../src/annyang.ts';
 import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang.ts';
 
@@ -18,6 +19,23 @@ test('Can import annyang as an object', () => {
   expect(annyang).toBeDefined();
   expect(annyang.isSpeechRecognitionSupported).toBeInstanceOf(Function);
   expect(annyang.isSpeechRecognitionSupported()).toBe(true);
+});
+
+test('Can import annyang as a default export', () => {
+  expect(annyangDefault).toBeDefined();
+  expect(annyangDefault.isSpeechRecognitionSupported).toBeInstanceOf(Function);
+  expect(annyangDefault.addCommands).toBeInstanceOf(Function);
+  expect(annyangDefault.start).toBeInstanceOf(Function);
+});
+
+test('Default export has state getter', () => {
+  expect(annyangDefault.state).toBe('idle');
+  annyangDefault.start();
+  expect(annyangDefault.state).toBe('listening');
+  annyangDefault.pause();
+  expect(annyangDefault.state).toBe('paused');
+  annyangDefault.abort();
+  expect(annyangDefault.state).toBe('idle');
 });
 
 test('Can import individual named exports from annyang', () => {
