@@ -46,6 +46,7 @@
     "test:watch": "vitest",
     "lint": "eslint src test",
     "format": "prettier --write src test",
+    "format:check": "prettier --check src test",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
@@ -54,7 +55,6 @@
     "corti": "^1.0.0",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
     "prettier": "^3.8.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
