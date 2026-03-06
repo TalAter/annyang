@@ -1,123 +1,36 @@
+**annyang**
 
+***
 
-<!-- Start src/annyang.js -->
+# annyang
 
-# Quick Tutorial, Intro, and Demos
+## Functions
 
-The quickest way to get started is to visit the [annyang homepage](https://www.talater.com/annyang/).
+### abort()
 
-For a more in-depth look at annyang, read on.
+> **abort**(): `void`
 
-# API Reference
+Defined in: [annyang.ts:372](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L372)
 
-## addCommands(commands)
-
-Add commands that annyang will respond to. Similar in syntax to init(), but doesn't remove existing commands.
-
-#### Examples:
-````javascript
-const commands = {'hello :name': helloFunction, 'howdy': helloFunction};
-const commands2 = {'hi': helloFunction};
-
-annyang.addCommands(commands);
-annyang.addCommands(commands2);
-// annyang will now listen for all three commands
-````
-
-See: [Commands Object](#commands-object)
-
-### Params:
-
-* **Object** *commands* - Commands that annyang should listen for
-
-## start([options])
-
-Start listening.
-It's a good idea to call this after adding some commands first (but not mandatory)
-
-Receives an optional options object which supports the following options:
-
-- `autoRestart`  (boolean) Should annyang restart itself if it is closed indirectly, because of silence or window conflicts?
-- `continuous`   (boolean) Allow forcing continuous mode on or off. Annyang is pretty smart about this, so only set this if you know what you're doing.
-- `paused`       (boolean) Start annyang in paused mode.
-
-#### Examples:
-````javascript
-// Start listening, don't restart automatically
-annyang.start({ autoRestart: false });
-// Start listening, don't restart automatically, stop recognition after first phrase recognized
-annyang.start({ autoRestart: false, continuous: false });
-````
-
-### Params:
-
-* **Object** *[options]* - Optional options.
-
-## abort()
-
-Stop listening, and turn off mic.
+Stop listening and turn off the mic.
 
 Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
 
-See: [pause()](#pause)
+#### Returns
 
-## pause()
+`void`
 
-Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
+#### See
 
-Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+[pause()](#pause)
 
-See: [abort()](#abort)
+***
 
-## resume()
+### addCallback()
 
-Resumes listening and restore command callback execution when a command is matched.
-If SpeechRecognition was aborted (stopped), start it.
+> **addCallback**\<`T`\>(`type`, `callback`, `context?`): () => `void`
 
-## debug([newState=true])
-
-Turn on the output of debug messages to the console. Ugly, but super-handy!
-
-### Params:
-
-* **boolean** *[newState=true]* - Turn on/off debug messages
-
-## setLanguage(language)
-
-Set the language the user will speak in. If this method is not called, defaults to 'en-US'.
-
-See: [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
-
-### Params:
-
-* **String** *language* - The language (locale)
-
-## removeCommands([commandsToRemove])
-
-Remove existing commands. Called with a single phrase, an array of phrases, or methodically. Pass no params to remove all commands.
-
-#### Examples:
-````javascript
-const commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
-
-// Remove all existing commands
-annyang.removeCommands();
-
-// Add some commands
-annyang.addCommands(commands);
-
-// Don't respond to hello
-annyang.removeCommands('hello');
-
-// Don't respond to howdy or hi
-annyang.removeCommands(['howdy', 'hi']);
-````
-
-### Params:
-
-* **String|Array|Undefined** *[commandsToRemove]* - Commands to remove
-
-## addCallback(type, callback, [context])
+Defined in: [annyang.ts:462](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L462)
 
 Add a callback function to be called in case one of the following events happens:
 
@@ -163,27 +76,232 @@ Add a callback function to be called in case one of the following events happens
 
 #### Examples:
 ````javascript
-annyang.addCallback('error', function() {
-  $('.myErrorText').text('There was an error!');
-});
-
-annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
   console.log(userSaid); // sample output: 'hello'
   console.log(commandText); // sample output: 'hello (there)'
   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
 });
 
-// pass local context to a global function called notConnected
-annyang.addCallback('errorNetwork', notConnected, this);
+// Returns an unsubscribe function
+const unsubscribe = annyang.addCallback('error', () => {
+  console.log('There was an error!');
+});
+unsubscribe(); // removes the callback
 ````
 
-### Params:
+#### Type Parameters
 
-* **String** *type* - Name of event that will trigger this callback
-* **Function** *callback* - The function to call when event is triggered
-* **Object** *[context]* - Optional context for the callback function
+##### T
 
-## removeCallback(type, callback)
+`T` *extends* keyof `CallbackMap`
+
+#### Parameters
+
+##### type
+
+`T`
+
+Name of event that will trigger this callback
+
+##### callback
+
+`CallbackMap`\[`T`\]
+
+The function to call when event is triggered
+
+##### context?
+
+`object` = `undefined`
+
+Optional context for the callback function
+
+#### Returns
+
+A function that removes this callback when called
+
+> (): `void`
+
+##### Returns
+
+`void`
+
+***
+
+### addCommands()
+
+> **addCommands**(`commands`, `resetCommands?`): `void`
+
+Defined in: [annyang.ts:264](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L264)
+
+Add commands that annyang will respond to.
+By default this will add to the existing commands. Pass `true` as the second parameter to remove all existing commands first.
+
+#### Examples:
+````javascript
+const commands1 = {'hello :name': helloFunction, 'howdy': helloFunction};
+const commands2 = {'hi': helloFunction};
+
+annyang.addCommands(commands1);
+annyang.addCommands(commands2);
+// annyang will now listen for all three commands defined in commands1 and commands2
+
+annyang.addCommands(commands2, true);
+// annyang will now only listen for the command in commands2
+````
+
+#### Parameters
+
+##### commands
+
+`CommandsList`
+
+Commands that annyang should listen for
+
+##### resetCommands?
+
+`boolean` = `false`
+
+Remove all existing commands before adding new commands? *
+
+#### Returns
+
+`void`
+
+#### See
+
+[Commands Object](#commands-object)
+
+***
+
+### debug()
+
+> **debug**(`newState?`): `void`
+
+Defined in: [annyang.ts:568](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L568)
+
+Turn on the output of debug messages to the console.
+
+#### Parameters
+
+##### newState?
+
+`boolean` = `true`
+
+Turn debug messages on or off
+
+#### Returns
+
+`void`
+
+***
+
+### getSpeechRecognizer()
+
+> **getSpeechRecognizer**(): `SpeechRecognition`
+
+Defined in: [annyang.ts:607](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L607)
+
+Returns the instance of the browser's SpeechRecognition object used by annyang.
+Useful in case you want direct access to the browser's Speech Recognition engine.
+
+#### Returns
+
+`SpeechRecognition`
+
+SpeechRecognition The browser's Speech Recognizer instance currently used by annyang
+
+***
+
+### getState()
+
+> **getState**(): `AnnyangState`
+
+Defined in: [annyang.ts:546](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L546)
+
+Returns the current state of annyang.
+
+#### Returns
+
+`AnnyangState`
+
+The current state
+
+***
+
+### ~~init()~~
+
+> **init**(): `void`
+
+Defined in: [annyang.ts:614](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L614)
+
+#### Returns
+
+`void`
+
+#### Deprecated
+
+annyang no longer requires manual initialization. It initializes automatically on `start()` or `addCommands()`. Remove any calls to `init()`.
+
+***
+
+### isListening()
+
+> **isListening**(): `boolean`
+
+Defined in: [annyang.ts:535](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L535)
+
+Returns true if speech recognition is currently on.
+Returns false if speech recognition is off or annyang is paused.
+
+#### Returns
+
+`boolean`
+
+boolean true = SpeechRecognition is on and annyang is not paused
+
+***
+
+### isSpeechRecognitionSupported()
+
+> **isSpeechRecognitionSupported**(): `boolean`
+
+Defined in: [annyang.ts:238](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L238)
+
+Is SpeechRecognition supported in this environment?
+
+#### Returns
+
+`boolean`
+
+true if SpeechRecognition is supported by the browser
+
+***
+
+### pause()
+
+> **pause**(): `void`
+
+Defined in: [annyang.ts:387](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L387)
+
+Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
+
+Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
+
+#### Returns
+
+`void`
+
+#### See
+
+[abort()](#abort)
+
+***
+
+### removeCallback()
+
+> **removeCallback**(`type?`, `callback?`): `void`
+
+Defined in: [annyang.ts:514](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L514)
 
 Remove callbacks from events.
 
@@ -212,34 +330,150 @@ annyang.removeCallback('start', myFunction2);
 annyang.removeCallback(undefined, myFunction1);
 ````
 
-### Params:
+#### Parameters
 
-* *type* Name of event type to remove callback from
-* *callback* The callback function to remove
+##### type?
 
-### Return:
+keyof CallbackMap
 
-* undefined
+Name of event type to remove callback from
 
-## isListening()
+##### callback?
 
-Returns true if speech recognition is currently on.
-Returns false if speech recognition is off or annyang is paused.
+`AnyFunction`
 
-### Return:
+The callback function to remove
 
-* boolean true = SpeechRecognition is on and annyang is listening
+#### Returns
 
-## getSpeechRecognizer()
+`void`
 
-Returns the instance of the browser's SpeechRecognition object used by annyang.
-Useful in case you want direct access to the browser's Speech Recognition engine.
+undefined
 
-### Return:
+***
 
-* SpeechRecognition The browser's Speech Recognizer currently used by annyang
+### removeCommands()
 
-## trigger(string|array)
+> **removeCommands**(`commandsToRemove?`): `void`
+
+Defined in: [annyang.ts:307](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L307)
+
+Remove existing commands. Called with a single phrase, an array of phrases, or with no params to remove all commands.
+
+#### Examples:
+````javascript
+const commands = {'hello': helloFunction, 'howdy': helloFunction, 'hi': helloFunction};
+
+// Remove all existing commands
+annyang.removeCommands();
+
+// Add some commands
+annyang.addCommands(commands);
+
+// Don't respond to hello
+annyang.removeCommands('hello');
+
+// Don't respond to howdy or hi
+annyang.removeCommands(['howdy', 'hi']);
+````
+
+#### Parameters
+
+##### commandsToRemove?
+
+Commands to remove
+
+`string` | `string`[]
+
+#### Returns
+
+`void`
+
+***
+
+### resume()
+
+> **resume**(): `void`
+
+Defined in: [annyang.ts:396](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L396)
+
+Resumes listening and restore command callback execution when a command is matched.
+If SpeechRecognition was aborted (stopped), start it.
+
+#### Returns
+
+`void`
+
+***
+
+### setLanguage()
+
+> **setLanguage**(`language`): `void`
+
+Defined in: [annyang.ts:558](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L558)
+
+Set the language the user will speak in. If this method is not called, annyang defaults to 'en-US'.
+
+#### Parameters
+
+##### language
+
+`string`
+
+The language (locale)
+
+#### Returns
+
+`void`
+
+#### See
+
+[Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
+
+***
+
+### start()
+
+> **start**(`options?`): `void`
+
+Defined in: [annyang.ts:341](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L341)
+
+Start listening.
+It's a good idea to call this after adding some commands first (but not mandatory)
+
+Receives an optional options object which supports the following options:
+
+- `autoRestart`  (boolean) Should annyang restart itself if it is closed indirectly (e.g. because of silence or window conflicts)?
+- `continuous`   (boolean) Allow forcing continuous mode on or off. annyang is pretty smart about this, so only set this if you know what you're doing.
+- `paused`       (boolean) Start annyang in paused mode.
+
+#### Examples:
+````javascript
+// Start listening, don't restart automatically
+annyang.start({ autoRestart: false });
+// Start listening, don't restart automatically, stop recognition after first phrase recognized
+annyang.start({ autoRestart: false, continuous: false });
+````
+
+#### Parameters
+
+##### options?
+
+`StartOptions` = `{}`
+
+Optional options.
+
+#### Returns
+
+`void`
+
+***
+
+### trigger()
+
+> **trigger**(`sentences?`): `void`
+
+Defined in: [annyang.ts:589](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L589)
 
 Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
 detects speech.
@@ -255,100 +489,14 @@ annyang.trigger(
   );
 ````
 
-### Params:
+#### Parameters
 
-* *string|array* sentences A sentence as a string or an array of strings of possible sentences
+##### sentences?
 
-### Return:
+A sentence as a string or an array of strings of possible sentences
 
-* undefined
+`string` | `string`[]
 
-## init(commands, [resetCommands=true])
+#### Returns
 
-Initialize annyang with a list of commands to recognize.
-
-#### Examples:
-````javascript
-const commands = {'hello :name': helloFunction};
-const commands2 = {'hi': helloFunction};
-
-// initialize annyang, overwriting any previously added commands
-annyang.init(commands, true);
-// adds an additional command without removing the previous commands
-annyang.init(commands2, false);
-````
-As of v1.1.0 it is no longer required to call init(). Just start() listening whenever you want, and addCommands() whenever, and as often as you like.
-
-**Deprecated**
-
-See: [Commands Object](#commands-object)
-
-### Params:
-
-* **Object** *commands* - Commands that annyang should listen to
-* **boolean** *[resetCommands=true]* - Remove all commands before initializing?
-
-# Good to Know
-
-## Commands Object
-
-Both the [init()]() and addCommands() methods receive a `commands` object.
-
-annyang understands commands with `named variables`, `splats`, and `optional words`.
-
-* Use `named variables` for one-word arguments in your command.
-* Use `splats` to capture multi-word text at the end of your command (greedy).
-* Use `optional words` or phrases to define a part of the command as optional.
-
-#### Examples:
-````html
-<script>
-const commands = {
-  // annyang will capture anything after a splat (*) and pass it to the function.
-  // e.g. saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
-  'show me *tag': showFlickr,
-
-  // A named variable is a one-word variable, that can fit anywhere in your command.
-  // e.g. saying "calculate October stats" will call calculateStats('October');
-  'calculate :month stats': calculateStats,
-
-  // By defining a part of the following command as optional, annyang will respond
-  // to both: "say hello to my little friend" as well as "say hello friend"
-  'say hello (to my little) friend': greeting
-};
-
-const showFlickr = function(tag) {
-  var url = 'http://api.flickr.com/services/rest/?tags='+tag;
-  $.getJSON(url);
-}
-
-const calculateStats = function(month) {
-  $('#stats').text('Statistics for '+month);
-}
-
-const greeting = function() {
-  $('#greeting').text('Hello!');
-}
-</script>
-````
-
-### Using Regular Expressions in commands
-For advanced commands, you can pass a regular expression object, instead of
-a simple string command.
-
-This is done by passing an object containing two properties: `regexp`, and
-`callback` instead of the function.
-
-#### Examples:
-````javascript
-const calculateFunction = function(month) { console.log(month); }
-const commands = {
-  // This example will accept any word as the "month"
-  'calculate :month stats': calculateFunction,
-  // This example will only accept months which are at the start of a quarter
-  'calculate :quarter stats': {'regexp': /^calculate (January|April|July|October) stats$/, 'callback': calculateFunction}
-}
- ````
-
-<!-- End src/annyang.js -->
-
+`void`

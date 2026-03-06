@@ -1,0 +1,10 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["src/annyang.ts"],
+  "plugin": ["typedoc-plugin-markdown"],
+  "out": "docs",
+  "outputFileStrategy": "modules",
+  "cleanOutputDir": false,
+  "readme": "none",
+  "excludeNotDocumented": true
+}

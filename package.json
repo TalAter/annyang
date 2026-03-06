@@ -51,6 +51,7 @@
     "format": "prettier --write src test",
     "format:check": "prettier --check src test",
     "typecheck": "tsc --noEmit",
+    "docs": "typedoc",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
@@ -60,6 +61,8 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",
     "tsup": "^8.5.1",
+    "typedoc": "^0.28.17",
+    "typedoc-plugin-markdown": "^4.10.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
