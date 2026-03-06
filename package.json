@@ -2,7 +2,13 @@
   "name": "annyang",
   "version": "3.0.0-dev",
   "description": "A JavaScript library for adding voice commands to your site, using speech recognition",
-  "keywords": ["speech", "recognition", "voice", "commands", "speechrecognition"],
+  "keywords": [
+    "speech",
+    "recognition",
+    "voice",
+    "commands",
+    "speechrecognition"
+  ],
   "homepage": "https://www.talater.com/annyang/",
   "bugs": {
     "url": "https://github.com/TalAter/annyang/issues"
@@ -44,17 +50,16 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@types/dom-speech-recognition": "^0.0.4",
-    "@typescript-eslint/eslint-plugin": "^8.0.1",
-    "@typescript-eslint/parser": "^8.0.1",
+    "@types/dom-speech-recognition": "^0.0.7",
     "corti": "^1.0.0",
-    "eslint": "^8.57.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3",
+    "eslint": "^10.0.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1",
     "tsup": "^8.5.1",
-    "typescript": "^5.5.4",
-    "vitest": "^1.6.0"
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^4.0.18"
   },
   "packageManager": "pnpm@9.1.2+sha512.127dc83b9ea10c32be65d22a8efb4a65fb952e8fefbdfded39bdc3c97efc32d31b48b00420df2c1187ace28c921c902f0cb5a134a4d032b8b5295cbfa2c681e2"
 }
