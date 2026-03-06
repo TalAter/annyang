@@ -65,7 +65,7 @@ const annyang = require('annyang');
 ### Script tag (IIFE)
 
 ````html
-<script src="dist/index.iife.js"></script>
+<script src="dist/annyang.iife.min.js"></script>
 <script>
 if (annyang.isSpeechRecognitionSupported()) {
   // Let's define a command.
