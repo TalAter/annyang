@@ -40,8 +40,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint src test",
-    "format": "prettier --write src test",
-    "format:check": "prettier --check src test",
+    "format": "prettier --write src test package.json",
+    "format:check": "prettier --check src test package.json",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && cat docs/api-intro.md docs/README.md docs/api-footer.md > docs/README.tmp && mv docs/README.tmp docs/README.md",
     "prepublishOnly": "pnpm build"
