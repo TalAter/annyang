@@ -51,7 +51,7 @@
     "format": "prettier --write src test",
     "format:check": "prettier --check src test",
     "typecheck": "tsc --noEmit",
-    "docs": "typedoc",
+    "docs": "typedoc && cat docs/api-intro.md docs/README.md docs/api-footer.md > docs/README.tmp && mv docs/README.tmp docs/README.md",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {

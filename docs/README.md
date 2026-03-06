@@ -1,3 +1,10 @@
+# Quick Tutorial, Intro, and Demos
+
+The quickest way to get started is to visit the [annyang homepage](https://www.talater.com/annyang/).
+
+For a more in-depth look at annyang, read on.
+
+# API Reference
 **annyang**
 
 ***
@@ -10,7 +17,7 @@
 
 > **abort**(): `void`
 
-Defined in: [annyang.ts:372](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L372)
+Defined in: [annyang.ts:362](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L362)
 
 Stop listening and turn off the mic.
 
@@ -30,7 +37,7 @@ Alternatively, to only temporarily pause annyang responding to commands without 
 
 > **addCallback**\<`T`\>(`type`, `callback`, `context?`): () => `void`
 
-Defined in: [annyang.ts:462](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L462)
+Defined in: [annyang.ts:452](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L452)
 
 Add a callback function to be called in case one of the following events happens:
 
@@ -131,7 +138,7 @@ A function that removes this callback when called
 
 > **addCommands**(`commands`, `resetCommands?`): `void`
 
-Defined in: [annyang.ts:264](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L264)
+Defined in: [annyang.ts:254](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L254)
 
 Add commands that annyang will respond to.
 By default this will add to the existing commands. Pass `true` as the second parameter to remove all existing commands first.
@@ -177,7 +184,7 @@ Remove all existing commands before adding new commands? *
 
 > **debug**(`newState?`): `void`
 
-Defined in: [annyang.ts:568](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L568)
+Defined in: [annyang.ts:558](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L558)
 
 Turn on the output of debug messages to the console.
 
@@ -199,7 +206,7 @@ Turn debug messages on or off
 
 > **getSpeechRecognizer**(): `SpeechRecognition`
 
-Defined in: [annyang.ts:607](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L607)
+Defined in: [annyang.ts:597](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L597)
 
 Returns the instance of the browser's SpeechRecognition object used by annyang.
 Useful in case you want direct access to the browser's Speech Recognition engine.
@@ -216,7 +223,7 @@ SpeechRecognition The browser's Speech Recognizer instance currently used by ann
 
 > **getState**(): `AnnyangState`
 
-Defined in: [annyang.ts:546](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L546)
+Defined in: [annyang.ts:536](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L536)
 
 Returns the current state of annyang.
 
@@ -232,7 +239,7 @@ The current state
 
 > **init**(): `void`
 
-Defined in: [annyang.ts:614](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L614)
+Defined in: [annyang.ts:604](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L604)
 
 #### Returns
 
@@ -248,7 +255,7 @@ annyang no longer requires manual initialization. It initializes automatically o
 
 > **isListening**(): `boolean`
 
-Defined in: [annyang.ts:535](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L535)
+Defined in: [annyang.ts:525](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L525)
 
 Returns true if speech recognition is currently on.
 Returns false if speech recognition is off or annyang is paused.
@@ -257,7 +264,7 @@ Returns false if speech recognition is off or annyang is paused.
 
 `boolean`
 
-boolean true = SpeechRecognition is on and annyang is not paused
+true if SpeechRecognition is on and annyang is not paused
 
 ***
 
@@ -265,7 +272,7 @@ boolean true = SpeechRecognition is on and annyang is not paused
 
 > **isSpeechRecognitionSupported**(): `boolean`
 
-Defined in: [annyang.ts:238](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L238)
+Defined in: [annyang.ts:228](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L228)
 
 Is SpeechRecognition supported in this environment?
 
@@ -281,7 +288,7 @@ true if SpeechRecognition is supported by the browser
 
 > **pause**(): `void`
 
-Defined in: [annyang.ts:387](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L387)
+Defined in: [annyang.ts:377](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L377)
 
 Pause listening. annyang will stop responding to commands (until the resume or start methods are called), without turning off the browser's SpeechRecognition engine or the mic.
 
@@ -301,7 +308,7 @@ Alternatively, to stop the SpeechRecognition engine and close the mic, use abort
 
 > **removeCallback**(`type?`, `callback?`): `void`
 
-Defined in: [annyang.ts:514](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L514)
+Defined in: [annyang.ts:504](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L504)
 
 Remove callbacks from events.
 
@@ -356,7 +363,7 @@ undefined
 
 > **removeCommands**(`commandsToRemove?`): `void`
 
-Defined in: [annyang.ts:307](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L307)
+Defined in: [annyang.ts:297](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L297)
 
 Remove existing commands. Called with a single phrase, an array of phrases, or with no params to remove all commands.
 
@@ -395,7 +402,7 @@ Commands to remove
 
 > **resume**(): `void`
 
-Defined in: [annyang.ts:396](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L396)
+Defined in: [annyang.ts:386](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L386)
 
 Resumes listening and restore command callback execution when a command is matched.
 If SpeechRecognition was aborted (stopped), start it.
@@ -410,7 +417,7 @@ If SpeechRecognition was aborted (stopped), start it.
 
 > **setLanguage**(`language`): `void`
 
-Defined in: [annyang.ts:558](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L558)
+Defined in: [annyang.ts:548](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L548)
 
 Set the language the user will speak in. If this method is not called, annyang defaults to 'en-US'.
 
@@ -436,7 +443,7 @@ The language (locale)
 
 > **start**(`options?`): `void`
 
-Defined in: [annyang.ts:341](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L341)
+Defined in: [annyang.ts:331](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L331)
 
 Start listening.
 It's a good idea to call this after adding some commands first (but not mandatory)
@@ -473,7 +480,7 @@ Optional options.
 
 > **trigger**(`sentences?`): `void`
 
-Defined in: [annyang.ts:589](https://github.com/TalAter/annyang/blob/35b39739e4d605e51b249d7b22efb6454df420f0/src/annyang.ts#L589)
+Defined in: [annyang.ts:579](https://github.com/TalAter/annyang/blob/e9fa84191821b6ce8a1da01ddd12020f1644100f/src/annyang.ts#L579)
 
 Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
 detects speech.
@@ -500,3 +507,63 @@ A sentence as a string or an array of strings of possible sentences
 #### Returns
 
 `void`
+
+# Good to Know
+
+## Commands Object
+
+annyang understands commands with `named variables`, `splats`, and `optional words`.
+
+- Use `named variables` for one-word arguments in your command.
+- Use `splats` to capture multi-word text at the end of your command (greedy).
+- Use `optional words` or phrases to define a part of the command as optional.
+
+#### Examples:
+````html
+<script>
+const commands = {
+  // annyang will capture anything after a splat (*) and pass it to the function.
+  // For example saying "Show me Batman and Robin" will call showFlickr('Batman and Robin');
+  'show me *tag': showFlickr,
+
+  // A named variable is a one-word variable, that can fit anywhere in your command.
+  // For example saying "calculate October stats" will call calculateStats('October');
+  'calculate :month stats': calculateStats,
+
+  // By defining a part of the following command as optional, annyang will respond
+  // to both: "say hello to my little friend" as well as "say hello friend"
+  'say hello (to my little) friend': greeting
+};
+
+const showFlickr = tag => {
+  const url = 'http://api.flickr.com/services/rest/?tags='+tag;
+  $.getJSON(url);
+}
+
+const calculateStats = month => {
+  $('#stats').text('Statistics for '+month);
+}
+
+const greeting = () => {
+  $('#greeting').text('Hello!');
+}
+</script>
+````
+
+### Using Regular Expressions in commands
+For advanced commands, you can pass a regular expression object, instead of
+a simple string command.
+
+This is done by passing an object containing two properties: `regexp`, and
+`callback` instead of the function.
+
+#### Examples:
+````javascript
+const calculateFunction = month => { console.log(month); }
+const commands = {
+  // This example will accept any word as the "month"
+  'calculate :month stats': calculateFunction,
+  // This example will only accept months which are at the start of a quarter
+  'calculate :quarter stats': {'regexp': /^calculate (January|April|July|October) stats$/, 'callback': calculateFunction}
+}
+````
