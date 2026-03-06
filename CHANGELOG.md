@@ -4,7 +4,7 @@
 
 ### Breaking Changes
 
-- **`init()` removed** — annyang initializes automatically when needed (on `start()` or `addCommands()`). Remove any calls to `init()`.
+- **`init()` deprecated** — annyang initializes automatically when needed (on `start()` or `addCommands()`). Calling `init()` now logs a deprecation warning. Remove any calls to `init()`.
 - **String-based command callbacks removed** — Passing function names as strings (e.g. `{'hello': 'myFunc'}`) is no longer supported. Pass functions directly: `{'hello': myFunc}`.
 - **Duplicate command phrases now overwrite** — In v2, adding a command with the same phrase would register both callbacks. In v3, the new callback replaces the old one.
 - **`addCallback` returns an unsubscribe function** — Previously returned `undefined`. Now returns a function you can call to remove that specific callback:
