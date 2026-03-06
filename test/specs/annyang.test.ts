@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, test, vi, MockInstance } from 'vitest';
 
 import * as annyang from '../../src/annyang.ts';
-import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang.ts';
+import { isSpeechRecognitionSupported, start, isListening, getState } from '../../src/annyang.ts';
 
 const logFormatString = 'font-weight: bold; color: #00f;';
 
@@ -341,15 +341,36 @@ describe('annyang', () => {
       expect(annyang.addCallback).toBeInstanceOf(Function);
     });
 
-    it('should always return undefined', () => {
+    it('should return an unsubscribe function when a valid callback is added', () => {
+      const unsub = annyang.addCallback('start', () => {});
+      expect(unsub).toBeInstanceOf(Function);
+    });
+
+    it('should return a no-op function when called with invalid arguments', () => {
       // @ts-expect-error testing invalid parameter
-      expect(annyang.addCallback()).toEqual(undefined);
+      const unsub1 = annyang.addCallback();
+      expect(unsub1).toBeInstanceOf(Function);
       // @ts-expect-error testing invalid parameter
-      expect(annyang.addCallback('blergh')).toEqual(undefined);
+      const unsub2 = annyang.addCallback('blergh');
+      expect(unsub2).toBeInstanceOf(Function);
       // @ts-expect-error testing invalid parameter
-      expect(annyang.addCallback('start')).toEqual(undefined);
-      expect(annyang.addCallback('start', () => {})).toEqual(undefined);
-      expect(annyang.addCallback('start', () => {}, this)).toEqual(undefined);
+      const unsub3 = annyang.addCallback('start');
+      expect(unsub3).toBeInstanceOf(Function);
+    });
+
+    it('should remove callback when unsubscribe function is called', () => {
+      const spy: MockInstance = vi.fn();
+      const unsub = annyang.addCallback('start', spy);
+
+      annyang.start();
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      annyang.abort();
+      spy.mockClear();
+      unsub();
+
+      annyang.start();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it('should be able to register multiple callbacks to one event type', () => {
@@ -1443,7 +1464,6 @@ describe('annyang', () => {
       expect(spyOnMatch2).toHaveBeenCalledTimes(1);
     });
 
-    // @TODO: Change behavior so that when adding a command with an existing command phrase, it will run both callbacks. Should also enable test `should write to console each speech recognition alternative that is recognized when a command matches`. Should also update the changelog entry about changed behavior
     it('should overwrite previously defined commands in subsequent addCommands calls if the command phrase is already registered', () => {
       annyang.addCommands({
         'Time for some (thrilling) heroics': spyOnMatch5,
@@ -1454,18 +1474,16 @@ describe('annyang', () => {
       expect(spyOnMatch5).toHaveBeenCalledTimes(1);
     });
 
-    it("should accept callbacks in commands object by name if they are in the globalThis scope. e.g. {'hello': 'helloFunc'}", () => {
+    it('should not accept callbacks passed as string names (v3 breaking change)', () => {
       annyang.removeCommands();
-      globalThis.globalSpyOnMatch = vi.fn();
+      annyang.debug();
       annyang.addCommands({
+        // @ts-expect-error testing removed feature
         "You can't take the sky from me": 'spyOnMatch1',
-        'Time for some (thrilling) heroics': 'globalSpyOnMatch',
       });
       recognition.say("You can't take the sky from me");
-      recognition.say('Time for some thrilling heroics');
 
       expect(spyOnMatch1).not.toHaveBeenCalled();
-      expect(globalThis.globalSpyOnMatch).toHaveBeenCalledTimes(1);
     });
 
     it('should match commands passed as a command name and an object which consists of a regular expression and a callback', () => {
@@ -1523,40 +1541,6 @@ describe('annyang', () => {
         expect(logSpy).not.toHaveBeenCalled();
       });
 
-      it.skip('should write to console each speech recognition alternative that is recognized when a command matches', () => {
-        expect(logSpy).toHaveBeenCalledTimes(0);
-        annyang.debug(true);
-        recognition.say('Time for some thrilling heroics');
-
-        console.log(logSpy.mock.calls);
-
-        expect(logSpy).toHaveBeenNthCalledWith(
-          1,
-          'Speech recognized: %cTime for some thrilling heroics',
-          logFormatString
-        );
-        expect(logSpy).toHaveBeenNthCalledWith(
-          2,
-          'Speech recognized: %cTime for some thrilling heroics and so on',
-          logFormatString
-        );
-        expect(logSpy).toHaveBeenNthCalledWith(
-          3,
-          'Speech recognized: %cTime for some thrilling heroics and so on and so forth',
-          logFormatString
-        );
-        expect(logSpy).toHaveBeenNthCalledWith(
-          4,
-          'Speech recognized: %cTime for some thrilling heroics and so on and so forth and so on',
-          logFormatString
-        );
-        expect(logSpy).toHaveBeenNthCalledWith(
-          5,
-          'Speech recognized: %cTime for some thrilling heroics and so on and so forth and so on and so forth',
-          logFormatString
-        );
-      });
-
       it('should write to console each speech recognition alternative that is recognized when no command matches', () => {
         expect(logSpy).toHaveBeenCalledTimes(0);
         annyang.debug(true);
@@ -1588,6 +1572,62 @@ describe('annyang', () => {
           logFormatString
         );
       });
+    });
+  });
+
+  describe('getState()', () => {
+    it('should return "idle" when annyang has not been started', () => {
+      expect(annyang.getState()).toBe('idle');
+    });
+
+    it('should return "listening" when annyang is started and not paused', () => {
+      annyang.start();
+      expect(annyang.getState()).toBe('listening');
+    });
+
+    it('should return "paused" when annyang is paused', () => {
+      annyang.start();
+      annyang.pause();
+      expect(annyang.getState()).toBe('paused');
+    });
+
+    it('should return "idle" after annyang is aborted', () => {
+      annyang.start();
+      annyang.abort();
+      expect(annyang.getState()).toBe('idle');
+    });
+  });
+
+  describe('addCallback() unsubscribe', () => {
+    it('should not affect other callbacks when one is unsubscribed', () => {
+      const spy1: MockInstance = vi.fn();
+      const spy2: MockInstance = vi.fn();
+
+      const unsub1 = annyang.addCallback('start', spy1);
+      annyang.addCallback('start', spy2);
+
+      unsub1();
+
+      annyang.start();
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('duplicate addCommands()', () => {
+    it('should overwrite the callback when the same command phrase is added again', () => {
+      const spy1: MockInstance = vi.fn();
+      const spy2: MockInstance = vi.fn();
+      const recognition = annyang.getSpeechRecognizer() as CortiSpeechRecognition;
+
+      annyang.addCommands({ hello: spy1 });
+      annyang.addCommands({ hello: spy2 });
+
+      annyang.start();
+      recognition.say('hello');
+
+      expect(spy1).not.toHaveBeenCalled();
+      expect(spy2).toHaveBeenCalledTimes(1);
     });
   });
 });

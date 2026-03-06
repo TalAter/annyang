@@ -21,41 +21,40 @@
   },
   "license": "MIT",
   "author": "Tal Ater <tal@talater.com> (https://www.talater.com/)",
+  "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/annyang.mjs.js",
-      "require": "./dist/annyang.cjs.js",
-      "default": "./dist/annyang.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
-  "main": "dist/annyang.cjs.js",
-  "module": "dist/annyang.mjs.js",
-  "browser": "dist/annyang.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "files": ["dist", "LICENSE", "README.md"],
-  "types": "dist/annyang.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "sideEffects": false,
   "scripts": {
-    "build": "rollup -c",
-    "dev": "npm-run-all -c -s dev:format-lint-build dev:watch",
-    "dev:format-lint-build": "clear; npm-run-all -c -s format lint build",
-    "dev:watch": "chokidar 'src/**/*.ts' 'test/**/*.test.ts' '*.mjs' '*.json' -c 'pnpm dev:format-lint-build'",
-    "docs": "documentation build src/annyang.ts -f md -o docs/README.md",
-    "format": "prettier --write 'src/**/*.ts' 'test/**/*.test.ts' 'package.json' '.eslintrc.json' 'rollup.config.mjs'",
-    "lint": "npm-run-all -c -p lint:src lint:docs",
-    "lint:docs": "documentation lint src/annyang.ts",
-    "lint:src": "eslint 'src/**/*.ts' 'test/**/*.test.ts' 'rollup.config.mjs'",
-    "test": "vitest"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src test",
+    "format": "prettier --write src test",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
     "@types/dom-speech-recognition": "^0.0.4",
     "@types/eslint": "^9.6.0",
     "@types/node": "^22.1.0",
     "@typescript-eslint/eslint-plugin": "^8.0.1",
     "@typescript-eslint/parser": "^8.0.1",
-    "chokidar-cli": "^3.0.0",
     "corti": "^1.0.0",
     "documentation": "^14.0.3",
     "eslint": "^8.57.0",
@@ -63,9 +62,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
-    "npm-run-all": "^4.1.5",
     "prettier": "^3.3.3",
-    "rollup": "^4.18.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.5.4",
     "vitest": "^1.6.0"
   },

@@ -8,30 +8,41 @@
  * # API Reference
  */
 
+const MIN_RESTART_INTERVAL_MS = 1000;
+const RESTART_WARNING_INTERVAL = 10;
+
 let recognition: SpeechRecognition;
 let listening: boolean = false;
 let autoRestart: boolean = true;
 let debugState: boolean = false;
 const debugStyle: string = 'font-weight: bold; color: #00f;';
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-type CallbackFunction = Function;
-const commandsList: Map<string, { command: RegExp; callback: CallbackFunction }> = new Map();
-interface SpeechRecognitionEventCallback {
-  callback: CallbackFunction;
+
+export interface CallbackMap {
+  start: () => void;
+  end: () => void;
+  soundstart: () => void;
+  result: (phrases: string[]) => void;
+  resultMatch: (userSaid: string, commandText: string, phrases: string[]) => void;
+  resultNoMatch: (phrases: string[]) => void;
+  error: (event: SpeechRecognitionErrorEvent) => void;
+  errorNetwork: (event: SpeechRecognitionErrorEvent) => void;
+  errorPermissionBlocked: (event: SpeechRecognitionErrorEvent) => void;
+  errorPermissionDenied: (event: SpeechRecognitionErrorEvent) => void;
+}
+
+export type CallbackType = keyof CallbackMap;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFunction = (...args: any[]) => void;
+
+interface StoredCallback {
+  callback: AnyFunction;
   context: object | undefined;
 }
-type CallbackTypes =
-  | 'start'
-  | 'error'
-  | 'end'
-  | 'soundstart'
-  | 'result'
-  | 'resultMatch'
-  | 'resultNoMatch'
-  | 'errorNetwork'
-  | 'errorPermissionBlocked'
-  | 'errorPermissionDenied';
-const callbacks: Map<CallbackTypes, SpeechRecognitionEventCallback[]> = new Map([
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const commandsList: Map<string, { command: RegExp; callback: (...args: any[]) => void }> = new Map();
+const callbacks: Map<CallbackType, StoredCallback[]> = new Map([
   ['start', []],
   ['error', []],
   ['end', []],
@@ -85,18 +96,15 @@ const logMessage = (text: string, extraParameters?: string | string[]) => {
 };
 
 // Add a command to the commands list
-const registerCommand = (command: RegExp, callback: CallbackFunction, originalPhrase: string) => {
+const registerCommand = (command: RegExp, callback: AnyFunction, originalPhrase: string) => {
   commandsList.set(originalPhrase, { command, callback });
   logMessage(`Command successfully loaded: %c${originalPhrase}`, debugStyle);
 };
 
 // This method receives an array of callbacks and invokes each of them
-const invokeCallbacks = (
-  callbacksArr: SpeechRecognitionEventCallback[] = [],
-  ...args: (string | string[] | SpeechRecognitionErrorEvent)[]
-) => {
-  callbacksArr.forEach(callback => {
-    callback.callback.apply(callback.context, args);
+const invokeCallbacks = (callbacksArr: StoredCallback[] = [], ...args: unknown[]) => {
+  callbacksArr.forEach(cb => {
+    cb.callback.apply(cb.context, args);
   });
 };
 
@@ -131,7 +139,6 @@ const init = () => {
 
   recognition.onerror = event => {
     invokeCallbacks(callbacks.get('error'), event);
-    /* eslint-disable-next-line default-case */
     switch (event.error) {
       case 'network':
         invokeCallbacks(callbacks.get('errorNetwork'), event);
@@ -147,6 +154,8 @@ const init = () => {
           invokeCallbacks(callbacks.get('errorPermissionDenied'), event);
         }
         break;
+      default:
+        break;
     }
   };
 
@@ -158,15 +167,15 @@ const init = () => {
       // play nicely with the browser, and never restart annyang automatically more than once per second
       const timeSinceLastStart = new Date().getTime() - lastStartedAt;
       autoRestartCount += 1;
-      if (autoRestartCount % 10 === 0) {
+      if (autoRestartCount % RESTART_WARNING_INTERVAL === 0) {
         logMessage(
           'Speech Recognition is repeatedly stopping and starting. See http://is.gd/annyang_restarts for tips.'
         );
       }
-      if (timeSinceLastStart < 1000) {
+      if (timeSinceLastStart < MIN_RESTART_INTERVAL_MS) {
         setTimeout(() => {
           start({ paused: pauseListening });
-        }, 1000 - timeSinceLastStart);
+        }, MIN_RESTART_INTERVAL_MS - timeSinceLastStart);
       } else {
         start({ paused: pauseListening });
       }
@@ -194,33 +203,26 @@ const initIfNeeded = () => {
 };
 
 const parseResults = (recognitionResults: string[]) => {
-  const parseCommand = (currentCommand: { command: RegExp; callback: CallbackFunction }, originalPhrase: string) => {
-    if (commandMatchFound) return;
-    const matchedCommand = currentCommand.command.exec(commandText);
-    if (matchedCommand) {
-      const parameters = matchedCommand.slice(1);
-      logMessage(`command matched: %c${originalPhrase}`, debugStyle);
-      if (parameters.length) {
-        logMessage('with parameters', parameters);
-      }
-      // execute the matched command
-      currentCommand.callback.apply(this, parameters);
-      invokeCallbacks(callbacks.get('resultMatch'), commandText, originalPhrase, recognitionResults);
-      commandMatchFound = true;
-    }
-  };
   invokeCallbacks(callbacks.get('result'), recognitionResults);
-  let commandText: string;
   // go over each of the RecognitionResults received (maxAlternatives is set to 5)
-  let commandMatchFound = false;
-  for (let i = 0; i < recognitionResults.length; i += 1) {
-    if (commandMatchFound) return;
-    // the text recognized
-    commandText = recognitionResults[i].trim();
+  for (const rawText of recognitionResults) {
+    const commandText = rawText.trim();
     logMessage(`Speech recognized: %c${commandText}`, debugStyle);
 
     // try and match the recognized text to one of the commands on the list
-    commandsList.forEach(parseCommand);
+    for (const [originalPhrase, currentCommand] of commandsList) {
+      const matchedCommand = currentCommand.command.exec(commandText);
+      if (matchedCommand) {
+        const parameters = matchedCommand.slice(1);
+        logMessage(`command matched: %c${originalPhrase}`, debugStyle);
+        if (parameters.length) {
+          logMessage('with parameters', parameters);
+        }
+        currentCommand.callback(...parameters);
+        invokeCallbacks(callbacks.get('resultMatch'), commandText, originalPhrase, recognitionResults);
+        return;
+      }
+    }
   }
   invokeCallbacks(callbacks.get('resultNoMatch'), recognitionResults);
 };
@@ -232,8 +234,8 @@ const parseResults = (recognitionResults: string[]) => {
  */
 const isSpeechRecognitionSupported = () => !!getSpeechRecognition();
 
-interface CommandsList {
-  [key: string]: CallbackFunction | { regexp: RegExp; callback: CallbackFunction } | string;
+export interface CommandsList {
+  [key: string]: AnyFunction | { regexp: RegExp; callback: AnyFunction };
 }
 
 /**
@@ -265,11 +267,8 @@ const addCommands = (commands: CommandsList, resetCommands = false) => {
     commandsList.clear();
   }
 
-  Object.keys(commands).forEach(phrase => {
-    const cb =
-      typeof commands[phrase] === 'string'
-        ? (globalThis as Window & typeof globalThis)[commands[phrase] as keyof Window]
-        : commands[phrase];
+  for (const phrase of Object.keys(commands)) {
+    const cb = commands[phrase];
 
     if (typeof cb === 'function') {
       // convert command to regex then register the command
@@ -280,7 +279,7 @@ const addCommands = (commands: CommandsList, resetCommands = false) => {
     } else {
       logMessage(`Can not register command: %c${phrase}`, debugStyle);
     }
-  });
+  }
 };
 
 /**
@@ -314,7 +313,7 @@ const removeCommands = (commandsToRemove?: string | string[] | undefined) => {
   }
 };
 
-interface StartOptions {
+export interface StartOptions {
   autoRestart?: boolean;
   continuous?: boolean;
   paused?: boolean;
@@ -358,7 +357,6 @@ const start = (options: StartOptions = {}) => {
 
   lastStartedAt = new Date().getTime();
   try {
-    // @TODO: test this by throwing an Error as well as other stuff
     recognition.start();
   } catch (e: unknown) {
     logMessage(e instanceof Error ? e.message : String(e));
@@ -448,30 +446,42 @@ const resume = () => {
  *
  * #### Examples:
  * ````javascript
- * annyang.addCallback('error', () => {
- *   $('.myErrorText').text('There was an error!');
- * });
- *
  * annyang.addCallback('resultMatch', (userSaid, commandText, phrases) => {
  *   console.log(userSaid); // sample output: 'hello'
  *   console.log(commandText); // sample output: 'hello (there)'
  *   console.log(phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
  * });
  *
- * // pass local context to a global function called notConnected
- * annyang.addCallback('errorNetwork', notConnected, this);
+ * // Returns an unsubscribe function
+ * const unsubscribe = annyang.addCallback('error', () => {
+ *   console.log('There was an error!');
+ * });
+ * unsubscribe(); // removes the callback
  * ````
  * @param {string} type - Name of event that will trigger this callback
  * @param {function} callback - The function to call when event is triggered
  * @param {Object} [context] - Optional context for the callback function
+ * @returns {function} A function that removes this callback when called
  * @method addCallback
  */
-const addCallback = (type: CallbackTypes, callback: CallbackFunction, context: object | undefined = undefined) => {
+const addCallback = <T extends CallbackType>(
+  type: T,
+  callback: CallbackMap[T],
+  context: object | undefined = undefined,
+): (() => void) => {
   const callbacksOfType = callbacks.get(type);
   if (typeof callback === 'function' && callbacksOfType) {
-    // @TODO: add a test to the testing suite that tries an invalid type
-    callbacksOfType.push({ callback, context });
+    const entry: StoredCallback = { callback: callback as AnyFunction, context };
+    callbacksOfType.push(entry);
+    return () => {
+      const arr = callbacks.get(type);
+      if (arr) {
+        const idx = arr.indexOf(entry);
+        if (idx !== -1) arr.splice(idx, 1);
+      }
+    };
   }
+  return () => {};
 };
 
 /**
@@ -507,20 +517,16 @@ const addCallback = (type: CallbackTypes, callback: CallbackFunction, context: o
  * @returns undefined
  * @method removeCallback
  */
-const removeCallback = (type?: CallbackTypes, callback?: CallbackFunction) => {
-  const compareWithCallbackParameter = (cb: SpeechRecognitionEventCallback) => {
-    return cb.callback !== callback;
-  };
-  // Iterate over each callback type in the callbacks object
+const removeCallback = (type?: CallbackType, callback?: AnyFunction) => {
   callbacks.forEach((callbacksArray, callbackType) => {
-    // if this is the type user asked to delete, or he asked to delete all, go ahead.
     if (type === undefined || type === callbackType) {
-      // If user asked to delete all callbacks in this type or all types
       if (callback === undefined) {
         callbacks.get(callbackType)!.length = 0;
       } else {
-        // Remove all matching callbacks
-        callbacks.set(callbackType, callbacksArray.filter(compareWithCallbackParameter));
+        callbacks.set(
+          callbackType,
+          callbacksArray.filter(cb => cb.callback !== callback),
+        );
       }
     }
   });
@@ -535,6 +541,20 @@ const removeCallback = (type?: CallbackTypes, callback?: CallbackFunction) => {
  */
 const isListening = () => {
   return listening && !pauseListening;
+};
+
+export type AnnyangState = 'idle' | 'listening' | 'paused';
+
+/**
+ * Returns the current state of annyang.
+ *
+ * @returns {'idle' | 'listening' | 'paused'} The current state
+ * @method getState
+ */
+const getState = (): AnnyangState => {
+  if (!listening) return 'idle';
+  if (pauseListening) return 'paused';
+  return 'listening';
 };
 
 /**
@@ -616,14 +636,13 @@ export {
   trigger,
   debug,
   getSpeechRecognizer,
+  getState,
 };
 
 /**
  * # Good to Know
  *
  * ## Commands Object
- *
- * Both the [init()]() and addCommands() methods receive a `commands` object.
  *
  * annyang understands commands with `named variables`, `splats`, and `optional words`.
  *

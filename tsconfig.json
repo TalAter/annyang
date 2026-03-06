@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2020",
     "module": "ESNext",
+    "moduleResolution": "bundler",
     "strict": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "lib": ["ESNext", "DOM"],
-    "typeRoots": ["./node_modules/@types", "./dist"],
-    "allowImportingTsExtensions": true
+    "sourceMap": true,
+    "outDir": "dist",
+    "skipLibCheck": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2020", "DOM"]
   },
-  "include": ["src", "test"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src"]
 }
