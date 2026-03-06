@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, test, vi, MockInstance } from 'vitest';
 
 import * as annyang from '../../src/annyang.ts';
-import { isSpeechRecognitionSupported, start, isListening, getState } from '../../src/annyang.ts';
+import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang.ts';
 
 const logFormatString = 'font-weight: bold; color: #00f;';
 

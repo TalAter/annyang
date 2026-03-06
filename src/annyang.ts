@@ -467,7 +467,7 @@ const resume = () => {
 const addCallback = <T extends CallbackType>(
   type: T,
   callback: CallbackMap[T],
-  context: object | undefined = undefined,
+  context: object | undefined = undefined
 ): (() => void) => {
   const callbacksOfType = callbacks.get(type);
   if (typeof callback === 'function' && callbacksOfType) {
@@ -525,7 +525,7 @@ const removeCallback = (type?: CallbackType, callback?: AnyFunction) => {
       } else {
         callbacks.set(
           callbackType,
-          callbacksArray.filter(cb => cb.callback !== callback),
+          callbacksArray.filter(cb => cb.callback !== callback)
         );
       }
     }

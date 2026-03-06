@@ -1,16 +1,8 @@
 {
   "name": "annyang",
   "version": "3.0.0-dev",
-  "description": "A javascript library for adding voice commands to your site, using speech recognition",
-  "keywords": [
-    "annyang",
-    "annyang.js",
-    "recognition",
-    "speech",
-    "speechrecognition",
-    "voice",
-    "webkitspeechrecognition"
-  ],
+  "description": "A tiny JavaScript library for adding voice commands to your site, using speech recognition",
+  "keywords": ["speech", "recognition", "voice", "commands", "speechrecognition"],
   "homepage": "https://www.talater.com/annyang/",
   "bugs": {
     "url": "https://github.com/TalAter/annyang/issues"
@@ -37,7 +29,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -51,16 +45,11 @@
   },
   "devDependencies": {
     "@types/dom-speech-recognition": "^0.0.4",
-    "@types/eslint": "^9.6.0",
-    "@types/node": "^22.1.0",
     "@typescript-eslint/eslint-plugin": "^8.0.1",
     "@typescript-eslint/parser": "^8.0.1",
     "corti": "^1.0.0",
-    "documentation": "^14.0.3",
     "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
     "prettier": "^3.3.3",
     "tsup": "^8.5.1",

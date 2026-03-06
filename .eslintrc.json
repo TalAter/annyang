@@ -4,47 +4,32 @@
     "node": true,
     "es2021": true
   },
-  "extends": ["plugin:@typescript-eslint/recommended", "airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module",
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["import", "@typescript-eslint"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "import/no-extraneous-dependencies": [
-      "error",
-      { "devDependencies": ["**/rollup.config.mjs", "test/**/*.test.js"] }
-    ],
     "no-console": "off",
-    "max-len": ["error", { "code": 120, "ignoreComments": true }],
-    "func-names": ["warn", "as-needed"]
+    "max-len": ["error", { "code": 120, "ignoreComments": true }]
   },
   "overrides": [
     {
-      "files": ["test/**/*.test.ts"],
+      "files": ["test/**/*.test.ts", "test/**/*.js"],
+      "parserOptions": {
+        "project": null
+      },
       "rules": {
-        "max-len": "off",
-        "import/no-extraneous-dependencies": [
-          "error",
-          {
-            "devDependencies": true
-          }
-        ]
+        "max-len": "off"
       }
     },
     {
       "files": ["src/annyang.ts"],
       "rules": {
-        "no-use-before-define": "off",
-        "no-undef": "off"
-      }
-    },
-    {
-      "files": ["rollup.config.mjs"],
-      "parserOptions": {
-        "project": null
+        "no-use-before-define": "off"
       }
     }
   ]
