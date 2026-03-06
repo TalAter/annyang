@@ -23,22 +23,25 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./dist/annyang.d.ts",
+        "default": "./dist/annyang.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "types": "./dist/annyang.d.cts",
+        "default": "./dist/annyang.cjs"
       }
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/annyang.cjs",
+  "module": "./dist/annyang.js",
+  "types": "./dist/annyang.d.ts",
   "files": [
     "dist"
   ],
   "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

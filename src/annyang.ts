@@ -654,6 +654,30 @@ export {
   initDeprecated as init,
 };
 
+const annyang = {
+  isSpeechRecognitionSupported,
+  addCommands,
+  removeCommands,
+  start,
+  abort,
+  pause,
+  resume,
+  addCallback,
+  removeCallback,
+  isListening,
+  setLanguage,
+  trigger,
+  debug,
+  getSpeechRecognizer,
+  getState,
+  init: initDeprecated,
+  get state() {
+    return getState();
+  },
+} as const;
+
+export default annyang;
+
 /**
  * # Good to Know
  *

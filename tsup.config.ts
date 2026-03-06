@@ -2,17 +2,17 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig([
   {
-    entry: ['src/index.ts'],
+    entry: ['src/annyang.ts'],
     format: ['esm', 'cjs'],
     dts: true,
     clean: true,
     sourcemap: true,
   },
   {
-    entry: ['src/index.ts'],
+    entry: ['src/annyang.ts'],
     format: ['iife'],
     globalName: 'annyang',
     minify: true,
-    outExtension: () => ({ js: '.iife.js' }),
+    outExtension: () => ({ js: '.iife.min.js' }),
   },
 ]);
