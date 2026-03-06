@@ -330,11 +330,7 @@ export interface StartOptions {
  */
 const start = (options: StartOptions = {}) => {
   initIfNeeded();
-  if (options.paused !== undefined) {
-    pauseListening = !!options.paused;
-  } else {
-    pauseListening = false;
-  }
+  pauseListening = !!options.paused;
   if (options.autoRestart !== undefined) {
     autoRestart = !!options.autoRestart;
   } else {
