@@ -1,4 +1,4 @@
-# annyang
+# annyang!
 
 A tiny JavaScript Speech Recognition library that lets your users control your site with voice commands.
 
