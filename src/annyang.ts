@@ -624,6 +624,17 @@ const getSpeechRecognizer = () => {
   return recognition;
 };
 
+/**
+ * @deprecated annyang no longer requires manual initialization. It initializes automatically on `start()` or `addCommands()`. Remove any calls to `init()`.
+ * @method init
+ */
+const initDeprecated = () => {
+  console.warn(
+    'annyang.init() is deprecated and no longer needed. ' +
+      'annyang initializes automatically on start() or addCommands(). Remove this call.'
+  );
+};
+
 export {
   isSpeechRecognitionSupported,
   addCommands,
@@ -640,6 +651,7 @@ export {
   debug,
   getSpeechRecognizer,
   getState,
+  initDeprecated as init,
 };
 
 /**
