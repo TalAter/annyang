@@ -1519,7 +1519,8 @@ describe('annyang', () => {
         expect(logSpy).toHaveBeenCalledTimes(0);
         annyang.debug(true);
         recognition.say('Time for some thrilling heroics');
-        expect(logSpy).toHaveBeenCalledTimes(2);
+        // 5 alternatives logged + 1 command matched = 6
+        expect(logSpy).toHaveBeenCalledTimes(6);
         expect(logSpy).toHaveBeenLastCalledWith(
           'command matched: %cTime for some (thrilling) heroics',
           logFormatString
@@ -1530,7 +1531,8 @@ describe('annyang', () => {
         expect(logSpy).toHaveBeenCalledTimes(0);
         annyang.debug(true);
         recognition.say("You can't take the sky from me");
-        expect(logSpy).toHaveBeenCalledTimes(3); // 1 console log for speech recognized + 1 for the command matching + 1 for the parameter
+        // 5 alternatives logged + 1 command matched + 1 parameters = 7
+        expect(logSpy).toHaveBeenCalledTimes(7);
         expect(logSpy).toHaveBeenLastCalledWith('with parameters', ['sky']);
       });
 
@@ -1539,6 +1541,38 @@ describe('annyang', () => {
         annyang.debug(false);
         recognition.say('Time for some thrilling heroics');
         expect(logSpy).not.toHaveBeenCalled();
+      });
+
+      it('should write to console each speech recognition alternative that is recognized when a command matches', () => {
+        expect(logSpy).toHaveBeenCalledTimes(0);
+        annyang.debug(true);
+        recognition.say('Time for some thrilling heroics');
+
+        expect(logSpy).toHaveBeenNthCalledWith(
+          1,
+          'Speech recognized: %cTime for some thrilling heroics',
+          logFormatString
+        );
+        expect(logSpy).toHaveBeenNthCalledWith(
+          2,
+          'Speech recognized: %cTime for some thrilling heroics and so on',
+          logFormatString
+        );
+        expect(logSpy).toHaveBeenNthCalledWith(
+          3,
+          'Speech recognized: %cTime for some thrilling heroics and so on and so forth',
+          logFormatString
+        );
+        expect(logSpy).toHaveBeenNthCalledWith(
+          4,
+          'Speech recognized: %cTime for some thrilling heroics and so on and so forth and so on',
+          logFormatString
+        );
+        expect(logSpy).toHaveBeenNthCalledWith(
+          5,
+          'Speech recognized: %cTime for some thrilling heroics and so on and so forth and so on and so forth',
+          logFormatString
+        );
       });
 
       it('should write to console each speech recognition alternative that is recognized when no command matches', () => {

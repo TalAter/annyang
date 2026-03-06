@@ -204,12 +204,15 @@ const initIfNeeded = () => {
 
 const parseResults = (recognitionResults: string[]) => {
   invokeCallbacks(callbacks.get('result'), recognitionResults);
-  // go over each of the RecognitionResults received (maxAlternatives is set to 5)
+
+  // Log all recognition alternatives for debugging, regardless of match
+  for (const rawText of recognitionResults) {
+    logMessage(`Speech recognized: %c${rawText.trim()}`, debugStyle);
+  }
+
+  // Try to match each alternative to a command
   for (const rawText of recognitionResults) {
     const commandText = rawText.trim();
-    logMessage(`Speech recognized: %c${commandText}`, debugStyle);
-
-    // try and match the recognized text to one of the commands on the list
     for (const [originalPhrase, currentCommand] of commandsList) {
       const matchedCommand = currentCommand.command.exec(commandText);
       if (matchedCommand) {
