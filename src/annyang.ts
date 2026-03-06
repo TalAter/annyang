@@ -259,9 +259,7 @@ export interface CommandsList {
  * ````
  *
  * @param {Object} commands - Commands that annyang should listen for
- * @param {boolean} [resetCommands=false] - Remove all existing commands before adding new commands?
- * @method addCommands
- * @see [Commands Object](#commands-object)
+ * @param {boolean} [resetCommands=false] - Remove all existing commands before adding new commands? * @see [Commands Object](#commands-object)
  */
 const addCommands = (commands: CommandsList, resetCommands = false) => {
   initIfNeeded();
@@ -305,7 +303,6 @@ const addCommands = (commands: CommandsList, resetCommands = false) => {
  * annyang.removeCommands(['howdy', 'hi']);
  * ````
  * @param {string|string[]|undefined} [commandsToRemove] - Commands to remove
- * @method removeCommands
  */
 const removeCommands = (commandsToRemove?: string | string[] | undefined) => {
   if (commandsToRemove === undefined) {
@@ -340,7 +337,6 @@ export interface StartOptions {
  * annyang.start({ autoRestart: false, continuous: false });
  * ````
  * @param {Object} [options] - Optional options.
- * @method start
  */
 const start = (options: StartOptions = {}) => {
   initIfNeeded();
@@ -372,7 +368,6 @@ const start = (options: StartOptions = {}) => {
  * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
  * @see [pause()](#pause)
  *
- * @method abort
  */
 const abort = () => {
   autoRestart = false;
@@ -388,7 +383,6 @@ const abort = () => {
  * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
  * @see [abort()](#abort)
  *
- * @method pause
  */
 const pause = () => {
   pauseListening = true;
@@ -398,7 +392,6 @@ const pause = () => {
  * Resumes listening and restore command callback execution when a command is matched.
  * If SpeechRecognition was aborted (stopped), start it.
  *
- * @method resume
  */
 const resume = () => {
   start();
@@ -465,7 +458,6 @@ const resume = () => {
  * @param {function} callback - The function to call when event is triggered
  * @param {Object} [context] - Optional context for the callback function
  * @returns {function} A function that removes this callback when called
- * @method addCallback
  */
 const addCallback = <T extends CallbackType>(
   type: T,
@@ -518,7 +510,6 @@ const addCallback = <T extends CallbackType>(
  * @param type Name of event type to remove callback from
  * @param callback The callback function to remove
  * @returns undefined
- * @method removeCallback
  */
 const removeCallback = (type?: CallbackType, callback?: AnyFunction) => {
   callbacks.forEach((callbacksArray, callbackType) => {
@@ -539,8 +530,7 @@ const removeCallback = (type?: CallbackType, callback?: AnyFunction) => {
  * Returns true if speech recognition is currently on.
  * Returns false if speech recognition is off or annyang is paused.
  *
- * @return boolean true = SpeechRecognition is on and annyang is not paused
- * @method isListening
+ * @returns true if SpeechRecognition is on and annyang is not paused
  */
 const isListening = () => {
   return listening && !pauseListening;
@@ -552,7 +542,6 @@ export type AnnyangState = 'idle' | 'listening' | 'paused';
  * Returns the current state of annyang.
  *
  * @returns {'idle' | 'listening' | 'paused'} The current state
- * @method getState
  */
 const getState = (): AnnyangState => {
   if (!listening) return 'idle';
@@ -564,7 +553,6 @@ const getState = (): AnnyangState => {
  * Set the language the user will speak in. If this method is not called, annyang defaults to 'en-US'.
  *
  * @param {string} language - The language (locale)
- * @method setLanguage
  * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
  */
 const setLanguage = (language: string): void => {
@@ -576,7 +564,6 @@ const setLanguage = (language: string): void => {
  * Turn on the output of debug messages to the console.
  *
  * @param {boolean} [newState=true] - Turn debug messages on or off
- * @method debug
  */
 const debug = (newState: boolean = true): void => {
   debugState = !!newState;
@@ -597,9 +584,7 @@ const debug = (newState: boolean = true): void => {
  *   );
  * ````
  *
- * @param string|string[] sentences A sentence as a string or an array of strings of possible sentences
- * @returns undefined
- * @method trigger
+ * @param sentences - A sentence as a string or an array of strings of possible sentences
  */
 const trigger = (sentences: string | string[] = []) => {
   if (!isListening()) {
@@ -618,7 +603,6 @@ const trigger = (sentences: string | string[] = []) => {
  * Useful in case you want direct access to the browser's Speech Recognition engine.
  *
  * @returns SpeechRecognition The browser's Speech Recognizer instance currently used by annyang
- * @method getSpeechRecognizer
  */
 const getSpeechRecognizer = () => {
   return recognition;
@@ -626,7 +610,6 @@ const getSpeechRecognizer = () => {
 
 /**
  * @deprecated annyang no longer requires manual initialization. It initializes automatically on `start()` or `addCommands()`. Remove any calls to `init()`.
- * @method init
  */
 const initDeprecated = () => {
   console.warn(
