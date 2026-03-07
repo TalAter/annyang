@@ -227,8 +227,10 @@ const parseResults = (recognitionResults: string[]) => {
  */
 const isSpeechRecognitionSupported = () => !!getSpeechRecognition();
 
+export type CommandCallback = (...args: string[]) => void;
+
 export interface CommandsList {
-  [key: string]: AnyFunction | { regexp: RegExp; callback: AnyFunction };
+  [key: string]: CommandCallback | { regexp: RegExp; callback: CommandCallback };
 }
 
 /**
@@ -497,7 +499,7 @@ const addCallback = <T extends CallbackType>(
  * @param callback The callback function to remove
  * @returns undefined
  */
-const removeCallback = (type?: CallbackType, callback?: AnyFunction) => {
+const removeCallback = (type?: CallbackType, callback?: CallbackMap[CallbackType]) => {
   callbacks.forEach((callbacksArray, callbackType) => {
     if (type === undefined || type === callbackType) {
       if (callback === undefined) {
