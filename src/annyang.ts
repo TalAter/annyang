@@ -590,7 +590,7 @@ const trigger = (sentences: string | string[] = []) => {
  *
  * @returns SpeechRecognition The browser's Speech Recognizer instance currently used by annyang
  */
-const getSpeechRecognizer = () => {
+const getSpeechRecognizer = (): SpeechRecognition | undefined => {
   return recognition;
 };
 
