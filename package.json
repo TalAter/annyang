@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/dom-speech-recognition": "^0.0.7",
-    "corti": "^1.0.0",
+    "corti": "^2.1.0",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",

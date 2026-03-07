@@ -1,14 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, test, vi, MockInstance } from 'vitest';
+import type { CortiSpeechRecognition } from 'corti';
 
 import annyangDefault from '../../src/annyang.ts';
 import * as annyang from '../../src/annyang.ts';
 import { isSpeechRecognitionSupported, start, isListening } from '../../src/annyang.ts';
 
 const logFormatString = 'font-weight: bold; color: #00f;';
-
-interface CortiSpeechRecognition extends SpeechRecognition {
-  say(text: string | string[]): void;
-}
 
 test('SpeechRecognition is mocked', () => {
   expect(globalThis.SpeechRecognition).toBeDefined();
