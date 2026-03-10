@@ -44,10 +44,12 @@
     "format:check": "prettier --check src test package.json",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && cat docs/api-intro.md docs/README.md docs/api-footer.md > docs/README.tmp && mv docs/README.tmp docs/README.md",
+    "demo": "concurrently -n build,serve -c blue,green \"tsup --watch\" \"npx http-server demo -p 8080 -c-1\"",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@types/dom-speech-recognition": "^0.0.7",
+    "concurrently": "^9.2.1",
     "corti": "^2.1.0",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
