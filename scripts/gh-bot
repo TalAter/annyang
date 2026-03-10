@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Run any `gh` command as the annyang-triage[bot] app.
+# Usage: ./scripts/gh-bot issue comment 42 --body "Hello from the bot"
+
+set -euo pipefail
+
+KEY=$(ls -t "$HOME"/.ssh/annyang-triage.*.private-key.pem 2>/dev/null | head -1)
+if [[ -z "$KEY" ]]; then
+  echo "Error: No annyang-triage private key found in ~/.ssh/" >&2
+  exit 1
+fi
+APP_ID="3059586"
+INSTALL_ID="115453194"
+
+export GH_TOKEN=$(gh token generate \
+  --key "$KEY" \
+  --app-id "$APP_ID" \
+  --installation-id "$INSTALL_ID" \
+  | jq -r '.token')
+
+gh "$@"
