@@ -230,7 +230,12 @@ const isSpeechRecognitionSupported = () => !!getSpeechRecognition();
 export type CommandCallback = (...args: string[]) => void;
 
 export interface CommandsList {
-  [key: string]: CommandCallback | { regexp: RegExp; callback: CommandCallback };
+  [key: string]:
+    | CommandCallback
+    | {
+        regexp: RegExp;
+        callback: CommandCallback;
+      };
 }
 
 /**
@@ -355,7 +360,6 @@ const start = (options: StartOptions = {}) => {
  *
  * Alternatively, to only temporarily pause annyang responding to commands without stopping the SpeechRecognition engine or closing the mic, use pause() instead.
  * @see [pause()](#pause)
- *
  */
 const abort = () => {
   autoRestart = false;
@@ -370,7 +374,6 @@ const abort = () => {
  *
  * Alternatively, to stop the SpeechRecognition engine and close the mic, use abort() instead.
  * @see [abort()](#abort)
- *
  */
 const pause = () => {
   pauseListening = true;
@@ -379,7 +382,6 @@ const pause = () => {
 /**
  * Resumes listening and restore command callback execution when a command is matched.
  * If SpeechRecognition was aborted (stopped), start it.
- *
  */
 const resume = () => {
   start();
@@ -454,7 +456,10 @@ const addCallback = <T extends CallbackType>(
 ): (() => void) => {
   const callbacksOfType = callbacks.get(type);
   if (typeof callback === 'function' && callbacksOfType) {
-    const entry: StoredCallback = { callback: callback as AnyFunction, context };
+    const entry: StoredCallback = {
+      callback: callback as AnyFunction,
+      context,
+    };
     callbacksOfType.push(entry);
     return () => {
       const arr = callbacks.get(type);
@@ -607,22 +612,22 @@ const initDeprecated = () => {
 };
 
 export {
-  isSpeechRecognitionSupported,
-  addCommands,
-  removeCommands,
-  start,
   abort,
-  pause,
-  resume,
   addCallback,
-  removeCallback,
-  isListening,
-  setLanguage,
-  trigger,
+  addCommands,
   debug,
   getSpeechRecognizer,
   getState,
   initDeprecated as init,
+  isListening,
+  isSpeechRecognitionSupported,
+  pause,
+  removeCallback,
+  removeCommands,
+  resume,
+  setLanguage,
+  start,
+  trigger,
 };
 
 const annyang = {
