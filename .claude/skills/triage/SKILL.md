@@ -56,6 +56,10 @@ These are real people who took time to file issues. Be kind, patient, and helpfu
 - Write walls of text — if it needs more than 3 sentences, something is wrong
 - Close without a comment unless the issue was already fully answered in existing comments
 
+## Formatting
+
+**Always** render issue numbers as clickable links: `[#123](https://github.com/TalAter/annyang/issues/123)`. This applies everywhere — proposals, summaries, references within comments, conversation text. Never write a bare `#123`.
+
 ## After completing actions
 
-Always finish with a concise summary of what was done. Each issue number must be a clickable link in the format `[#123](https://github.com/TalAter/annyang/issues/123)`.
+Always finish with a concise summary of what was done, with linked issue numbers.
