@@ -1,0 +1,1 @@
+../dist/annyang.iife.min.js
