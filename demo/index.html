@@ -219,84 +219,94 @@ annyang<span class="op">.</span><span class="fn">start</span><span class="op">()
     <!-- Unsupported browser banner -->
     <div id="unsupported">
       <h4>It looks like your browser doesn't support speech recognition.</h4>
+      <p>annyang works with all browsers, progressively enhancing those that support the SpeechRecognition standard.</p>
       <p>
-        annyang works with all browsers, progressively enhancing those that support the SpeechRecognition standard.
+        annyang commands can even be triggered manually in unsupported browsers (e.g., &ldquo;<a
+          href="#"
+          id="trigger-demo"
+          >Show me snowboarding</a
+        >&rdquo;)
+      </p>
+      <p>
         Please visit <a href="https://www.talater.com/annyang/">talater.com/annyang</a> in a supported browser like
         Chrome.
       </p>
     </div>
 
-    <!-- TPS Report (floating) -->
-
     <script type="module">
       import annyang from '../dist/annyang.js';
 
-      if (annyang.isSpeechRecognitionSupported()) {
-        const hello = () => {
-          const el = document.getElementById('hello');
-          el.classList.add('visible');
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        };
+      const hello = () => {
+        const el = document.getElementById('hello');
+        el.classList.add('visible');
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      };
 
-        const showFlickr = tag => {
-          const gallery = document.getElementById('flickrGallery');
-          const loader = document.getElementById('flickrLoader');
+      const showFlickr = tag => {
+        const gallery = document.getElementById('flickrGallery');
+        const loader = document.getElementById('flickrLoader');
 
-          loader.querySelector('p').textContent = 'Searching for ' + tag;
-          loader.classList.add('visible');
+        loader.querySelector('p').textContent = 'Searching for ' + tag;
+        loader.classList.add('visible');
 
-          const url =
-            'https://api.flickr.com/services/rest/?method=flickr.photos.search' +
-            '&api_key=a828a6571bb4f0ff8890f7a386d61975' +
-            '&sort=interestingness-desc&per_page=6&format=json&nojsoncallback=1' +
-            '&extras=url_q&media=photos' +
-            '&tags=' +
-            encodeURIComponent(tag);
+        const url =
+          'https://api.flickr.com/services/rest/?method=flickr.photos.search' +
+          '&api_key=a828a6571bb4f0ff8890f7a386d61975' +
+          '&sort=interestingness-desc&per_page=6&format=json&nojsoncallback=1' +
+          '&extras=url_q&media=photos' +
+          '&tags=' +
+          encodeURIComponent(tag);
 
-          fetch(url)
-            .then(r => r.json())
-            .then(data => {
-              loader.classList.remove('visible');
-              const photos = data.photos.photo;
-              photos.forEach(photo => {
-                if (!photo.url_q || photo.server === '31337' || photo.server === '0') return;
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                const img = document.createElement('img');
-                img.src = photo.url_q;
-                img.alt = photo.title;
-                img.onerror = () => div.remove();
-                div.appendChild(img);
-                gallery.appendChild(div);
-              });
+        fetch(url)
+          .then(r => r.json())
+          .then(data => {
+            loader.classList.remove('visible');
+            const photos = data.photos.photo;
+            photos.forEach(photo => {
+              if (!photo.url_q || photo.server === '31337' || photo.server === '0') return;
+              const div = document.createElement('div');
+              div.className = 'gallery-item';
+              const img = document.createElement('img');
+              img.src = photo.url_q;
+              img.alt = photo.title;
+              img.onerror = () => div.remove();
+              div.appendChild(img);
+              gallery.appendChild(div);
             });
+          });
 
-          document.getElementById('section_image_search').scrollIntoView({ behavior: 'smooth' });
-        };
+        document.getElementById('section_image_search').scrollIntoView({ behavior: 'smooth' });
+      };
 
-        const showTPS = () => {
-          const tps = document.getElementById('tpsreport');
-          tps.classList.add('visible');
-          setTimeout(() => tps.classList.remove('visible'), 3000);
-        };
+      const showTPS = () => {
+        const tps = document.getElementById('tpsreport');
+        tps.classList.add('visible');
+        setTimeout(() => tps.classList.remove('visible'), 3000);
+      };
 
-        const getStarted = () => {
-          window.location.href = 'https://github.com/TalAter/annyang';
-        };
+      const getStarted = () => {
+        window.location.href = 'https://github.com/TalAter/annyang';
+      };
 
-        const commands = {
-          'hello (there)': hello,
-          'show me *tag': showFlickr,
-          'show :type report': showTPS,
-          "let's get started": getStarted,
-        };
+      const commands = {
+        'hello (there)': hello,
+        'show me *tag': showFlickr,
+        'show :type report': showTPS,
+        "let's get started": getStarted,
+      };
 
-        annyang.debug();
-        annyang.addCommands(commands);
-        annyang.setLanguage('en');
+      annyang.debug();
+      annyang.addCommands(commands);
+      annyang.setLanguage('en');
+
+      if (annyang.isSpeechRecognitionSupported()) {
         annyang.start();
       } else {
         document.getElementById('unsupported').classList.add('visible');
+        document.getElementById('trigger-demo').addEventListener('click', e => {
+          e.preventDefault();
+          annyang.trigger('show me snowboarding');
+        });
       }
     </script>
   </body>
