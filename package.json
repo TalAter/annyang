@@ -44,7 +44,7 @@
     "format:check": "prettier --check src test package.json",
     "typecheck": "tsc --noEmit",
     "docs": "typedoc && cat docs/api-intro.md docs/README.md docs/api-footer.md > docs/README.tmp && mv docs/README.tmp docs/README.md",
-    "demo": "concurrently -n build,serve -c blue,green \"tsup --watch\" \"npx http-server demo -p 8080 -c-1\"",
+    "demo": "concurrently -n build,serve -c blue,green \"tsup --watch\" \"npx http-server . -p 8080 -c-1\"",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
