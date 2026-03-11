@@ -4,6 +4,20 @@
 
 ### Breaking Changes
 
+- **`if (annyang)` no longer detects browser support** — Starting in v3, the annyang object is always defined. Use `annyang.isSpeechRecognitionSupported()` instead:
+
+  ```js
+  // v2
+  if (annyang) {
+    annyang.start();
+  }
+
+  // v3
+  if (annyang.isSpeechRecognitionSupported()) {
+    annyang.start();
+  }
+  ```
+
 - **`init()` deprecated** — annyang initializes automatically when needed (on `start()` or `addCommands()`). Calling `init()` now logs a deprecation warning. Remove any calls to `init()`.
 - **String-based command callbacks removed** — Passing function names as strings (e.g. `{'hello': 'myFunc'}`) is no longer supported. Pass functions directly: `{'hello': myFunc}`.
 - **Duplicate command phrases now overwrite** — In v2, adding a command with the same phrase would register both callbacks. In v3, the new callback replaces the old one.
