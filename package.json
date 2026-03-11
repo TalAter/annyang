@@ -46,7 +46,7 @@
     "docs": "typedoc && cat docs/api-intro.md docs/README.md docs/api-footer.md > docs/README.tmp && mv docs/README.tmp docs/README.md",
     "test:manual": "pnpm build && cp dist/annyang.iife.min.js test-manual/ && npx esbuild test-manual/esm-app.js --bundle --alias:annyang=./dist/annyang.js --outfile=test-manual/dist/esm-app.js && npx esbuild test-manual/cjs-app.js --bundle --alias:annyang=./dist/annyang.cjs --outfile=test-manual/dist/cjs-app.js && npx http-server test-manual -p 8081 -c-1 -o",
     "demo": "concurrently -n build,serve -c blue,green \"tsup --watch\" \"npx http-server . -p 8080 -c-1\"",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm docs"
   },
   "devDependencies": {
     "@types/dom-speech-recognition": "^0.0.7",
