@@ -100,6 +100,10 @@ const invokeCallbacks = (callbacksArr: StoredCallback[] = [], ...args: unknown[]
 
 // Initialize annyang
 const init = () => {
+  if (!getSpeechRecognition()) {
+    return;
+  }
+
   // Abort previous instances of recognition already running
   if (recognition && recognition.abort) {
     recognition.abort();
@@ -259,8 +263,6 @@ export interface CommandsList {
  * @param {boolean} [resetCommands=false] - Remove all existing commands before adding new commands? * @see [Commands Object](#commands-object)
  */
 const addCommands = (commands: CommandsList, resetCommands = false) => {
-  initIfNeeded();
-
   if (resetCommands) {
     commandsList.clear();
   }
@@ -336,6 +338,9 @@ export interface StartOptions {
  * @param {Object} [options] - Optional options.
  */
 const start = (options: StartOptions = {}) => {
+  if (!isSpeechRecognitionSupported()) {
+    return;
+  }
   initIfNeeded();
   pauseListening = !!options.paused;
   if (options.autoRestart !== undefined) {
@@ -549,6 +554,9 @@ const getState = (): AnnyangState => {
  * @see [Languages](https://github.com/TalAter/annyang/blob/master/docs/FAQ.md#what-languages-are-supported)
  */
 const setLanguage = (language: string): void => {
+  if (!isSpeechRecognitionSupported()) {
+    return;
+  }
   initIfNeeded();
   recognition.lang = language;
 };
@@ -563,8 +571,9 @@ const debug = (newState: boolean = true): void => {
 };
 
 /**
- * Simulate speech being recognized. This will trigger the same events and behavior as when the Speech Recognition
- * detects speech.
+ * Match text against registered commands and fire the corresponding callbacks.
+ * Works independently of the speech recognition engine — does not require `start()`, and works even in
+ * environments where SpeechRecognition is not supported.
  *
  * Can accept either a string containing a single sentence or an array containing multiple sentences to be checked
  * in order until one of them matches a command (similar to the way Speech Recognition Alternatives are parsed)
@@ -580,14 +589,6 @@ const debug = (newState: boolean = true): void => {
  * @param sentences - A sentence as a string or an array of strings of possible sentences
  */
 const trigger = (sentences: string | string[] = []) => {
-  if (!isListening()) {
-    if (!listening) {
-      logMessage('Cannot trigger while annyang is aborted');
-    } else {
-      logMessage('Speech heard, but annyang is paused');
-    }
-    return;
-  }
   parseResults(Array.isArray(sentences) ? sentences : [sentences]);
 };
 

@@ -7,6 +7,7 @@
 - [Why does Speech Recognition repeatedly starts and stops?](#why-does-speech-recognition-repeatedly-starts-and-stops)
 - [Can annyang work offline?](#can-annyang-work-offline)
 - [Which browsers are supported?](#which-browsers-are-supported)
+- [How does annyang work with and without speech recognition?](#how-does-annyang-work-with-and-without-speech-recognition)
 - [What about Chrome on iOS?](#what-about-chrome-on-ios)
 - [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
 - [Can I detect when the user starts and stops speaking?](#can-i-detect-when-the-user-starts-and-stops-speaking)
@@ -156,6 +157,30 @@ if (!annyang.isSpeechRecognitionSupported()) {
 ```
 
 You can find out the current state of browser support on [caniuse.com](https://caniuse.com/speech-recognition).
+
+Even in unsupported browsers, annyang is safe to use. You can register commands and trigger them programmatically with `trigger()`, which works independently of the speech recognition engine:
+
+```javascript
+annyang.addCommands({
+  'show help': () => showHelpOverlay(),
+  'go to :page': page => navigateTo(page),
+});
+
+if (annyang.isSpeechRecognitionSupported()) {
+  annyang.start(); // Voice input triggers commands
+} else {
+  // Provide an alternative input method
+  goButton.addEventListener('click', () => {
+    annyang.trigger('go to ' + pageInput.value);
+  });
+}
+```
+
+## How does annyang work with and without speech recognition?
+
+`isListening()`, `getState()`, and the `start`/`end`/`soundstart`/`error*` callbacks reflect the state of the browser's speech recognition engine — whether the microphone is active, paused, or off. You can use these to drive UI that shows the user whether the browser is listening. In unsupported browsers, these are safe to call but will always report that the engine is inactive (`isListening()` returns `false`, `getState()` returns `'idle'`).
+
+`trigger()` allows manual invocation of commands regardless of speech recognition support. The same commands registered with `addCommands()` can be matched either through speech recognition in a supported browser or programmatically via `trigger()`. This means you can use `trigger()` to provide a fallback input in unsupported browsers, or to invoke commands from your own code alongside speech recognition in supported ones. `trigger()` does not depend on the listening state — it works whether annyang is listening, paused, aborted, or was never started.
 
 ## Can annyang be used to capture the full text spoken by the user?
 

@@ -1050,20 +1050,20 @@ describe('annyang', () => {
       expect(spyOnResult).toHaveBeenCalledTimes(1);
     });
 
-    it('should not trigger a matching command if annyang is aborted or not started', () => {
+    it('should trigger a matching command even if annyang is aborted or not started', () => {
       annyang.addCallback('resultMatch', spyOnResult);
       expect(spyOnResult).not.toHaveBeenCalled();
       annyang.abort();
       annyang.trigger('Time for some thrilling heroics');
-      expect(spyOnResult).not.toHaveBeenCalled();
+      expect(spyOnResult).toHaveBeenCalled();
     });
 
-    it('should not trigger a matching command if annyang is paused', () => {
+    it('should trigger a matching command even if annyang is paused', () => {
       annyang.addCallback('resultMatch', spyOnResult);
       expect(spyOnResult).not.toHaveBeenCalled();
       annyang.pause();
       annyang.trigger('Time for some thrilling heroics');
-      expect(spyOnResult).not.toHaveBeenCalled();
+      expect(spyOnResult).toHaveBeenCalled();
     });
   });
 
