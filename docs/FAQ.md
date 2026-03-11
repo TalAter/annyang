@@ -108,7 +108,7 @@ Chrome's speech recognition behaves differently based on the protocol used:
 
 - `http://` Asks for permission repeatedly **on every page load**. Results are also returned significantly slower in HTTP.
 
-For a great user experience, don't compromise on anything less than HTTPS (available free with CloudFlare and Let's Encrypt).
+For a great user experience, don't compromise on anything less than HTTPS.
 
 ## What can I do to make speech recognition results return faster?
 
