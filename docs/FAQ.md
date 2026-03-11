@@ -8,7 +8,6 @@
 - [Can annyang work offline?](#can-annyang-work-offline)
 - [Which browsers are supported?](#which-browsers-are-supported)
 - [How does annyang work with and without speech recognition?](#how-does-annyang-work-with-and-without-speech-recognition)
-- [What about Chrome on iOS?](#what-about-chrome-on-ios)
 - [Can annyang be used to capture the full text spoken by the user?](#can-annyang-be-used-to-capture-the-full-text-spoken-by-the-user)
 - [Can I detect when the user starts and stops speaking?](#can-i-detect-when-the-user-starts-and-stops-speaking)
 - [Can annyang be used in Chromium or Electron?](#can-annyang-be-used-in-chromium-or-electron)
@@ -99,8 +98,6 @@ Language support is up to each browser. While there isn't an official list of su
 - Zulu `zu`
 
 ## Why does the browser repeatedly ask for permission to use the microphone?
-
-![](http://i.imgur.com/Z3zooUC.png)
 
 Chrome's speech recognition behaves differently based on the protocol used:
 
@@ -226,17 +223,10 @@ annyang.addCallback('result', function () {
 });
 ```
 
-_Note_: The `soundstart` event is only available in annyang v2.6.0 and up.
-
 ## Can annyang be used in Chromium or Electron?
 
 Yes, however, you must create your own Chromium keys and are limited to 50 requests/day. To do this you'll need to provide your own keys at runtime by following the instructions for [Acquiring Keys](https://www.chromium.org/developers/how-tos/api-keys) in the Chromium developer docs.
 
 ## Can annyang be used in Cordova?
 
-Yes. In order to use `webKitSpeechRecognition` you will need to use [Crosswalk](https://github.com/crosswalk-project/cordova-plugin-crosswalk-webview) and the [Cordova Media Plugin](https://github.com/apache/cordova-plugin-media). These can be added to an existing Cordova project with the following commands:
-
-```
-cordova plugin add cordova-plugin-crosswalk-webview
-cordova plugin add cordova-plugin-media
-```
+Crosswalk (the Chromium-based WebView for Cordova) has been discontinued. If your Cordova WebView supports the Web Speech API, annyang will work. Otherwise, consider using `trigger()` to invoke commands programmatically from a native speech recognition plugin.
