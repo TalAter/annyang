@@ -5,3 +5,5 @@ npm-debug.log
 .vscode
 .idx
 .DS_Store
+test-manual/dist
+test-manual/annyang.iife.min.js
