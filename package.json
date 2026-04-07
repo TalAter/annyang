@@ -49,18 +49,18 @@
     "prepublishOnly": "pnpm test && pnpm lint && pnpm typecheck && pnpm build && pnpm docs"
   },
   "devDependencies": {
-    "@types/dom-speech-recognition": "^0.0.7",
+    "@types/dom-speech-recognition": "^0.0.9",
     "concurrently": "^9.2.1",
     "corti": "^2.1.0",
-    "eslint": "^10.0.2",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.8.1",
     "tsup": "^8.5.1",
-    "typedoc": "^0.28.17",
-    "typedoc-plugin-markdown": "^4.10.0",
+    "typedoc": "^0.28.18",
+    "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.56.1",
-    "vitest": "^4.0.18"
+    "typescript-eslint": "^8.58.0",
+    "vitest": "^4.1.2"
   },
   "packageManager": "pnpm@10.30.3",
   "pnpm": {
