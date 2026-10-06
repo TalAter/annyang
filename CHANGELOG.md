@@ -5,6 +5,7 @@
 ### Fixed
 
 - String commands now match Unicode letters case-insensitively, including letters outside the basic multilingual plane such as Deseret and Osage.
+- String commands tolerate sentence-ending periods, exclamation marks, and question marks after literal text, and commas between literal words, without changing captured values or custom regular expressions.
 
 ## 3.0.0
 

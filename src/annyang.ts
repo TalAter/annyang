@@ -55,15 +55,25 @@ const namedParam = /(\(\?)?:\w+/g;
 const splatParam = /\*\w+/g;
 const escapeRegExp = /[{}[\]+?.\\^$|]/g;
 const commandToRegExp = (command: string) => {
-  const parsedCommand = command
-    .replace(escapeRegExp, '\\$&')
+  const parts = command.split(/([:*]\w+)/);
+  const last = parts.length - 1;
+  const ending = parts[last].replace(/[.!?]+$/, '');
+  // Only relax sentence endings after literal text, never after a captured value
+  // or an optional suffix that could disappear and expose a capture.
+  const literalEnding = /\S/.test(ending) && (last === 0 || !ending.trimEnd().endsWith(')'));
+  if (literalEnding) parts[last] = ending;
+  const parsedCommand = parts
+    .map((part, index) =>
+      index % 2 ? part : part.replace(escapeRegExp, '\\$&').replace(/([\p{L}\p{N}]),?(?=\s+[\p{L}\p{N}])/gu, '$1,?')
+    )
+    .join('')
     .replace(optionalParam, '(?:$1)?')
     .replace(namedParam, (match, optional) => {
       return optional ? match : '([^\\s]+)';
     })
     .replace(splatParam, '(.*?)')
     .replace(optionalRegex, '\\s*$1?\\s*');
-  return new RegExp(`^${parsedCommand}$`, 'iu');
+  return new RegExp(`^${parsedCommand}${literalEnding ? '[.!?]*' : ''}$`, 'iu');
 };
 
 // Get the SpeechRecognition object, accounting for possible browser prefixes
