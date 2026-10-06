@@ -1,8 +1,14 @@
 {
   "name": "annyang",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A JavaScript library for adding voice commands to your site, using speech recognition",
-  "keywords": ["speech", "recognition", "voice", "commands", "speechrecognition"],
+  "keywords": [
+    "speech",
+    "recognition",
+    "voice",
+    "commands",
+    "speechrecognition"
+  ],
   "homepage": "https://www.talater.com/annyang/",
   "bugs": {
     "url": "https://github.com/TalAter/annyang/issues"
@@ -29,7 +35,9 @@
   "main": "./dist/annyang.cjs",
   "module": "./dist/annyang.js",
   "types": "./dist/annyang.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "engines": {
     "node": ">=18"
