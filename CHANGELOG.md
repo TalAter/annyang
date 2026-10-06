@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- String commands now match Unicode letters case-insensitively, including letters outside the basic multilingual plane such as Deseret and Osage.
+
 ## 3.0.0
 
 ### New Features / Breaking Changes

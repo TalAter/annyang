@@ -149,6 +149,72 @@ describe('annyang', () => {
       });
     });
 
+    describe('Unicode command matching', () => {
+      it.each([
+        ['Deseret', '\u{10400}', '\u{10428}'],
+        ['Osage', '\u{104B0}', '\u{104D8}'],
+        ['Kelvin sign', '\u212A', 'k'],
+        ['long s', 'S', '\u017F'],
+      ])('matches %s letters case-insensitively in either direction', (_script, upper, lower) => {
+        const callback = vi.fn();
+        annyang.addCommands({ [upper]: callback });
+        annyang.trigger(lower);
+        expect(callback).toHaveBeenCalledTimes(1);
+
+        annyang.removeCommands();
+        annyang.addCommands({ [lower]: callback });
+        annyang.trigger(upper);
+        expect(callback).toHaveBeenCalledTimes(2);
+      });
+
+      it('matches Unicode letters in optional words and preserves named and splat captures', () => {
+        const callback = vi.fn();
+        annyang.addCommands({ '(\u{10400}) :value *rest': callback });
+        annyang.trigger('\u{10428} 𐒰😀 𐐨 hello');
+        expect(callback).toHaveBeenLastCalledWith('𐒰😀', '𐐨 hello');
+        annyang.trigger('𐒰😀 𐐨 hello');
+        expect(callback).toHaveBeenCalledTimes(2);
+        expect(callback).toHaveBeenLastCalledWith('𐒰😀', '𐐨 hello');
+      });
+
+      it.each(['-', ',', '#', '{', '}', '[', ']', '+', '?', '.', '\\', '^', '$', '|'])(
+        'keeps %s literal and valid when compiling a Unicode regex',
+        punctuation => {
+          const callback = vi.fn();
+          const command = `hello${punctuation}there`;
+          expect(() => annyang.addCommands({ [command]: callback })).not.toThrow();
+          annyang.trigger(command);
+          expect(callback).toHaveBeenCalledTimes(1);
+          annyang.trigger('hellothere');
+          annyang.trigger('helloXthere');
+          expect(callback).toHaveBeenCalledTimes(1);
+        }
+      );
+
+      it.each([
+        ['café', 'cafe'],
+        ['café', 'cafe\u0301'],
+        ['straße', 'STRASSE'],
+        ['I', '\u0131'],
+        ['i', '\u0130'],
+        ['😀', '😁'],
+      ])('does not equate %s with %s beyond Unicode simple case folding', (command, phrase) => {
+        const callback = vi.fn();
+        annyang.addCommands({ [command]: callback });
+        annyang.trigger(phrase);
+        expect(callback).not.toHaveBeenCalled();
+      });
+
+      it('does not add Unicode semantics to developer-supplied regex commands', () => {
+        const callback = vi.fn();
+        annyang.addCommands({ deseret: { regexp: /^𐐀$/i, callback } });
+        annyang.trigger('𐐨');
+        expect(callback).not.toHaveBeenCalled();
+        annyang.trigger('𐐀');
+        expect(callback).toHaveBeenCalledTimes(1);
+      });
+    });
+
     describe('debug messages', () => {
       it('should write to console each command that was successfully added when debug is on', () => {
         expect(logSpy).toHaveBeenCalledTimes(0);

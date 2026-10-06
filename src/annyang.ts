@@ -53,7 +53,7 @@ const optionalParam = /\s*\((.*?)\)\s*/g;
 const optionalRegex = /(\(\?:[^)]+\))\?/g;
 const namedParam = /(\(\?)?:\w+/g;
 const splatParam = /\*\w+/g;
-const escapeRegExp = /[-{}[\]+?.,\\^$|#]/g;
+const escapeRegExp = /[{}[\]+?.\\^$|]/g;
 const commandToRegExp = (command: string) => {
   const parsedCommand = command
     .replace(escapeRegExp, '\\$&')
@@ -63,7 +63,7 @@ const commandToRegExp = (command: string) => {
     })
     .replace(splatParam, '(.*?)')
     .replace(optionalRegex, '\\s*$1?\\s*');
-  return new RegExp(`^${parsedCommand}$`, 'i');
+  return new RegExp(`^${parsedCommand}$`, 'iu');
 };
 
 // Get the SpeechRecognition object, accounting for possible browser prefixes
