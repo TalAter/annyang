@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitest/config';
+import QuietReporter from './test/quiet-reporter.js';
 
 export default defineConfig({
   test: {
+    reporters: [new QuietReporter()],
     projects: [
       {
         test: {
