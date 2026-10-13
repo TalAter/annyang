@@ -706,6 +706,31 @@ describe('annyang', () => {
 
     describe('options', () => {
       describe('autoRestart', () => {
+        it('should cancel a queued restart when annyang is aborted', () => {
+          annyang.start();
+          recognition.abort();
+          vi.advanceTimersByTime(500);
+          annyang.abort();
+
+          vi.advanceTimersByTime(1000);
+
+          expect(spyOnStart2).toHaveBeenCalledTimes(1);
+          expect(annyangDefault.state).toBe('idle');
+        });
+
+        it('should preserve disabled auto-restart when explicitly started after aborting a queued restart', () => {
+          annyang.start();
+          recognition.abort();
+          annyang.abort();
+          annyang.start({ autoRestart: false });
+          vi.advanceTimersByTime(1000);
+          recognition.abort();
+          vi.advanceTimersByTime(1000);
+
+          expect(spyOnStart2).toHaveBeenCalledTimes(2);
+          expect(annyangDefault.state).toBe('idle');
+        });
+
         it('should cause annyang to restart after 1 second when Speech Recognition engine was aborted (when true)', () => {
           annyang.start({ autoRestart: true });
           recognition.abort();

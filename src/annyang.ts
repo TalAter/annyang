@@ -4,6 +4,7 @@ const RESTART_WARNING_INTERVAL = 10;
 let recognition: SpeechRecognition;
 let listening: boolean = false;
 let autoRestart: boolean = true;
+let restartTimer: ReturnType<typeof setTimeout> | undefined;
 let debugState: boolean = false;
 const debugStyle: string = 'font-weight: bold; color: #00f;';
 
@@ -47,6 +48,13 @@ const callbacks: Map<CallbackType, StoredCallback[]> = new Map([
 let lastStartedAt: number = 0;
 let autoRestartCount: number = 0;
 let pauseListening: boolean = false;
+
+const cancelRestart = () => {
+  if (restartTimer !== undefined) {
+    clearTimeout(restartTimer);
+    restartTimer = undefined;
+  }
+};
 
 // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
 const optionalParam = /\s*\((.*?)\)\s*/g;
@@ -177,8 +185,10 @@ const init = () => {
         );
       }
       if (timeSinceLastStart < MIN_RESTART_INTERVAL_MS) {
-        setTimeout(() => {
-          start({ paused: pauseListening });
+        cancelRestart();
+        restartTimer = setTimeout(() => {
+          restartTimer = undefined;
+          if (autoRestart) start({ paused: pauseListening });
         }, MIN_RESTART_INTERVAL_MS - timeSinceLastStart);
       } else {
         start({ paused: pauseListening });
@@ -348,6 +358,7 @@ export interface StartOptions {
  * @param {Object} [options] - Optional options.
  */
 const start = (options: StartOptions = {}) => {
+  cancelRestart();
   if (!isSpeechRecognitionSupported()) {
     return;
   }
@@ -378,6 +389,7 @@ const start = (options: StartOptions = {}) => {
  */
 const abort = () => {
   autoRestart = false;
+  cancelRestart();
   autoRestartCount = 0;
   if (isInitialized()) {
     recognition.abort();

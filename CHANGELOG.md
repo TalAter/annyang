@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- `abort()` cancels pending automatic restarts so speech recognition stays stopped until explicitly started again.
+
 ## 3.1.0
 
 ### Fixed
