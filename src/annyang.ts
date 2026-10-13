@@ -111,7 +111,7 @@ const registerCommand = (command: RegExp, callback: AnyFunction, originalPhrase:
 
 // This method receives an array of callbacks and invokes each of them
 const invokeCallbacks = (callbacksArr: StoredCallback[] = [], ...args: unknown[]) => {
-  callbacksArr.forEach(cb => {
+  callbacksArr.slice().forEach(cb => {
     cb.callback.apply(cb.context, args);
   });
 };

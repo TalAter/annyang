@@ -454,6 +454,23 @@ describe('annyang', () => {
       expect(spy).not.toHaveBeenCalled();
     });
 
+    it('should keep dispatching callbacks when a callback unsubscribes itself', () => {
+      const calls: string[] = [];
+      const unsubscribe = annyang.addCallback('result', () => {
+        calls.push('A');
+        unsubscribe();
+      });
+      annyang.addCallback('result', () => calls.push('B'));
+      annyang.addCallback('result', () => calls.push('C'));
+
+      annyang.trigger('hello');
+      expect(calls).toEqual(['A', 'B', 'C']);
+
+      calls.length = 0;
+      annyang.trigger('hello');
+      expect(calls).toEqual(['B', 'C']);
+    });
+
     it('should be able to register multiple callbacks to one event type', () => {
       const spy1: MockInstance = vi.fn();
       const spy2: MockInstance = vi.fn();

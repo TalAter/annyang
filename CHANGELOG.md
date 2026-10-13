@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Callbacks that unsubscribe themselves no longer skip the next callback. Each dispatch uses a snapshot, so subscription changes affect subsequent dispatches.
 - `abort()` cancels pending automatic restarts so speech recognition stays stopped until explicitly started again.
 - Explicit `start()` calls replace pending automatic restarts, preventing redundant attempts to start recognition.
 
