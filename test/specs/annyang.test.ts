@@ -74,7 +74,7 @@ describe('annyang', () => {
       setTimeout(() => recognition.abort(), 1);
     };
 
-    recognition.addEventListener('start', onStart);
+    const unsubscribe = annyang.addCallback('start', onStart);
     annyang.debug();
     annyang.start();
     expect(logSpy).not.toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe('annyang', () => {
     vi.advanceTimersByTime(10000);
     expect(logSpy).toHaveBeenCalledTimes(2);
 
-    recognition.removeEventListener('start', onStart);
+    unsubscribe();
   });
 
   describe('isSpeechRecognitionSupported()', () => {
@@ -729,6 +729,22 @@ describe('annyang', () => {
 
           expect(spyOnStart2).toHaveBeenCalledTimes(2);
           expect(annyangDefault.state).toBe('idle');
+        });
+
+        it('should replace a queued restart with an explicit start', () => {
+          const engineStart = vi.spyOn(recognition, 'start');
+          try {
+            annyang.start();
+            recognition.abort();
+            vi.advanceTimersByTime(500);
+            annyang.start({ paused: true });
+            vi.advanceTimersByTime(1000);
+
+            expect(engineStart).toHaveBeenCalledTimes(2);
+            expect(annyangDefault.state).toBe('paused');
+          } finally {
+            engineStart.mockRestore();
+          }
         });
 
         it('should cause annyang to restart after 1 second when Speech Recognition engine was aborted (when true)', () => {

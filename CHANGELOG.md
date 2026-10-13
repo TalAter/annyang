@@ -5,6 +5,7 @@
 ### Fixed
 
 - `abort()` cancels pending automatic restarts so speech recognition stays stopped until explicitly started again.
+- Explicit `start()` calls replace pending automatic restarts, preventing redundant attempts to start recognition.
 
 ## 3.1.0
 
