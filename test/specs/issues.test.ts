@@ -23,6 +23,56 @@ describe('Issues', () => {
       expect(annyang.isListening()).toBe(false);
     });
   });
+
+  describe('#465 - Optional words containing a named variable or splat', () => {
+    beforeEach(() => {
+      annyang.abort();
+      annyang.removeCommands();
+      annyang.removeCallback();
+    });
+
+    it('should match optional sections with named variables or splats when present or omitted', () => {
+      const helloSpy = vi.fn();
+      const remindSpy = vi.fn();
+      const callSpy = vi.fn();
+      const searchSpy = vi.fn();
+
+      annyang.addCommands({
+        'hello (:name)': helloSpy,
+        'remind me (in :n minutes)': remindSpy,
+        'call (:title) smith': callSpy,
+        'search (for *term)': searchSpy,
+      });
+
+      annyang.trigger('hello bob');
+      expect(helloSpy).toHaveBeenLastCalledWith('bob');
+
+      annyang.trigger('hello');
+      expect(helloSpy).toHaveBeenLastCalledWith(undefined);
+      expect(helloSpy).toHaveBeenCalledTimes(2);
+
+      annyang.trigger('remind me in 5 minutes');
+      expect(remindSpy).toHaveBeenLastCalledWith('5');
+
+      annyang.trigger('remind me');
+      expect(remindSpy).toHaveBeenLastCalledWith(undefined);
+      expect(remindSpy).toHaveBeenCalledTimes(2);
+
+      annyang.trigger('call doctor smith');
+      expect(callSpy).toHaveBeenLastCalledWith('doctor');
+
+      annyang.trigger('call smith');
+      expect(callSpy).toHaveBeenLastCalledWith(undefined);
+      expect(callSpy).toHaveBeenCalledTimes(2);
+
+      annyang.trigger('search for cats');
+      expect(searchSpy).toHaveBeenLastCalledWith('cats');
+
+      annyang.trigger('search');
+      expect(searchSpy).toHaveBeenLastCalledWith(undefined);
+      expect(searchSpy).toHaveBeenCalledTimes(2);
+    });
+  });
 });
 
 describe('Sentence punctuation', () => {
