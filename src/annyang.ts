@@ -58,7 +58,6 @@ const cancelRestart = () => {
 
 // The command matching code is a modified version of Backbone.Router by Jeremy Ashkenas, under the MIT license.
 const optionalParam = /\s*\((.*?)\)\s*/g;
-const optionalRegex = /(\(\?:[^)]+\))\?/g;
 const namedParam = /(\(\?)?:\w+/g;
 const splatParam = /\*\w+/g;
 const escapeRegExp = /[{}[\]+?.\\^$|]/g;
@@ -75,12 +74,11 @@ const commandToRegExp = (command: string) => {
       index % 2 ? part : part.replace(escapeRegExp, '\\$&').replace(/([\p{L}\p{N}]),?(?=\s+[\p{L}\p{N}])/gu, '$1,?')
     )
     .join('')
-    .replace(optionalParam, '(?:$1)?')
+    .replace(optionalParam, '\\s*(?:$1)?\\s*')
     .replace(namedParam, (match, optional) => {
       return optional ? match : '([^\\s]+)';
     })
-    .replace(splatParam, '(.*?)')
-    .replace(optionalRegex, '\\s*$1?\\s*');
+    .replace(splatParam, '(.*?)');
   return new RegExp(`^${parsedCommand}${literalEnding ? '[.!?]*' : ''}$`, 'iu');
 };
 
